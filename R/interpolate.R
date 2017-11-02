@@ -16,7 +16,7 @@
 ##' @return Returns a \code{spatInt} object which is a list
 ##' @details The function removes missing values (NAs) from \code{value} column. Both \code{strata.cols} have to be specified. If the sample was from one depth, place that depth to "From" column and leave "To" column empty (NA).
 ##' @author Mikko Vihtakari
-##' ##' @examples data(chlorophyll) ## load an example dataset
+##' @examples data(chlorophyll) ## load an example dataset
 ##' x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
 ##' plot(x, type = "kongsfjorden") ## Plot
 ##' @seealso \code{\link{plot.spatInt}}
