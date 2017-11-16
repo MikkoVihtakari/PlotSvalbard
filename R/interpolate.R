@@ -67,7 +67,7 @@ if(any(duplicated(x[station.col]))) {
     tp$From <- max(k[,strata.col])
     tp$To <- min(k[,strata.col])
 
-    if(bin.method == "integrate" & length(unique(k[,strata.col])) <= 1) stop("Integration does not work for single depths. Select a wider depth subset or use bin.method = average")
+    if(bin.method == "integrate" & length(unique(k[,strata.col])) <= 1) warning("Integration does not work for single depths. Select a wider depth subset or use bin.method = average")
 
     switch(bin.method,
       average = tp[,value] <- mean(k[,value]),
