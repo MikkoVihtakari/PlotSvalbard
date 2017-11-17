@@ -24,7 +24,7 @@ Examples on how to use the package are in the makings. A brief example below.
 
 ```{r}
 library(PlotSvalbard)
-data(chrolorophyll) ## load an example dataset
+data(chlorophyll) ## load an example dataset
 
 x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
 plot(x, type = "kongsfjorden") ## Plot

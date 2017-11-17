@@ -3,7 +3,7 @@
 ##' @param df dataframe containing required information
 ##' @param value Name of the value column to be used for interpolation
 ##' @param Subset A subset argument as a name (i.e. with " ").
-##' @param bin.method Method for binning data, if there are several observations for each spatial point. Either "average" for average values or "integrate" for \link[oce::integrateTrapezoid]{trapezoid integration}.
+##' @param bin.method Method for binning data, if there are several observations for each spatial point. Either "average" for average values or "integrate" for \link[oce::integrateTrapezoid]{trapezoid integration}. See more in Details.
 ##' @param int.method Method for interpolation. Currently only \code{\link[gstat]{krige}}.
 ##' @param coords A vector of column names for x (longitude) and y (latitude) coordinates, respectively. It is recommended to use UTM coordinates instead of decimal degrees. See \code{\link[sp]{coordinates}}.
 ##' @param station.col Name of the column that specifies unique stations (i.e. spatial points). Required.
@@ -15,6 +15,8 @@
 ##' @param accuracy Number to which the extent of the interpolation should be rounded.
 ##' @return Returns a \code{spatInt} object which is a list
 ##' @details The function removes missing values (NAs) from \code{value} column. Both \code{strata.cols} have to be specified. If the sample was from one depth, place that depth to "From" column and leave "To" column empty (NA).
+##'
+##' A word of warning about \code{bin.method = "integrate"}: this functionality works only if samples have been taken consistently at same depths. In other cases, it is recommended to use \code{bin.method = "average"}, although the user should be careful in comparing samples taken from different depths in general. The unit for integrated value is [amount]/m2, if the original value was [amount]/m3.
 ##' @author Mikko Vihtakari
 ##' @examples data(chlorophyll) ## load an example dataset
 ##' x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
@@ -27,7 +29,7 @@
 ## Test params
   # df <- chl
   # Subset <- NULL
-  # bin.method = "average"
+  # bin.method = "integrate"
   # int.method = "krige"
   # coords = c("lon.utm", "lat.utm")
   # value = "Chla"
@@ -64,6 +66,8 @@ if(any(duplicated(x[station.col]))) {
     tp[,name.col] <- paste(k[,name.col], collapse = " ")
     tp$From <- max(k[,strata.col])
     tp$To <- min(k[,strata.col])
+
+    if(bin.method == "integrate" & length(unique(k[,strata.col])) <= 1) warning("Integration does not work for single depths. Select a wider depth subset or use bin.method = average")
 
     switch(bin.method,
       average = tp[,value] <- mean(k[,value]),

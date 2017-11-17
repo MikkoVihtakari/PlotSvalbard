@@ -7,5 +7,5 @@
 theme_map(...)
 }
 \arguments{
-\item{...}{additional arguments passed to \code{\link{ggplot2::theme}} function}
+\item{...}{additional arguments passed to \code{\link[ggplot2]{theme}} function}
 }

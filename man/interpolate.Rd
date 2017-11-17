@@ -20,11 +20,13 @@ interpolate(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"),
 
 \item{station.col}{Name of the column that specifies unique stations (i.e. spatial points). Required.}
 
+\item{strata.col}{Columns that specify the sampling depth. Should be in order: 1) sample from ("From"), 2) sample to ("To"). "To" can be NA.}
+
 \item{name.col}{Column giving sample names. Not required.}
 
 \item{id.cols}{Identification columns that should be preserved together with value, From, To and UTM coodinate columns}
 
-\item{bin.method}{Method for binning data, if there are several observations for each spatial point. Either "average" for average values or "integrate" for \link[oce::integrateTrapezoid]{trapezoid integration}.}
+\item{bin.method}{Method for binning data, if there are several observations for each spatial point. Either "average" for average values or "integrate" for \link[oce::integrateTrapezoid]{trapezoid integration}. See more in Details.}
 
 \item{int.method}{Method for interpolation. Currently only \code{\link[gstat]{krige}}.}
 
@@ -33,8 +35,6 @@ interpolate(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"),
 \item{n.tile}{Number of horizontal and vertical tiles. Default is 100 resulting to 10000 tiles.}
 
 \item{accuracy}{Number to which the extent of the interpolation should be rounded.}
-
-\item{strata.cols}{Columns that specify the sampling depth. Should be in order: 1) sample from ("From"), 2) sample to ("To"). "To" can be NA.}
 }
 \value{
 Returns a \code{spatInt} object which is a list
@@ -44,13 +44,17 @@ Interpolates a 2D surface from a data.frame of observations for plotting. Curren
 }
 \details{
 The function removes missing values (NAs) from \code{value} column. Both \code{strata.cols} have to be specified. If the sample was from one depth, place that depth to "From" column and leave "To" column empty (NA).
+
+A word of warning about \code{bin.method = "integrate"}: this functionality works only if samples have been taken consistently at same depths. In other cases, it is recommended to use \code{bin.method = "average"}, although the user should be careful in comparing samples taken from different depths in general. The unit for integrated value is [amount]/m2, if the original value was [amount]/m3.
+}
+\examples{
+data(chlorophyll) ## load an example dataset
+x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
+plot(x, type = "kongsfjorden") ## Plot
 }
 \seealso{
 \code{\link{plot.spatInt}}
 }
 \author{
 Mikko Vihtakari
-##' @examples data(chlorophyll) ## load an example dataset
-x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
-plot(x, type = "kongsfjorden") ## Plot
 }
