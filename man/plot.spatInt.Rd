@@ -33,6 +33,7 @@ x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpol
 plot(x, type = "kongsfjorden") ## Plot
 
 ## PlotSvalbard functions can be expanded by using ggplot2 syntax
+library(ggplot2)
 plot(x, type = "kongsfjorden") + geom_text(data = chlorophyll,
 aes(x = lon.utm, y = lat.utm, label = Station))
 

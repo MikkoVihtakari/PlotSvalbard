@@ -11,6 +11,7 @@
 ##' @return Returns a UTM coodrinate grid.
 ##' @author Mikko Vihtakari
 ##' @import maptools sp rgdal
+##' @importFrom plyr round_any
 ##' @export
 
 ## Test parameters. Delete when ready

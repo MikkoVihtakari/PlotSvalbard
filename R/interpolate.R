@@ -3,7 +3,7 @@
 ##' @param df dataframe containing required information
 ##' @param value Name of the value column to be used for interpolation
 ##' @param Subset A subset argument as a name (i.e. with " ").
-##' @param bin.method Method for binning data, if there are several observations for each spatial point. Either "average" for average values or "integrate" for \link[oce::integrateTrapezoid]{trapezoid integration}. See more in Details.
+##' @param bin.method Method for binning data, if there are several observations for each spatial point. Either "average" for average values or "integrate" for vertical trapezoidal integration using the \code{\link[oce]{integrateTrapezoid}} function from \link[oce]{oce} package. See more in Details.
 ##' @param int.method Method for interpolation. Currently only \code{\link[gstat]{krige}}.
 ##' @param coords A vector of column names for x (longitude) and y (latitude) coordinates, respectively. It is recommended to use UTM coordinates instead of decimal degrees. See \code{\link[sp]{coordinates}}.
 ##' @param station.col Name of the column that specifies unique stations (i.e. spatial points). Required.

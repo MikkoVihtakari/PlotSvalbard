@@ -26,7 +26,7 @@ interpolate(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"),
 
 \item{id.cols}{Identification columns that should be preserved together with value, From, To and UTM coodinate columns}
 
-\item{bin.method}{Method for binning data, if there are several observations for each spatial point. Either "average" for average values or "integrate" for \link[oce::integrateTrapezoid]{trapezoid integration}. See more in Details.}
+\item{bin.method}{Method for binning data, if there are several observations for each spatial point. Either "average" for average values or "integrate" for vertical trapezoidal integration using the \code{\link[oce]{integrateTrapezoid}} function from \link[oce]{oce} package. See more in Details.}
 
 \item{int.method}{Method for interpolation. Currently only \code{\link[gstat]{krige}}.}
 

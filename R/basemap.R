@@ -1,23 +1,30 @@
 ##' @title Create a ggplot2 basemap for plotting variables
-##' @param type Type of map area. Options: "mosj", "kongsfjorden", "kongsfjordbotn" or "kronebreen". See details.
+##' @description Creates a ggplot2 basemap for further plotting of variables.
+##' @param type Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn" or "kronebreen". See details.
 ##' @param limits Map limits. A numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees.
 ##' @param land.col Color of land
 ##' @param gla.col Color of glaciers
-##' @param grid.col Color of grid lines.
+##' @param grid.col Color of grid lines. Use \code{NA} to remove the grid lines.
+##' @param round.lat specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}
+##' @param round.lon specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}
+##' @param n.lat.grid number of latitude grid lines. Alternatively use \code{round.lat}
+##' @param n.lon.grid number of longitude grid lines. Alternatively use \code{round.lon}
 ##' @param  ... Additional arguments passed to \code{\link{deg_grid}}.
 ##' @return Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object.
 ##' @details The function uses \link[ggplot2]{ggplot2} and up-to-date (2017) detailed shapefiles to plot maps of Svalbard (currently only Kongsfjorden region). The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
 ##' \itemize{
+##' \item "svalbard". Detailed 1:250000 map of Svalbard land and glaciers. This option is slow due to the large file size.
 ##' \item "mosj" shows Kongsfjoden and Fram Strait as sampled during Norwegian Polar Institute's MOSJ campaigns. Some glaciers can be older than 2015.
 ##' \item "kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017.
 ##' \item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017.
 ##' \item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017.
 ##' }
-##' All shape files originate from Norwegian Polar Institute (\url{http://geodata.npolar.no/}).
+##' @source All shape files originate from the Norwegian Polar Institute (\url{http://geodata.npolar.no/}).
 ##' @examples basemap() ## Plots Kongsfjorden
 ##'
 ##' ## Maps work as normal ggplot2 objects:
 ##'
+##' library(ggplot2)
 ##' data(chlorophyll)
 ##' p <- basemap("mosj")
 ##' p + geom_point(data = chlorophyll, aes(x = lon.utm, y = lat.utm,
@@ -27,6 +34,11 @@
 ##' basemap("kongsfjordbotn", limits = c(12.2,12.65,78.95,79.00))
 ##' basemap("kongsfjordbotn", limits = c(12.2,12.65,78.95,79.00),
 ##' Round.lat = 0.01, Round.lon = 0.1) # better
+##'
+##' ## Svalbard map. Warning: this is SLOW
+##' basemap("svalbard")
+##' basemap("svalbard", grid.col = NA, limits = c(10, 28, 79.5, 83)) # Removes grid lines
+##'
 ##' @seealso \code{\link[ggplot2]{ggplot2}} \code{\link{theme_map}}
 ##' @author Mikko Vihtakari
 ##' @import ggplot2
@@ -59,6 +71,7 @@ map_type <- function(type) {
   kongsfjorden = list(Land = kong.ld, Glacier = kong.gl, Boundary = kong.cr, round.lon = 0.5, round.lat = 0.1),
   kongsfjordbotn = list(Land = kong.ld, Glacier = kong.gl, Boundary = c(12.2,12.65,78.855,79.00), round.lon = 0.1, round.lat = 0.05),
   kronebreen = list(Land = kong.ld, Glacier = kong.gl, Boundary = c(12.32,12.62,78.855,78.91), round.lon = 0.1, round.lat = 0.02),
+    svalbard = list(Land = svalbard.ld, Glacier = svalbard.gl, Boundary = c(10,28,76,81), round.lon = 2, round.lat = 1),
   stop(paste("type argument", type, "is not implemented."))
 )
 }

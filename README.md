@@ -38,9 +38,13 @@ Dependencies
 --------
 The *PlotSvalbard* package depends on many packages that will be listed below:
 
-- [ggplot2][ggplot2] package. PlotSvalbard expands on ggplot2.
-- [sp][sp] package. Used to handle geographical information.
-- [oce][oce] package. Used for trapetsoidal intergration.
+- [ggplot2][ggplot2]: PlotSvalbard expands on ggplot2.
+- [sp][sp]: Used to handle geographical information.
+- [maptools][maptools]: Used to handle geographical information.
+- [rgdal][rgdal]: Used to handle geographical information.
+- [colorRamps][colorRamps]: matlab.like color scheme is used in 2D surface colors.
+- [gstat][gstat]: the krige function is used for interpolation.
+- [oce][oce]: Used for trapetsoidal intergration.
 
 [sp]: https://cran.r-project.org/web/packages/sp/index.html
 [ggplot2]: http://ggplot2.tidyverse.org/reference/

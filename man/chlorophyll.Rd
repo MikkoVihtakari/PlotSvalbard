@@ -17,6 +17,8 @@
  }}
 \source{
 Norwegian Polar Institute (\url{https://data.npolar.no/home/})
+
+Norwegian Polar Institute (\url{https://data.npolar.no/home/})
 }
 \usage{
 data(chlorophyll)

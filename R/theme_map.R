@@ -1,4 +1,5 @@
 ##' @title A ggplot2 theme for maps
+##' @description A ggplot2 theme for maps
 ##' @param ... additional arguments passed to \code{\link[ggplot2]{theme}} function
 ##' @import ggplot2
 ##' @export

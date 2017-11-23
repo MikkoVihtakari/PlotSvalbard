@@ -6,6 +6,10 @@
 ##' @param col.scale.lims A numeric vector of lenght 2 defining the limits for color scale of interpolated results. If \code{NULL} (default), the limits will be generated automatically.
 ##' @param legend.label Label for color legend. If NA (default), the labels are extracted from the \code{spatInt} object.
 ##' @param limits Map limits. See \code{\link{basemap}}
+##' ##' @param round.lat specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}
+##' @param round.lon specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}
+##' @param n.lat.grid number of latitude grid lines. Alternatively use \code{round.lat}
+##' @param n.lon.grid number of longitude grid lines. Alternatively use \code{round.lon}
 ##' @param ... Additional arguments passed somewhere.
 ##' @seealso \code{\link{interpolate}}
 ##' @examples data(chlorophyll) ## load an example dataset
@@ -13,6 +17,7 @@
 ##' plot(x, type = "kongsfjorden") ## Plot
 ##'
 ##' ## PlotSvalbard functions can be expanded by using ggplot2 syntax
+##' library(ggplot2)
 ##' plot(x, type = "kongsfjorden") + geom_text(data = chlorophyll,
 ##' aes(x = lon.utm, y = lat.utm, label = Station))
 ##'
