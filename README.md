@@ -39,7 +39,9 @@ Dependencies
 The *PlotSvalbard* package depends on many packages that will be listed below:
 
 - [ggplot2][ggplot2] package. PlotSvalbard expands on ggplot2.
-- [sp][sp] package. Used to handle geographical information
+- [sp][sp] package. Used to handle geographical information.
+- [oce][oce] package. Used for trapetsoidal intergration.
 
 [sp]: https://cran.r-project.org/web/packages/sp/index.html
 [ggplot2]: http://ggplot2.tidyverse.org/reference/
+[oce]: https://cran.r-project.org/web/packages/oce/index.html
