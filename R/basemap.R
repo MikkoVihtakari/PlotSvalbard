@@ -63,7 +63,6 @@ ggplot(data=X$Land, aes(x=long, y=lat)) + geom_polygon(data = X$Land, aes(x = lo
 
 }
 
-#add_land <- function(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95", grid.col = "grey70", limits = NULL) {
 
 map_type <- function(type) {
   switch (type,
@@ -71,7 +70,7 @@ map_type <- function(type) {
   kongsfjorden = list(Land = kong.ld, Glacier = kong.gl, Boundary = kong.cr, round.lon = 0.5, round.lat = 0.1),
   kongsfjordbotn = list(Land = kong.ld, Glacier = kong.gl, Boundary = c(12.2,12.65,78.855,79.00), round.lon = 0.1, round.lat = 0.05),
   kronebreen = list(Land = kong.ld, Glacier = kong.gl, Boundary = c(12.32,12.62,78.855,78.91), round.lon = 0.1, round.lat = 0.02),
-    svalbard = list(Land = svalbard.ld, Glacier = svalbard.gl, Boundary = c(10,28,76,81), round.lon = 2, round.lat = 1),
+  svalbard = list(Land = svalbard.ld, Glacier = svalbard.gl, Boundary = c(10,28,76,81), round.lon = 2, round.lat = 1),
   stop(paste("type argument", type, "is not implemented."))
 )
 }

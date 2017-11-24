@@ -2,6 +2,7 @@
 
 S3method(print,spatInt)
 export(basemap)
+export(clip_shapefile)
 export(deg_grid)
 export(interpolate)
 export(plot.spatInt)
@@ -14,3 +15,5 @@ importFrom(colorRamps,matlab.like)
 importFrom(gstat,krige)
 importFrom(oce,integrateTrapezoid)
 importFrom(plyr,round_any)
+importFrom(rgeos,gIntersection)
+importFrom(rgeos,gSimplify)

@@ -1,4 +1,4 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^\Code~development.R
-^\devel
+^README\.Rmd$
+^runfirst\.R$ # Run first script for inter-OS compatibility

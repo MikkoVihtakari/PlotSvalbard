@@ -18,7 +18,14 @@ plot.spatInt(x, basemap = TRUE, type = "kongsfjorden",
 
 \item{legend.label}{Label for color legend. If NA (default), the labels are extracted from the \code{spatInt} object.}
 
-\item{limits}{Map limits. See \code{\link{basemap}}}
+\item{limits}{Map limits. See \code{\link{basemap}}
+##' @param round.lat specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
+
+\item{n.lat.grid}{number of latitude grid lines. Alternatively use \code{round.lat}}
+
+\item{round.lon}{specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}}
+
+\item{n.lon.grid}{number of longitude grid lines. Alternatively use \code{round.lon}}
 
 \item{...}{Additional arguments passed somewhere.}
 

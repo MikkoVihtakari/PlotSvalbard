@@ -22,6 +22,14 @@ basemap(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95",
 
 \item{limits}{Map limits. A numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees.}
 
+\item{round.lat}{specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
+
+\item{n.lat.grid}{number of latitude grid lines. Alternatively use \code{round.lat}}
+
+\item{round.lon}{specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}}
+
+\item{n.lon.grid}{number of longitude grid lines. Alternatively use \code{round.lon}}
+
 \item{...}{Additional arguments passed to \code{\link{deg_grid}}.}
 }
 \value{
