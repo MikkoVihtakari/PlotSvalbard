@@ -6,11 +6,15 @@
 ##' @param col.scale.lims A numeric vector of lenght 2 defining the limits for color scale of interpolated results. If \code{NULL} (default), the limits will be generated automatically.
 ##' @param legend.label Label for color legend. If NA (default), the labels are extracted from the \code{spatInt} object.
 ##' @param limits Map limits. See \code{\link{basemap}}
-##' ##' @param round.lat specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}
+##' @param round.lat specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}
 ##' @param round.lon specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}
 ##' @param n.lat.grid number of latitude grid lines. Alternatively use \code{round.lat}
 ##' @param n.lon.grid number of longitude grid lines. Alternatively use \code{round.lon}
+##' @param land.col Color of land
+##' @param gla.col Color of glaciers
+##' @param grid.col Color of grid lines. Use \code{NA} to remove the grid lines.
 ##' @param ... Additional arguments passed somewhere.
+##' @method plot spatInt
 ##' @seealso \code{\link{interpolate}}
 ##' @examples data(chlorophyll) ## load an example dataset
 ##' x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
@@ -48,7 +52,7 @@ X <- basemap_data(type = type, limits = limits, round.lat. = round.lat, n.lat.gr
 
 if(is.na(legend.label)) legend.label <- paste0(x$variables$interpolated.variable, " (", x$variables$unit, ")")
 
-basemap(type = type, limits = limits) + geom_tile(data = x$interpolation, aes(x = Lon, y = Lat, fill = var1.pred)) + geom_contour(data = x$interpolation, aes(x = Lon, y = Lat, z = var1.pred), color = "black", size = 0.2) + geom_polygon(data=X$Land, aes(x=long, y=lat, group = group), fill = land.col, color = "black", size = 0.1) + geom_polygon(data=X$Glacier, aes(x=long, y=lat, group = group), fill = gla.col, color = "black", size = 0.1) + geom_polygon(data=X$Holes, aes(x=long, y=lat, group = group), fill = land.col, color = "black", size = 0.1) + geom_line(data=X$Grid$lat, aes(x=long.utm, y=lat.utm, group = ID), color = grid.col, size = 0.1) + geom_point(data = x$data, aes(x = Lon, y = Lat)) + scale_fill_gradientn(name = legend.label, colours = colorRamps::matlab.like(7), limits = col.scale.limits) + theme(axis.title.x = element_blank(), axis.title.y = element_blank())
+basemap(type = type, limits = limits) + geom_tile(data = x$interpolation, aes(x = Lon, y = Lat, fill = var1.pred)) + geom_contour(data = x$interpolation, aes(x = Lon, y = Lat, z = var1.pred), color = "black", size = 0.2) + geom_polygon(data=X$Land, aes(x=long, y=lat, group = group), fill = land.col, color = "black", size = 0.1) + geom_polygon(data=X$Glacier, aes(x=long, y=lat, group = group), fill = gla.col, color = "black", size = 0.1) + geom_polygon(data=X$Holes, aes(x=long, y=lat, group = group), fill = land.col, color = "black", size = 0.1) + geom_line(data=X$Grid$lat, aes(x=lon.utm, y=lat.utm, group = ID), color = grid.col, size = 0.1) + geom_point(data = x$data, aes(x = Lon, y = Lat)) + scale_fill_gradientn(name = legend.label, colours = colorRamps::matlab.like(7), limits = col.scale.limits) + theme(axis.title.x = element_blank(), axis.title.y = element_blank())
 
 #+ coord_fixed(xlim = x.lim, ylim = y.lim, expand = FALSE)
 

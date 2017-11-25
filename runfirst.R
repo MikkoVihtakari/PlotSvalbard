@@ -14,4 +14,6 @@ library(rgeos) #gIntersect
 
 if(Sys.info()["sysname"] == "Windows") {
   devel <- "C:/Users/mikko/Dropbox/Workstuff/R/R packages/PlotSvalbard_development/"
+  } else {
+  devel <- "/Users/mvi023/Dropbox/Workstuff/R/R packages/PlotSvalbard_development/"
 }
