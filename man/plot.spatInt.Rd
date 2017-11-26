@@ -4,10 +4,11 @@
 \alias{plot.spatInt}
 \title{Plot interpolated map of Kongsfjorden}
 \usage{
-plot.spatInt(x, basemap = TRUE, type = "kongsfjorden",
+\method{plot}{spatInt}(x, basemap = TRUE, type = "kongsfjorden",
   col.scale.limits = NULL, legend.label = NA, limits = NULL,
   round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3,
-  land.col = "#eeeac4", gla.col = "grey95", grid.col = "grey70", ...)
+  land.col = "#eeeac4", gla.col = "grey95", grid.col = "grey70",
+  keep.glaciers = TRUE, ...)
 }
 \arguments{
 \item{x}{\code{spatInt} object from \code{\link{interpolate}} function.}
@@ -16,10 +17,13 @@ plot.spatInt(x, basemap = TRUE, type = "kongsfjorden",
 
 \item{type}{Type of basemap. See \code{\link{basemap}}. Used only if \code{basemap = TRUE}.}
 
+\item{col.scale.limits}{A numeric vector of lenght 2 defining the limits for color scale of interpolated results. If \code{NULL} (default), the limits will be generated automatically.}
+
 \item{legend.label}{Label for color legend. If NA (default), the labels are extracted from the \code{spatInt} object.}
 
-\item{limits}{Map limits. See \code{\link{basemap}}
-##' @param round.lat specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
+\item{limits}{Map limits. See \code{\link{basemap}}}
+
+\item{round.lat}{specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
 
 \item{n.lat.grid}{number of latitude grid lines. Alternatively use \code{round.lat}}
 
@@ -27,9 +31,15 @@ plot.spatInt(x, basemap = TRUE, type = "kongsfjorden",
 
 \item{n.lon.grid}{number of longitude grid lines. Alternatively use \code{round.lon}}
 
-\item{...}{Additional arguments passed somewhere.}
+\item{land.col}{Color of land}
 
-\item{col.scale.lims}{A numeric vector of lenght 2 defining the limits for color scale of interpolated results. If \code{NULL} (default), the limits will be generated automatically.}
+\item{gla.col}{Color of glaciers}
+
+\item{grid.col}{Color of grid lines. Use \code{NA} to remove the grid lines.}
+
+\item{keep.glaciers}{a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting little bit.}
+
+\item{...}{Additional arguments passed somewhere.}
 }
 \description{
 Plot method for \code{\link[=interpolate]{spatInt}} objects.
@@ -40,7 +50,6 @@ x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpol
 plot(x, type = "kongsfjorden") ## Plot
 
 ## PlotSvalbard functions can be expanded by using ggplot2 syntax
-library(ggplot2)
 plot(x, type = "kongsfjorden") + geom_text(data = chlorophyll,
 aes(x = lon.utm, y = lat.utm, label = Station))
 

@@ -4,7 +4,7 @@ author: "Mikko Vihtakari"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{PlotSvalbard - User Manual}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,50 +16,97 @@ knitr::opts_chunk$set(
 )
 ```
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+[**PlotSvalbard**](https://github.com/MikkoVihtakari/PlotSvalbard) package provides functions to plot research data from Svalbard on high resolution maps in [R](https://www.r-project.org/). The package is based on [ggplot2](http://ggplot2.tidyverse.org/reference/) and the functions can be expanded using ggplot syntax. The package contains also maps from other places in the Arctic, including polar stereographic maps of the Arctic.
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+# Basemap
 
-## Vignette Info
+The `basemap` function 
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+## Map types
 
-## Styles
+### Svalbard
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r}
+library(PlotSvalbard)
+#basemap("svalbard")
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+#### Kongsfjorden
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+```{r}
+basemap("kongsfjorden") # or just basemap()
 ```
 
-Also a quote using `>`:
+```{r}
+basemap("kongsfjordbotn")
+```
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+```{r}
+basemap("kronebreen")
+```
+
+```{r}
+basemap("mosj")
+```
+
+### Barents Sea
+
+```{r}
+basemap("barentssea")
+```
+
+Barents Sea map also prints mainland Norway, but the projection is not optimal, and the resolution is quite low.
+
+```{r}
+basemap("barentssea", limits = c(12, 24, 68, 71))
+```
+
+### Pan-Arctic
+
+To be added
+
+## Adding data to basemaps
+
+## Bathymetry
+
+To be added
+
+<!-- # Stuff to be deleted -->
+
+<!-- ## Styles -->
+
+<!-- The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows: -->
+
+<!--     output:  -->
+<!--       rmarkdown::html_vignette: -->
+<!--         css: mystyles.css -->
+
+<!-- ## Figures -->
+
+<!-- The figure sizes have been customised so that you can easily put two images side-by-side.  -->
+
+<!-- ```{r, fig.show='hold'} -->
+<!-- plot(1:10) -->
+<!-- plot(10:1) -->
+<!-- ``` -->
+
+<!-- You can enable figure captions by `fig_caption: yes` in YAML: -->
+
+<!--     output: -->
+<!--       rmarkdown::html_vignette: -->
+<!--         fig_caption: yes -->
+
+<!-- Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**. -->
+
+<!-- ## More Examples -->
+
+<!-- You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`. -->
+
+<!-- ```{r, echo=FALSE, results='asis'} -->
+<!-- knitr::kable(head(mtcars, 10)) -->
+<!-- ``` -->
+
+<!-- Also a quote using `>`: -->
+
+<!-- > "He who gives up [code] safety for [code] speed deserves neither." -->
+<!-- ([via](https://twitter.com/hadleywickham/status/504368538874703872)) -->

@@ -4,14 +4,12 @@
 \alias{deg_grid}
 \title{Decimal degree grid from UTM projected spatial objects}
 \usage{
-deg_grid(dat, limits = NULL, round.lat = FALSE, n.lat.grid = 3,
-  round.lon = FALSE, n.lon.grid = 3, expar = 0.3, n.points = 10,
-  proj4.utm = TRUE, proj4.deg = "+proj=longlat +datum=WGS84")
+deg_grid(dat, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE,
+  n.lon.grid = 3, expar = 0.3, n.points = 10, proj4.utm = TRUE,
+  proj4.deg = "+proj=longlat +datum=WGS84")
 }
 \arguments{
 \item{dat}{Spatial object projected using UTM coordinates, such as \code{\link{readShapeSpatial}} OR a numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. In case of a numeric vector, the coordinates have to be given as decimal degrees.}
-
-\item{limits}{Limits of the map to be passed to \code{\link{basemap}}. If \code{NULL} (default), limits will be picked from \code{dat}.}
 
 \item{round.lat}{specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
 

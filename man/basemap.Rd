@@ -4,15 +4,15 @@
 \alias{basemap}
 \title{Create a ggplot2 basemap for plotting variables}
 \source{
-All shape files originate from the Norwegian Polar Institute (\url{http://geodata.npolar.no/}).
+Svalbard shape files originate from the Norwegian Polar Institute (\url{http://geodata.npolar.no/}). Barents Sea map is downloaded from  \url{http://www.naturalearthdata.com} and uses the \code{ne_10m_land} (v 4.0.0) dataset.
 }
 \usage{
 basemap(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95",
   grid.col = "grey70", limits = NULL, round.lat = FALSE, n.lat.grid = 3,
-  round.lon = FALSE, n.lon.grid = 3, ...)
+  round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE, ...)
 }
 \arguments{
-\item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn" or "kronebreen". See details.}
+\item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen" or "barentssea". See details.}
 
 \item{land.col}{Color of land}
 
@@ -30,6 +30,8 @@ basemap(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95",
 
 \item{n.lon.grid}{number of longitude grid lines. Alternatively use \code{round.lon}}
 
+\item{keep.glaciers}{a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.}
+
 \item{...}{Additional arguments passed to \code{\link{deg_grid}}.}
 }
 \value{
@@ -39,21 +41,23 @@ Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and mo
 Creates a ggplot2 basemap for further plotting of variables.
 }
 \details{
-The function uses \link[ggplot2]{ggplot2} and up-to-date (2017) detailed shapefiles to plot maps of Svalbard (currently only Kongsfjorden region). The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
+The function uses \link[ggplot2]{ggplot2} and up-to-date (2017) detailed shapefiles to plot maps of Svalbard and other polar regions. The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
 \itemize{
-\item "svalbard". Detailed 1:250000 map of Svalbard land and glaciers. This option is slow due to the large file size.
+\item "svalbard". Detailed 1:250 000 map of Svalbard land and glaciers. This option is slow (approx. 25 seconds) due to the large file size.
 \item "mosj" shows Kongsfjoden and Fram Strait as sampled during Norwegian Polar Institute's MOSJ campaigns. Some glaciers can be older than 2015.
-\item "kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017.
-\item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017.
-\item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017.
+\item "kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to smaller file size.
+\item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to a smaller file size.
+\item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to a smaller file size.
+\item "barentssea". A 1:10 000 000 map of the Barents Sea. See \strong{Source}.
 }
+
+All maps are in \code{"+init=epsg:32633"} UTM projection at the momemnt. More maps can be added based on need.
 }
 \examples{
 basemap() ## Plots Kongsfjorden
 
 ## Maps work as normal ggplot2 objects:
 
-library(ggplot2)
 data(chlorophyll)
 p <- basemap("mosj")
 p + geom_point(data = chlorophyll, aes(x = lon.utm, y = lat.utm,
@@ -66,11 +70,22 @@ Round.lat = 0.01, Round.lon = 0.1) # better
 
 ## Svalbard map. Warning: this is SLOW
 basemap("svalbard")
-basemap("svalbard", grid.col = NA, limits = c(10, 28, 79.5, 83)) # Removes grid lines
+
+## grid.col = NA removes grid lines
+basemap("svalbard", grid.col = NA, limits = c(10, 28, 79.5, 83))
+
+## Barents Sea
+basemap("barentssea") # note wrong placing of axis labels
+
+## Barents Sea map also prints mainland Norway,
+## but the projection is not optimal.
+basemap("barentssea", limits = c(12, 24, 68, 71))
 
 }
 \seealso{
 \code{\link[ggplot2]{ggplot2}} \code{\link{theme_map}}
+
+\code{coastlineWorldMedium} from the \code{oce} package for plotting maps in maps in base graphics using the \code{ne_10m_land} dataset.
 }
 \author{
 Mikko Vihtakari
