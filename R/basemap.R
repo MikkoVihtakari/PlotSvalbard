@@ -10,6 +10,11 @@
 ##' @param n.lat.grid number of latitude grid lines. Alternatively use \code{round.lat}
 ##' @param n.lon.grid number of longitude grid lines. Alternatively use \code{round.lon}
 ##' @param keep.glaciers a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.
+##' @param border.col.land color of the border line for land shapes.
+##' @param border.col.glacier color of the border line for glacier shapes.
+##' @param size.land width of the border line for land shapes. See details for explanation about line widths.
+##' @param size.land width of the border line for glacier shapes.
+##' @param size.grid width of the grid lines.
 ##' @param  ... Additional arguments passed to \code{\link{deg_grid}}.
 ##' @return Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object.
 ##' @details The function uses \link[ggplot2]{ggplot2} and up-to-date (2017) detailed shapefiles to plot maps of Svalbard and other polar regions. The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
@@ -23,6 +28,8 @@
 ##' }
 ##'
 ##' All maps are in \code{"+init=epsg:32633"} UTM projection at the momemnt. More maps can be added based on need.
+##'
+##' \strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13.
 ##'
 ##' @source Svalbard shape files originate from the Norwegian Polar Institute (\url{http://geodata.npolar.no/}). Barents Sea map is downloaded from  \url{http://www.naturalearthdata.com} and uses the \code{ne_10m_land} (v 4.0.0) dataset.
 ##' @examples basemap() ## Plots Kongsfjorden
@@ -60,7 +67,7 @@
 ##' @importFrom grDevices extendrange
 ##' @export
 
-# type = "svalbard"
+# type = "barentssea"
 # land.col = "#eeeac4"
 # gla.col = "grey95"
 # grid.col = "grey70"
@@ -71,8 +78,9 @@
 # round.lon = FALSE
 # n.lon.grid = 3
 # keep.glaciers = TRUE
+# land.size = 0.1
 
-basemap <- function(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95", grid.col = "grey70", limits = NULL, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE, ...) {
+basemap <- function(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95", grid.col = "grey70", limits = NULL, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE, size.land = 0.1, size.glacier = 0.1, size.grid = 0.1, border.col.land = "black", border.col.glacier = "black", ...) {
 
   X <- eval(parse(text=paste(map_cmd("base_dat"))))
 
@@ -87,9 +95,9 @@ basemap <- function(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey
 map_cmd <- function(command) {
   switch(command,
     base_dat = 'basemap_data(type = type, limits = limits, round.lat. = round.lat, n.lat.grid. = n.lat.grid, round.lon. = round.lon, n.lon.grid. = n.lon.grid, keep.glaciers. = keep.glaciers)',
-    land.utm = 'ggplot(data=X$Land, aes(x=long, y=lat)) + geom_polygon(data = X$Land, aes(x = long, y = lat, group = group), fill = land.col, color = "black", size = 0.1)',
-    glacier.utm = 'geom_polygon(data = X$Glacier, aes(x = long, y = lat, group = group), fill = gla.col, color = "black", size = 0.1) + geom_polygon(data = X$Holes, aes(x=long, y=lat, group = group), fill = land.col, color = "black", size = 0.1)',
-    grid.utm = 'geom_line(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = 0.1) + geom_line(data = X$Grid$lon, aes(x=lon.utm, y=lat.utm, group = ID), color = grid.col, size = 0.1)',
+    land.utm = 'ggplot(data=X$Land, aes(x=long, y=lat)) + geom_polygon(data = X$Land, aes(x = long, y = lat, group = group), fill = land.col, color = border.col.land, size = size.land)',
+    glacier.utm = 'geom_polygon(data = X$Glacier, aes(x = long, y = lat, group = group), fill = gla.col, color = border.col.glacier, size = size.glacier) + geom_polygon(data = X$Holes, aes(x=long, y=lat, group = group), fill = land.col, color = border.col.glacier, size = size.land)',
+    grid.utm = 'geom_line(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid) + geom_line(data = X$Grid$lon, aes(x=lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid)',
     defs.utm = 'scale_y_continuous(name = "Latitude (decimal degrees)", breaks = X$Grid$lat.breaks$utm, labels = X$Grid$lat.breaks$deg) + scale_x_continuous(name = "Longitude (decimal degrees)", breaks = X$Grid$lon.breaks$utm, labels = X$Grid$lon.breaks$deg) + coord_fixed(xlim = c(X$Grid$boundaries$lon.utm[1], X$Grid$boundaries$lon.utm[2]), ylim = c(X$Grid$boundaries$lat.utm[1], X$Grid$boundaries$lat.utm[2]), expand = FALSE) + theme_map()',
     stop(paste("map command", command, "not found."))
 )

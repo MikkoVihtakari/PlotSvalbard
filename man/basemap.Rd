@@ -9,7 +9,9 @@ Svalbard shape files originate from the Norwegian Polar Institute (\url{http://g
 \usage{
 basemap(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95",
   grid.col = "grey70", limits = NULL, round.lat = FALSE, n.lat.grid = 3,
-  round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE, ...)
+  round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE,
+  size.land = 0.1, size.glacier = 0.1, size.grid = 0.1,
+  border.col.land = "black", border.col.glacier = "black", ...)
 }
 \arguments{
 \item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen" or "barentssea". See details.}
@@ -32,7 +34,17 @@ basemap(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95",
 
 \item{keep.glaciers}{a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.}
 
+\item{size.land}{width of the border line for land shapes. See details for explanation about line widths.}
+
+\item{size.grid}{width of the grid lines.}
+
+\item{border.col.land}{color of the border line for land shapes.}
+
+\item{border.col.glacier}{color of the border line for glacier shapes.}
+
 \item{...}{Additional arguments passed to \code{\link{deg_grid}}.}
+
+\item{size.land}{width of the border line for glacier shapes.}
 }
 \value{
 Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object.
@@ -52,6 +64,8 @@ The function uses \link[ggplot2]{ggplot2} and up-to-date (2017) detailed shapefi
 }
 
 All maps are in \code{"+init=epsg:32633"} UTM projection at the momemnt. More maps can be added based on need.
+
+\strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13.
 }
 \examples{
 basemap() ## Plots Kongsfjorden
