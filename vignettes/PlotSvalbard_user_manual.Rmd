@@ -1,38 +1,37 @@
 ---
 title: "PlotSvalbard - User Manual"
-subtitle: "Plot research data from Svalbard on maps "
-author:
-  name: Mikko Vihtakari
-  email: mikko.vihtakari@gmail.com
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output:
-  bookdown::html_document2:
-    toc: true
-    theme: lumen
-    toc_float: true
-    toc_depth: 5
-    collapsed: false
-    variant: markdown+simple_table
-    fig_caption: true
-    number_sections: false
+author: "Mikko Vihtakari"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{PlotSvalbard - User Manual}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
+
 
 <!-- --- -->
 <!-- title: "PlotSvalbard - User Manual" -->
-<!-- author: "Mikko Vihtakari" -->
-<!-- date: "`r Sys.Date()`" -->
-<!-- output: rmarkdown::html_vignette -->
-<!-- vignette: > -->
-<!--   %\VignetteIndexEntry{PlotSvalbard - User Manual} -->
-<!--   %\VignetteEngine{knitr::rmarkdown} -->
-<!--   %\VignetteEncoding{UTF-8} -->
+<!-- subtitle: "Plot research data from Svalbard on maps " -->
+<!-- author: -->
+<!--   name: Mikko Vihtakari -->
+<!--   email: mikko.vihtakari@gmail.com -->
+<!-- date: "`r format(Sys.time(), '%d %B, %Y')`" -->
+<!-- output: -->
+<!--   bookdown::html_document2: -->
+<!--     toc: true -->
+<!--     theme: lumen -->
+<!--     toc_float: true -->
+<!--     toc_depth: 5 -->
+<!--     collapsed: false -->
+<!--     variant: markdown+simple_table -->
+<!--     fig_caption: true -->
+<!--     number_sections: false -->
 <!-- --- -->
 
+
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+knitr::opts_chunk$set(fig.dpi = 96, collapse = TRUE, fig.width = 7, fig.height = 6, comment = "#>")
 ```
 
 [**PlotSvalbard**](https://github.com/MikkoVihtakari/PlotSvalbard) package provides functions to plot research data from Svalbard on high resolution maps in [R](https://www.r-project.org/). The package is based on [ggplot2](http://ggplot2.tidyverse.org/reference/) and the functions can be expanded using ggplot syntax. The package contains also maps from other places in the Arctic, including polar stereographic maps of the Arctic.
