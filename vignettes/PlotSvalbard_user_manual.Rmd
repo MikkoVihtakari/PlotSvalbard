@@ -1,13 +1,32 @@
 ---
 title: "PlotSvalbard - User Manual"
-author: "Mikko Vihtakari"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{PlotSvalbard - User Manual}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+subtitle: "Plot research data from Svalbard on maps "
+author:
+  name: Mikko Vihtakari
+  email: mikko.vihtakari@gmail.com
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  bookdown::html_document2:
+    toc: true
+    theme: lumen
+    toc_float: true
+    toc_depth: 5
+    collapsed: false
+    variant: markdown+simple_table
+    fig_caption: true
+    number_sections: false
 ---
+
+<!-- --- -->
+<!-- title: "PlotSvalbard - User Manual" -->
+<!-- author: "Mikko Vihtakari" -->
+<!-- date: "`r Sys.Date()`" -->
+<!-- output: rmarkdown::html_vignette -->
+<!-- vignette: > -->
+<!--   %\VignetteIndexEntry{PlotSvalbard - User Manual} -->
+<!--   %\VignetteEngine{knitr::rmarkdown} -->
+<!--   %\VignetteEncoding{UTF-8} -->
+<!-- --- -->
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(

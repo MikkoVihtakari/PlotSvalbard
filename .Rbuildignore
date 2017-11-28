@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^runfirst\.R$ # Run first script for inter-OS compatibility
+^/inst/docs/PlotSvalbard - User Manual.html$
+^PlotSvalbard - User Manual_files$
