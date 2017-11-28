@@ -11,7 +11,7 @@ basemap(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95",
   grid.col = "grey70", limits = NULL, round.lat = FALSE, n.lat.grid = 3,
   round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE,
   size.land = 0.1, size.glacier = 0.1, size.grid = 0.1,
-  border.col.land = "black", border.col.glacier = "black", ...)
+  border.col.land = "black", border.col.glacier = "black")
 }
 \arguments{
 \item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen" or "barentssea". See details.}
@@ -36,15 +36,13 @@ basemap(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95",
 
 \item{size.land}{width of the border line for land shapes. See details for explanation about line widths.}
 
+\item{size.glacier}{width of the border line for glacier shapes.}
+
 \item{size.grid}{width of the grid lines.}
 
 \item{border.col.land}{color of the border line for land shapes.}
 
 \item{border.col.glacier}{color of the border line for glacier shapes.}
-
-\item{...}{Additional arguments passed to \code{\link{deg_grid}}.}
-
-\item{size.land}{width of the border line for glacier shapes.}
 }
 \value{
 Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object.
@@ -80,7 +78,7 @@ size = Chla, color = Chla), shape = 1)
 ## limitting maps is possible, but you might need to define grid lines by hand:
 basemap("kongsfjordbotn", limits = c(12.2,12.65,78.95,79.00))
 basemap("kongsfjordbotn", limits = c(12.2,12.65,78.95,79.00),
-Round.lat = 0.01, Round.lon = 0.1) # better
+round.lat = 0.01, round.lon = 0.1) # better
 
 ## Svalbard map. Warning: this is SLOW
 basemap("svalbard")

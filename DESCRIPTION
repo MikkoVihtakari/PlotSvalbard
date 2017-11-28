@@ -1,12 +1,15 @@
 Package: PlotSvalbard
 Type: Package
 Title: PlotSvalbard - plot research data from Svalbard on maps
-Version: 0.1.5
-Author: Mikko Vihtakari [aut, cre]
-Maintainer: Mikko Vihtakari <mikko.vihtakari@gmail.com>
+Version: 0.1.6
+Date: 2017-11-28
+Authors@R: person("Mikko", "Vihtakari", email = "mikko.vihtakari@gmail.com",
+                  role = c("aut", "cre"))
+URL: https://github.com/MikkoVihtakari/PlotSvalbard
+BugReports: https://github.com/MikkoVihtakari/PlotSvalbard/issues
 Description: Uses ggplot2 syntax and high resolution up-to-date shape files to plot research data from Svalbard on maps. 
 Depends: ggplot2 
-Imports: gstat, maptools, oce, rgdal, sp, colorRamps, rgeos
+Imports: maptools, rgdal, sp, rgeos, gstat, oce, colorRamps
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

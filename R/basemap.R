@@ -13,9 +13,8 @@
 ##' @param border.col.land color of the border line for land shapes.
 ##' @param border.col.glacier color of the border line for glacier shapes.
 ##' @param size.land width of the border line for land shapes. See details for explanation about line widths.
-##' @param size.land width of the border line for glacier shapes.
+##' @param size.glacier width of the border line for glacier shapes.
 ##' @param size.grid width of the grid lines.
-##' @param  ... Additional arguments passed to \code{\link{deg_grid}}.
 ##' @return Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object.
 ##' @details The function uses \link[ggplot2]{ggplot2} and up-to-date (2017) detailed shapefiles to plot maps of Svalbard and other polar regions. The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
 ##' \itemize{
@@ -44,7 +43,7 @@
 ##' ## limitting maps is possible, but you might need to define grid lines by hand:
 ##' basemap("kongsfjordbotn", limits = c(12.2,12.65,78.95,79.00))
 ##' basemap("kongsfjordbotn", limits = c(12.2,12.65,78.95,79.00),
-##' Round.lat = 0.01, Round.lon = 0.1) # better
+##' round.lat = 0.01, round.lon = 0.1) # better
 ##'
 ##' ## Svalbard map. Warning: this is SLOW
 ##' basemap("svalbard")
@@ -80,7 +79,7 @@
 # keep.glaciers = TRUE
 # land.size = 0.1
 
-basemap <- function(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95", grid.col = "grey70", limits = NULL, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE, size.land = 0.1, size.glacier = 0.1, size.grid = 0.1, border.col.land = "black", border.col.glacier = "black", ...) {
+basemap <- function(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95", grid.col = "grey70", limits = NULL, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE, size.land = 0.1, size.glacier = 0.1, size.grid = 0.1, border.col.land = "black", border.col.glacier = "black") {
 
   X <- eval(parse(text=paste(map_cmd("base_dat"))))
 
