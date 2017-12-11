@@ -82,7 +82,7 @@ Any contributions to the package are more than welcome. Please contact the packa
 
 Dependencies
 --------
-The **PlotSvalbard** package depends on many packages that will be listed below:
+The **PlotSvalbard** package depends on:
 
 - [ggplot2][ggplot2]: PlotSvalbard expands on ggplot2.
 - [sp][sp]: Used to handle geographical information.
