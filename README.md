@@ -28,7 +28,7 @@ library(PlotSvalbard)
 
 data("kongsfjord_moorings")
 
-basemap("kongsfjorden", limits = c(11.3, 12.69, 78.85, 79.1), round.lat = 0.05, round.lon = 0.5) + 
+basemap("kongsfjorden", limits = c(11.3, 12.69, 78.86, 79.1), round.lat = 0.05, round.lon = 0.5) + 
 geom_text(data = kongsfjord_moorings, aes(x = lon.utm, y = lat.utm, label = Mooring.name, color = Name), 
 fontface = 2, size = 25.4/72.27*8) # font size = 8, see Graphical parameters
 ```
@@ -58,7 +58,7 @@ Find more information on how to use the package from [the user manual](https://g
 Data sources and citations
 -------
 
-If you use the package to make maps in your publications, please cite it. For up-to-date citation information, please use:
+If you use the package to make maps for your publications, please cite it. For up-to-date citation information, please use:
 
 ```{r}
 citation("PlotSvalbard")
@@ -85,6 +85,7 @@ The **PlotSvalbard** package depends on many packages that will be listed below:
 - [sp][sp]: Used to handle geographical information.
 - [maptools][maptools]: Used to handle geographical information.
 - [rgdal][rgdal]: Used to handle geographical information.
+- [rgeos][rgeos]: Used to handle geographical information.
 - [colorRamps][colorRamps]: matlab.like color scheme is used in 2D surface colors.
 - [gstat][gstat]: the krige function is used for interpolation.
 - [oce][oce]: Used for trapetsoidal intergration.
@@ -96,3 +97,4 @@ The **PlotSvalbard** package depends on many packages that will be listed below:
 [gstat]: https://cran.r-project.org/web/packages/gstat/index.html
 [rgdal]: https://cran.r-project.org/web/packages/rgdal/index.html
 [maptools]: https://cran.r-project.org/web/packages/maptools/index.html
+[rgeos]: https://cran.r-project.org/web/packages/rgeos/index.html
