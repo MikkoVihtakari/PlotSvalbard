@@ -21,7 +21,7 @@ Usage
 -------
 **PlotSvalbard** extends on [**ggplot2**](http://ggplot2.tidyverse.org/reference/). Data that contains geographic information can be plotted on these maps using the ggplot2 layers separated by the `+` operator.
 
-### Making a simple interpolated map
+### Making a map with text
 
 ```r
 library(PlotSvalbard)
