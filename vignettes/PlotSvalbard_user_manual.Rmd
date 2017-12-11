@@ -2,7 +2,7 @@
 title: "PlotSvalbard - User Manual"
 author: "Mikko Vihtakari"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{PlotSvalbard - User Manual}
   %\VignetteEngine{knitr::rmarkdown}
