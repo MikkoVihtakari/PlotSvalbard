@@ -12,7 +12,7 @@ Installation of the GitHub version
 -------
 Using the [**devtools**](https://cran.r-project.org/web/packages/devtools/index.html) package:
 
-```{r}
+```r
 library(devtools)
 install_github("MikkoVihtakari/PlotSvalbard", dependencies = TRUE)
 ```
@@ -38,7 +38,7 @@ fontface = 2, size = 25.4/72.27*8) # font size = 8, see Graphical parameters
 
 Most extensions for ggplot2 work together with PlotSvalbard.
 
-```{r}
+```r
 data(zooplankton)
 
 x <- cbind(transform_coord(zooplankton, lon = "Longitude", lat = "Latitude"), zooplankton)
@@ -52,6 +52,8 @@ geom_scatterpie(aes(x = lon.utm, y = lat.utm, group = ID, r = 100*Total), data =
 scale_fill_discrete(name = "Species", breaks = species, 
 labels = parse(text = paste0("italic(" , sub("*\\.", "~", species), ")")))
 ```
+![alt text](https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/inst/figures/scatterpie.png)
+
 ### User manual
 
 Find more information on how to use the package from [the user manual](https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/inst/docs/PlotSvalbard_user_manual.pdf).
@@ -61,7 +63,7 @@ Data sources and citations
 
 If you use the package to make maps for your publications, please cite it. For up-to-date citation information, please use:
 
-```{r}
+```r
 citation("PlotSvalbard")
 ```
 
