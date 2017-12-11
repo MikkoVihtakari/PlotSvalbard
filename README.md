@@ -53,7 +53,7 @@ labels = parse(text = paste0("italic(" , sub("*\\.", "~", species), ")")))
 ```
 ### User manual
 
-Find more information on how to use the package from [the user manual](https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/inst/docs/PlotSvalbard%20-%20User%20Manual.html).
+Find more information on how to use the package from [the user manual](https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/inst/docs/PlotSvalbard_user_manual.pdf).
 
 Data sources and citations
 -------
