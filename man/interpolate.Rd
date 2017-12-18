@@ -7,7 +7,7 @@
 interpolate(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"),
   station.col = "Station", strata.col = "From", name.col = NULL,
   id.cols = NULL, bin.method = "average", int.method = "krige",
-  shear = NULL, n.tile = 100, accuracy = 100)
+  unit = NULL, shear = NULL, n.tile = 100, accuracy = 100)
 }
 \arguments{
 \item{df}{dataframe containing required information}
@@ -29,6 +29,8 @@ interpolate(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"),
 \item{bin.method}{Method for binning data, if there are several observations for each spatial point. Either "average" for average values or "integrate" for vertical trapezoidal integration using the \code{\link[oce]{integrateTrapezoid}} function from \link[oce]{oce} package. See more in Details.}
 
 \item{int.method}{Method for interpolation. Currently only \code{\link[gstat]{krige}}.}
+
+\item{unit}{The unit for \code{value} column}
 
 \item{shear}{Map tilting. Either NULL for non-tilted maps or a shear matrix, f.ex (matrix(c(2,1.2,0,1),2,2)) to shear the interpolation.}
 

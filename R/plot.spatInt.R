@@ -33,15 +33,7 @@
 ##' @export
 
 ## Test parameters
-# basemap = TRUE
-# type = "kongsfjorden"
-# col.scale.limits = NULL
-# legend.label = NA
-# land.col = "#eeeac4"
-# gla.col = "grey95"
-# grid.col = "grey70"
-# x.lim = NULL
-# y.lim = NULL
+#x = X; basemap = TRUE; type = "kongsfjorden"; col.scale.limits = NULL; legend.label = NA; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; x.lim = NULL; y.lim = NULL
 
 plot.spatInt <- function(x, basemap = TRUE, type = "kongsfjorden", col.scale.limits = NULL, legend.label = NA, limits = NULL, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3, land.col = "#eeeac4", gla.col = "grey95", grid.col = "grey70", keep.glaciers = TRUE, ...) {
 
@@ -49,7 +41,12 @@ if(basemap) {
 
 X <- eval(parse(text=paste(map_cmd("base_dat"))))
 
-if(is.na(legend.label)) legend.label <- paste0(x$variables$interpolated.variable, " (", x$variables$unit, ")")
+if(is.na(legend.label)) {
+  if(!is.null(x$variables$unit)) {
+  legend.label <- paste0(x$variables$interpolated.variable, " (", x$variables$unit, ")")
+} else {
+  legend.label <- paste0(x$variables$interpolated.variable)
+}}
 
 basemap(type = type, limits = limits, keep.glaciers = keep.glaciers, ...) + geom_tile(data = x$interpolation, aes(x = Lon, y = Lat, fill = var1.pred)) + geom_contour(data = x$interpolation, aes(x = Lon, y = Lat, z = var1.pred), color = "black", size = 0.2) + geom_polygon(data=X$Land, aes(x=long, y=lat, group = group), fill = land.col, color = "black", size = 0.1) + geom_polygon(data=X$Glacier, aes(x=long, y=lat, group = group), fill = gla.col, color = "black", size = 0.1) + geom_polygon(data=X$Holes, aes(x=long, y=lat, group = group), fill = land.col, color = "black", size = 0.1) + geom_line(data=X$Grid$lat, aes(x=lon.utm, y=lat.utm, group = ID), color = grid.col, size = 0.1) + geom_point(data = x$data, aes(x = Lon, y = Lat)) + scale_fill_gradientn(name = legend.label, colours = colorRamps::matlab.like(7), limits = col.scale.limits) + theme(axis.title.x = element_blank(), axis.title.y = element_blank())
 

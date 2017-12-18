@@ -3,6 +3,7 @@
 ##' @param df dataframe containing required information
 ##' @param value Name of the value column to be used for interpolation
 ##' @param Subset A subset argument as a name (i.e. with " ").
+##' @param unit The unit for \code{value} column
 ##' @param bin.method Method for binning data, if there are several observations for each spatial point. Either "average" for average values or "integrate" for vertical trapezoidal integration using the \code{\link[oce]{integrateTrapezoid}} function from \link[oce]{oce} package. See more in Details.
 ##' @param int.method Method for interpolation. Currently only \code{\link[gstat]{krige}}.
 ##' @param coords A vector of column names for x (longitude) and y (latitude) coordinates, respectively. It is recommended to use UTM coordinates instead of decimal degrees. See \code{\link[sp]{coordinates}}.
@@ -24,24 +25,13 @@
 ##' @seealso \code{\link{plot.spatInt}}
 ##' @importFrom gstat krige
 ##' @importFrom oce integrateTrapezoid
+##' @import sp
 ##' @export
 
 ## Test params
-  # df <- chl
-  # Subset <- NULL
-  # bin.method = "integrate"
-  # int.method = "krige"
-  # coords = c("lon.utm", "lat.utm")
-  # value = "Chla"
-  # name.col = "Name"
-  # station.col <- "Station"
-  # id.cols <- NULL
-  # strata.col = "From"
-  # shear = NULL
-  # n.tile = 100
-  # accuracy = 100
+#df = x; Subset = NULL; bin.method = "integrate"; int.method = "krige"; coords = c("lon.utm", "lat.utm"); value = "slope_ratio"; name.col = "sample_name"; station.col = "station"; id.cols = NULL; strata.col = "from"; shear = NULL; n.tile = 100; accuracy = 100; unit = NULL
 
-interpolate <- function(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"), station.col = "Station", strata.col = "From", name.col = NULL, id.cols = NULL, bin.method = "average", int.method = "krige", shear = NULL, n.tile = 100, accuracy = 100) {
+interpolate <- function(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"), station.col = "Station", strata.col = "From", name.col = NULL, id.cols = NULL, bin.method = "average", int.method = "krige", unit = NULL, shear = NULL, n.tile = 100, accuracy = 100) {
 
   output <- list()
 
@@ -95,7 +85,7 @@ if(any(coords %in% c("Lat", "Lon"))) {
   y <- y[!colnames(y) %in% c(coords, value)]
 }
 
-coordinates(x) <- coords
+sp::coordinates(x) <- coords
 
 x.range <- as.numeric(range(x@coords[,1])) #*1.1  # min/max longitude of the interpolation area
 x.range[1] <- floor(x.range[1] / accuracy) * accuracy
@@ -111,9 +101,15 @@ gridded(grd) <- TRUE
 
 idw <- gstat::krige(formula = get(value) ~ 1, locations = x, newdata = grd)
 
+## Rename y columns
+
+if(strata.col != "From") {
+  y[[strata.col]] <- y$From
+}
+
 output$interpolation <- as.data.frame(idw)  # output is defined as a data table
 output$data <- y
-output$variables <- data.frame(interpolated.variable = value, unit = NA)
+output$variables <- list(interpolated.variable = value, unit = unit)
 
 class(output) <- "spatInt"
 output
