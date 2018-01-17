@@ -11,7 +11,7 @@
 ##' @author Mikko Vihtakari
 ##' @import maptools sp rgdal
 ##' @export
-#dat = Land; lat.interval = 10; lon.interval = 45; n.points = 1000; proj4.utm = TRUE; proj4.deg = "+proj=longlat +datum=WGS84"
+# dat = Land; lat.interval = 10; lon.interval = 45; n.points = 1000; proj4.utm = TRUE; proj4.deg = "+proj=longlat +datum=WGS84"
 deg_grid_polar <- function(dat, lat.interval = 10, lon.interval = 45, n.points = 1000, proj4.utm = TRUE, proj4.deg = "+proj=longlat +datum=WGS84") {
 
 if(is.numeric(dat)) {
@@ -29,14 +29,14 @@ if(is.numeric(dat)) {
 
   }
 
-x <- bbox(dat.deg)
+x <- sp::bbox(dat.deg)
 
 
 ### Latitude grid lines
 
-lat.breaks <- seq(50, 90, by = lat.interval) #lims[3], lims[4]
+lat.breaks <- seq(x[2], 90, by = lat.interval) #lims[3], lims[4]
 
-lats <- latgrid(lat.breaks, projection = proj4.utm, n.points. = n.points)
+lats <- latgrid(latitude = lat.breaks, projection = proj4.utm, n.points. = n.points)
 y <- transform_coord(lats, lon = "lon.utm", lat = "lat.utm", proj.og = proj4.utm, proj.out = proj4.deg, new.names = c("lon", "lat"), verbose = FALSE)
 
 out <- list()
@@ -44,16 +44,17 @@ out$lat <- cbind(lats, y)
 
 ### Latitude (y-axis) breaks for maps
 
-#tmp <- data.frame(latitude = lat.breaks, longitude = min(x[1,]))
-#tmp <- cbind(tmp, transform_coord(x = tmp, proj.og = proj4.deg, proj.out = proj4.utm, verbose = FALSE))
+lat.breaks <- lat.breaks[c(-1, -length(lat.breaks))]
+tmp <- data.frame(label =  lat.breaks, lat = lat.breaks, lon = 180)
+tmp <- cbind(tmp, transform_coord(x = tmp, lon = "lon", lat = "lat", proj.og = proj4.deg, proj.out = proj4.utm, verbose = FALSE))
 
-out$lat.breaks <- NA #data.frame(deg = tmp$latitude, utm = tmp$lat.utm)
+out$lat.breaks <- tmp
 
 ### Longitude grid lines
 
 lon.breaks <- sort(seq(0, 360, by = lon.interval) - 180)[-1]
 
-lons <- longrid(lon.breaks, projection = proj4.utm)
+lons <- longrid(lon.breaks, projection = proj4.utm, base.lat = x[2])
 
 out$lon <- lons
 
@@ -78,20 +79,20 @@ out
 }
 
 
-latgrid <- function(latitude = seq(50, 90, by = MapType$lat.interval), projection = proj4.utm, n.points. = n.points){
+latgrid <- function(latitude = NULL, projection = proj4.utm, n.points. = n.points){
   tmp <- lapply(1:length(latitude), function(i) {
     X <- latitude[i]
     r <- project(matrix(c(0,X), ncol = 2), proj = projection)[2]
     tt <- seq(0,2*pi,length.out = n.points.)
     xx <- r * cos(tt)
     yy <- r * sin(tt)
-    return(data.frame(lon.utm = xx, lat.utm = yy, ID = paste0("lat", X)))
+    return(data.frame(lon.utm = xx, lat.utm = yy, ID = paste0("lat", round(X,0))))
     })
   return(do.call(rbind, tmp))
 }
 
 ## Longitude grid lines to maps
-longrid <- function(longitude = sort(seq(0, 360, by = MapType$lon.interval) - 180)[-1], base.lat = 50, projection = proj4.utm){
+longrid <- function(longitude = NULL, base.lat = NULL, projection = proj4.utm){
   tmp <- lapply(1:length(longitude), function(i){
     X <- longitude[i]
     tp <- project(matrix(c(X, base.lat), ncol = 2), proj = projection)

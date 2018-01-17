@@ -14,13 +14,19 @@ library(rgeos) #gIntersect
 
 if(Sys.info()["sysname"] == "Windows") {
   devel <- "C:/Users/mikko/Dropbox/Workstuff/R/R packages/PlotSvalbard_development/"
+  presentation <- "C:/Users/mikko/Dropbox/Workstuff/Lectures/20180221 PlotSvalbard presentation NPI/Figures/"
   } else {
   devel <- "/Users/mvi023/Dropbox/Workstuff/R/R packages/PlotSvalbard_development/"
 }
 
 #### Springer journal widths in inches ####
 
-columnwidth <- 84*0.0393700787 # 84 mm
-halfpagewidth <- 129*0.0393700787 # 129 mm
-pagewidth <- 174*0.0393700787 # 174 mm
-maxheight <- 234*0.0393700787 # 234 mm
+inch <- 0.0393700787
+
+columnwidth <- 84*inch # 84 mm
+halfpagewidth <- 129*inch # 129 mm
+pagewidth <- 174*inch # 174 mm
+maxheight <- 234*inch # 234 mm
+slidewidth <- 228*inch
+
+rm(inch)

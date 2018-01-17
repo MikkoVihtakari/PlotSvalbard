@@ -17,6 +17,9 @@
 ##' @param size.land Numeric value specifying the width of the border line for land shapes. See details for explanation about line widths.
 ##' @param size.glacier Numeric value specifying the width of the border line for glacier shapes.
 ##' @param size.grid Numeric value specifying the width of the grid lines.
+##' @param label.print Logical indicating whether labels should be printed for polar stereographic maps. 
+##' @param label.font Numeric value specifying the font size for labels in polar stereographic maps.
+##' @param label.offset Offset between the round polar stereographic maps and longitude labels. Optimized for a pdf output. Use 1.1 for larger size figures. 
 ##' @return Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object.
 ##' @details The function uses \link[ggplot2]{ggplot2} and up-to-date (2017) detailed shapefiles to plot maps of Svalbard and other polar regions. The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
 ##' \itemize{
@@ -85,19 +88,23 @@
 # n.lon.grid = 3
 # keep.glaciers = TRUE
 # land.size = 0.1
-#type = "arctic50"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"
+#type = "arctic60"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04
 
-basemap <- function(type = "kongsfjorden", limits = NULL, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, keep.glaciers = TRUE, land.col = "#eeeac4", size.land = 0.1, border.col.land = "black", gla.col = "grey95", size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1) {
+basemap <- function(type = "kongsfjorden", limits = NULL, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, keep.glaciers = TRUE, land.col = "#eeeac4", size.land = 0.1, border.col.land = "black", gla.col = "grey95", size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1, label.print = TRUE, label.offset = 1.04, label.font = 8) {
 
   if(type %in% c("arctic50", "arctic60")) {
   X <- eval(parse(text=paste(map_cmd("base_polar"))))
 
-  #ggplot(data=X$Land, aes(x=long, y=lat)) + geom_path(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid) + geom_segment(data = X$Grid$lon, aes(x = lon.start, xend = lon.end, y = lat.start, yend = lat.end, group = label), color = grid.col, size = size.grid) +  geom_polygon(data = X$Land, aes(x = long, y = lat, group = group), fill = land.col, color = border.col.land, size = size.land) + geom_path(data = X$Grid$lat[X$Grid$lat$ID == levels(X$Grid$lat$ID)[which.min(as.numeric(gsub("[[:alpha:]]", "", levels(X$Grid$lat$ID))))],], aes(x = lon.utm, y=lat.utm, group = ID), color = border.col.land, size = size.land) + theme_void() + coord_fixed(xlim = c(-200000,2500000), ylim = c(-200000,2500000))
-
- #scale_y_continuous(name = "Latitude (decimal degrees)", breaks = X$Grid$lat.breaks$utm, labels = X$Grid$lat.breaks$deg) + scale_x_continuous(name = "Longitude (decimal degrees)", breaks = X$Grid$lon.breaks$utm, labels = X$Grid$lon.breaks$deg) + coord_fixed(xlim = c(X$Grid$boundaries$lon.utm[1], X$Grid$boundaries$lon.utm[2]), ylim = c(X$Grid$boundaries$lat.utm[1], X$Grid$boundaries$lat.utm[2]), expand = FALSE) + theme_map()
-
-  eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("land_polar"), map_cmd("defs_polar"), sep = "+")))
-
+  if(label.print) {
+    
+    eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("land_polar"), map_cmd("labels_polar"), map_cmd("defs_polar"), sep = "+")))
+  
+  } else {
+      
+    eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("land_polar"), map_cmd("defs_polar"), sep = "+")))
+    
+    }
+  
   } else {
   X <- eval(parse(text=paste(map_cmd("base_dat"))))
 
@@ -119,6 +126,7 @@ map_cmd <- function(command) {
     base_polar = 'basemap_data(type = type, limits = limits, lat.interval. = lat.interval, lon.interval. = lon.interval, keep.glaciers. = FALSE)',
     land_polar = 'geom_polygon(data = X$Land, aes(x = long, y = lat, group = group), fill = land.col, color = border.col.land, size = size.land) + geom_path(data = X$Grid$lat[X$Grid$lat$ID == levels(X$Grid$lat$ID)[which.min(as.numeric(gsub("[[:alpha:]]", "", levels(X$Grid$lat$ID))))],], aes(x = lon.utm, y=lat.utm, group = ID), color = border.col.land, size = size.land)',
     grid_polar = 'ggplot(data=X$Land, aes(x=long, y=lat)) + geom_path(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid) + geom_segment(data = X$Grid$lon, aes(x = lon.start, xend = lon.end, y = lat.start, yend = lat.end, group = label), color = grid.col, size = size.grid)',
+    labels_polar = 'geom_text(data = X$Grid$lon, aes(x = label.offset*lon.end, y = label.offset*lat.end, angle = angle, label = paste(label, "^o", sep = "")), size = label.font/2.845276, parse = TRUE) + geom_text(data = X$Grid$lat.breaks, aes(x = lon.utm, y = lat.utm, label = paste(label, "^o", sep = "")), hjust = 0, vjust = 0, size = label.font/2.845276, parse = TRUE)',
     defs_polar = 'coord_fixed() + theme_void()',
     stop(paste("map command", command, "not found."))
 )
@@ -134,6 +142,7 @@ map_type <- function(type) {
   rijpfjorden = list(land = "svalbard.ld", glacier = NULL, boundary = c(19.5,23.5,80,81.7), map.type = "svalbard", round.lon = 0.5, round.lat = 0.4),
   barentssea = list(land = "barents.ld", glacier = NULL, boundary = c(0,50,70,83), map.type = "barents", round.lon = 4, round.lat = 2),
   arctic50 = list(land = "arctic50", glacier = NULL, boundary = c(NA,NA,50,90), map.type = "panarctic", lon.interval = 45, lat.interval = 10),
+  arctic60 = list(land = "arctic60", glacier = NULL, boundary = c(NA,NA,60,90), map.type = "panarctic", lon.interval = 45, lat.interval = 10),
   stop(paste("type argument", type, "is not implemented."))
 )
 }
@@ -162,6 +171,7 @@ map_projection <- function(map.type) {
 # map_type("barentssea")
 # expar = 0.3
 # type = "arctic50"
+# type = "arctic60"
 # limits = NULL; expar = 0.1; clip = FALSE; keep.glaciers. = FALSE; lat.interval. = 10; lon.interval. = 45
 
 basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid. = n.lat.grid, round.lon. = round.lon, n.lon.grid. = n.lon.grid, lat.interval. = lat.interval, lon.interval. = lon.interval, expar = 0.1, clip = FALSE, keep.glaciers. = keep.glaciers) {
@@ -201,7 +211,7 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
 
   if(MapType$map.type == "panarctic") {
 
-  Grid <- deg_grid_polar(Land, lat.interval = lat.interval., lon.interval = lon.interval.)
+  Grid <- deg_grid_polar(dat = Land, lat.interval = lat.interval., lon.interval = lon.interval.)
 
   } else if(!is.null(limits)) {
     Grid <- deg_grid(limits, round.lat = round.lat., n.lat.grid = n.lat.grid., round.lon = round.lon., n.lon.grid = n.lon.grid.)
