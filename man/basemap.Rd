@@ -9,12 +9,13 @@ Svalbard shape files originate from the Norwegian Polar Institute (\url{http://g
 \usage{
 basemap(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95",
   grid.col = "grey70", limits = NULL, round.lat = FALSE, n.lat.grid = 3,
-  round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE,
-  size.land = 0.1, size.glacier = 0.1, size.grid = 0.1,
-  border.col.land = "black", border.col.glacier = "black")
+  lat.interval = 10, lon.interval = 45, round.lon = FALSE,
+  n.lon.grid = 3, keep.glaciers = TRUE, size.land = 0.1,
+  size.glacier = 0.1, size.grid = 0.1, border.col.land = "black",
+  border.col.glacier = "black")
 }
 \arguments{
-\item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen" or "barentssea". See details.}
+\item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.}
 
 \item{land.col}{Color of land}
 
@@ -27,6 +28,10 @@ basemap(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95",
 \item{round.lat}{specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
 
 \item{n.lat.grid}{number of latitude grid lines. Alternatively use \code{round.lat}}
+
+\item{lat.interval}{the interval of latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})}
+
+\item{lon.interval}{the interval of longitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})}
 
 \item{round.lon}{specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}}
 
@@ -59,9 +64,11 @@ The function uses \link[ggplot2]{ggplot2} and up-to-date (2017) detailed shapefi
 \item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to a smaller file size.
 \item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to a smaller file size.
 \item "barentssea". A 1:10 000 000 map of the Barents Sea. See \strong{Source}.
+\item "arctic50". A polar stereographic map of the Arctic with a limit at 50 degrees North.
+\item "arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.
 }
 
-All maps are in \code{"+init=epsg:32633"} UTM projection at the momemnt. More maps can be added based on need.
+Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. More maps can be added based on need.
 
 \strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13.
 }

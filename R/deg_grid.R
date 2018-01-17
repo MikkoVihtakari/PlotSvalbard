@@ -41,6 +41,7 @@ if(is.numeric(dat)) {
 
   if(proj4.utm) proj4.utm <- proj4string(dat)
   dat.deg <- spTransform(dat, CRS("+proj=longlat +datum=WGS84"))
+
   }
 
 x <- bbox(dat.deg)
