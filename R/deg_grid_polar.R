@@ -12,21 +12,24 @@
 ##' @import maptools sp rgdal
 ##' @export
 # dat = Land; lat.interval = 10; lon.interval = 45; n.points = 1000; proj4.utm = TRUE; proj4.deg = "+proj=longlat +datum=WGS84"
+# dat = c(250000, -2500000, 2500000, -250000); lat.interval = 10; lon.interval = 45; n.points = 1000; proj4.utm = TRUE; proj4.deg = "+proj=longlat +datum=WGS84"
 deg_grid_polar <- function(dat, lat.interval = 10, lon.interval = 45, n.points = 1000, proj4.utm = TRUE, proj4.deg = "+proj=longlat +datum=WGS84") {
 
 if(is.numeric(dat)) {
 
   dat <- Polygon(matrix(c(dat[1], dat[3], dat[1], dat[4], dat[2], dat[4], dat[2], dat[3], dat[1], dat[3]), ncol = 2, byrow = TRUE))
-  dat <- SpatialPolygons(list(Polygons(list(dat), ID = "a")), proj4string=CRS(proj4.deg))
-  dat.deg <- dat
   if(proj4.utm) proj4.utm <- "+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"
-  dat <- spTransform(dat, CRS(proj4.utm))
-
+  dat <- SpatialPolygons(list(Polygons(list(dat), ID = "a")), proj4string=CRS(proj4.utm))
+  
+  dat.deg <- spTransform(dat, CRS(proj4.deg))
+  
+  lims <- TRUE
 } else {
 
   if(proj4.utm) proj4.utm <- proj4string(dat)
   dat.deg <- spTransform(dat, CRS("+proj=longlat +datum=WGS84"))
-
+  
+  lims <- FALSE
   }
 
 x <- sp::bbox(dat.deg)
@@ -34,7 +37,7 @@ x <- sp::bbox(dat.deg)
 
 ### Latitude grid lines
 
-lat.breaks <- seq(x[2], 90, by = lat.interval) #lims[3], lims[4]
+lat.breaks <- seq(round(x[2],0), round(x[4],0), by = lat.interval) #lims[3], lims[4]
 
 lats <- latgrid(latitude = lat.breaks, projection = proj4.utm, n.points. = n.points)
 y <- transform_coord(lats, lon = "lon.utm", lat = "lat.utm", proj.og = proj4.utm, proj.out = proj4.deg, new.names = c("lon", "lat"), verbose = FALSE)
@@ -44,7 +47,7 @@ out$lat <- cbind(lats, y)
 
 ### Latitude (y-axis) breaks for maps
 
-lat.breaks <- lat.breaks[c(-1, -length(lat.breaks))]
+lat.breaks <- lat.breaks[c(-1)]
 tmp <- data.frame(label =  lat.breaks, lat = lat.breaks, lon = 180)
 tmp <- cbind(tmp, transform_coord(x = tmp, lon = "lon", lat = "lat", proj.og = proj4.deg, proj.out = proj4.utm, verbose = FALSE))
 
@@ -71,6 +74,8 @@ out$utm.proj <- proj4.utm
 out$deg.proj <- proj4.deg
 
 out$boundaries <- data.frame(lon.deg = x[1,], lat.deg = x[2,], lon.utm = bbox(dat)[1,], lat.utm = bbox(dat)[2,])
+
+out$limits <- lims
 
 class(out) <- "degGridPolar"
 

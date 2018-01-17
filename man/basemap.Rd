@@ -4,7 +4,7 @@
 \alias{basemap}
 \title{Create a ggplot2 basemap for plotting variables}
 \source{
-Svalbard shape files originate from the Norwegian Polar Institute (\url{http://geodata.npolar.no/}). Barents Sea map is downloaded from  \url{http://www.naturalearthdata.com} and uses the \code{ne_10m_land} (v 4.0.0) dataset.
+Svalbard shape files originate from the Norwegian Polar Institute (\url{http://geodata.npolar.no/}). Barents Sea and polar stereographic maps are from  \url{http://www.naturalearthdata.com}. They use the \code{ne_10m_land} and \code{ne_50m_land} (v 4.0.0) datasets, respectively.
 }
 \usage{
 basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
@@ -12,12 +12,13 @@ basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
   lon.interval = 45, keep.glaciers = TRUE, land.col = "#eeeac4",
   size.land = 0.1, border.col.land = "black", gla.col = "grey95",
   size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70",
-  size.grid = 0.1)
+  size.grid = 0.1, label.print = TRUE, label.offset = 1.04,
+  label.font = 8)
 }
 \arguments{
 \item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.}
 
-\item{limits}{Map limits. A numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees.}
+\item{limits}{Map limits. A numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", \code{\link{map_projection}} and \code{\link{transform_coord}} how to find these coordinates.}
 
 \item{round.lat}{Numeric value specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
 
@@ -33,7 +34,7 @@ basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
 
 \item{keep.glaciers}{Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.}
 
-\item{land.col}{Character code specifying thecColor of land.}
+\item{land.col}{Character code specifying the color of land.}
 
 \item{size.land}{Numeric value specifying the width of the border line for land shapes. See details for explanation about line widths.}
 
@@ -48,6 +49,12 @@ basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
 \item{grid.col}{Character code specifying the color of grid lines. Use \code{NA} to remove the grid lines.}
 
 \item{size.grid}{Numeric value specifying the width of the grid lines.}
+
+\item{label.print}{Logical indicating whether labels should be printed for polar stereographic maps.}
+
+\item{label.offset}{Offset between the round polar stereographic maps and longitude labels. Optimized for a pdf output. Use 1.1 for larger size figures.}
+
+\item{label.font}{Numeric value specifying the font size for labels in polar stereographic maps. Note that this value defines the actual font size in points, not the \code{ggplot2} font size.}
 }
 \value{
 Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object.
@@ -100,8 +107,12 @@ basemap("barentssea") # note wrong placing of axis labels
 ## but the projection is not optimal.
 basemap("barentssea", limits = c(12, 24, 68, 71))
 
-## Polar stereographic Pan-Arctic maps
+## Polar stereographic pan-Arctic maps
 basemap("arctic50")
+
+## To find UTM coordinates to limit a pan-Arctic map:
+basemap("arctic50") + theme_bw()
+basemap("arctic50", limits = c(250000, -2500000, 2500000, -250000))
 
 }
 \seealso{

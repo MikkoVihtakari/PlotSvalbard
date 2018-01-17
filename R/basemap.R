@@ -1,8 +1,8 @@
 ##' @title Create a ggplot2 basemap for plotting variables
 ##' @description Creates a ggplot2 basemap for further plotting of variables.
 ##' @param type Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.
-##' @param limits Map limits. A numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees.
-##' @param land.col Character code specifying thecColor of land.
+##' @param limits Map limits. A numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", \code{\link{map_projection}} and \code{\link{transform_coord}} how to find these coordinates.
+##' @param land.col Character code specifying the color of land.
 ##' @param gla.col Character code specifying the color of glaciers.
 ##' @param grid.col Character code specifying the color of grid lines. Use \code{NA} to remove the grid lines.
 ##' @param round.lat Numeric value specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}
@@ -18,7 +18,7 @@
 ##' @param size.glacier Numeric value specifying the width of the border line for glacier shapes.
 ##' @param size.grid Numeric value specifying the width of the grid lines.
 ##' @param label.print Logical indicating whether labels should be printed for polar stereographic maps. 
-##' @param label.font Numeric value specifying the font size for labels in polar stereographic maps.
+##' @param label.font Numeric value specifying the font size for labels in polar stereographic maps. Note that this value defines the actual font size in points, not the \code{ggplot2} font size. 
 ##' @param label.offset Offset between the round polar stereographic maps and longitude labels. Optimized for a pdf output. Use 1.1 for larger size figures. 
 ##' @return Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object.
 ##' @details The function uses \link[ggplot2]{ggplot2} and up-to-date (2017) detailed shapefiles to plot maps of Svalbard and other polar regions. The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
@@ -65,8 +65,12 @@
 ##' ## but the projection is not optimal.
 ##' basemap("barentssea", limits = c(12, 24, 68, 71))
 ##'
-##' ## Polar stereographic Pan-Arctic maps
+##' ## Polar stereographic pan-Arctic maps
 ##' basemap("arctic50")
+##' 
+##' ## To find UTM coordinates to limit a pan-Arctic map:
+##' basemap("arctic50") + theme_bw()
+##' basemap("arctic50", limits = c(250000, -2500000, 2500000, -250000))
 ##'
 ##' @seealso \code{\link[ggplot2]{ggplot2}} \code{\link{theme_map}}
 ##'
@@ -94,8 +98,12 @@ basemap <- function(type = "kongsfjorden", limits = NULL, round.lat = FALSE, n.l
 
   if(type %in% c("arctic50", "arctic60")) {
   X <- eval(parse(text=paste(map_cmd("base_polar"))))
-
-  if(label.print) {
+  
+  if(X$Grid$limits) {
+    
+    eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("land_polar"), map_cmd("defs_polar_limits"), sep = "+")))
+    
+  } else if(label.print) {
     
     eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("land_polar"), map_cmd("labels_polar"), map_cmd("defs_polar"), sep = "+")))
   
@@ -127,34 +135,12 @@ map_cmd <- function(command) {
     land_polar = 'geom_polygon(data = X$Land, aes(x = long, y = lat, group = group), fill = land.col, color = border.col.land, size = size.land) + geom_path(data = X$Grid$lat[X$Grid$lat$ID == levels(X$Grid$lat$ID)[which.min(as.numeric(gsub("[[:alpha:]]", "", levels(X$Grid$lat$ID))))],], aes(x = lon.utm, y=lat.utm, group = ID), color = border.col.land, size = size.land)',
     grid_polar = 'ggplot(data=X$Land, aes(x=long, y=lat)) + geom_path(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid) + geom_segment(data = X$Grid$lon, aes(x = lon.start, xend = lon.end, y = lat.start, yend = lat.end, group = label), color = grid.col, size = size.grid)',
     labels_polar = 'geom_text(data = X$Grid$lon, aes(x = label.offset*lon.end, y = label.offset*lat.end, angle = angle, label = paste(label, "^o", sep = "")), size = label.font/2.845276, parse = TRUE) + geom_text(data = X$Grid$lat.breaks, aes(x = lon.utm, y = lat.utm, label = paste(label, "^o", sep = "")), hjust = 0, vjust = 0, size = label.font/2.845276, parse = TRUE)',
+    defs_polar_limits = 'coord_fixed(xlim = c(X$Grid$boundaries$lon.utm[1], X$Grid$boundaries$lon.utm[2]), ylim = c(X$Grid$boundaries$lat.utm[1], X$Grid$boundaries$lat.utm[2]), expand = TRUE) + theme_map()',
     defs_polar = 'coord_fixed() + theme_void()',
     stop(paste("map command", command, "not found."))
 )
 }
 
-map_type <- function(type) {
-  switch (type,
-  mosj = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = "mosj.cr", map.type = "kongsfjorden", round.lon = 1, round.lat = 0.2),
-  kongsfjorden = list(land = "kong.ld", glacier = "kong.gl", boundary = "kong.cr", map.type = "kongsfjorden", round.lon = 0.5, round.lat = 0.1),
-  kongsfjordbotn = list(land = "kong.ld", glacier = "kong.gl", boundary = c(12.2,12.65,78.855,79.00), map.type = "kongsfjorden", round.lon = 0.1, round.lat = 0.05),
-  kronebreen = list(land = "kong.ld", glacier = "kong.gl", boundary = c(12.32,12.62,78.855,78.91), map.type = "kongsfjorden", round.lon = 0.1, round.lat = 0.02),
-  svalbard = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = c(10,28,76,81), map.type = "svalbard", round.lon = 2, round.lat = 1),
-  rijpfjorden = list(land = "svalbard.ld", glacier = NULL, boundary = c(19.5,23.5,80,81.7), map.type = "svalbard", round.lon = 0.5, round.lat = 0.4),
-  barentssea = list(land = "barents.ld", glacier = NULL, boundary = c(0,50,70,83), map.type = "barents", round.lon = 4, round.lat = 2),
-  arctic50 = list(land = "arctic50", glacier = NULL, boundary = c(NA,NA,50,90), map.type = "panarctic", lon.interval = 45, lat.interval = 10),
-  arctic60 = list(land = "arctic60", glacier = NULL, boundary = c(NA,NA,60,90), map.type = "panarctic", lon.interval = 45, lat.interval = 10),
-  stop(paste("type argument", type, "is not implemented."))
-)
-}
-
-map_projection <- function(map.type) {
-  switch(map.type,
-    kongsfjorden = "+init=epsg:32633",
-    svalbard = "+init=epsg:32633",
-    barents = "+init=epsg:32633",
-    panarctic = "+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0",
-    stop("map.type not found"))
-}
 
 ## Test parameters
 # land = "barents.ld"
@@ -179,7 +165,7 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
   MapType <- map_type(type)
 
   if(MapType$map.type == "panarctic") {
-      if(!is.null(limits)) NULL
+      if(!is.null(limits)) lims <- limits
   } else if(!is.null(limits)) {
     if(length(limits) != 4 | !is.numeric(limits)) stop("limits have to be a numeric vector of length 4. See Arguments")
       boundary <- c(extendrange(limits[1:2], f = expar), extendrange(limits[3:4], f = expar))
@@ -210,9 +196,12 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
   }
 
   if(MapType$map.type == "panarctic") {
-
-  Grid <- deg_grid_polar(dat = Land, lat.interval = lat.interval., lon.interval = lon.interval.)
-
+    
+    if(!is.null(limits)) {
+      Grid <- deg_grid_polar(dat = lims, lat.interval = lat.interval., lon.interval = lon.interval.)
+    } else {
+      Grid <- deg_grid_polar(dat = Land, lat.interval = lat.interval., lon.interval = lon.interval.)
+    }
   } else if(!is.null(limits)) {
     Grid <- deg_grid(limits, round.lat = round.lat., n.lat.grid = n.lat.grid., round.lon = round.lon., n.lon.grid = n.lon.grid.)
   } else {
