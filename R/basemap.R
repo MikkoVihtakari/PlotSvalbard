@@ -2,21 +2,21 @@
 ##' @description Creates a ggplot2 basemap for further plotting of variables.
 ##' @param type Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.
 ##' @param limits Map limits. A numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees.
-##' @param land.col Color of land
-##' @param gla.col Color of glaciers
-##' @param grid.col Color of grid lines. Use \code{NA} to remove the grid lines.
-##' @param round.lat specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}
-##' @param round.lon specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}
-##' @param n.lat.grid number of latitude grid lines. Alternatively use \code{round.lat}
-##' @param n.lon.grid number of longitude grid lines. Alternatively use \code{round.lon}
-##' @param lat.interval the interval of latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})
-##' @param lon.interval the interval of longitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})
-##' @param keep.glaciers a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.
-##' @param border.col.land color of the border line for land shapes.
-##' @param border.col.glacier color of the border line for glacier shapes.
-##' @param size.land width of the border line for land shapes. See details for explanation about line widths.
-##' @param size.glacier width of the border line for glacier shapes.
-##' @param size.grid width of the grid lines.
+##' @param land.col Character code specifying thecColor of land.
+##' @param gla.col Character code specifying the color of glaciers.
+##' @param grid.col Character code specifying the color of grid lines. Use \code{NA} to remove the grid lines.
+##' @param round.lat Numeric value specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}
+##' @param round.lon Numeric value specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}
+##' @param n.lat.grid Numeric value specifying the number of latitude grid lines. Alternatively use \code{round.lat}
+##' @param n.lon.grid Numeric value specifying the number of longitude grid lines. Alternatively use \code{round.lon}
+##' @param lat.interval Numeric value specifying the interval of latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})
+##' @param lon.interval Numeric value specifying the interval of longitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})
+##' @param keep.glaciers Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.
+##' @param border.col.land Character code specifying the color of the border line for land shapes.
+##' @param border.col.glacier Character code specifying the color of the border line for glacier shapes.
+##' @param size.land Numeric value specifying the width of the border line for land shapes. See details for explanation about line widths.
+##' @param size.glacier Numeric value specifying the width of the border line for glacier shapes.
+##' @param size.grid Numeric value specifying the width of the grid lines.
 ##' @return Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object.
 ##' @details The function uses \link[ggplot2]{ggplot2} and up-to-date (2017) detailed shapefiles to plot maps of Svalbard and other polar regions. The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
 ##' \itemize{
@@ -30,11 +30,11 @@
 ##' \item "arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.
 ##' }
 ##'
-##' Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. More maps can be added based on need.
+##' Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection.
 ##'
 ##' \strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13.
 ##'
-##' @source Svalbard shape files originate from the Norwegian Polar Institute (\url{http://geodata.npolar.no/}). Barents Sea map is downloaded from  \url{http://www.naturalearthdata.com} and uses the \code{ne_10m_land} (v 4.0.0) dataset.
+##' @source Svalbard shape files originate from the Norwegian Polar Institute (\url{http://geodata.npolar.no/}). Barents Sea and polar stereographic maps are from  \url{http://www.naturalearthdata.com}. They use the \code{ne_10m_land} and \code{ne_50m_land} (v 4.0.0) datasets, respectively.
 ##' @examples basemap() ## Plots Kongsfjorden
 ##'
 ##' ## Maps work as normal ggplot2 objects:
@@ -62,6 +62,9 @@
 ##' ## but the projection is not optimal.
 ##' basemap("barentssea", limits = c(12, 24, 68, 71))
 ##'
+##' ## Polar stereographic Pan-Arctic maps
+##' basemap("arctic50")
+##'
 ##' @seealso \code{\link[ggplot2]{ggplot2}} \code{\link{theme_map}}
 ##'
 ##' \code{coastlineWorldMedium} from the \code{oce} package for plotting maps in maps in base graphics using the \code{ne_10m_land} dataset.
@@ -84,7 +87,7 @@
 # land.size = 0.1
 #type = "arctic50"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"
 
-basemap <- function(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95", grid.col = "grey70", limits = NULL, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, lon.interval = 45, round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE, size.land = 0.1, size.glacier = 0.1, size.grid = 0.1, border.col.land = "black", border.col.glacier = "black") {
+basemap <- function(type = "kongsfjorden", limits = NULL, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, keep.glaciers = TRUE, land.col = "#eeeac4", size.land = 0.1, border.col.land = "black", gla.col = "grey95", size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1) {
 
   if(type %in% c("arctic50", "arctic60")) {
   X <- eval(parse(text=paste(map_cmd("base_polar"))))

@@ -7,47 +7,47 @@
 Svalbard shape files originate from the Norwegian Polar Institute (\url{http://geodata.npolar.no/}). Barents Sea map is downloaded from  \url{http://www.naturalearthdata.com} and uses the \code{ne_10m_land} (v 4.0.0) dataset.
 }
 \usage{
-basemap(type = "kongsfjorden", land.col = "#eeeac4", gla.col = "grey95",
-  grid.col = "grey70", limits = NULL, round.lat = FALSE, n.lat.grid = 3,
-  lat.interval = 10, lon.interval = 45, round.lon = FALSE,
-  n.lon.grid = 3, keep.glaciers = TRUE, size.land = 0.1,
-  size.glacier = 0.1, size.grid = 0.1, border.col.land = "black",
-  border.col.glacier = "black")
+basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
+  n.lat.grid = 3, lat.interval = 10, round.lon = FALSE, n.lon.grid = 3,
+  lon.interval = 45, keep.glaciers = TRUE, land.col = "#eeeac4",
+  size.land = 0.1, border.col.land = "black", gla.col = "grey95",
+  size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70",
+  size.grid = 0.1)
 }
 \arguments{
 \item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.}
 
-\item{land.col}{Color of land}
-
-\item{gla.col}{Color of glaciers}
-
-\item{grid.col}{Color of grid lines. Use \code{NA} to remove the grid lines.}
-
 \item{limits}{Map limits. A numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees.}
 
-\item{round.lat}{specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
+\item{round.lat}{Numeric value specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
 
-\item{n.lat.grid}{number of latitude grid lines. Alternatively use \code{round.lat}}
+\item{n.lat.grid}{Numeric value specifying the number of latitude grid lines. Alternatively use \code{round.lat}}
 
-\item{lat.interval}{the interval of latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})}
+\item{lat.interval}{Numeric value specifying the interval of latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})}
 
-\item{lon.interval}{the interval of longitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})}
+\item{round.lon}{Numeric value specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}}
 
-\item{round.lon}{specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}}
+\item{n.lon.grid}{Numeric value specifying the number of longitude grid lines. Alternatively use \code{round.lon}}
 
-\item{n.lon.grid}{number of longitude grid lines. Alternatively use \code{round.lon}}
+\item{lon.interval}{Numeric value specifying the interval of longitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})}
 
-\item{keep.glaciers}{a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.}
+\item{keep.glaciers}{Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.}
 
-\item{size.land}{width of the border line for land shapes. See details for explanation about line widths.}
+\item{land.col}{Character code specifying thecColor of land.}
 
-\item{size.glacier}{width of the border line for glacier shapes.}
+\item{size.land}{Numeric value specifying the width of the border line for land shapes. See details for explanation about line widths.}
 
-\item{size.grid}{width of the grid lines.}
+\item{border.col.land}{Character code specifying the color of the border line for land shapes.}
 
-\item{border.col.land}{color of the border line for land shapes.}
+\item{gla.col}{Character code specifying the color of glaciers.}
 
-\item{border.col.glacier}{color of the border line for glacier shapes.}
+\item{size.glacier}{Numeric value specifying the width of the border line for glacier shapes.}
+
+\item{border.col.glacier}{Character code specifying the color of the border line for glacier shapes.}
+
+\item{grid.col}{Character code specifying the color of grid lines. Use \code{NA} to remove the grid lines.}
+
+\item{size.grid}{Numeric value specifying the width of the grid lines.}
 }
 \value{
 Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object.
@@ -68,7 +68,7 @@ The function uses \link[ggplot2]{ggplot2} and up-to-date (2017) detailed shapefi
 \item "arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.
 }
 
-Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. More maps can be added based on need.
+Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection.
 
 \strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13.
 }
@@ -99,6 +99,9 @@ basemap("barentssea") # note wrong placing of axis labels
 ## Barents Sea map also prints mainland Norway,
 ## but the projection is not optimal.
 basemap("barentssea", limits = c(12, 24, 68, 71))
+
+## Polar stereographic Pan-Arctic maps
+basemap("arctic50")
 
 }
 \seealso{
