@@ -20,15 +20,15 @@ if(is.numeric(dat)) {
   dat <- Polygon(matrix(c(dat[1], dat[3], dat[1], dat[4], dat[2], dat[4], dat[2], dat[3], dat[1], dat[3]), ncol = 2, byrow = TRUE))
   if(proj4.utm) proj4.utm <- "+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"
   dat <- SpatialPolygons(list(Polygons(list(dat), ID = "a")), proj4string=CRS(proj4.utm))
-  
+
   dat.deg <- spTransform(dat, CRS(proj4.deg))
-  
+
   lims <- TRUE
 } else {
 
   if(proj4.utm) proj4.utm <- proj4string(dat)
   dat.deg <- spTransform(dat, CRS("+proj=longlat +datum=WGS84"))
-  
+
   lims <- FALSE
   }
 
@@ -37,7 +37,12 @@ x <- sp::bbox(dat.deg)
 
 ### Latitude grid lines
 
-lat.breaks <- seq(round(x[2],0), round(x[4],0), by = lat.interval) #lims[3], lims[4]
+if(lims) {
+  lat.breaks <- seq(50, 90, by = lat.interval) #lims[3], lims[4]
+} else {
+  lat.breaks <- seq(round(x[2],0), round(x[4],0), by = lat.interval) #lims[3], lims[4]
+}
+
 
 lats <- latgrid(latitude = lat.breaks, projection = proj4.utm, n.points. = n.points)
 y <- transform_coord(lats, lon = "lon.utm", lat = "lat.utm", proj.og = proj4.utm, proj.out = proj4.deg, new.names = c("lon", "lat"), verbose = FALSE)

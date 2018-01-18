@@ -5,10 +5,10 @@
 ## Libraries, remember to add these as dependencies if needed
 
 library(PlotSvalbard)
-library(sp)
-library(rgdal)
+#library(sp)
+#library(rgdal)
 #library(maptools)
-library(rgeos) #gIntersect
+#library(rgeos) #gIntersect
 
 ## Define paths
 
@@ -17,6 +17,7 @@ if(Sys.info()["sysname"] == "Windows") {
   presentation <- "C:/Users/mikko/Dropbox/Workstuff/Lectures/20180221 PlotSvalbard presentation NPI/Figures/"
   } else {
   devel <- "/Users/mvi023/Dropbox/Workstuff/R/R packages/PlotSvalbard_development/"
+  presentation <- "/Users/mvi023/Dropbox/Workstuff/Lectures/20180221 PlotSvalbard presentation NPI/Figures/"
 }
 
 #### Springer journal widths in inches ####

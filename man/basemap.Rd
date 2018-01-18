@@ -12,7 +12,7 @@ basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
   lon.interval = 45, keep.glaciers = TRUE, land.col = "#eeeac4",
   size.land = 0.1, border.col.land = "black", gla.col = "grey95",
   size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70",
-  size.grid = 0.1, label.print = TRUE, label.offset = 1.04,
+  size.grid = 0.1, label.print = TRUE, label.offset = 1.05,
   label.font = 8)
 }
 \arguments{
@@ -111,8 +111,8 @@ basemap("barentssea", limits = c(12, 24, 68, 71))
 basemap("arctic50")
 
 ## To find UTM coordinates to limit a pan-Arctic map:
-basemap("arctic50") + theme_bw()
-basemap("arctic50", limits = c(250000, -2500000, 2500000, -250000))
+basemap("arctic60") + theme_bw()
+basemap("arctic60", limits = c(250000, -2500000, 2000000, -250000))
 
 }
 \seealso{
