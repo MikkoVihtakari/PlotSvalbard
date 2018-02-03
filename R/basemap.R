@@ -2,6 +2,7 @@
 ##' @description Creates a ggplot2 basemap for further plotting of variables.
 ##' @param type Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.
 ##' @param limits Map limits. A numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", \code{\link{map_projection}} and \code{\link{transform_coord}} how to find these coordinates.
+##' @param bathymetry Logical indicating whether bathymetry should be added to the map. This feature is experimental and currently works only for "arctic50" map, and poorly as such. Will be improved. Defaults to \code{FALSE}
 ##' @param land.col Character code specifying the color of land.
 ##' @param gla.col Character code specifying the color of glaciers.
 ##' @param grid.col Character code specifying the color of grid lines. Use \code{NA} to remove the grid lines.
@@ -93,8 +94,9 @@
 # keep.glaciers = TRUE
 # land.size = 0.1
 #type = "arctic60"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04
+# type = "arctic50"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; bathymetry = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04
 
-basemap <- function(type = "kongsfjorden", limits = NULL, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, keep.glaciers = TRUE, land.col = "#eeeac4", size.land = 0.1, border.col.land = "black", gla.col = "grey95", size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1, label.print = TRUE, label.offset = 1.05, label.font = 8) {
+basemap <- function(type = "kongsfjorden", limits = NULL, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, keep.glaciers = TRUE, bathymetry = FALSE, land.col = "#eeeac4", size.land = 0.1, border.col.land = "black", gla.col = "grey95", size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1, label.print = TRUE, label.offset = 1.05, label.font = 8) {
 
 X <- switch(map_type(type)$map.type,
   panarctic = eval(parse(text=paste(map_cmd("base_polar")))),
@@ -103,6 +105,17 @@ X <- switch(map_type(type)$map.type,
   kongsfjorden = eval(parse(text=paste(map_cmd("base_dat")))),
   stop(paste("map_type for", type, "not found."))
 )
+
+if(bathymetry) {
+  if(X$MapType == "arctic50") {
+  #bathy <- arctic_bathy[arctic_bathy$long > min(X$Grid$boundaries$lon.utm) & arctic_bathy$long < max(X$Grid$boundaries$lon.utm) & arctic_bathy$lat > min(X$Grid$boundaries$lat.utm) & arctic_bathy$lat < max(X$Grid$boundaries$lat.utm),]
+    NULL
+  } else if(X$MapClass == "barents") {
+    stop(paste("Bathymetry has not been implemented for", X$MapClass, "maps"))
+  } else {
+    stop(paste("Bathymetry has not been implemented for", X$MapClass, "maps"))
+  }
+}
 
 if(X$MapClass %in% c("panarctic")) {
 
@@ -113,9 +126,17 @@ if(X$MapClass %in% c("panarctic")) {
       } else { ## Without axis labels
       eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("land_polar"), map_cmd("defs_polar_limits"), map_cmd("remove_labels"), sep = "+")))
     }} else if(label.print) { ## Round maps, with labels
+      if(bathymetry) { ## With bathymetry
+        eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("bathy_polar"), map_cmd("land_polar"), map_cmd("labels_polar"), map_cmd("defs_polar"), sep = "+")))
+      } else { ## Without bathymetry
       eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("land_polar"), map_cmd("labels_polar"), map_cmd("defs_polar"), sep = "+")))
-    } else { ## Wihtout labels
-    eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("land_polar"), map_cmd("defs_polar"), sep = "+")))
+      }
+
+    } else { ## Without labels
+      if(bathymetry) { ## With bathymetry
+        eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("bathy_polar"), map_cmd("land_polar"), map_cmd("defs_polar"), sep = "+")))
+      } else { ## Without bathymetry
+        eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("land_polar"), map_cmd("defs_polar"), sep = "+")))       }
     }
 
   } else {
@@ -142,6 +163,7 @@ map_cmd <- function(command) {
     defs_utm = 'scale_y_continuous(name = "Latitude (decimal degrees)", breaks = X$Grid$lat.breaks$utm, labels = X$Grid$lat.breaks$deg) + scale_x_continuous(name = "Longitude (decimal degrees)", breaks = X$Grid$lon.breaks$utm, labels = X$Grid$lon.breaks$deg) + coord_fixed(xlim = c(X$Grid$boundaries$lon.utm[1], X$Grid$boundaries$lon.utm[2]), ylim = c(X$Grid$boundaries$lat.utm[1], X$Grid$boundaries$lat.utm[2]), expand = FALSE) + theme_map()',
     base_polar = 'basemap_data(type = type, limits = limits, lat.interval. = lat.interval, lon.interval. = lon.interval, keep.glaciers. = FALSE)',
     land_polar = 'geom_polygon(data = X$Land, aes(x = long, y = lat, group = group), fill = land.col, color = border.col.land, size = size.land)',
+    bathy_polar = 'geom_polygon(data = arctic_bathy, aes(x = long, y = lat, group = group, fill = depth)) + scale_fill_gradient2(name = "Depth (m)", low = "white", mid = "#2872B2", high = "#0B336A", midpoint = 4000)',
     grid_polar = 'ggplot(data=X$Land, aes(x=long, y=lat)) + geom_path(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid) + geom_segment(data = X$Grid$lon, aes(x = lon.start, xend = lon.end, y = lat.start, yend = lat.end, group = label), color = grid.col, size = size.grid)',
     labels_polar = 'geom_text(data = X$Grid$lon, aes(x = label.offset*lon.end, y = label.offset*lat.end, angle = angle, label = paste(label, "^o", sep = "")), size = label.font/2.845276, parse = TRUE) + geom_text(data = X$Grid$lat.breaks, aes(x = lon.utm, y = lat.utm, label = paste(label, "^o", sep = "")), hjust = 0, vjust = 0, size = label.font/2.845276, parse = TRUE)',
     labels_polar_limits = 'scale_y_continuous(name = "UTM latitude (km)", labels = formatterUTMkm) + scale_x_continuous(name = "UTM longitude (km)", labels = formatterUTMkm)',

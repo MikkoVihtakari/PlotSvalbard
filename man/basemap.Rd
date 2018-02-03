@@ -9,11 +9,11 @@ Svalbard shape files originate from the Norwegian Polar Institute (\url{http://g
 \usage{
 basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
   n.lat.grid = 3, lat.interval = 10, round.lon = FALSE, n.lon.grid = 3,
-  lon.interval = 45, keep.glaciers = TRUE, land.col = "#eeeac4",
-  size.land = 0.1, border.col.land = "black", gla.col = "grey95",
-  size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70",
-  size.grid = 0.1, label.print = TRUE, label.offset = 1.05,
-  label.font = 8)
+  lon.interval = 45, keep.glaciers = TRUE, bathymetry = FALSE,
+  land.col = "#eeeac4", size.land = 0.1, border.col.land = "black",
+  gla.col = "grey95", size.glacier = 0.1, border.col.glacier = "black",
+  grid.col = "grey70", size.grid = 0.1, label.print = TRUE,
+  label.offset = 1.05, label.font = 8)
 }
 \arguments{
 \item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.}
@@ -33,6 +33,8 @@ basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
 \item{lon.interval}{Numeric value specifying the interval of longitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})}
 
 \item{keep.glaciers}{Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.}
+
+\item{bathymetry}{Logical indicating whether bathymetry should be added to the map. This feature is experimental and currently works only for "arctic50" map, and poorly as such. Will be improved. Defaults to \code{FALSE}}
 
 \item{land.col}{Character code specifying the color of land.}
 

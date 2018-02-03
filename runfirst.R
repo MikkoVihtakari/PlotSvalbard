@@ -6,7 +6,7 @@
 
 library(PlotSvalbard)
 #library(sp)
-#library(rgdal)
+library(rgdal)
 #library(maptools)
 #library(rgeos) #gIntersect
 
