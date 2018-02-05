@@ -17,18 +17,31 @@ if(X$MapClass == "panarctic") {
     ch <- chull(bd$lat.utm, bd$lon.utm)
     coords <- as.matrix(bd[c(ch, ch[1]), 1:2])
     clipBound <- sp::SpatialPolygons(list(sp::Polygons(list(sp::Polygon(coords)), ID = 1)))
-  } else {
+
+    } else {
     limits <- c(X$Grid$boundaries$lon.utm, X$Grid$boundaries$lat.utm)
     bd <- sp::Polygon(matrix(c(limits[1], limits[3], limits[1], limits[4], limits[2], limits[4], limits[2], limits[3], limits[1], limits[3]), ncol = 2, byrow = TRUE))
     clipBound <- sp::SpatialPolygons(list(sp::Polygons(list(bd), ID = "clip_boundary")))
   }
 
-#coords <- data.frame(lon.utm = X$Grid$boundaries$lon.utm, lat.utm = X$Grid$boundaries$lat.utm)
+  clip_bathy <- arctic_bathy
+
+} else if(X$MapClass == "barents") {
+
+    limits <- c(X$Grid$boundaries$lon.utm, X$Grid$boundaries$lat.utm)
+    bd <- sp::Polygon(matrix(c(limits[1], limits[3], limits[1], limits[4], limits[2], limits[4], limits[2], limits[3], limits[1], limits[3]), ncol = 2, byrow = TRUE))
+    clipBound <- sp::SpatialPolygons(list(sp::Polygons(list(bd), ID = "clip_boundary")))
+
+    clip_bathy <- sp::spTransform(arctic_bathy ,CRS(map_projection("barents")))
+    clip_bathy <- rgeos::gBuffer(clip_bathy, byid=TRUE, width=0)
+} else {
+  stop(paste("Bathymetry for", X$MapClass, "has not been implemented yet."))
+}
 
   sp::proj4string(clipBound) <- map_projection(X$MapClass)
 
   ## Clip bathymetry
-  bathy <- clip_shapefile(arctic_bathy, clipBound)
+  bathy <- clip_shapefile(clip_bathy, clipBound)
   fbathy <- ggplot2::fortify(bathy)
 
   fbathy$id <- select(strsplit(fbathy$id, " "), 1)
@@ -41,9 +54,4 @@ if(X$MapClass == "panarctic") {
   levels(out$depth) <- c(paste(levels(out$depth)[-nlevels(out$depth)], levels(out$depth)[-1], sep = "-"), paste0(">", levels(out$depth)[nlevels(out$depth)]))
 
   out
-
-} else {
-  stop(paste("Bathymetry for", X$MapClass, "has not been implemented yet."))
-}
-
 }

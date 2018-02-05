@@ -11,10 +11,10 @@ print.degGrid <- function(x, ...) {
 
   Range <- data.frame(lon.deg = range(x$lon$lon), lat.deg = range(x$lat$lat), lon.utm = range(x$lon$lon.utm), lat.utm = range(x$lat$lat.utm))
 
-  cat("Decimal degree grid for maps", sep = "\n")
-  cat(paste("of class", class(x)), sep = "\n")
+  cat("Decimal degree grid for maps", sep = "")
+  cat(paste(" of class", class(x)), sep = "\n")
   cat(paste("UTM projection:", x$utm.proj), sep = "\n")
-  cat(paste("decial degree projection:", x$deg.proj), sep = "\n")
+  cat(paste("Decimal degree projection:", x$deg.proj), sep = "\n")
   cat(NULL, sep = "\n")
   cat(paste(length(x$lon.breaks$deg), "longitude breaks with", mean(diff(x$lon.breaks$deg)), "decimal degree spacing"), sep = "\n")
   cat(NULL, sep = "\n")
