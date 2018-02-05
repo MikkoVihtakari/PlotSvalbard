@@ -8,6 +8,7 @@
 
 map_projection <- function(map.type) {
   switch(map.type,
+    decimal_degree = "+proj=longlat +datum=WGS84",
     kongsfjorden = "+init=epsg:32633",
     svalbard = "+init=epsg:32633",
     barents = "+init=epsg:32633",
