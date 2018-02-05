@@ -25,6 +25,11 @@ if(X$MapClass == "panarctic") {
 
   out <- merge(fbathy, info[c("id", "depth")], by = "id", all.x = TRUE, sort = FALSE)
 
+  out$depth <- ordered(out$depth)
+  levels(out$depth) <- c(paste(levels(out$depth)[-nlevels(out$depth)], levels(out$depth)[-1], sep = "-"), paste0(">", levels(out$depth)[nlevels(out$depth)]))
+
+  out
+
 } else {
   stop(paste("Bathymetry for", X$MapClass, "has not been implemented yet."))
 }

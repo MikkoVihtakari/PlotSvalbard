@@ -168,7 +168,7 @@ map_cmd <- function(command) {
     base_polar = 'basemap_data(type = type, limits = limits, lat.interval. = lat.interval, lon.interval. = lon.interval, keep.glaciers. = FALSE)',
     land_polar = 'geom_polygon(data = X$Land, aes(x = long, y = lat, group = group), fill = land.col, color = border.col.land, size = size.land)',
     bathy_base_polar = 'ggplot(data=X$Land, aes(x=long, y=lat))',
-    bathy_polar = 'geom_polygon(data = bathy, aes(x = long, y = lat, group = group, fill = depth)) + scale_fill_gradient2(name = "Depth (m)", low = "white", mid = "#2872B2", high = "#0B336A", midpoint = 4000)',
+    bathy_polar = 'geom_polygon(data = bathy, aes(x = long, y = lat, group = group, fill = depth)) + scale_fill_brewer(name = "Depth (m)")',
     bathy_grid_polar = 'geom_path(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid) + geom_segment(data = X$Grid$lon, aes(x = lon.start, xend = lon.end, y = lat.start, yend = lat.end, group = label), color = grid.col, size = size.grid)',
     grid_polar = 'ggplot(data=X$Land, aes(x=long, y=lat)) + geom_path(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid) + geom_segment(data = X$Grid$lon, aes(x = lon.start, xend = lon.end, y = lat.start, yend = lat.end, group = label), color = grid.col, size = size.grid)',
     labels_polar = 'geom_text(data = X$Grid$lon, aes(x = label.offset*lon.end, y = label.offset*lat.end, angle = angle, label = paste(label, "^o", sep = "")), size = label.font/2.845276, parse = TRUE) + geom_text(data = X$Grid$lat.breaks, aes(x = lon.utm, y = lat.utm, label = paste(label, "^o", sep = "")), hjust = 0, vjust = 0, size = label.font/2.845276, parse = TRUE)',
