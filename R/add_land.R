@@ -11,6 +11,8 @@
 #' @param label.print Logical indicating whether labels should be printed for polar stereographic maps.
 #' @param label.font Numeric value specifying the font size for labels in polar stereographic maps. Note that this value defines the actual font size in points, not the \code{ggplot2} font size.
 #' @param label.offset Offset between the round polar stereographic maps and longitude labels. Optimized for a pdf output. Use 1.1 for larger size figures.
+#' @param grid.col Character code specifying the color of grid lines. Use \code{NA} to remove the grid lines.
+#' @param size.grid Numeric value specifying the width of the grid lines.
 #' @author Mikko Vihtakari
 #' @import ggplot2
 #' @export

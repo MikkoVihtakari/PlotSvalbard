@@ -1,6 +1,8 @@
 #' @title Clip a bathymetry shapefile to fit a basemap
 #' @description An internal utility function to clip bathymetry to fit the boundaries of a basemap
 #' @param X a basemapData object
+#' @author Mikko Vihtakari
+#' @import sp
 #' @export
 
 clip_bathymetry <- function(X) {
@@ -8,12 +10,22 @@ clip_bathymetry <- function(X) {
 if(class(X) != "basemapData") stop("clip_bathymetry requires basemapData object")
 
 if(X$MapClass == "panarctic") {
+
   ## Define clip boundary shapefile
-  bd  <- X$Grid$lat[X$Grid$lat$ID == paste0("lat", X$Boundary[3]),]
-  ch <- chull(bd$lat.utm, bd$lon.utm)
-  coords <- as.matrix(bd[c(ch, ch[1]), 1:2])
-  clipBound <- SpatialPolygons(list(Polygons(list(Polygon(coords)), ID = 1)))
-  proj4string(clipBound) <- map_projection(X$MapClass)
+  if(!X$Grid$limits) {
+    bd  <- X$Grid$lat[X$Grid$lat$ID == paste0("lat", X$Boundary[3]),]
+    ch <- chull(bd$lat.utm, bd$lon.utm)
+    coords <- as.matrix(bd[c(ch, ch[1]), 1:2])
+    clipBound <- sp::SpatialPolygons(list(sp::Polygons(list(sp::Polygon(coords)), ID = 1)))
+  } else {
+    limits <- c(X$Grid$boundaries$lon.utm, X$Grid$boundaries$lat.utm)
+    bd <- sp::Polygon(matrix(c(limits[1], limits[3], limits[1], limits[4], limits[2], limits[4], limits[2], limits[3], limits[1], limits[3]), ncol = 2, byrow = TRUE))
+    clipBound <- sp::SpatialPolygons(list(sp::Polygons(list(bd), ID = "clip_boundary")))
+  }
+
+#coords <- data.frame(lon.utm = X$Grid$boundaries$lon.utm, lat.utm = X$Grid$boundaries$lat.utm)
+
+  sp::proj4string(clipBound) <- map_projection(X$MapClass)
 
   ## Clip bathymetry
   bathy <- clip_shapefile(arctic_bathy, clipBound)

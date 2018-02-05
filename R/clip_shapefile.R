@@ -27,16 +27,16 @@ if(is.null(x)) stop("x, the original shape file must be supplied")
 if(is.null(limits)) stop("Either limits or limiting.polygon must be supplied")
 
 if(class(limits) == "SpatialPolygonsDataFrame" | class(limits) == "SpatialPolygons") {
-  proj4.limits <- proj4string(limits)
+  proj4.limits <- sp::proj4string(limits)
   clip_boundary <- limits
 } else {
   if(!is.numeric(limits)) stop("limits have to be numeric, SpatialPolygonsDataFrame or SpatialPolygons object")
   if(is.numeric(limits) & length(limits) != 4) stop("the length of limits vector has to be 4. See limits argument")
-  clip_boundary <- Polygon(matrix(c(limits[1], limits[3], limits[1], limits[4], limits[2], limits[4], limits[2], limits[3], limits[1], limits[3]), ncol = 2, byrow = TRUE))
-  clip_boundary <- SpatialPolygons(list(Polygons(list(clip_boundary), ID = "clip_boundary")), proj4string=CRS(proj4.limits))
+  clip_boundary <- sp::Polygon(matrix(c(limits[1], limits[3], limits[1], limits[4], limits[2], limits[4], limits[2], limits[3], limits[1], limits[3]), ncol = 2, byrow = TRUE))
+  clip_boundary <- sp::SpatialPolygons(list(sp::Polygons(list(clip_boundary), ID = "clip_boundary")), proj4string=CRS(proj4.limits))
 }
 
-x_proj <- proj4string(x)
+x_proj <- sp::proj4string(x)
 
 if(is.na(x_proj)) stop("proj4string for x is missing. Define the projection attributes and try again.")
 

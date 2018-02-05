@@ -12,3 +12,6 @@ clip_bathymetry(X)
 \description{
 An internal utility function to clip bathymetry to fit the boundaries of a basemap
 }
+\author{
+Mikko Vihtakari
+}

@@ -120,10 +120,25 @@ if(X$MapClass %in% c("panarctic")) {
 
 ## Pan-Arctic maps ####
     if(X$Grid$limits) { ## Square maps
+
       if(label.print) { ## With axis labels
+
+        if(bathymetry) { ## With bathymetry
+          eval(parse(text=paste(map_cmd("bathy_base_polar"), map_cmd("bathy_polar"), map_cmd("bathy_grid_polar"), map_cmd("land_polar"), map_cmd("labels_polar_limits"), map_cmd("defs_polar_limits"), sep = "+")))
+
+        } else { ## Without bathymetry
         eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("land_polar"), map_cmd("labels_polar_limits"), map_cmd("defs_polar_limits"), sep = "+")))
+        }
+
       } else { ## Without axis labels
-      eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("land_polar"), map_cmd("defs_polar_limits"), map_cmd("remove_labels"), sep = "+")))
+
+        if(bathymetry) { ## With bathymetry
+
+          eval(parse(text=paste(map_cmd("bathy_base_polar"), map_cmd("bathy_polar"), map_cmd("bathy_grid_polar"), map_cmd("land_polar"), map_cmd("defs_polar_limits"), map_cmd("remove_labels"), sep = "+")))
+
+        } else { ## Without bathymetry
+        eval(parse(text=paste(map_cmd("grid_polar"), map_cmd("land_polar"), map_cmd("defs_polar_limits"), map_cmd("remove_labels"), sep = "+")))
+        }
 
       }} else if(label.print) { ## Round maps, with labels
 
@@ -153,6 +168,8 @@ if(X$MapClass %in% c("panarctic")) {
   }}
 
 }
+
+#### End basemap function ####
 
 formatterUTMkm <- function(x){
     x/1000

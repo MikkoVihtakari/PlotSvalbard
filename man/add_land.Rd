@@ -27,6 +27,10 @@ add_land(plot = NULL, keep.glaciers = FALSE, land.col = "#eeeac4",
 
 \item{border.col.glacier}{Character code specifying the color of the border line for glacier shapes.}
 
+\item{grid.col}{Character code specifying the color of grid lines. Use \code{NA} to remove the grid lines.}
+
+\item{size.grid}{Numeric value specifying the width of the grid lines.}
+
 \item{label.print}{Logical indicating whether labels should be printed for polar stereographic maps.}
 
 \item{label.offset}{Offset between the round polar stereographic maps and longitude labels. Optimized for a pdf output. Use 1.1 for larger size figures.}
