@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.spatInt.R
 \name{plot.spatInt}
 \alias{plot.spatInt}
-\title{Plot interpolated map of Kongsfjorden}
+\title{Plot an interpolated map}
 \usage{
 \method{plot}{spatInt}(x, basemap = TRUE, type = "kongsfjorden",
   col.scale.limits = NULL, legend.label = NA, limits = NULL,

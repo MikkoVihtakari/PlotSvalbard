@@ -81,6 +81,7 @@
 ##' @importFrom grDevices extendrange
 ##' @export
 
+## Test parameters
 # type = "barentssea"
 # land.col = "#eeeac4"
 # gla.col = "grey95"
@@ -93,6 +94,9 @@
 # n.lon.grid = 3
 # keep.glaciers = TRUE
 # land.size = 0.1
+# type = "svalbard"
+# limits = c(12.2,12.65, 78.855,79)
+# limits = c(3,24,78.5,82)
 # type = "arctic60"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04; bathymetry = TRUE
 # type = "arctic50"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; bathymetry = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04
 
@@ -107,11 +111,7 @@ X <- switch(map_type(type)$map.type,
 )
 
 if(bathymetry) {
-  if(X$MapClass == "panarctic" | X$MapClass == "barents") {
     bathy <- clip_bathymetry(X)
-  } else {
-    stop(paste("Bathymetry has not been implemented for", X$MapClass, "maps"))
-  }
 }
 
 if(X$MapClass %in% c("panarctic")) {
@@ -198,7 +198,7 @@ map_cmd <- function(command) {
     land_utm = 'geom_polygon(data = X$Land, aes(x = long, y = lat, group = group), fill = land.col, color = border.col.land, size = size.land)',
     glacier_utm = 'geom_polygon(data = X$Glacier, aes(x = long, y = lat, group = group), fill = gla.col, color = border.col.glacier, size = size.glacier) + geom_polygon(data = X$Holes, aes(x=long, y=lat, group = group), fill = land.col, color = border.col.glacier, size = size.land)',
     grid_utm = 'geom_line(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid) + geom_line(data = X$Grid$lon, aes(x=lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid)',
-    defs_utm = 'scale_y_continuous(name = "Latitude (decimal degrees)", breaks = X$Grid$lat.breaks$utm, labels = X$Grid$lat.breaks$deg) + scale_x_continuous(name = "Longitude (decimal degrees)", breaks = X$Grid$lon.breaks$utm, labels = X$Grid$lon.breaks$deg) + coord_fixed(xlim = c(X$Grid$boundaries$lon.utm[1], X$Grid$boundaries$lon.utm[2]), ylim = c(X$Grid$boundaries$lat.utm[1], X$Grid$boundaries$lat.utm[2]), expand = FALSE) + theme_map()',
+    defs_utm = 'scale_y_continuous(name = "Latitude (decimal degrees)", breaks = X$Grid$lat.breaks$lat_utm, labels = X$Grid$lat.breaks$label) + scale_x_continuous(name = "Longitude (decimal degrees)", breaks = X$Grid$lon.breaks$lon_utm, labels = X$Grid$lon.breaks$label) + coord_fixed(xlim = c(X$Grid$limits$lon.utm[1], X$Grid$limits$lon.utm[2]), ylim = c(X$Grid$limits$lat.utm[1], X$Grid$limits$lat.utm[2]), expand = FALSE) + theme_map()',
     land_polar = 'geom_polygon(data = X$Land, aes(x = long, y = lat, group = group), fill = land.col, color = border.col.land, size = size.land)',
     grid_polar = 'geom_path(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid) + geom_segment(data = X$Grid$lon, aes(x = lon.start, xend = lon.end, y = lat.start, yend = lat.end, group = label), color = grid.col, size = size.grid)',
     labels_polar = 'geom_text(data = X$Grid$lon, aes(x = label.offset*lon.end, y = label.offset*lat.end, angle = angle, label = paste(label, "^o", sep = "")), size = label.font/2.845276, parse = TRUE) + geom_text(data = X$Grid$lat.breaks, aes(x = lon.utm, y = lat.utm, label = paste(label, "^o", sep = "")), hjust = 0, vjust = 0, size = label.font/2.845276, parse = TRUE)',
@@ -211,80 +211,3 @@ map_cmd <- function(command) {
 }
 
 
-## Test parameters
-# land = "barents.ld"
-# glacier = "svalbard.gl"
-# glacier = NULL
-# map.type <- "barents" # "svalbard" "kongsfjorden" "panarctic"
-# boundary = c(19.5,23.5,80,81.7)
-# limits = c(19.5,23.5,80,81.7)
-# round.lon = 0.5
-# round.lat = 0.1
-# keep.glaciers = TRUE
-# type = "kongsfjorden"
-# limits = NULL
-# map_type("barentssea")
-# expar = 0.3
-# type = "arctic50"
-# type = "arctic60"
-# limits = NULL; expar = 0.1; clip = FALSE; keep.glaciers. = FALSE; lat.interval. = 10; lon.interval. = 45
-
-basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid. = n.lat.grid, round.lon. = round.lon, n.lon.grid. = n.lon.grid, lat.interval. = lat.interval, lon.interval. = lon.interval, expar = 0.1, clip = FALSE, keep.glaciers. = keep.glaciers) {
-
-  MapType <- map_type(type)
-
-  if(MapType$map.type == "panarctic") {
-      if(!is.null(limits)) lims <- limits
-  } else if(!is.null(limits)) {
-    if(length(limits) != 4 | !is.numeric(limits)) stop("limits have to be a numeric vector of length 4. See Arguments")
-      boundary <- c(extendrange(limits[1:2], f = expar), extendrange(limits[3:4], f = expar))
-  } else {
-    if(is.numeric(MapType$boundary)) {
-      if(length(MapType$boundary) != 4) stop("limits have to be a numeric vector of length 4. See Arguments")
-      boundary <- c(extendrange(MapType$boundary[1:2], f = expar), extendrange(MapType$boundary[3:4], f = expar))
-    } else {
-      lims <- get(MapType$boundary)
-      lims <- spTransform(lims, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))@bbox
-      boundary <- c(extendrange(lims[1,], f = expar), extendrange(lims[2,], f = expar))
-    }}
-
-  if(clip) {
-    Land <- clip_shapefile(get(MapType$land), boundary)
-  } else {
-    Land <- get(MapType$land)
-  }
-
-
-  if(any(is.null(MapType$glacier), !keep.glaciers., MapType$map.type == "barents", MapType$map.type == "panarctic")) {
-    Glacier <- NULL
-    Holes <- NULL
-  } else {
-    Glacier <- get(MapType$glacier)
-    tmp <- fortify(Glacier)
-    Holes <- tmp[tmp$hole == TRUE,]
-  }
-
-  if(MapType$map.type == "panarctic") {
-
-    if(!is.null(limits)) {
-      Grid <- deg_grid_polar(dat = lims, lat.interval = lat.interval., lon.interval = lon.interval.)
-    } else {
-      Grid <- deg_grid_polar(dat = Land, lat.interval = lat.interval., lon.interval = lon.interval.)
-    }
-  } else if(!is.null(limits)) {
-    Grid <- deg_grid(limits, round.lat = round.lat., n.lat.grid = n.lat.grid., round.lon = round.lon., n.lon.grid = n.lon.grid.)
-  } else {
-    if(is.character(MapType$boundary)) {
-      lims <- get(MapType$boundary)
-    } else {
-      lims <- MapType$boundary
-    }
-    Grid <- deg_grid(lims, round.lat = MapType$round.lat, round.lon = MapType$round.lon)
-  }
-
-out <- list(Land = Land, Glacier = Glacier, Boundary = MapType$boundary, Grid = Grid, Holes = Holes, MapType = type, MapClass = map_type(type)$map.type)
-
-class(out) <- "basemapData"
-
-out
-}

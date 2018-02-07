@@ -6,6 +6,7 @@
 ##' @export
 ##' @author Mikko Vihtakari
 ##' @seealso \code{\link{deg_grid_polar}} \code{\link{basemap}}
+##' @keywords internal
 
 print.degGridPolar <- function(x, ...) {
 

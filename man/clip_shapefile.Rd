@@ -28,3 +28,4 @@ The function uses the \code{\link[rgeos]{gIntersection}} function to clip smalle
 \author{
 Mikko Vihtakari
 }
+\keyword{internal}

@@ -1,15 +1,14 @@
 ##' @title Decimal degree grid from UTM projected spatial objects
 ##' @description Outputs a list of grid lines that can be used to plot a grid on maps. Requires a spatial object projected using UTM coordinates
-##' @param dat Spatial object projected using UTM coordinates, such as \code{\link{readShapeSpatial}} OR a numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. In case of a numeric vector, the coordinates have to be given as decimal degrees.
+##' @param dat \code{\link[basemap_limits]{basemapLimits}} object
 ##' @param round.lat specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}
 ##' @param round.lon specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}
 ##' @param n.lat.grid number of latitude grid lines. Alternatively use \code{round.lat}
 ##' @param n.lon.grid number of longitude grid lines. Alternatively use \code{round.lon}
-##' @param expar number specifying the fraction by which range of grid lines should be expanded to make them cover the entire map. See argument \code{f} for \code{\link[grDevices]{extendrange}} function. Set \code{expar = 0}, if you want exact grid lines.
 ##' @param n.points number of points used in creating the grid lines. The more points, the smoother the lines.
-##' @param proj4.utm projection in \code{dat}. If TRUE (default), fetches the projection from \code{dat}. If \code{dat} is a numeric vector and \code{proj4.utm = TRUE}, \code{CRS("+init=epsg:32633")} is used as UTM projection (the same projection than in Svalbard shapefiles).
-##' @param proj4.deg desired decimal degree projection. Uses a reasonable default projection. Do not change.
 ##' @return Returns a UTM coodrinate grid.
+##' @details This is an internal function, which is automatically run by the \code{\link{basemap}} function. Common users do not need to worry about these details.
+##' @keywords internal
 ##' @seealso \code{\link{basemap}}
 ##' @author Mikko Vihtakari
 ##' @import maptools sp rgdal
@@ -21,96 +20,181 @@
 # n.lat.grid = 3
 # n.lon.grid = 3
 # n.points = 10
-# round.lat = 0.015
+# round.lat = 0.1
 # round.lon = 0.1
 # proj4.deg = "+proj=longlat +datum=WGS84"
 # proj4.utm = TRUE
 # expar = 0.1
+# dat <- lims
+deg_grid <- function(dat, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3, n.points = 30) {
 
-deg_grid <- function(dat, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3, expar = 0.3, n.points = 10, proj4.utm = TRUE, proj4.deg = "+proj=longlat +datum=WGS84") {
-
-if(is.numeric(dat)) {
-
-  dat <- Polygon(matrix(c(dat[1], dat[3], dat[1], dat[4], dat[2], dat[4], dat[2], dat[3], dat[1], dat[3]), ncol = 2, byrow = TRUE))
-  dat <- SpatialPolygons(list(Polygons(list(dat), ID = "a")), proj4string=CRS(proj4.deg))
-  dat.deg <- dat
-  if(proj4.utm) proj4.utm <- "+init=epsg:32633"
-  dat <- spTransform(dat, CRS(proj4.utm))
-
-} else {
-
-  if(proj4.utm) proj4.utm <- proj4string(dat)
-  dat.deg <- spTransform(dat, CRS("+proj=longlat +datum=WGS84"))
-
-  }
-
-x <- bbox(dat.deg)
-
-### Latitude grid lines
-
-if(is.numeric(round.lat)) {
-  lats <- extendrange(c(unname(x[2,1]), unname(x[2,2])), f = expar)
-  lats <- seq(floor(lats[1] / round.lat) * round.lat, ceiling(lats[2] / round.lat) * round.lat, by = round.lat)
-  #lats <- lats[lats > x[2,1] & lats < x[2,2]]
-  lons <- extendrange(c(unname(x[1,1]), unname(x[1,2])), f = expar)
-  lons <- seq(lons[1], lons[2], length.out = n.points)
-  if(any(duplicated(lats))) warning("Duplicate values in latitude grid. Adjust round.lat")
-} else {
-lats <- extendrange(c(unname(x[2,1]), unname(x[2,2])), f = expar)
-lats <- seq(lats[1], lats[2], length.out = n.lat.grid +2)[2:(n.lat.grid+1)]
-lons <- extendrange(c(unname(x[1,1]), unname(x[1,2])), f = expar)
-lons <- seq(lons[1], lons[2], length.out = n.points)
-}
-
-deg.df <- data.frame(lon = rep(lons, length(lats)), lat = rep(lats, each = n.points), ID = rep(1:length(lats), each = n.points))
-
-y <- transform_coord(deg.df, lon = "lon", lat = "lat", proj.og = proj4.deg, proj.out = proj4.utm, verbose = FALSE)
-
+if(class(dat) != "basemapLimits") stop("deg_grid function requires a basemapLimits object")
+  
+## Definitions ####
+  
+calc_lat <- TRUE
+calc_lon <- TRUE
 out <- list()
-out$lat <- cbind(deg.df, y)
+
+############################################
+### Latitude grid lines and axis labels ####
+  
+if(is.numeric(round.lat)) {
+  lats <- dat$limits_dd[3:4]
+  lats <- seq(floor(lats[1] / round.lat) * round.lat, ceiling(lats[2] / round.lat) * round.lat, by = round.lat)
+  lons <- dat$bound_dd[1:2]
+  lons <- seq(lons[1], lons[2], length.out = n.points)
+  
+  lat_rounding <- ifelse(round.lat >= 1, 0, ifelse(round.lat >= 0.1, 1, ifelse(round.lat >= 0.01, 2, ifelse(round.lat >= 0.001, 3, 4))))
+    
+  if(!any(lats >= dat$limits_dd[3] & lats <= dat$limits_dd[4] )) {
+      calc_lat <- FALSE
+      warning("Too large round.lat value. No latitude grid plotted.")
+    }
+  } else {
+   lats <- dat$bound_dd[3:4]
+   lat_diff <- diff(lats)
+   lat_rounding <- ifelse(lat_diff > 1, 1, ifelse(lat_diff > 0.1, 2, ifelse(lat_diff > 0.01, 3, 4)))
+   
+   lats <- round(seq(lats[1], lats[2], length.out = n.lat.grid +2)[2:(n.lat.grid+1)], lat_rounding)
+ 
+   lons <- dat$bound_dd[1:2]
+   lons <- seq(lons[1], lons[2], length.out = n.points)
+  } 
+
+### Make to grid ##
+  
+  if(calc_lat) {
+    deg.df <- data.frame(lon = rep(lons, length(lats)), lat = rep(lats, each = n.points), ID = rep(1:length(lats), each = n.points))
+
+deg.df <- transform_coord(deg.df, lon = "lon", lat = "lat", proj.og = dat$proj_deg, proj.out = dat$proj_utm, verbose = FALSE, bind = TRUE)
+
+### Remove lines are entirely outside the map limits
+
+x <- split(deg.df, deg.df$ID)
+
+x <- lapply(x, function(k) {
+  if(any(k$lat.utm >= dat$limits_utm[3] & k$lat.utm <= dat$limits_utm[4])) {
+    k
+  } else {
+    NULL
+  }
+})
+
+x <- Filter(Negate(is.null), x)
+
+### Assign to a list
+
+out$lat <- do.call(rbind, x)
 
 ### Latitude (y-axis) breaks for maps
 
-tmp <- data.frame(latitude = unique(out$lat$lat), longitude = min(x[1,]))
-tmp <- cbind(tmp, transform_coord(x = tmp, proj.og = proj4.deg, proj.out = proj4.utm, verbose = FALSE))
+#k <- x[[2]]
+lat_breaks <- lapply(x, function(k) {
+  ga <- sp::Lines(list(sp::Line(as.matrix(k[c("lon.utm", "lat.utm")]))), ID = unique(k$lat))
+  ga <- sp::SpatialLines(list(ga), proj4string = sp::CRS(dat$proj_utm))
+  
+  ba <-rgeos::gIntersection(dat$bound_utm_shp, ga, byid = TRUE)
+  
+  da <- sp::coordinates(ba)[[1]][[1]]
+  da <- da[which.min(da[,1]),]
+  
+  out <- data.frame(label = sprintf(paste0("%.", lat_rounding, "f"), unique(k$lat)), lon_utm = unname(da[1]), lat_utm = unname(da[2]))
+  transform_coord(out, lon = "lon_utm", lat = "lat_utm", new.names = c("lon_dd", "lat_dd"), proj.og = dat$proj_utm, proj.out = dat$proj_deg, bind = TRUE, verbose = FALSE)
+})
 
-out$lat.breaks <- data.frame(deg = tmp$latitude, utm = tmp$lat.utm)
 
-### Longitude grid lines
+out$lat.breaks <- do.call(rbind, lat_breaks)
+
+  } else {
+    out$lat <- NULL
+    out$lat.breaks <- NULL
+  }
+
+#############################################
+### Longitude grid lines and axis labels ####
 
 if(is.numeric(round.lon)) {
-  lons <- extendrange(c(unname(x[1,1]), unname(x[1,2])), f = expar)
+  lons <- dat$limits_dd[1:2]
+  lon_rounding <- ifelse(round.lon >= 1, 0, ifelse(round.lon >= 0.1, 1, ifelse(round.lon >= 0.01, 2, ifelse(round.lon >= 0.001, 3, 4))))
   lons <- seq(floor(lons[1] / round.lon) * round.lon, ceiling(lons[2] / round.lon) * round.lon, by = round.lon)
-  #lons <- lons[lons > x[1,1] & lons < x[2,2]]
-  lats <- extendrange(c(unname(x[2,1]), unname(x[2,2])), f = expar)
-  lats <- seq(lats[1], lats[2], length.out = n.points)
+  lats <- dat$bound_dd[3:4]
+  #lats <- seq(lats[1], lats[2], length.out = n.points)
+  
+  if(!any(lons >= dat$limits_dd[1] & lons <= dat$limits_dd[2])) {
+      calc_lon <- FALSE
+      warning("Too large round.lon value. No latitude grid plotted.")
+  }
+  
   if(any(duplicated(lons))) warning("Duplicate values in latitude grid. Adjust round.lon")
 } else {
-  lons <- extendrange(c(unname(x[1,1]), unname(x[1,2])), f = expar)
-  lons <- seq(lons[1], lons[2], length.out = n.lon.grid +2)[2:(n.lon.grid+1)]
-  lats <- extendrange(c(unname(x[2,1]), unname(x[2,2])), f = expar)
+  lons <- dat$bound_dd[1:2]
+  lon_diff <- diff(lons)
+  lon_rounding <- ifelse(lon_diff > 10, 0, ifelse(lon_diff > 1, 1, ifelse(lon_diff > 0.1, 2, ifelse(lon_diff > 0.01, 3, 4))))
+   
+  lons <- round(seq(lons[1], lons[2], length.out = n.lon.grid +2)[2:(n.lon.grid+1)], lon_rounding)
+ 
+  lats <- dat$bound_dd[3:4]
   lats <- seq(lats[1], lats[2], length.out = n.points)
 }
 
-deg.df <- data.frame(lon = rep(lons, each = n.points), lat = rep(lats, length(lons)), ID = rep(1:length(lons), each = n.points))
+### Make to grid ##
+  
+  if(calc_lon) {
 
-y <- transform_coord(deg.df, lon = "lon", lat = "lat", proj.og = proj4.deg, proj.out = proj4.utm, verbose = FALSE)
+deg.df <- data.frame(lon = rep(lons, each = length(lats)), lat = rep(lats, length(lons)), ID = rep(1:length(lons), each = length(lats)))
 
-out$lon <- cbind(deg.df, y)
+deg.df <- transform_coord(deg.df, lon = "lon", lat = "lat", proj.og = dat$proj_deg, proj.out = dat$proj_utm, verbose = FALSE, bind = TRUE)
+
+### Remove lines are entirely outside the map limits
+
+x <- split(deg.df, deg.df$ID)
+
+x <- lapply(x, function(k) {
+  if(any(k$lon.utm >= dat$limits_utm[1] & k$lon.utm <= dat$limits_utm[2])) {
+    k
+  } else {
+    NULL
+  }
+})
+
+x <- Filter(Negate(is.null), x)
+
+### Assign to a list
+
+out$lon <- do.call(rbind, x)
 
 ### Longitude (x-axis) breaks for maps
 
-tmp <- data.frame(latitude = min(x[2,]), longitude = unique(out$lon$lon))
-tmp <- cbind(tmp, transform_coord(x = tmp, proj.og = proj4.deg, proj.out = proj4.utm, verbose = FALSE))
+#k <- x[[2]]
+lon_breaks <- lapply(x, function(k) {
+  ga <- sp::Lines(list(sp::Line(as.matrix(k[c("lon.utm", "lat.utm")]))), ID = unique(k$lon))
+  ga <- sp::SpatialLines(list(ga), proj4string = sp::CRS(dat$proj_utm))
+  
+  ba <- rgeos::gIntersection(dat$bound_utm_shp, ga, byid = TRUE)
+  
+  da <- coordinates(ba)[[1]][[1]]
+  da <- da[which.min(da[,2]),]
+  
+  out <- data.frame(label = sprintf(paste0("%.", lon_rounding, "f"), unique(k$lon)), lon_utm = unname(da[1]), lat_utm = unname(da[2]))
+  transform_coord(out, lon = "lon_utm", lat = "lat_utm", new.names = c("lon_dd", "lat_dd"), proj.og = dat$proj_utm, proj.out = dat$proj_deg, bind = TRUE, verbose = FALSE)
+})
 
-out$lon.breaks <- data.frame(deg = tmp$longitude, utm = tmp$lon.utm)
+out$lon.breaks <- do.call(rbind, lon_breaks)
+
+  } else {
+    out$lon <- NULL
+    out$lon.breaks <- NULL
+  }
 
 ### Projections and map boundaries
 
-out$utm.proj <- proj4.utm
-out$deg.proj <- proj4.deg
+out$utm.proj <- dat$proj_utm
+out$deg.proj <- dat$proj_deg
 
-out$boundaries <- data.frame(lon.deg = x[1,], lat.deg = x[2,], lon.utm = bbox(dat)[1,], lat.utm = bbox(dat)[2,])
+out$limits <- data.frame(lon.deg = dat$limits_dd[1:2], lat.deg = dat$limits_dd[3:4], lon.utm = dat$limits_utm[1:2], lat.utm = dat$limits_utm[3:4])
+
+out$limits_shp_utm <- dat$bound_utm_shp
 
 class(out) <- "degGrid"
 

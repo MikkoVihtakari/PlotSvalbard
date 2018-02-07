@@ -3,6 +3,7 @@
 ##' @param x \code{basemapData} object to be printed.
 ##' @param ... further arguments passed to \code{\link{print}}.
 ##' @method print basemapData
+##' @keywords internal
 ##' @export
 ##' @author Mikko Vihtakari
 ##' @seealso \code{\link{deg_grid}} \code{\link{basemap}}
@@ -14,7 +15,7 @@ print.basemapData <- function(x, ...) {
   cat("Basemap data object")
   cat(paste(" of class", class(x)), sep = "\n")
   cat("Object size: ", sep = "")
-  print(object.size(x), unit = "Mb")
+  print(object.size(x), unit = "auto")
   cat(paste("UTM projection:", x$Grid$utm.proj), sep = "\n")
   cat(paste("Decimal degree projection:", x$Grid$deg.proj), sep = "\n")
   cat(NULL, sep = "\n")
@@ -27,12 +28,12 @@ print.basemapData <- function(x, ...) {
   cat(NULL, sep = "\n")
   cat("Land: SpatialPolygons object. Object size: ")
   print(object.size(x$Land), unit = "Mb")
-  cat(paste("Projection:", sp::proj4string(x$Land)), sep = "\n")
+  #cat(paste("Projection:", sp::proj4string(x$Land)), sep = "\n")
   cat(NULL, sep = "\n")
   if(!is.null(x$Glacier)) {
     cat("Glacier: SpatialPolygons object. Object size: ")
     print(object.size(x$Glacier), unit = "Mb")
-    cat(paste("Projection:", sp::proj4string(x$Glacier)), sep = "\n")
+    #cat(paste("Projection:", sp::proj4string(x$Glacier)), sep = "\n")
     cat(NULL, sep = "\n")
   }
   cat("Grid: ")

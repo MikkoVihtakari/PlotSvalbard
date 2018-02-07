@@ -6,6 +6,7 @@
 ##' @export
 ##' @author Mikko Vihtakari
 ##' @seealso \code{\link{interpolate}}
+##' @keywords internal
 
 print.spatInt <- function(x, ...) {
 

@@ -18,3 +18,4 @@ The function prints the information used in internal calculations by the \code{\
 \author{
 Mikko Vihtakari
 }
+\keyword{internal}

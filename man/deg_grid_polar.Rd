@@ -32,3 +32,4 @@ Outputs a list of grid lines that can be used to plot a grid on polar stereograp
 \author{
 Mikko Vihtakari
 }
+\keyword{internal}

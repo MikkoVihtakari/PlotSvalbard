@@ -7,6 +7,7 @@
 ##' @param proj4.utm projection in \code{dat}. If TRUE (default), fetches the projection from \code{dat}. If \code{dat} is a numeric vector and \code{proj4.utm = TRUE}, \code{CRS("+init=epsg:32633")} is used as UTM projection (the same projection than in Svalbard shapefiles).
 ##' @param proj4.deg desired decimal degree projection. Uses a reasonable default projection. Do not change.
 ##' @return Returns a UTM coodrinate grid.
+##' @keywords internal
 ##' @seealso \code{\link{basemap}}
 ##' @author Mikko Vihtakari
 ##' @import maptools sp rgdal

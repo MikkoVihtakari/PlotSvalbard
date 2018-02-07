@@ -6,6 +6,7 @@
 ##' @param simplify Should the \code{x} geometry be simplified before clipping? Useful to make the function faster for large shape files. Uses \code{\link[rgeos]{gSimplify}} function.
 ##' @param tol Numerical tolerance value to be used for simplification. See \code{\link[rgeos]{gSimplify}}.
 ##' @details The function uses the \code{\link[rgeos]{gIntersection}} function to clip smaller \link[sp]{SpatialPolygons} from larger ones. The clip area is constrained by either a numeric vector or \link[sp]{SpatialPolygons} object in the \code{limits} argument. One of these arguments must be given. Defining \code{limits} by a \link[sp]{SpatialPolygons} object gives greater freedom for the clip area as the area does not have to be rectangular.
+##' @keywords internal
 ##' @import sp rgdal
 ##' @importFrom rgeos gIntersection
 ##' @importFrom rgeos gSimplify

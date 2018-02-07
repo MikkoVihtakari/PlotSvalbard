@@ -1,4 +1,4 @@
-##' @title Plot interpolated map of Kongsfjorden
+##' @title Plot an interpolated map
 ##' @description Plot method for \code{\link[=interpolate]{spatInt}} objects.
 ##' @param x \code{spatInt} object from \code{\link{interpolate}} function.
 ##' @param basemap Logical. Should basemap from \code{\link{basemap}} be used? Not implemented

@@ -5,11 +5,10 @@
 \title{Decimal degree grid from UTM projected spatial objects}
 \usage{
 deg_grid(dat, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE,
-  n.lon.grid = 3, expar = 0.3, n.points = 10, proj4.utm = TRUE,
-  proj4.deg = "+proj=longlat +datum=WGS84")
+  n.lon.grid = 3, n.points = 30)
 }
 \arguments{
-\item{dat}{Spatial object projected using UTM coordinates, such as \code{\link{readShapeSpatial}} OR a numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. In case of a numeric vector, the coordinates have to be given as decimal degrees.}
+\item{dat}{\code{\link[basemap_limits]{basemapLimits}} object}
 
 \item{round.lat}{specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
 
@@ -19,13 +18,7 @@ deg_grid(dat, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE,
 
 \item{n.lon.grid}{number of longitude grid lines. Alternatively use \code{round.lon}}
 
-\item{expar}{number specifying the fraction by which range of grid lines should be expanded to make them cover the entire map. See argument \code{f} for \code{\link[grDevices]{extendrange}} function. Set \code{expar = 0}, if you want exact grid lines.}
-
 \item{n.points}{number of points used in creating the grid lines. The more points, the smoother the lines.}
-
-\item{proj4.utm}{projection in \code{dat}. If TRUE (default), fetches the projection from \code{dat}. If \code{dat} is a numeric vector and \code{proj4.utm = TRUE}, \code{CRS("+init=epsg:32633")} is used as UTM projection (the same projection than in Svalbard shapefiles).}
-
-\item{proj4.deg}{desired decimal degree projection. Uses a reasonable default projection. Do not change.}
 }
 \value{
 Returns a UTM coodrinate grid.
@@ -33,9 +26,13 @@ Returns a UTM coodrinate grid.
 \description{
 Outputs a list of grid lines that can be used to plot a grid on maps. Requires a spatial object projected using UTM coordinates
 }
+\details{
+This is an internal function, which is automatically run by the \code{\link{basemap}} function. Common users do not need to worry about these details.
+}
 \seealso{
 \code{\link{basemap}}
 }
 \author{
 Mikko Vihtakari
 }
+\keyword{internal}

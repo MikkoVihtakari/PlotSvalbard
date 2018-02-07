@@ -14,3 +14,4 @@ select(x, y)
 \description{
 Selects y'th element of each vector from a list
 }
+\keyword{internal}

@@ -15,3 +15,4 @@ An internal utility function to clip bathymetry to fit the boundaries of a basem
 \author{
 Mikko Vihtakari
 }
+\keyword{internal}

@@ -21,3 +21,4 @@ Note that the map type has to be specified using the general map type name speci
 \author{
 Mikko Vihtakari
 }
+\keyword{internal}
