@@ -146,16 +146,14 @@
 <p>Note that some map types are already limited, so if you are looking for a map of Kongsfjorden, using <code><a href="../reference/basemap.html">basemap("kongsfjorden")</a></code> might be just what you need.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">18</span>, <span class="fl">77.9</span>, <span class="fl">78.85</span>))</code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic50"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="op">-</span><span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="op">-</span><span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>))
-<span class="co">#&gt; Regions defined for each Polygons</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic50"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="op">-</span><span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="op">-</span><span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>))</code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
 </div>
 <div id="bathymetry" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bathymetry" class="anchor"></a>Bathymetry</h2>
 <p>All basemaps support bathymetry, but the resolution of bathymetry shapefiles is currently too low to plot bathymetry inside fjords. Bathymetry can be plotted using the <code>bathymetry</code> argument.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic60"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; Regions defined for each Polygons</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic60"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
@@ -239,16 +237,16 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interpola
 <p>If you are looking for optimal <code>limits</code> for your data, you can use the <code><a href="../reference/basemap.html">basemap("barentssea")</a></code> option to find these limits and replace <code>"barentssea"</code> with <code>"svalbard"</code> once you are done:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;    0.39    0.05    0.54</span>
+<span class="co">#&gt;    0.47    0.05    0.60</span>
 <span class="kw">system.time</span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   16.28    0.10   16.49</span>
+<span class="co">#&gt;   17.80    0.09   18.25</span>
 <span class="kw">system.time</span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="kw">c</span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="dv">80</span>,<span class="fl">81.7</span>))))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;    0.11    0.00    0.12</span>
+<span class="co">#&gt;    0.10    0.02    0.12</span>
 <span class="kw">system.time</span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="kw">c</span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="dv">80</span>,<span class="fl">81.7</span>))))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;    2.02    0.04    2.10</span></code></pre></div>
+<span class="co">#&gt;    2.11    0.01    2.17</span></code></pre></div>
 </div>
 </div>
 <div id="citing-plotsvalbard" class="section level1">
@@ -259,8 +257,8 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interpola
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite package 'PlotSvalbard' in publications use:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;   Mikko Vihtakari (2017). PlotSvalbard: PlotSvalbard - plot</span>
-<span class="co">#&gt;   research data from Svalbard on maps. R package version 0.2.11.</span>
+<span class="co">#&gt;   Mikko Vihtakari (2018). PlotSvalbard: PlotSvalbard - plot</span>
+<span class="co">#&gt;   research data from Svalbard on maps. R package version 0.3.0.</span>
 <span class="co">#&gt;   https://github.com/MikkoVihtakari/PlotSvalbard</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
@@ -268,8 +266,8 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interpola
 <span class="co">#&gt;   @Manual{,</span>
 <span class="co">#&gt;     title = {PlotSvalbard: PlotSvalbard - plot research data from Svalbard on maps},</span>
 <span class="co">#&gt;     author = {Mikko Vihtakari},</span>
-<span class="co">#&gt;     year = {2017},</span>
-<span class="co">#&gt;     note = {R package version 0.2.11},</span>
+<span class="co">#&gt;     year = {2018},</span>
+<span class="co">#&gt;     note = {R package version 0.3.0},</span>
 <span class="co">#&gt;     url = {https://github.com/MikkoVihtakari/PlotSvalbard},</span>
 <span class="co">#&gt;   }</span></code></pre></div>
 <p>However, please note that the maps generated by this package should be cited to their original source.</p>

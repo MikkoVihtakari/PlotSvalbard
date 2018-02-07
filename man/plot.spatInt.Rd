@@ -7,8 +7,9 @@
 \method{plot}{spatInt}(x, basemap = TRUE, type = "kongsfjorden",
   col.scale.limits = NULL, legend.label = NA, limits = NULL,
   round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3,
-  land.col = "#eeeac4", gla.col = "grey95", grid.col = "grey70",
-  keep.glaciers = TRUE, ...)
+  keep.glaciers = TRUE, land.col = "#eeeac4", size.land = 0.1,
+  border.col.land = "black", gla.col = "grey95", size.glacier = 0.1,
+  border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1, ...)
 }
 \arguments{
 \item{x}{\code{spatInt} object from \code{\link{interpolate}} function.}
@@ -31,13 +32,13 @@
 
 \item{n.lon.grid}{number of longitude grid lines. Alternatively use \code{round.lon}}
 
+\item{keep.glaciers}{a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting little bit.}
+
 \item{land.col}{Color of land}
 
 \item{gla.col}{Color of glaciers}
 
 \item{grid.col}{Color of grid lines. Use \code{NA} to remove the grid lines.}
-
-\item{keep.glaciers}{a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting little bit.}
 
 \item{...}{Additional arguments passed somewhere.}
 }

@@ -81,7 +81,7 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
     } else {
       Grid <- deg_grid_polar(dat = Land, lat.interval = lat.interval., lon.interval = lon.interval.)
     }
-    Land <- broom::tidy(Land)
+    Land <- suppressMessages(broom::tidy(Land))
     
   } else if(!is.null(limits)) {
     Grid <- deg_grid(lims, round.lat = round.lat., n.lat.grid = n.lat.grid., round.lon = round.lon., n.lon.grid = n.lon.grid.)

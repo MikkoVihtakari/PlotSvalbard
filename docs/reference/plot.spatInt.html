@@ -103,8 +103,9 @@
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"kongsfjorden"</span>,
   <span class='kw'>col.scale.limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend.label</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lat.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>round.lon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>land.col</span> <span class='kw'>=</span> <span class='st'>"#eeeac4"</span>, <span class='kw'>gla.col</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"grey70"</span>,
-  <span class='kw'>keep.glaciers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>keep.glaciers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>land.col</span> <span class='kw'>=</span> <span class='st'>"#eeeac4"</span>, <span class='kw'>size.land</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>border.col.land</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>gla.col</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>, <span class='kw'>size.glacier</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>border.col.glacier</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"grey70"</span>, <span class='kw'>size.grid</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -150,6 +151,10 @@
       <td><p>number of longitude grid lines. Alternatively use <code>round.lon</code></p></td>
     </tr>
     <tr>
+      <th>keep.glaciers</th>
+      <td><p>a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to <code>FALSE</code> speeds up map plotting little bit.</p></td>
+    </tr>
+    <tr>
       <th>land.col</th>
       <td><p>Color of land</p></td>
     </tr>
@@ -160,10 +165,6 @@
     <tr>
       <th>grid.col</th>
       <td><p>Color of grid lines. Use <code>NA</code> to remove the grid lines.</p></td>
-    </tr>
-    <tr>
-      <th>keep.glaciers</th>
-      <td><p>a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to <code>FALSE</code> speeds up map plotting little bit.</p></td>
     </tr>
     <tr>
       <th>...</th>

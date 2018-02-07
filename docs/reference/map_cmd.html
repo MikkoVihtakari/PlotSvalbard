@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • PlotSvalbard</title>
+<title>Return map elements for basemap � map_cmd • PlotSvalbard</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -37,7 +37,7 @@
   </head>
 
   <body>
-    <div class="container template-vignette-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -89,20 +89,59 @@
       
       </header>
 
-      <div class="page-header">
-  <h1>Articles <small>version&nbsp;0.3.0</small></h1>
-</div>
-
-<div class="row">
-  <div class="col-md-9">
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="PlotSvalbard_user_manual.html">PlotSvalbard - User Manual</a></li>
-      </ul>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Return map elements for basemap</h1>
     </div>
+
+    
+    <p>An internal function to make <code><a href='basemap.html'>basemap</a></code> code more readable</p>
+    
+
+    <pre class="usage"><span class='fu'>map_cmd</span>(<span class='no'>command</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>command</th>
+      <td><p>basemap layer to be added</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This is an internal function, which is automatically run by the <code><a href='basemap.html'>basemap</a></code> function. Common users do not need to worry about these details. Basemap elements can added together using this function, <code><a href='http://www.rdocumentation.org/packages/base/topics/parse'>parse</a></code> and <code><a href='http://www.rdocumentation.org/packages/base/topics/eval'>eval</a></code>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='basemap.html'>basemap</a></code></p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>## An example for utm map without glaciers or bathymetry
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>eval</span>(<span class='fu'>parse</span>(<span class='kw'>text</span><span class='kw'>=</span><span class='fu'>paste</span>(<span class='fu'>map_cmd</span>(<span class='st'>"base"</span>), <span class='fu'>map_cmd</span>(<span class='st'>"land_utm"</span>),
+<span class='fu'>map_cmd</span>(<span class='st'>"grid_utm"</span>), <span class='fu'>map_cmd</span>(<span class='st'>"defs_utm"</span>), <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"+"</span>)))
+<span class='co'># }</span></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
+    <h2>Author</h2>
+    
+Mikko Vihtakari
+
   </div>
 </div>
 
