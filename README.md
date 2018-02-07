@@ -36,7 +36,7 @@ basemap("kongsfjorden", limits = c(11.3, 12.69, 78.86, 79.1), round.lat = 0.05, 
 geom_text(data = kongsfjord_moorings, aes(x = lon.utm, y = lat.utm, label = Mooring.name, color = Name), 
 fontface = 2, size = 25.4/72.27*8) # font size = 8, see Graphical parameters
 ```
-![alt text](https://github.com/MikkoVihtakari/PlotSvalbard/tree/master/inst/figures/interpolated_kongsfjord.png)
+![alt text](https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/inst/figures/interpolated_kongsfjord.png)
 
 ### Combining extensions for ggplot2
 
@@ -56,7 +56,7 @@ geom_scatterpie(aes(x = lon.utm, y = lat.utm, group = ID, r = 100*Total), data =
 scale_fill_discrete(name = "Species", breaks = species, 
 labels = parse(text = paste0("italic(" , sub("*\\.", "~", species), ")")))
 ```
-![alt text](https://github.com/MikkoVihtakari/PlotSvalbard/tree/master/inst/figures/scatterpie.png)
+![alt text](https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/inst/figures/scatterpie.png)
 
 Data sources and citations
 -------
