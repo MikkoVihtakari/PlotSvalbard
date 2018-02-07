@@ -142,8 +142,6 @@ basemap("svalbard", limits = c(3,24,78.5,82), round.lat = 1, round.lon = 2,
     label = Station), color = "red", fontface = 2)
 ```
 
-Note the issue with y-axis labels. This is because UTM coordinates make the bounding box of maps "tilted" compared to decimal degrees. In the current version of PlotSvalbard, the labels are bound to decimal degrees, but finding a solution to this should be relatively easy. This error will be corrected in the future versions of the package, so update your PlotSvalbard before you start making maps.  
-
 Text size can be mapped to variables using the standard ggplot2 syntax:
 
 ```{r message=FALSE, warning=FALSE}

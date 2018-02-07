@@ -4,7 +4,7 @@
 \alias{basemap}
 \title{Create a ggplot2 basemap for plotting variables}
 \source{
-Svalbard shape files originate from the Norwegian Polar Institute (\url{http://geodata.npolar.no/}). Barents Sea and polar stereographic maps are from  \url{http://www.naturalearthdata.com}. They use the \code{ne_10m_land} and \code{ne_50m_land} (v 4.0.0) datasets, respectively.
+Svalbard shape files originate from the Norwegian Polar Institute (\url{http://geodata.npolar.no/}). Barents Sea and polar stereographic maps are from  \url{http://www.naturalearthdata.com}. They use the \code{ne_10m_land} and \code{ne_50m_land} (v 4.0.0) datasets, respectively. Bathymetry polygons are generalized from \code{IBCAO v3.0 500m RR grid} \url{https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html}.
 }
 \usage{
 basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
@@ -34,7 +34,7 @@ basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
 
 \item{keep.glaciers}{Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.}
 
-\item{bathymetry}{Logical indicating whether bathymetry should be added to the map. This feature is experimental and currently works only for "arctic50" map, and poorly as such. Will be improved. Defaults to \code{FALSE}}
+\item{bathymetry}{Logical indicating whether bathymetry should be added to the map. Relatively slow. Defaults to \code{FALSE}}
 
 \item{land.col}{Character code specifying the color of land.}
 
@@ -65,19 +65,20 @@ Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and mo
 Creates a ggplot2 basemap for further plotting of variables.
 }
 \details{
-The function uses \link[ggplot2]{ggplot2} and up-to-date (2017) detailed shapefiles to plot maps of Svalbard and other polar regions. The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
+The function uses \link[ggplot2]{ggplot2} and shapefiles to plot maps of Svalbard and other polar regions. The Svalbard shapefiles are detailed and glaciers varyinly up-to-date (2017 for Kongsfjorden; mostly 2015 for the rest, but not systematically checked) detailed The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
 \itemize{
 \item "svalbard". Detailed 1:250 000 map of Svalbard land and glaciers. This option is slow (approx. 25 seconds) due to the large file size.
 \item "mosj" shows Kongsfjoden and Fram Strait as sampled during Norwegian Polar Institute's MOSJ campaigns. Some glaciers can be older than 2015.
 \item "kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to smaller file size.
 \item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to a smaller file size.
 \item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to a smaller file size.
-\item "barentssea". A 1:10 000 000 map of the Barents Sea. See \strong{Source}.
+\item "barentssea". A 1:10 000 000 map of the Barents Sea.
 \item "arctic50". A polar stereographic map of the Arctic with a limit at 50 degrees North.
 \item "arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.
 }
 
 Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection.
+
 
 \strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13.
 }
@@ -91,10 +92,8 @@ p <- basemap("mosj")
 p + geom_point(data = chlorophyll, aes(x = lon.utm, y = lat.utm,
 size = Chla, color = Chla), shape = 1)
 
-## limitting maps is possible, but you might need to define grid lines by hand:
+## limitting maps can be done using the limits argument:
 basemap("kongsfjordbotn", limits = c(12.2,12.65,78.95,79.00))
-basemap("kongsfjordbotn", limits = c(12.2,12.65,78.95,79.00),
-round.lat = 0.01, round.lon = 0.1) # better
 
 ## Svalbard map. Warning: this is SLOW
 basemap("svalbard")
@@ -102,8 +101,13 @@ basemap("svalbard")
 ## grid.col = NA removes grid lines
 basemap("svalbard", grid.col = NA, limits = c(10, 28, 79.5, 83))
 
+## Use round.lat and n.lon.grid arguments
+## to control grid lines
+basemap("svalbard", limits = c(3,24,78.5,82), round.lat = 1,
+n.lon.grid = 4)
+
 ## Barents Sea
-basemap("barentssea") # note wrong placing of axis labels
+basemap("barentssea") 
 
 ## Barents Sea map also prints mainland Norway,
 ## but the projection is not optimal.
@@ -116,6 +120,13 @@ basemap("arctic50")
 basemap("arctic60") + theme_bw()
 basemap("arctic60", limits = c(250000, -2500000, 2000000, -250000))
 
+## Bathymetry can be added using the bathymetry argument
+basemap("arctic50", bathymetry = TRUE)
+ 
+## Current bathymetry shapefiles are not detailed
+## enough for Svalbard fjords
+basemap("kongsfjorden", bathymetry = TRUE)
+ 
 }
 \seealso{
 \code{\link[ggplot2]{ggplot2}} \code{\link{theme_map}}

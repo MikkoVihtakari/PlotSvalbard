@@ -15,7 +15,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-home">
+    <div class="container template-vignette">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -67,8 +67,13 @@
 
       
       </header><div class="row">
-  <div class="contents col-md-9">
-    <div id="plotsvalbard" class="section level1">
+  <div class="col-md-9">
+    
+
+    
+    
+<div class="contents">
+<div id="plotsvalbard" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#plotsvalbard" class="anchor"></a>PlotSvalbard</h1></div>
 <p><strong>Plot research data from Svalbard on maps</strong></p>
@@ -86,17 +91,22 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p><strong>PlotSvalbard</strong> extends on <a href="http://ggplot2.tidyverse.org/reference/"><strong>ggplot2</strong></a>. Data that contains geographic information can be plotted on these maps using the ggplot2 layers separated by the <code>+</code> operator.</p>
+<div id="user-manual-and-website" class="section level3">
+<h3 class="hasAnchor">
+<a href="#user-manual-and-website" class="anchor"></a>User manual and website</h3>
+<p>Detailed information on how to use the package can be found from <a href="https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html">the user manual</a> and <a href="https://mikkovihtakari.github.io/PlotSvalbard/index.html">PlotSvalbard website</a>.</p>
+</div>
 <div id="making-a-map-with-text" class="section level3">
 <h3 class="hasAnchor">
 <a href="#making-a-map-with-text" class="anchor"></a>Making a map with text</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(PlotSvalbard)
-
-<span class="kw">data</span>(<span class="st">"kongsfjord_moorings"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(PlotSvalbard)</code></pre></div>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">"kongsfjord_moorings"</span>)
 
 <span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="fl">11.3</span>, <span class="fl">12.69</span>, <span class="fl">78.86</span>, <span class="fl">79.1</span>), <span class="dt">round.lat =</span> <span class="fl">0.05</span>, <span class="dt">round.lon =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>
 <span class="kw">geom_text</span>(<span class="dt">data =</span> kongsfjord_moorings, <span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">label =</span> Mooring.name, <span class="dt">color =</span> Name), 
 <span class="dt">fontface =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">25.4</span><span class="op">/</span><span class="fl">72.27</span><span class="op">*</span><span class="dv">8</span>) <span class="co"># font size = 8, see Graphical parameters</span></code></pre></div>
-<p><img src="https://github.com/MikkoVihtakari/PlotSvalbard/tree/master/inst/figures/interpolated_kongsfjord.png" alt="alt text"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
 </div>
 <div id="combining-extensions-for-ggplot2" class="section level3">
 <h3 class="hasAnchor">
@@ -104,9 +114,9 @@
 <p>Most extensions for ggplot2 work together with PlotSvalbard.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(zooplankton)
 
-x &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw"><a href="reference/transform_coord.html">transform_coord</a></span>(zooplankton, <span class="dt">lon =</span> <span class="st">"Longitude"</span>, <span class="dt">lat =</span> <span class="st">"Latitude"</span>), zooplankton)
-
-species &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[<span class="op">!</span><span class="kw">colnames</span>(x) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">"lon.utm"</span>, <span class="st">"lat.utm"</span>, <span class="st">"ID"</span>, <span class="st">"Longitude"</span>, <span class="st">"Latitude"</span>, <span class="st">"Total"</span>)]
+x &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw"><a href="reference/transform_coord.html">transform_coord</a></span>(zooplankton, <span class="dt">lon =</span> <span class="st">"Longitude"</span>, <span class="dt">lat =</span> <span class="st">"Latitude"</span>), zooplankton)</code></pre></div>
+<pre><code>## projection transformed from +proj=longlat +datum=WGS84 to +init=epsg:32633</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[<span class="op">!</span><span class="kw">colnames</span>(x) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">"lon.utm"</span>, <span class="st">"lat.utm"</span>, <span class="st">"ID"</span>, <span class="st">"Longitude"</span>, <span class="st">"Latitude"</span>, <span class="st">"Total"</span>)]
 
 <span class="kw">library</span>(scatterpie)
 
@@ -114,12 +124,7 @@ species &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[<span 
 <span class="kw">geom_scatterpie</span>(<span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">group =</span> ID, <span class="dt">r =</span> <span class="dv">100</span><span class="op">*</span>Total), <span class="dt">data =</span> x, <span class="dt">cols =</span> species, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span>
 <span class="kw">scale_fill_discrete</span>(<span class="dt">name =</span> <span class="st">"Species"</span>, <span class="dt">breaks =</span> species, 
 <span class="dt">labels =</span> <span class="kw">parse</span>(<span class="dt">text =</span> <span class="kw">paste0</span>(<span class="st">"italic("</span> , <span class="kw">sub</span>(<span class="st">"*</span><span class="ch">\\</span><span class="st">."</span>, <span class="st">"~"</span>, species), <span class="st">")"</span>)))</code></pre></div>
-<p><img src="https://github.com/MikkoVihtakari/PlotSvalbard/tree/master/inst/figures/scatterpie.png" alt="alt text"></p>
-</div>
-<div id="user-manual" class="section level3">
-<h3 class="hasAnchor">
-<a href="#user-manual" class="anchor"></a>User manual</h3>
-<p>Find more information on how to use the package from <a href="https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html">the user manual</a>.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
 </div>
 </div>
 <div id="data-sources-and-citations" class="section level2">
@@ -127,6 +132,22 @@ species &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[<span 
 <a href="#data-sources-and-citations" class="anchor"></a>Data sources and citations</h2>
 <p>If you use the package to make maps for your publications, please cite it. For up-to-date citation information, please use:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>(<span class="st">"PlotSvalbard"</span>)</code></pre></div>
+<pre><code>## 
+## To cite package 'PlotSvalbard' in publications use:
+## 
+##   Mikko Vihtakari (2017). PlotSvalbard: PlotSvalbard - plot
+##   research data from Svalbard on maps. R package version 0.2.11.
+##   https://github.com/MikkoVihtakari/PlotSvalbard
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {PlotSvalbard: PlotSvalbard - plot research data from Svalbard on maps},
+##     author = {Mikko Vihtakari},
+##     year = {2017},
+##     note = {R package version 0.2.11},
+##     url = {https://github.com/MikkoVihtakari/PlotSvalbard},
+##   }</code></pre>
 <p>The maps generated by this package should be cited to their original source.</p>
 <ul>
 <li>Svalbard maps are property of the <a href="http://geodata.npolar.no/">Norwegian Polar Institute</a>
@@ -170,10 +191,12 @@ species &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[<span 
 </ul>
 </div>
 </div>
+</div>
   </div>
 
-  <div class="col-md-3" id="sidebar">
-    <h2>Links</h2>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2 class="hasAnchor">
+<a href="#sidebar" class="anchor"></a>Links</h2>
 <ul class="list-unstyled">
 <li>Browse source code at <br><a href="https://github.com/MikkoVihtakari/PlotSvalbard">https://​github.com/​MikkoVihtakari/​PlotSvalbard</a>
 </li>
@@ -187,6 +210,7 @@ species &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[<span 
 <li>Mikko Vihtakari <br><small class="roles"> Author, maintainer </small> </li>
 </ul>
 </div>
+
 </div>
 
 
