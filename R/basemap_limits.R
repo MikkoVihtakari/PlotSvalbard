@@ -24,8 +24,22 @@ basemap_limits <- function(limits, proj_deg = "+proj=longlat +datum=WGS84", type
     limits_dd <- unname(c(limits_dd_shp@bbox[1,], limits_dd_shp@bbox[2,]))
     
     bound_utm_shp <- limits_utm_shp
-    bound_dd <- limits_dd
-    bound_utm <- limits_utm
+    
+    ## Boundaries (data.frames specifying each corner)
+    
+    bla <- limits_utm_shp@polygons[[1]]@Polygons[[1]]@coords
+    bla <- as.data.frame(bla)
+    bla <- bla[-nrow(bla),]
+    colnames(bla) <- c("lon", "lat")
+    row.names(bla) <- c("SE", "NE", "NW", "SW")
+    bound_utm <- bla
+    
+    bla <- limits_dd_shp@polygons[[1]]@Polygons[[1]]@coords
+    bla <- as.data.frame(bla)
+    bla <- bla[-nrow(bla),]
+    colnames(bla) <- c("lon", "lat")
+    row.names(bla) <- c("SE", "NE", "NW", "SW")
+    bound_dd <- bla
     
   } else { ## Limits for numeric vectors
    if(is.numeric(limits)) {
@@ -35,24 +49,30 @@ basemap_limits <- function(limits, proj_deg = "+proj=longlat +datum=WGS84", type
     limits_utm_shp <- sp::spTransform(limits_dd_shp, sp::CRS(proj_utm))
     limits_utm <- unname(c(limits_utm_shp@bbox[1,], limits_utm_shp@bbox[2,]))
     
-    bound_utm <- limits_utm
     bound_utm_shp <- sp::Polygon(matrix(c(limits_utm[1], limits_utm[3], limits_utm[1], limits_utm[4], limits_utm[2], limits_utm[4], limits_utm[2], limits_utm[3], limits_utm[1], limits_utm[3]), ncol = 2, byrow = TRUE))
     bound_utm_shp <- sp::SpatialPolygons(list(sp::Polygons(list(bound_utm_shp), ID = "clip_boundary")), proj4string = sp::CRS(proj_utm))
     bound_dd_shp <- sp::spTransform(bound_utm_shp, sp::CRS(proj_deg))
-    bound_dd <-  unname(c(bound_dd_shp@bbox[1,], bound_dd_shp@bbox[2,]))
+    
+    ## Boundaries (data.frames specifying each corner)
+    
+    bla <-bound_utm_shp@polygons[[1]]@Polygons[[1]]@coords
+    bla <- as.data.frame(bla)
+    bla <- bla[-nrow(bla),]
+    colnames(bla) <- c("lon", "lat")
+    row.names(bla) <- c("SE", "NE", "NW", "SW")
+    bound_utm <- bla
+    
+    bla <- bound_dd_shp@polygons[[1]]@Polygons[[1]]@coords
+    bla <- as.data.frame(bla)
+    bla <- bla[-nrow(bla),]
+    colnames(bla) <- c("lon", "lat")
+    row.names(bla) <- c("SE", "NE", "NW", "SW")
+    bound_dd <- bla
+    
    } else {
      stop("basemap_limits requires either a shapefile as character or a numeric vector.")
    }
   }
-  
- 
-  #bound_dd <- c(extendrange(limits[1:2], f = expar), extendrange(limits[3:4], f = expar))
-  #bound_dd_shp <- sp::Polygon(matrix(c(bound_dd[1], bound_dd[3], bound_dd[1], bound_dd[4], bound_dd[2], bound_dd[4], bound_dd[2], bound_dd[3], bound_dd[1], bound_dd[3]), ncol = 2, byrow = TRUE))
-  #bound_dd_shp <- sp::SpatialPolygons(list(sp::Polygons(list(bound_dd_shp), ID = "clip_boundary")), proj4string=CRS(map_projection("decimal_degree")))
-  #bound_utm_shp <- sp::spTransform(bound_dd_shp, sp::CRS(map_projection(MapType$map.type)))
-  #bound_utm <- unname(c(bound_utm_shp@bbox[1,], bound_utm_shp@bbox[2,]))
-  #grid_parameters <- c()
-  #limits_dd_shp = limits_dd_shp, limits_utm_shp = limits_utm_shp,
     
     lims <- list(limits_og = limits, limits_dd = limits_dd, limits_utm = limits_utm, bound_dd = bound_dd, bound_utm = bound_utm, bound_utm_shp = bound_utm_shp, proj_deg = proj_deg, proj_utm = proj_utm)
     class(lims) <- "basemapLimits"

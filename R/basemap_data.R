@@ -56,9 +56,8 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
     lims <- basemap_limits(limits = MapType$boundary, type = MapType$map.type) 
   }
 
-  if(MapType$map.type == "svalbard") {
+  if(MapType$map.type != "panarctic") {
     Land <- clip_shapefile(get(MapType$land), lims$bound_utm_shp)
-   # Land <- fortify(Land)
     Land <- broom::tidy(Land)
   } else {
     Land <- get(MapType$land)

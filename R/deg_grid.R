@@ -40,9 +40,9 @@ out <- list()
 ### Latitude grid lines and axis labels ####
   
 if(is.numeric(round.lat)) {
-  lats <- dat$limits_dd[3:4]
+  lats <- range(dat$bound_dd$lat)
   lats <- seq(floor(lats[1] / round.lat) * round.lat, ceiling(lats[2] / round.lat) * round.lat, by = round.lat)
-  lons <- dat$bound_dd[1:2]
+  lons <- range(dat$bound_dd$lon)
   lons <- seq(lons[1], lons[2], length.out = n.points)
   
   lat_rounding <- ifelse(round.lat >= 1, 0, ifelse(round.lat >= 0.1, 1, ifelse(round.lat >= 0.01, 2, ifelse(round.lat >= 0.001, 3, 4))))
@@ -52,13 +52,13 @@ if(is.numeric(round.lat)) {
       warning("Too large round.lat value. No latitude grid plotted.")
     }
   } else {
-   lats <- dat$bound_dd[3:4]
+   lats <- range(dat$bound_dd$lat)
    lat_diff <- diff(lats)
    lat_rounding <- ifelse(lat_diff > 1, 1, ifelse(lat_diff > 0.1, 2, ifelse(lat_diff > 0.01, 3, 4)))
    
    lats <- round(seq(lats[1], lats[2], length.out = n.lat.grid +2)[2:(n.lat.grid+1)], lat_rounding)
  
-   lons <- dat$bound_dd[1:2]
+   lons <- range(dat$bound_dd$lon)
    lons <- seq(lons[1], lons[2], length.out = n.points)
   } 
 
@@ -89,18 +89,25 @@ out$lat <- do.call(rbind, x)
 
 ### Latitude (y-axis) breaks for maps
 
-#k <- x[[2]]
+#k <- x[[1]]
 lat_breaks <- lapply(x, function(k) {
-  ga <- sp::Lines(list(sp::Line(as.matrix(k[c("lon.utm", "lat.utm")]))), ID = unique(k$lat))
-  ga <- sp::SpatialLines(list(ga), proj4string = sp::CRS(dat$proj_utm))
   
-  ba <-rgeos::gIntersection(dat$bound_utm_shp, ga, byid = TRUE)
+  if(unique(k$lat) >= dat$limits_dd[3] & unique(k$lat) <= dat$limits_dd[4]) {
   
-  da <- sp::coordinates(ba)[[1]][[1]]
-  da <- da[which.min(da[,1]),]
+    ga <- sp::Lines(list(sp::Line(as.matrix(k[c("lon.utm", "lat.utm")]))), ID = unique(k$lat))
+    ga <- sp::SpatialLines(list(ga), proj4string = sp::CRS(dat$proj_utm))
   
-  out <- data.frame(label = sprintf(paste0("%.", lat_rounding, "f"), unique(k$lat)), lon_utm = unname(da[1]), lat_utm = unname(da[2]))
-  transform_coord(out, lon = "lon_utm", lat = "lat_utm", new.names = c("lon_dd", "lat_dd"), proj.og = dat$proj_utm, proj.out = dat$proj_deg, bind = TRUE, verbose = FALSE)
+    ba <-rgeos::gIntersection(dat$bound_utm_shp, ga, byid = TRUE)
+  
+    da <- sp::coordinates(ba)[[1]][[1]]
+    da <- da[which.min(da[,1]),]
+  
+    out <- data.frame(label = sprintf(paste0("%.", lat_rounding, "f"), unique(k$lat)), lon_utm = unname(da[1]), lat_utm = unname(da[2]))
+    
+    transform_coord(out, lon = "lon_utm", lat = "lat_utm", new.names = c("lon_dd", "lat_dd"), proj.og = dat$proj_utm, proj.out = dat$proj_deg, bind = TRUE, verbose = FALSE)  
+    
+  } else NULL
+  
 })
 
 
@@ -115,10 +122,10 @@ out$lat.breaks <- do.call(rbind, lat_breaks)
 ### Longitude grid lines and axis labels ####
 
 if(is.numeric(round.lon)) {
-  lons <- dat$limits_dd[1:2]
+  lons <- range(dat$bound_dd$lon)
   lon_rounding <- ifelse(round.lon >= 1, 0, ifelse(round.lon >= 0.1, 1, ifelse(round.lon >= 0.01, 2, ifelse(round.lon >= 0.001, 3, 4))))
   lons <- seq(floor(lons[1] / round.lon) * round.lon, ceiling(lons[2] / round.lon) * round.lon, by = round.lon)
-  lats <- dat$bound_dd[3:4]
+  lats <- range(c(dat$bound_dd$lat, 90))
   #lats <- seq(lats[1], lats[2], length.out = n.points)
   
   if(!any(lons >= dat$limits_dd[1] & lons <= dat$limits_dd[2])) {
@@ -128,14 +135,13 @@ if(is.numeric(round.lon)) {
   
   if(any(duplicated(lons))) warning("Duplicate values in latitude grid. Adjust round.lon")
 } else {
-  lons <- dat$bound_dd[1:2]
+  lons <- range(dat$bound_dd$lon)
   lon_diff <- diff(lons)
   lon_rounding <- ifelse(lon_diff > 10, 0, ifelse(lon_diff > 1, 1, ifelse(lon_diff > 0.1, 2, ifelse(lon_diff > 0.01, 3, 4))))
    
   lons <- round(seq(lons[1], lons[2], length.out = n.lon.grid +2)[2:(n.lon.grid+1)], lon_rounding)
  
-  lats <- dat$bound_dd[3:4]
-  lats <- seq(lats[1], lats[2], length.out = n.points)
+  lats <- range(c(dat$bound_dd$lat, 90))
 }
 
 ### Make to grid ##
@@ -168,6 +174,8 @@ out$lon <- do.call(rbind, x)
 
 #k <- x[[2]]
 lon_breaks <- lapply(x, function(k) {
+  
+  if(unique(k$lon) >= dat$limits_dd[1] & unique(k$lon) <= dat$limits_dd[2]) {
   ga <- sp::Lines(list(sp::Line(as.matrix(k[c("lon.utm", "lat.utm")]))), ID = unique(k$lon))
   ga <- sp::SpatialLines(list(ga), proj4string = sp::CRS(dat$proj_utm))
   
@@ -178,6 +186,9 @@ lon_breaks <- lapply(x, function(k) {
   
   out <- data.frame(label = sprintf(paste0("%.", lon_rounding, "f"), unique(k$lon)), lon_utm = unname(da[1]), lat_utm = unname(da[2]))
   transform_coord(out, lon = "lon_utm", lat = "lat_utm", new.names = c("lon_dd", "lat_dd"), proj.og = dat$proj_utm, proj.out = dat$proj_deg, bind = TRUE, verbose = FALSE)
+
+  } else NULL  
+
 })
 
 out$lon.breaks <- do.call(rbind, lon_breaks)
