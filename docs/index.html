@@ -96,7 +96,7 @@
 <span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="fl">11.3</span>, <span class="fl">12.69</span>, <span class="fl">78.86</span>, <span class="fl">79.1</span>), <span class="dt">round.lat =</span> <span class="fl">0.05</span>, <span class="dt">round.lon =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>
 <span class="kw">geom_text</span>(<span class="dt">data =</span> kongsfjord_moorings, <span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">label =</span> Mooring.name, <span class="dt">color =</span> Name), 
 <span class="dt">fontface =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">25.4</span><span class="op">/</span><span class="fl">72.27</span><span class="op">*</span><span class="dv">8</span>) <span class="co"># font size = 8, see Graphical parameters</span></code></pre></div>
-<p><img src="https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/inst/figures/interpolated_kongsfjord.png" alt="alt text"></p>
+<p><img src="https://github.com/MikkoVihtakari/PlotSvalbard/tree/master/inst/figures/interpolated_kongsfjord.png" alt="alt text"></p>
 </div>
 <div id="combining-extensions-for-ggplot2" class="section level3">
 <h3 class="hasAnchor">
@@ -114,12 +114,12 @@ species &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[<span 
 <span class="kw">geom_scatterpie</span>(<span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">group =</span> ID, <span class="dt">r =</span> <span class="dv">100</span><span class="op">*</span>Total), <span class="dt">data =</span> x, <span class="dt">cols =</span> species, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span>
 <span class="kw">scale_fill_discrete</span>(<span class="dt">name =</span> <span class="st">"Species"</span>, <span class="dt">breaks =</span> species, 
 <span class="dt">labels =</span> <span class="kw">parse</span>(<span class="dt">text =</span> <span class="kw">paste0</span>(<span class="st">"italic("</span> , <span class="kw">sub</span>(<span class="st">"*</span><span class="ch">\\</span><span class="st">."</span>, <span class="st">"~"</span>, species), <span class="st">")"</span>)))</code></pre></div>
-<p><img src="https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/inst/figures/scatterpie.png" alt="alt text"></p>
+<p><img src="https://github.com/MikkoVihtakari/PlotSvalbard/tree/master/inst/figures/scatterpie.png" alt="alt text"></p>
 </div>
 <div id="user-manual" class="section level3">
 <h3 class="hasAnchor">
 <a href="#user-manual" class="anchor"></a>User manual</h3>
-<p>Find more information on how to use the package from <a href="https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/inst/docs/PlotSvalbard_user_manual.pdf">the user manual</a>.</p>
+<p>Find more information on how to use the package from <a href="https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html">the user manual</a>.</p>
 </div>
 </div>
 <div id="data-sources-and-citations" class="section level2">
@@ -132,6 +132,8 @@ species &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[<span 
 <li>Svalbard maps are property of the <a href="http://geodata.npolar.no/">Norwegian Polar Institute</a>
 </li>
 <li>Barents Sea and pan-Arctic maps are downloaded from <a href="http://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-land/">Natural Earth Data</a>
+</li>
+<li>Bathymetry shapefiles are generalized from <a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html">IBCAO v3.0 500m RR grid</a>
 </li>
 </ul>
 <p>The example data included in the package are property of the Norwegian Polar Institute and should not be used in other instances. I.e. these data are unpublihed at the moment.</p>
@@ -156,13 +158,15 @@ species &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[<span 
 <li>
 <a href="https://cran.r-project.org/web/packages/rgdal/index.html">rgdal</a>: Used to handle geographical information.</li>
 <li>
-<a href="https://cran.r-project.org/web/packages/rgeos/index.html">rgeos</a>: Used to handle geographical information.</li>
+<a href="https://cran.r-project.org/web/packages/rgeos/index.html">rgeos</a>: Used to generalize and clip shapefiles.</li>
 <li>
 <a href="https://cran.r-project.org/web/packages/colorRamps/index.html">colorRamps</a>: matlab.like color scheme is used in 2D surface colors.</li>
 <li>
 <a href="https://cran.r-project.org/web/packages/gstat/index.html">gstat</a>: the krige function is used for interpolation.</li>
 <li>
 <a href="https://cran.r-project.org/web/packages/oce/index.html">oce</a>: Used for trapetsoidal intergration.</li>
+<li>
+<a href="https://cran.r-project.org/web/packages/broom/index.html">broom</a>: Used to transform shapefiles to data frames for ggplot2.</li>
 </ul>
 </div>
 </div>
