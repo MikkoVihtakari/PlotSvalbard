@@ -5,3 +5,4 @@
 ^/inst/docs/PlotSvalbard_user_manual.pdf$
 ^PlotSvalbard - User Manual_files$
 ^\inst\figures\*.png$
+^docs$
