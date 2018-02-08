@@ -58,7 +58,7 @@ aes(x = lon.utm, y = lat.utm, label = Station))
 plot(x, type = "kongsfjorden", limits = c(11.4,12.7,78.85,79.05))
 }
 \seealso{
-\code{\link{interpolate}}
+\code{\link{interpolate}} \code{\link{basemap}}
 }
 \author{
 Mikko Vihtakari

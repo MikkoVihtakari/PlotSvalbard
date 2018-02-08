@@ -16,7 +16,7 @@
 ##' @param keep.glaciers a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting little bit.
 ##' @param ... Additional arguments passed somewhere.
 ##' @method plot spatInt
-##' @seealso \code{\link{interpolate}}
+##' @seealso \code{\link{interpolate}} \code{\link{basemap}}
 ##' @examples data(chlorophyll) ## load an example dataset
 ##' x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
 ##' plot(x, type = "kongsfjorden") ## Plot
@@ -50,7 +50,7 @@ if(is.na(legend.label)) {
 
 if(keep.glaciers) {
   
-  eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("defs_interpl_utm"), sep = "+")))
+  eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("grid_utm"), map_cmd("defs_interpl_utm"), sep = "+")))
 
   } else {
   
