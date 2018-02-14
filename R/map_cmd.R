@@ -16,7 +16,7 @@ map_cmd <- function(command) {
     base_dat = 'basemap_data(type = type, limits = limits, round.lat. = round.lat, n.lat.grid. = n.lat.grid, round.lon. = round.lon, n.lon.grid. = n.lon.grid, keep.glaciers. = keep.glaciers)',
     base_dat_polar = 'basemap_data(type = type, limits = limits, lat.interval. = lat.interval, lon.interval. = lon.interval, keep.glaciers. = FALSE)',
     base = 'ggplot(data=X$Land, aes(x=long, y=lat))',
-    bathy = 'geom_polygon(data = bathy, aes(x = long, y = lat, group = group, fill = depth)) + scale_fill_brewer(name = "Depth (m)")',
+    bathy = 'geom_polygon(data = bathy, aes(x = long, y = lat, group = group, fill = depth), show.legend = bathy_legend) + scale_fill_brewer(name = "Depth (m)")',
     land_utm = 'geom_polygon(data = X$Land, aes(x = long, y = lat, group = group), fill = land.col, color = border.col.land, size = size.land)',
     glacier_utm = 'geom_polygon(data = X$Glacier, aes(x = long, y = lat, group = group), fill = gla.col, color = border.col.glacier, size = size.glacier) + geom_polygon(data = X$Holes, aes(x=long, y=lat, group = group), fill = land.col, color = border.col.glacier, size = size.land)',
     grid_utm = 'geom_line(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid) + geom_line(data = X$Grid$lon, aes(x=lon.utm, y=lat.utm, group = ID), color = grid.col, size = size.grid)',
