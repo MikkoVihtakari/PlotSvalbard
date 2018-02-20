@@ -27,4 +27,9 @@ Useful links:
 \author{
 \strong{Maintainer}: Mikko Vihtakari \email{mikko.vihtakari@gmail.com}
 
+Other contributors:
+\itemize{
+  \item Anders Skoglund [contributor]
+}
+
 }

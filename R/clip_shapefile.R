@@ -49,6 +49,6 @@ if(simplify) {
   x <- rgeos::gSimplify(x, tol = tol)
 }
 
-rgeos::gIntersection(x, clip_boundary, byid=TRUE)
+rgeos::gIntersection(x, clip_boundary, byid = TRUE)
 
 }

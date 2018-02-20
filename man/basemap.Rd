@@ -136,5 +136,5 @@ basemap("kongsfjorden", bathymetry = TRUE)
 \code{coastlineWorldMedium} from the \code{oce} package for plotting maps in maps in base graphics using the \code{ne_10m_land} dataset.
 }
 \author{
-Mikko Vihtakari
+Mikko Vihtakari, Anders Skoglund
 }

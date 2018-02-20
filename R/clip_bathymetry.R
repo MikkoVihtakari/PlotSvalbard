@@ -30,12 +30,14 @@ if(X$MapClass == "panarctic") {
   clip_bathy <- arctic_bathy
 
 } else {
-
-    clipBound <- X$Grid$limits_shp_utm
-
-    clip_bathy <- sp::spTransform(arctic_bathy ,CRS(map_projection("barents")))
-    clip_bathy <- rgeos::gBuffer(clip_bathy, byid=TRUE, width=0)
-
+  
+  clipBound <- X$Grid$limits_shp_utm
+  
+  #if(X$MapClass == "barents") {
+    clip_bathy <- barents_bathy
+  #} else {
+  #  clip_bathy <- svalbard_bathy
+  #}
 }
 
   
@@ -44,13 +46,29 @@ if(X$MapClass == "panarctic") {
   fbathy <- broom::tidy(bathy)
 
   fbathy$id <- select(strsplit(fbathy$id, " "), 1)
-  info <- arctic_bathy@data
+  info <- clip_bathy@data
   info$id <- rownames(info)
-
+  # info$id <- info$ID
+  # names(info)[grepl("DYBDE_MAX", names(info))] <- "depth"
+  if(any(grepl("Depth", names(info)))) {
+    names(info)[grepl("Depth", names(info))] <- "depth"
+  }
+  
   out <- merge(fbathy, info[c("id", "depth")], by = "id", all.x = TRUE, sort = FALSE)
 
   out$depth <- ordered(out$depth)
+  
+  if(X$MapClass == "panarctic") {
+    
   levels(out$depth) <- c(paste(levels(out$depth)[-nlevels(out$depth)], levels(out$depth)[-1], sep = "-"), paste0(">", levels(out$depth)[nlevels(out$depth)]))
 
+  } else {
+    levels(out$depth) <- paste(c("0", levels(out$depth)[-nlevels(out$depth)]), levels(out$depth), sep = "-")
+  }
+  
+  out <- out[with(out, order(depth, id, order)),]
+  
+  out$group <- ordered(out$group, unique(out$group)) ## Order $group to plot holes (fixes a problem caused by a bad shapefile)
+  
   out
 }

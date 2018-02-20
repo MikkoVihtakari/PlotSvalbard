@@ -88,27 +88,15 @@
 ##' @seealso \code{\link[ggplot2]{ggplot2}} \code{\link{theme_map}}
 ##'
 ##' \code{coastlineWorldMedium} from the \code{oce} package for plotting maps in maps in base graphics using the \code{ne_10m_land} dataset.
-##' @author Mikko Vihtakari
+##' @author Mikko Vihtakari, Anders Skoglund
 ##' @import ggplot2
 ##' @importFrom grDevices extendrange
 ##' @export
 
 ## Test parameters
 # type = "barentssea"
-# land.col = "#eeeac4"
-# gla.col = "grey95"
-# grid.col = "grey70"
-# limits = NULL
-# limits = c(12.2,12.65,78.95,79.00)
-# round.lat = FALSE
-# n.lat.grid = 3
-# round.lon = FALSE
-# n.lon.grid = 3
-# keep.glaciers = TRUE
-# land.size = 0.1
 # type = "svalbard"
-# limits = c(12.2,12.65, 78.855,79)
-# limits = c(3,24,78.5,82)
+# type = "kongsfjorden"
 # type = "arctic60"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04; bathymetry = TRUE
 # type = "arctic50"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; bathymetry = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04
 
