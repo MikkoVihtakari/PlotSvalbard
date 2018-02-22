@@ -4,16 +4,22 @@
 \alias{basemap}
 \title{Create a ggplot2 basemap for plotting variables}
 \source{
-Svalbard shape files originate from the Norwegian Polar Institute (\url{http://geodata.npolar.no/}). Barents Sea and polar stereographic maps are from  \url{http://www.naturalearthdata.com}. They use the \code{ne_10m_land} and \code{ne_50m_land} (v 4.0.0) datasets, respectively. Bathymetry polygons are generalized from \code{IBCAO v3.0 500m RR grid} \url{https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html}.
+\itemize{
+\item Svalbard maps originate from the \href{http://geodata.npolar.no/}{Norwegian Polar Institute}. Distributed under the \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0 license} (\href{http://geodata.npolar.no/bruksvilkar/}{terms of use}).
+\item Barents Sea and pan-Arctic maps are downloaded from \href{http://www.naturalearthdata.com}{Natural Earth Data}. They use the \href{http://www.naturalearthdata.com/downloads/10m-physical-vectors/}{\code{ne_10m_land}} and \href{http://www.naturalearthdata.com/downloads/50m-physical-vectors/}{\code{ne_50m_land}} (v 4.0.0) datasets, respectively. Distributed under the \href{https://creativecommons.org/publicdomain/}{CC Public Domain license} (\href{http://www.naturalearthdata.com/about/terms-of-use/}{terms of use}).
+\item Pan-Arctic and Barents Sea bathymetry shapefiles are generalized from \href{https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html}{IBCAO v3.0 500m RR grid}. Should be cited as \href{https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/2012GL052219.pdf}{Jakobsson, M., et al. The International Bathymetric Chart of the Arctic Ocean (IBCAO) Version 3.0. Geophys. Res. Lett. 2012, 39:L12609.}
+\item Svalbard fjord bathymetry shapefiles are from the \href{https://kartkatalog.geonorge.no/metadata/kartverket/dybdedata/2751aacf-5472-4850-a208-3532a51c529a}{Norwegian Mapping Authority}.  Distributed under the \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0 license}.
+}
 }
 \usage{
 basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
   n.lat.grid = 3, lat.interval = 10, round.lon = FALSE, n.lon.grid = 3,
   lon.interval = 45, keep.glaciers = TRUE, bathymetry = FALSE,
-  bathy_legend = TRUE, land.col = "#eeeac4", size.land = 0.1,
-  border.col.land = "black", gla.col = "grey95", size.glacier = 0.1,
-  border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1,
-  label.print = TRUE, label.offset = 1.05, label.font = 8)
+  bathy_legend = TRUE, bathy_detailed = FALSE, land.col = "#eeeac4",
+  size.land = 0.1, border.col.land = "black", gla.col = "grey95",
+  size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70",
+  size.grid = 0.1, label.print = TRUE, label.offset = 1.05,
+  label.font = 8)
 }
 \arguments{
 \item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.}
@@ -37,6 +43,8 @@ basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
 \item{bathymetry}{Logical indicating whether bathymetry should be added to the map. Relatively slow. Defaults to \code{FALSE}}
 
 \item{bathy_legend}{Logical indicating whether legend for bathymetry should be shown. Defaults to \code{TRUE}}
+
+\item{bathy_detailed}{Logical indicating whether detailed bathymetry shapefiles should be used. Works for Svalbard maps only (see \emph{Source}). Very slow due to the large file size. Use for limited areas, such as fjords, only.}
 
 \item{land.col}{Character code specifying the color of land.}
 
@@ -132,8 +140,6 @@ basemap("kongsfjorden", bathymetry = TRUE)
 }
 \seealso{
 \code{\link[ggplot2]{ggplot2}} \code{\link{theme_map}}
-
-\code{coastlineWorldMedium} from the \code{oce} package for plotting maps in maps in base graphics using the \code{ne_10m_land} dataset.
 }
 \author{
 Mikko Vihtakari, Anders Skoglund

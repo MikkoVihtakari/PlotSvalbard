@@ -1,13 +1,14 @@
 #' @title Clip a bathymetry shapefile to fit a basemap
 #' @description An internal utility function to clip bathymetry to fit the boundaries of a basemap
-#' @param X a basemapData object
+#' @param X A basemapData object
+#' @param detailed Logical indicating whether detailed bathymetry shapefiles should be used for Svalbard maps.
 #' @author Mikko Vihtakari
 #' @keywords internal
 #' @importFrom broom tidy
 #' @import sp
 #' @export
 
-clip_bathymetry <- function(X) {
+clip_bathymetry <- function(X, detailed = FALSE) {
 
 if(class(X) != "basemapData") stop("clip_bathymetry requires basemapData object")
 
@@ -33,11 +34,11 @@ if(X$MapClass == "panarctic") {
   
   clipBound <- X$Grid$limits_shp_utm
   
-  #if(X$MapClass == "barents") {
+  if(X$MapClass == "barents" | !detailed) {
     clip_bathy <- barents_bathy
-  #} else {
-  #  clip_bathy <- svalbard_bathy
-  #}
+  } else {
+    clip_bathy <- svalbard_bathy
+  }
 }
 
   
@@ -48,10 +49,12 @@ if(X$MapClass == "panarctic") {
   fbathy$id <- select(strsplit(fbathy$id, " "), 1)
   info <- clip_bathy@data
   info$id <- rownames(info)
-  # info$id <- info$ID
-  # names(info)[grepl("DYBDE_MAX", names(info))] <- "depth"
   if(any(grepl("Depth", names(info)))) {
     names(info)[grepl("Depth", names(info))] <- "depth"
+  }
+  
+  if(any(grepl("DYBDE_MAX", names(info)))) {
+    names(info)[grepl("DYBDE_MAX", names(info))] <- "depth"
   }
   
   out <- merge(fbathy, info[c("id", "depth")], by = "id", all.x = TRUE, sort = FALSE)

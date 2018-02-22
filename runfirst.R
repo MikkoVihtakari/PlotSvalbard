@@ -5,7 +5,7 @@
 ## Libraries, remember to add these as dependencies if needed
 
 library(PlotSvalbard)
-#library(sp)
+library(sp)
 library(rgdal)
 #library(maptools)
 #library(rgeos) #gIntersect

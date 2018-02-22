@@ -4,10 +4,12 @@
 \alias{clip_bathymetry}
 \title{Clip a bathymetry shapefile to fit a basemap}
 \usage{
-clip_bathymetry(X)
+clip_bathymetry(X, detailed = FALSE)
 }
 \arguments{
-\item{X}{a basemapData object}
+\item{X}{A basemapData object}
+
+\item{detailed}{Logical indicating whether detailed bathymetry shapefiles should be used for Svalbard maps.}
 }
 \description{
 An internal utility function to clip bathymetry to fit the boundaries of a basemap
