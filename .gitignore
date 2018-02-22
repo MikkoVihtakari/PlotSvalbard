@@ -4,5 +4,5 @@
 .Ruserdata
 .DS_Store
 .Rapp.history
-\devel
 *.Rproj
+runfirst.R

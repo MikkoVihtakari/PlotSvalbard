@@ -6,7 +6,7 @@
 ##' @param new.names a vector of length 2 specifying the names of transformed longitude and latitude columns, respectively. \code{NULL} returns column names from \code{x}
 ##' @param proj.og original \code{\link[sp]{proj4string}} projection. If \code{NULL}, the projection is taken from \code{x}. \code{x} must be a \link[sp]{Spatial} object in that case.
 ##' @param proj.out the \code{\link[sp]{proj4string}} projection the coordinates should be transformed to. Defaults to the \link[=basemap]{"svalbard"} shape file projection.
-##' @param map.type a character string specifying the map type for which coodrinates should be transformed to. If \code{NULL} (default), \code{proj.out} is used to determine the returned projection. See \code{\link[=basemap]{type}} argument for possible map types. Overrides \code{proj.out}.
+##' @param map.type a character string specifying the map type for which coordinates should be transformed to. If \code{NULL} (default), \code{proj.out} is used to determine the returned projection. See \code{\link[=basemap]{type}} argument for possible map types. Overrides \code{proj.out}.
 ##' @param verbose if \code{TRUE} (default), the function prints information about the returned data frame. Switch to \code{FALSE} to make the function silent.
 ##' @param bind Should only transformed coordinates be returned (\code{FALSE}, default) or should x be returned with transformed coordinates (\code{TRUE})?
 ##' @return Returns a data frame with transformed spatial coordinates

@@ -22,7 +22,7 @@ transform_coord(x = NULL, lon = "longitude", lat = "latitude",
 
 \item{proj.out}{the \code{\link[sp]{proj4string}} projection the coordinates should be transformed to. Defaults to the \link[=basemap]{"svalbard"} shape file projection.}
 
-\item{map.type}{a character string specifying the map type for which coodrinates should be transformed to. If \code{NULL} (default), \code{proj.out} is used to determine the returned projection. See \code{\link[=basemap]{type}} argument for possible map types. Overrides \code{proj.out}.}
+\item{map.type}{a character string specifying the map type for which coordinates should be transformed to. If \code{NULL} (default), \code{proj.out} is used to determine the returned projection. See \code{\link[=basemap]{type}} argument for possible map types. Overrides \code{proj.out}.}
 
 \item{verbose}{if \code{TRUE} (default), the function prints information about the returned data frame. Switch to \code{FALSE} to make the function silent.}
 
