@@ -1,8 +1,8 @@
 Package: PlotSvalbard
 Type: Package
 Title: PlotSvalbard - plot research data from Svalbard on maps
-Version: 0.3.5
-Date: 2018-02-22
+Version: 0.3.6
+Date: 2018-07-02
 Authors@R: c(person("Mikko", "Vihtakari", email = "mikko.vihtakari@gmail.com",
                   role = c("aut", "cre")), 
           person("Anders", "Skoglund",

@@ -19,7 +19,7 @@ basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
   size.land = 0.1, border.col.land = "black", gla.col = "grey95",
   size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70",
   size.grid = 0.1, label.print = TRUE, label.offset = 1.05,
-  label.font = 8)
+  label.font = 8, base_size = 11)
 }
 \arguments{
 \item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.}
@@ -67,6 +67,8 @@ basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
 \item{label.offset}{Offset between the round polar stereographic maps and longitude labels. Optimized for a pdf output. Use 1.1 for larger size figures.}
 
 \item{label.font}{Numeric value specifying the font size for labels in polar stereographic maps. Note that this value defines the actual font size in points, not the \code{ggplot2} font size.}
+
+\item{base_size}{Base size parameter for ggplot. See \link[ggplot2]{theme_bw}.}
 }
 \value{
 Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object.
@@ -117,7 +119,7 @@ basemap("svalbard", limits = c(3,24,78.5,82), round.lat = 1,
 n.lon.grid = 4)
 
 ## Barents Sea
-basemap("barentssea") 
+basemap("barentssea")
 
 ## Barents Sea map also prints mainland Norway,
 ## but the projection is not optimal.
@@ -132,11 +134,11 @@ basemap("arctic60", limits = c(250000, -2500000, 2000000, -250000))
 
 ## Bathymetry can be added using the bathymetry argument
 basemap("arctic50", bathymetry = TRUE)
- 
+
 ## Current bathymetry shapefiles are not detailed
 ## enough for Svalbard fjords
 basemap("kongsfjorden", bathymetry = TRUE)
- 
+
 }
 \seealso{
 \code{\link[ggplot2]{ggplot2}} \code{\link{theme_map}}

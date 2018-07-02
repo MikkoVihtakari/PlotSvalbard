@@ -7,7 +7,7 @@
 transform_coord(x = NULL, lon = "longitude", lat = "latitude",
   new.names = c("lon.utm", "lat.utm"),
   proj.og = "+proj=longlat +datum=WGS84", proj.out = "+init=epsg:32633",
-  map.type = NULL, verbose = TRUE, bind = FALSE)
+  map.type = NULL, verbose = FALSE, bind = FALSE)
 }
 \arguments{
 \item{x}{data frame to be transformed. Can be omitted if numeric vectors are assigned to \code{lon} and \code{lat}.}
@@ -24,7 +24,7 @@ transform_coord(x = NULL, lon = "longitude", lat = "latitude",
 
 \item{map.type}{a character string specifying the map type for which coordinates should be transformed to. If \code{NULL} (default), \code{proj.out} is used to determine the returned projection. See \code{\link[=basemap]{type}} argument for possible map types. Overrides \code{proj.out}.}
 
-\item{verbose}{if \code{TRUE} (default), the function prints information about the returned data frame. Switch to \code{FALSE} to make the function silent.}
+\item{verbose}{if \code{TRUE}, the function prints information about the changed projection. Switch to \code{FALSE} to make the function silent.}
 
 \item{bind}{Should only transformed coordinates be returned (\code{FALSE}, default) or should x be returned with transformed coordinates (\code{TRUE})?}
 }

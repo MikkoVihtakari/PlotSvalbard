@@ -7,7 +7,7 @@
 ##' @param proj.og original \code{\link[sp]{proj4string}} projection. If \code{NULL}, the projection is taken from \code{x}. \code{x} must be a \link[sp]{Spatial} object in that case.
 ##' @param proj.out the \code{\link[sp]{proj4string}} projection the coordinates should be transformed to. Defaults to the \link[=basemap]{"svalbard"} shape file projection.
 ##' @param map.type a character string specifying the map type for which coordinates should be transformed to. If \code{NULL} (default), \code{proj.out} is used to determine the returned projection. See \code{\link[=basemap]{type}} argument for possible map types. Overrides \code{proj.out}.
-##' @param verbose if \code{TRUE} (default), the function prints information about the returned data frame. Switch to \code{FALSE} to make the function silent.
+##' @param verbose if \code{TRUE}, the function prints information about the changed projection. Switch to \code{FALSE} to make the function silent.
 ##' @param bind Should only transformed coordinates be returned (\code{FALSE}, default) or should x be returned with transformed coordinates (\code{TRUE})?
 ##' @return Returns a data frame with transformed spatial coordinates
 ##' @author Mikko Vihtakari
@@ -17,7 +17,7 @@
 
 #x = lims; lon = "longitude"; lat = "latitude"; new.names = c("lon.utm", "lat.utm"); proj.og = "+proj=longlat +datum=WGS84"; proj.out = "+init=epsg:32633"; map.type = NULL; verbose = TRUE
 
-transform_coord <- function(x = NULL, lon = "longitude", lat = "latitude", new.names = c("lon.utm", "lat.utm"), proj.og = "+proj=longlat +datum=WGS84", proj.out = "+init=epsg:32633", map.type = NULL, verbose = TRUE, bind = FALSE) {
+transform_coord <- function(x = NULL, lon = "longitude", lat = "latitude", new.names = c("lon.utm", "lat.utm"), proj.og = "+proj=longlat +datum=WGS84", proj.out = "+init=epsg:32633", map.type = NULL, verbose = FALSE, bind = FALSE) {
 
 if(is.null(x) & (!is.numeric(lon) | !is.numeric(lat))) {
   stop("give either x or lon and lat as numeric vectors")

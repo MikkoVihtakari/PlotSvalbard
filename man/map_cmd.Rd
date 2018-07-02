@@ -17,7 +17,7 @@ This is an internal function, which is automatically run by the \code{\link{base
 }
 \examples{
 ## An example for utm map without glaciers or bathymetry
-\dontrun{eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), 
+\dontrun{eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"),
 map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))}
 }
 \seealso{
