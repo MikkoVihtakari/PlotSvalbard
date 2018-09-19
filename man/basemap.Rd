@@ -13,13 +13,14 @@
 }
 \usage{
 basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
-  n.lat.grid = 3, lat.interval = 10, round.lon = FALSE, n.lon.grid = 3,
-  lon.interval = 45, keep.glaciers = TRUE, bathymetry = FALSE,
-  bathy_legend = TRUE, bathy_detailed = FALSE, land.col = "#eeeac4",
-  size.land = 0.1, border.col.land = "black", gla.col = "grey95",
-  size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70",
-  size.grid = 0.1, label.print = TRUE, label.offset = 1.05,
-  label.font = 8, base_size = 11)
+  n.lat.grid = 3, lat.interval = 10, round.lon = FALSE,
+  n.lon.grid = 3, lon.interval = 45, keep.glaciers = TRUE,
+  bathymetry = FALSE, bathy_legend = TRUE, bathy_detailed = FALSE,
+  land.col = "#eeeac4", size.land = 0.1, border.col.land = "black",
+  gla.col = "grey95", size.glacier = 0.1,
+  border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1,
+  label.print = TRUE, label.offset = 1.05, label.font = 8,
+  base_size = 11)
 }
 \arguments{
 \item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.}

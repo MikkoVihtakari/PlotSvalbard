@@ -4,8 +4,9 @@
 \alias{deg_grid_polar}
 \title{Decimal degree grid from polar stereographic spatial objects}
 \usage{
-deg_grid_polar(dat, lat.interval = 10, lon.interval = 45, n.points = 1000,
-  proj4.utm = TRUE, proj4.deg = "+proj=longlat +datum=WGS84")
+deg_grid_polar(dat, lat.interval = 10, lon.interval = 45,
+  n.points = 1000, proj4.utm = TRUE,
+  proj4.deg = "+proj=longlat +datum=WGS84")
 }
 \arguments{
 \item{dat}{Spatial object projected using UTM coordinates, such as \code{\link{readShapeSpatial}} OR a numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. In case of a numeric vector, the coordinates have to be given as decimal degrees.}

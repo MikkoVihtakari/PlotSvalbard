@@ -55,7 +55,7 @@ basemap_limits <- function(limits, proj_deg = "+proj=longlat +datum=WGS84", type
     
     ## Boundaries (data.frames specifying each corner)
     
-    bla <-bound_utm_shp@polygons[[1]]@Polygons[[1]]@coords
+    bla <- bound_utm_shp@polygons[[1]]@Polygons[[1]]@coords
     bla <- as.data.frame(bla)
     bla <- bla[-nrow(bla),]
     colnames(bla) <- c("lon", "lat")

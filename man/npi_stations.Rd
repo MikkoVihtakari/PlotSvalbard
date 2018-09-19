@@ -17,4 +17,7 @@ Norwegian Polar Institute (\url{http://www.npolar.no/en/})
 \usage{
 data(npi_stations)
 }
+\description{
+Location of NPI's permanent marine biological monitoring stations
+}
 \keyword{datasets}

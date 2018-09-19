@@ -44,11 +44,12 @@ if(X$MapClass == "panarctic") {
   
   ## Clip bathymetry
   bathy <- clip_shapefile(clip_bathy, clipBound)
-  fbathy <- broom::tidy(bathy)
+  fbathy <- suppressWarnings(broom::tidy(bathy))
 
   fbathy$id <- select(strsplit(fbathy$id, " "), 1)
   info <- clip_bathy@data
   info$id <- rownames(info)
+  
   if(any(grepl("Depth", names(info)))) {
     names(info)[grepl("Depth", names(info))] <- "depth"
   }

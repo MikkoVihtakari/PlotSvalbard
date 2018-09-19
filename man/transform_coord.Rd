@@ -6,8 +6,9 @@
 \usage{
 transform_coord(x = NULL, lon = "longitude", lat = "latitude",
   new.names = c("lon.utm", "lat.utm"),
-  proj.og = "+proj=longlat +datum=WGS84", proj.out = "+init=epsg:32633",
-  map.type = NULL, verbose = FALSE, bind = FALSE)
+  proj.og = "+proj=longlat +datum=WGS84",
+  proj.out = "+init=epsg:32633", map.type = NULL, verbose = FALSE,
+  bind = FALSE)
 }
 \arguments{
 \item{x}{data frame to be transformed. Can be omitted if numeric vectors are assigned to \code{lon} and \code{lat}.}

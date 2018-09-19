@@ -21,4 +21,7 @@ Norwegian Polar Institute (\url{https://data.npolar.no/home/})
 \usage{
 data(chlorophyll)
 }
+\description{
+Chlorophyll-a recordings in Kongsfjorden
+}
 \keyword{datasets}

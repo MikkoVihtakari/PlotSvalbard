@@ -1,8 +1,8 @@
 Package: PlotSvalbard
 Type: Package
 Title: PlotSvalbard - plot research data from Svalbard on maps
-Version: 0.3.6
-Date: 2018-07-02
+Version: 0.3.7
+Date: 2018-09-19
 Authors@R: c(person("Mikko", "Vihtakari", email = "mikko.vihtakari@gmail.com",
                   role = c("aut", "cre")), 
           person("Anders", "Skoglund",
@@ -15,4 +15,4 @@ Imports: maptools, rgdal, sp, rgeos, gstat, oce, colorRamps, broom, geosphere
 License: MIT
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

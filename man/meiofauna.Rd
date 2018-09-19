@@ -11,4 +11,7 @@
 \usage{
 data(meiofauna)
 }
+\description{
+Pan-Arctic meiofauna data from Bluhm et al. 2018
+}
 \keyword{datasets}

@@ -11,4 +11,7 @@ Norwegian Polar Institute (\url{http://geodata.npolar.no/})
 \usage{
 svalbard.ld
 }
+\description{
+SpatialPolygons object for Svalbard landshapes
+}
 \keyword{datasets}

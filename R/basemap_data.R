@@ -48,21 +48,23 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
   MapType <- map_type(type)
 
   if(MapType$map.type == "panarctic") {
+      # panarctic maps with limits. Does not make lims object for undefined limits
       if(!is.null(limits)) lims <- limits
   } else if(!is.null(limits)) {
+      # non-panarctic maps with limits
     if(length(limits) != 4 | !is.numeric(limits)) stop("limits have to be a numeric vector of length 4. See Arguments")
     lims <- basemap_limits(limits = limits, type = MapType$map.type)
   } else {
+    # non-panarctic maps without defined limits (fetch from map_type)
     lims <- basemap_limits(limits = MapType$boundary, type = MapType$map.type) 
   }
-
+  
   if(MapType$map.type != "panarctic") {
     Land <- clip_shapefile(get(MapType$land), lims$bound_utm_shp)
-    Land <- broom::tidy(Land)
+    Land <- suppressWarnings(broom::tidy(Land))
   } else {
     Land <- get(MapType$land)
   }
-
 
   if(any(is.null(MapType$glacier), !keep.glaciers., MapType$map.type == "barents", MapType$map.type == "panarctic")) {
     Glacier <- NULL
@@ -70,7 +72,7 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
   } else {
     Glacier <- get(MapType$glacier)
     Glacier <- clip_shapefile(Glacier, lims$bound_utm_shp)
-    Glacier <- broom::tidy(Glacier)
+    Glacier <- suppressWarnings(broom::tidy(Glacier))
     Holes <- Glacier[Glacier$hole == TRUE,]
   }
 
@@ -81,7 +83,7 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
     } else {
       Grid <- deg_grid_polar(dat = Land, lat.interval = lat.interval., lon.interval = lon.interval.)
     }
-    Land <- suppressMessages(broom::tidy(Land))
+    Land <- suppressMessages(suppressWarnings(broom::tidy(Land)))
     
   } else if(!is.null(limits)) {
     Grid <- deg_grid(lims, round.lat = round.lat., n.lat.grid = n.lat.grid., round.lon = round.lon., n.lon.grid = n.lon.grid.)

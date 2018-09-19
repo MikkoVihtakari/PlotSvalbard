@@ -6,10 +6,11 @@
 \usage{
 \method{plot}{spatInt}(x, basemap = TRUE, type = "kongsfjorden",
   col.scale.limits = NULL, legend.label = NA, limits = NULL,
-  round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3,
-  keep.glaciers = TRUE, land.col = "#eeeac4", size.land = 0.1,
-  border.col.land = "black", gla.col = "grey95", size.glacier = 0.1,
-  border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1, ...)
+  round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE,
+  n.lon.grid = 3, keep.glaciers = TRUE, land.col = "#eeeac4",
+  size.land = 0.1, border.col.land = "black", gla.col = "grey95",
+  size.glacier = 0.1, border.col.glacier = "black",
+  grid.col = "grey70", size.grid = 0.1, base_size = 11, ...)
 }
 \arguments{
 \item{x}{\code{spatInt} object from \code{\link{interpolate}} function.}
