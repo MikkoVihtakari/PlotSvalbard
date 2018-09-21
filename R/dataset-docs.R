@@ -25,11 +25,19 @@
 #' \itemize{
 #'   \item Area. Geographic location of station.
 #'   \item Station. Sampling station name.
-#'   \item lon. Longitude of the sampling location in decimal degrees
-#'   \item lat. Latitude of the sampling location in decimal degrees.
+#'   \item Lon. Longitude of the sampling location in decimal degrees
+#'   \item Lat. Latitude of the sampling location in decimal degrees.
 #'  }
 #' @source Norwegian Polar Institute (\url{http://www.npolar.no/en/})
 "npi_stations"
+#' @title Location of recorded moorings in Kongsfjorden
+#' @docType data
+#' @keywords datasets
+#' @name kongsfjord_moorings
+#' @usage data(kongsfjord_moorings)
+#' @format A dataframe 
+#' @source Hop, H., Cottier, F., and Berge, J. (in press). "Marine observatories in Kongsfjorden, Svalbard" in The ecosystem of Kongsfjorden, Svalbard, eds. H. Hop and C. Wiencke (Advances in Polar Ecology, Springer Verlag).
+"kongsfjord_moorings"
 #' @title Pan-Arctic meiofauna data from Bluhm et al. 2018
 #' @docType data
 #' @keywords datasets

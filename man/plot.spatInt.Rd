@@ -37,6 +37,8 @@
 
 \item{land.col}{Color of land}
 
+\item{size.land, border.col.land, size.glacier, border.col.glacier, size.grid, base_size}{See \code{\link{basemap}}}
+
 \item{gla.col}{Color of glaciers}
 
 \item{grid.col}{Color of grid lines. Use \code{NA} to remove the grid lines.}

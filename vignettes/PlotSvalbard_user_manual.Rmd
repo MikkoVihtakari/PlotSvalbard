@@ -40,7 +40,7 @@ The maps in PlotSvalbard are designed to be printed on `pdf()` device. If you ne
 
 # Basemap
 
-The `basemap` function is the generic plotting command in PlotSvalbard, and is analogous to empty `ggplot()` call. The `basemap()` call plots a map that is specified by the `type` argument. Data that contains geographic information can be plotted on these maps using the [ggplot2 layers separated by the `+` operator](http://ggplot2.tidyverse.org/reference/).
+The `basemap` function is the generic plotting command in PlotSvalbard, and is analogous to empty `ggplot()` call. The `basemap()` call plots a map that is specified by the `type` argument. Data containing geographic information can be plotted on these maps using the [ggplot2 layers separated by the `+` operator](http://ggplot2.tidyverse.org/reference/).
 
 ## Map types
 
@@ -95,21 +95,33 @@ basemap("arctic60")
 
 ## Limiting (zooming) the maps
 
-Any `basemap` can be limited (or zoomed in) using the `limits` argument. The `limits` argument has to be a numeric vector specifying the minimum longitude, maximum longitude, minimum latitude and maximum latitude of the limiting area in decimal degrees. The order and length (4) of the vector is rigid. 
+Any `basemap` can be limited (or zoomed in) using the `limits` argument. The `limits` argument has to be either a numeric vector of length 4 or a character vector of length 3. Numeric vectors are used to constrain (zoom in) the maps using coordinates. Character vectors are used to automatically zoom into a dataset.
 
-Note that some map types are already limited, so if you are looking for a map of Kongsfjorden, using `basemap("kongsfjorden")` might be just what you need.
+### Manual limits
+
+Achieved using a numeric vector. The first element defines the minimum longitude, the second element the maximum longitude, the third element the minimum latitude and the fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps (see [`?transform_coord`](https://mikkovihtakari.github.io/PlotSvalbard/reference/transform_coord.html)).
 
 ```{r}
-basemap("svalbard", limits = c(11, 18, 77.9, 78.85))
+basemap("svalbard", limits = c(11, 18, 77.9, 78.85)) # limits in decimal degrees
 ```
 
 ```{r}
-basemap("arctic50", limits = c(3*10^6, -3*10^6, 3*10^6, -3*10^6))
+basemap("arctic50", limits = c(3*10^6, -3*10^6, 3*10^6, -3*10^6)) # limits in uTM coordinates
+```
+
+Note that some map types are already limited, so if you are looking for a map of Kongsfjorden, using `basemap("kongsfjorden")` might be just what you need.
+
+### Automatic limits
+
+Requires a character vector: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the `limits.lon` and ` limits.lat` agruments to define the accuracy of rounding.
+
+```{r}
+basemap(type = "svalbard", limits = c("kongsfjord_moorings", "Lon", "Lat"), limits.lon = 0.01, limits.lat = 0.01) + geom_point(data = kongsfjord_moorings, aes(x = lon.utm, y = lat.utm), color = "red")
 ```
 
 ## Bathymetry
 
-All basemaps support bathymetry, but the resolution of bathymetry shapefiles is currently too low to plot bathymetry inside fjords. Bathymetry can be plotted using the `bathymetry` argument.
+All basemaps support bathymetry, but the resolution of bathymetry shapefiles is varying. Bathymetry can be plotted using the `bathymetry` argument.
 
 ```{r}
 basemap("arctic60", bathymetry = TRUE)
@@ -120,9 +132,41 @@ basemap("arctic60", bathymetry = TRUE)
 basemap("barentssea", bathymetry = TRUE)
 ```
 
+### Detailed bathymetry shapes
+
+The default bathymetry shapefile is too low resolution to be used inside Svalbard fjords:
 
 ```{r}
 basemap("kongsfjorden", bathymetry = TRUE)
+```
+
+PlotSvalbard contains more detailed shapefiles from the Norwegian Mapping Authority, but these files have gaps in them. More detailed shapefiles can be plotted using the `bathy_detailed` argument (warning: detailed bathymetries are large and therefore slow.)
+
+```{r}
+basemap("kongsfjorden", bathymetry = TRUE, bathy_detailed = TRUE)
+```
+
+### Bathymetry styles
+
+PlotSvalbard has 4 preprogrammed style alternatives:
+
+```{r}
+basemap("barentssea", bathymetry = TRUE, bathy_style = "poly_blues") # default
+basemap("barentssea", bathymetry = TRUE, bathy_style = "poly_greys") # grey polygons with shading
+basemap("barentssea", bathymetry = TRUE, bathy_style = "contour_blues") # colored contours
+basemap("barentssea", bathymetry = TRUE, bathy_style = "contour_grey") # grey contours
+```
+
+Adding depth labels to contours (ala nautical maps) is currently an unresolved issue.   
+
+### Customizing bathymetry styles
+
+The color scales for polygons and contours can be adjusted using ggplot2 syntax:
+
+```{r}
+basemap("barentssea", bathymetry = TRUE) + scale_fill_viridis_d("Water depth (m)")
+basemap("barentssea", bathymetry = TRUE, bathy_style = "contour_blues") + scale_color_hue()
+
 ```
 
 ## Adding data to basemaps
@@ -136,9 +180,11 @@ Text can be added to basemaps using the `geom_text()` function:
 ```{r message=FALSE, warning=FALSE}
 data("npi_stations")
 
+x <- transform_coord(npi_stations, lon = "Lon", lat = "Lat", bind = TRUE)
+
 basemap("svalbard", limits = c(3,24,78.5,82), round.lat = 1, round.lon = 2, 
   border.col.land = "#a9750d", border.col.glacier = "grey95") + 
-  geom_text(data = npi_stations, aes(x = lon.utm, y = lat.utm, 
+  geom_text(data = x, aes(x = lon.utm, y = lat.utm, 
     label = Station), color = "red", fontface = 2)
 ```
 
@@ -219,6 +265,25 @@ system.time(basemap("barentssea", limits = c(c(19.5,23.5,80,81.7))))
 system.time(basemap("svalbard", limits = c(c(19.5,23.5,80,81.7))))
 ```
 
+# Other functions
+
+## Distance to land
+
+The [`dist2land`]() function calculates the closest distance to land.
+
+```{r}
+library(ggplot2)
+data("npi_stations")
+
+dists <- dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat", map.type = "svalbard")
+dists$Area <- ordered(dists$Area, c("Kongsfjorden", "Framstrait", "Rijpfjorden"))
+
+ggplot(dists, aes(x = Area, y = dist, label = Station, color = Area)) + 
+  geom_text() + ylab("Distance to land (km)") + scale_color_hue()
+
+```
+
+
 # Citing PlotSvalbard
 
 The `citation` function tells how to cite PlotSvalbard package
@@ -229,9 +294,10 @@ citation("PlotSvalbard")
 
 However, please note that the maps generated by this package should be cited to their original source. 
 
-- Svalbard maps are property of the [Norwegian Polar Institute](http://geodata.npolar.no/)
-- Barents Sea and pan-Arctic maps are downloaded from [Natural Earth Data](http://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-land/)
-- Bathymetry shapefiles are generalized from [IBCAO v3.0 500m RR grid](https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html)
+- Svalbard maps originate from the [Norwegian Polar Institute](http://geodata.npolar.no/). Distributed under the [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/) ([terms of use](http://geodata.npolar.no/bruksvilkar/)).
+- Barents Sea and pan-Arctic maps are downloaded from [Natural Earth Data](http://www.naturalearthdata.com). They use the [ne_10m_land](http://www.naturalearthdata.com/downloads/10m-physical-vectors/) and [ne_50m_land](http://www.naturalearthdata.com/downloads/50m-physical-vectors/) (v 4.0.0) datasets, respectively. Distributed under the [CC Public Domain license](https://creativecommons.org/publicdomain/) ([terms of use](http://www.naturalearthdata.com/about/terms-of-use/)).
+- Pan-Arctic and Barents Sea bathymetry shapefiles are generalized from [IBCAO v3.0 500m RR grid](https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html). Should be cited as [Jakobsson, M., et al. The International Bathymetric Chart of the Arctic Ocean (IBCAO) Version 3.0. Geophys. Res. Lett. 2012, 39:L12609.](https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/2012GL052219.pdf)
+- Svalbard fjord bathymetry shapefiles are from the [Norwegian Mapping Authority](https://kartkatalog.geonorge.no/metadata/kartverket/dybdedata/2751aacf-5472-4850-a208-3532a51c529a). Distributed under the [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
 
 The example data included in the package are property of the Norwegian Polar Institute and should not be used in other instances. I.e. these data are unpublihed at the moment.
 

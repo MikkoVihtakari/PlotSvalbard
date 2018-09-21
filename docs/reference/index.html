@@ -18,13 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Function reference" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +56,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">PlotSvalbard</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">PlotSvalbard</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -82,6 +95,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,82 +103,108 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.3.1</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_land.html">add_land</a></code> </p>
-          </td>
-          <td><p>Add a land layer on basemaps</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="basemap.html">basemap</a></code> </p>
-          </td>
-          <td><p>Create a ggplot2 basemap for plotting variables</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="chlorophyll.html">data</a></code> </p>
-          </td>
-          <td><p>Chlorophyll-a recordings in Kongsfjorden</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="interpolate.html">interpolate</a></code> </p>
-          </td>
-          <td><p>Interpolate a spatial 2D surface from observations</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot.spatInt.html">plot</a></code> </p>
-          </td>
-          <td><p>Plot an interpolated map</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="PlotSvalbard-package.html">PlotSvalbard-package</a></code> </p>
-          </td>
-          <td><p>Plot research data from Svalbard on maps</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="theme_map.html">theme_map</a></code> </p>
-          </td>
-          <td><p>A ggplot2 theme for maps</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="transform_coord.html">transform_coord</a></code> </p>
-          </td>
-          <td><p>Transform spatial coordinates to another projection</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="add_land.html">add_land()</a></code> </p>
+        </td>
+        <td><p>Add a land layer on basemaps</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="basemap.html">basemap()</a></code> </p>
+        </td>
+        <td><p>Create a ggplot2 basemap for plotting variables</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="chlorophyll.html">chlorophyll</a></code> </p>
+        </td>
+        <td><p>Chlorophyll-a recordings in Kongsfjorden</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dist2land.html">dist2land()</a></code> </p>
+        </td>
+        <td><p>Calculate the closest distance to land for given coordinates</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="interpolate.html">interpolate()</a></code> </p>
+        </td>
+        <td><p>Interpolate a spatial 2D surface from observations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="kongsfjord_moorings.html">kongsfjord_moorings</a></code> </p>
+        </td>
+        <td><p>Location of recorded moorings in Kongsfjorden</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="meiofauna.html">meiofauna</a></code> </p>
+        </td>
+        <td><p>Pan-Arctic meiofauna data from Bluhm et al. 2018</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="npi_stations.html">npi_stations</a></code> </p>
+        </td>
+        <td><p>Location of NPI's permanent marine biological monitoring stations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot.spatInt.html">plot(<i>&lt;spatInt&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot an interpolated map</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="PlotSvalbard-package.html">PlotSvalbard-package</a></code> </p>
+        </td>
+        <td><p>Plot research data from Svalbard on maps</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="svalbard.ld.html">svalbard.ld</a></code> </p>
+        </td>
+        <td><p>SpatialPolygons object for Svalbard landshapes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="theme_map.html">theme_map()</a></code> </p>
+        </td>
+        <td><p>A ggplot2 theme for maps</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="transform_coord.html">transform_coord()</a></code> </p>
+        </td>
+        <td><p>Transform spatial coordinates to another projection</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -187,5 +227,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -8,8 +8,8 @@
 \itemize{
   \item Area. Geographic location of station.
   \item Station. Sampling station name.
-  \item lon. Longitude of the sampling location in decimal degrees
-  \item lat. Latitude of the sampling location in decimal degrees.
+  \item Lon. Longitude of the sampling location in decimal degrees
+  \item Lat. Latitude of the sampling location in decimal degrees.
  }}
 \source{
 Norwegian Polar Institute (\url{http://www.npolar.no/en/})

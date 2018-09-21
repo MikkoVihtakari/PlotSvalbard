@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot an interpolated map � plot.spatInt • PlotSvalbard</title>
+<title>Plot an interpolated map — plot.spatInt • PlotSvalbard</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,13 +18,25 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Plot an interpolated map — plot.spatInt" />
+
+<meta property="og:description" content="Plot method for spatInt objects." />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">PlotSvalbard</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">PlotSvalbard</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -82,6 +98,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,25 +106,30 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot an interpolated map</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/R/plot.spatInt.R'><code>R/plot.spatInt.R</code></a></small>
+    <div class="hidden name"><code>plot.spatInt.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Plot method for <code><a href='interpolate.html'>spatInt</a></code> objects.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S3 method for spatInt</span>
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>basemap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"kongsfjorden"</span>,
   <span class='kw'>col.scale.limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend.label</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lat.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>round.lon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>keep.glaciers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>land.col</span> <span class='kw'>=</span> <span class='st'>"#eeeac4"</span>, <span class='kw'>size.land</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>border.col.land</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>gla.col</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>, <span class='kw'>size.glacier</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>border.col.glacier</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"grey70"</span>, <span class='kw'>size.grid</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lat.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>round.lon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>keep.glaciers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>land.col</span> <span class='kw'>=</span> <span class='st'>"#eeeac4"</span>,
+  <span class='kw'>size.land</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>border.col.land</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>gla.col</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
+  <span class='kw'>size.glacier</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>border.col.glacier</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"grey70"</span>, <span class='kw'>size.grid</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>base_size</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -159,6 +181,10 @@
       <td><p>Color of land</p></td>
     </tr>
     <tr>
+      <th>size.land, border.col.land, size.glacier, border.col.glacier, size.grid, base_size</th>
+      <td><p>See <code><a href='basemap.html'>basemap</a></code></p></td>
+    </tr>
+    <tr>
       <th>gla.col</th>
       <td><p>Color of glaciers</p></td>
     </tr>
@@ -174,17 +200,17 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='interpolate.html'>interpolate</a></code> <code><a href='basemap.html'>basemap</a></code></p>
+    <div class='dont-index'><p><code><a href='interpolate.html'>interpolate</a></code> <code><a href='basemap.html'>basemap</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>chlorophyll</span>) <span class='co'>## load an example dataset</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interpolate.html'>interpolate</a></span>(<span class='no'>chlorophyll</span>, <span class='kw'>Subset</span> <span class='kw'>=</span> <span class='st'>"From &lt;= 10"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"Chla"</span>) <span class='co'>## Interpolate</span></div><div class='output co'>#&gt; [inverse distance weighted interpolation]</div><div class='input'><span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"kongsfjorden"</span>) <span class='co'>## Plot</span></div><div class='img'><img src='plot.spatInt-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interpolate.html'>interpolate</a></span>(<span class='no'>chlorophyll</span>, <span class='kw'>Subset</span> <span class='kw'>=</span> <span class='st'>"From &lt;= 10"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"Chla"</span>) <span class='co'>## Interpolate</span></div><div class='output co'>#&gt; [inverse distance weighted interpolation]</div><div class='input'><span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"kongsfjorden"</span>) <span class='co'>## Plot</span></div><div class='img'><img src='plot.spatInt-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## PlotSvalbard functions can be expanded by using ggplot2 syntax</span>
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"kongsfjorden"</span>) + <span class='fu'>geom_text</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>chlorophyll</span>,
-<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lon.utm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat.utm</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>Station</span>))</div><div class='img'><img src='plot.spatInt-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lon.utm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat.utm</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>Station</span>))</div><div class='img'><img src='plot.spatInt-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Changing limits is easiest using the inbuild argument</span>
-<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"kongsfjorden"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>11.4</span>,<span class='fl'>12.7</span>,<span class='fl'>78.85</span>,<span class='fl'>79.05</span>))</div><div class='img'><img src='plot.spatInt-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"kongsfjorden"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>11.4</span>,<span class='fl'>12.7</span>,<span class='fl'>78.85</span>,<span class='fl'>79.05</span>))</div><div class='img'><img src='plot.spatInt-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -215,5 +241,8 @@ Mikko Vihtakari
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

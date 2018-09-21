@@ -8,14 +8,17 @@
 <title>PlotSvalbard - User Manual • PlotSvalbard</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><meta property="og:title" content="PlotSvalbard - User Manual">
+<meta property="og:description" content="">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -24,8 +27,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">PlotSvalbard</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">PlotSvalbard</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
@@ -67,7 +74,7 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>PlotSvalbard - User Manual</h1>
             <h3 class="subtitle">Plot research data from Svalbard on maps</h3>
@@ -75,16 +82,19 @@
                   <a class="author_email" href="mailto:#"></a><a href="mailto:mikko.vihtakari@gmail.com">mikko.vihtakari@gmail.com</a>
       
                   
-            <h4 class="date">07 februar, 2018</h4>
-          </div>
+            <h4 class="date">21 september, 2018</h4>
+      
+      <small class="dont-index">Source: <a href="https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/vignettes/PlotSvalbard_user_manual.Rmd"><code>vignettes/PlotSvalbard_user_manual.Rmd</code></a></small>
+      <div class="hidden name"><code>PlotSvalbard_user_manual.Rmd</code></div>
+
+    </div>
 
     
     
-<div class="contents">
 <!-- --- -->
 <!-- title: "PlotSvalbard - User Manual" -->
 <!-- author: "Mikko Vihtakari" -->
-<!-- date: "2018-02-07" -->
+<!-- date: "2018-09-21" -->
 <!-- output: rmarkdown::pdf_document -->
 <!-- vignette: > -->
 <!--   %\VignetteIndexEntry{PlotSvalbard - User Manual} -->
@@ -97,7 +107,7 @@
 <div id="basemap" class="section level1">
 <h1 class="hasAnchor">
 <a href="#basemap" class="anchor"></a>Basemap</h1>
-<p>The <code>basemap</code> function is the generic plotting command in PlotSvalbard, and is analogous to empty <code>ggplot()</code> call. The <code><a href="../reference/basemap.html">basemap()</a></code> call plots a map that is specified by the <code>type</code> argument. Data that contains geographic information can be plotted on these maps using the <a href="http://ggplot2.tidyverse.org/reference/">ggplot2 layers separated by the <code>+</code> operator</a>.</p>
+<p>The <code>basemap</code> function is the generic plotting command in PlotSvalbard, and is analogous to empty <code>ggplot()</code> call. The <code><a href="../reference/basemap.html">basemap()</a></code> call plots a map that is specified by the <code>type</code> argument. Data containing geographic information can be plotted on these maps using the <a href="http://ggplot2.tidyverse.org/reference/">ggplot2 layers separated by the <code>+</code> operator</a>.</p>
 <div id="map-types" class="section level2">
 <h2 class="hasAnchor">
 <a href="#map-types" class="anchor"></a>Map types</h2>
@@ -105,60 +115,107 @@
 <div id="svalbard" class="section level3">
 <h3 class="hasAnchor">
 <a href="#svalbard" class="anchor"></a>Svalbard</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(PlotSvalbard)
-<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(PlotSvalbard)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-1-1.png" width="672"></p>
 <div id="kongsfjorden" class="section level4">
 <h4 class="hasAnchor">
 <a href="#kongsfjorden" class="anchor"></a>Kongsfjorden</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>) <span class="co"># or just basemap()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>) <span class="co"># or just basemap()</span></a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjordbotn"</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjordbotn"</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kronebreen"</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kronebreen"</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"mosj"</span>)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"mosj"</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
 </div>
 </div>
 <div id="barents-sea" class="section level3">
 <h3 class="hasAnchor">
 <a href="#barents-sea" class="anchor"></a>Barents Sea</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
 <p>Barents Sea map also prints mainland Norway, but the projection is not optimal, and the resolution is quite low.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">24</span>, <span class="dv">68</span>, <span class="dv">71</span>))</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">24</span>, <span class="dv">68</span>, <span class="dv">71</span>))</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
 </div>
 <div id="pan-arctic" class="section level3">
 <h3 class="hasAnchor">
 <a href="#pan-arctic" class="anchor"></a>Pan-Arctic</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic50"</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic50"</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic60"</span>)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic60"</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
 </div>
 </div>
 <div id="limiting-zooming-the-maps" class="section level2">
 <h2 class="hasAnchor">
 <a href="#limiting-zooming-the-maps" class="anchor"></a>Limiting (zooming) the maps</h2>
-<p>Any <code>basemap</code> can be limited (or zoomed in) using the <code>limits</code> argument. The <code>limits</code> argument has to be a numeric vector specifying the minimum longitude, maximum longitude, minimum latitude and maximum latitude of the limiting area in decimal degrees. The order and length (4) of the vector is rigid.</p>
-<p>Note that some map types are already limited, so if you are looking for a map of Kongsfjorden, using <code><a href="../reference/basemap.html">basemap("kongsfjorden")</a></code> might be just what you need.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">18</span>, <span class="fl">77.9</span>, <span class="fl">78.85</span>))</code></pre></div>
+<p>Any <code>basemap</code> can be limited (or zoomed in) using the <code>limits</code> argument. The <code>limits</code> argument has to be either a numeric vector of length 4 or a character vector of length 3. Numeric vectors are used to constrain (zoom in) the maps using coordinates. Character vectors are used to automatically zoom into a dataset.</p>
+<div id="manual-limits" class="section level3">
+<h3 class="hasAnchor">
+<a href="#manual-limits" class="anchor"></a>Manual limits</h3>
+<p>Achieved using a numeric vector. The first element defines the minimum longitude, the second element the maximum longitude, the third element the minimum latitude and the fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps (see <a href="https://mikkovihtakari.github.io/PlotSvalbard/reference/transform_coord.html"><code><a href="../reference/transform_coord.html">?transform_coord</a></code></a>).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">18</span>, <span class="fl">77.9</span>, <span class="fl">78.85</span>)) <span class="co"># limits in decimal degrees</span></a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic50"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="op">-</span><span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="op">-</span><span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>))</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic50"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="dv">-3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="dv">-3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>)) <span class="co"># limits in uTM coordinates</span></a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
+<p>Note that some map types are already limited, so if you are looking for a map of Kongsfjorden, using <code><a href="../reference/basemap.html">basemap("kongsfjorden")</a></code> might be just what you need.</p>
+</div>
+<div id="automatic-limits" class="section level3">
+<h3 class="hasAnchor">
+<a href="#automatic-limits" class="anchor"></a>Automatic limits</h3>
+<p>Requires a character vector: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the <code>limits.lon</code> and <code>limits.lat</code> agruments to define the accuracy of rounding.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="dt">type =</span> <span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="st">"kongsfjord_moorings"</span>, <span class="st">"Lon"</span>, <span class="st">"Lat"</span>), <span class="dt">limits.lon =</span> <span class="fl">0.01</span>, <span class="dt">limits.lat =</span> <span class="fl">0.01</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> kongsfjord_moorings, <span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm), <span class="dt">color =</span> <span class="st">"red"</span>)</a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
+</div>
 </div>
 <div id="bathymetry" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bathymetry" class="anchor"></a>Bathymetry</h2>
-<p>All basemaps support bathymetry, but the resolution of bathymetry shapefiles is currently too low to plot bathymetry inside fjords. Bathymetry can be plotted using the <code>bathymetry</code> argument.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic60"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>All basemaps support bathymetry, but the resolution of bathymetry shapefiles is varying. Bathymetry can be plotted using the <code>bathymetry</code> argument.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic60"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
+<div id="detailed-bathymetry-shapes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#detailed-bathymetry-shapes" class="anchor"></a>Detailed bathymetry shapes</h3>
+<p>The default bathymetry shapefile is too low resolution to be used inside Svalbard fjords:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-15-1.png" width="672"></p>
+<p>PlotSvalbard contains more detailed shapefiles from the Norwegian Mapping Authority, but these files have gaps in them. More detailed shapefiles can be plotted using the <code>bathy_detailed</code> argument (warning: detailed bathymetries are large and therefore slow.)</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>, <span class="dt">bathy_detailed =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-16-1.png" width="672"></p>
+</div>
+<div id="bathymetry-styles" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bathymetry-styles" class="anchor"></a>Bathymetry styles</h3>
+<p>PlotSvalbard has 4 preprogrammed style alternatives:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>, <span class="dt">bathy_style =</span> <span class="st">"poly_blues"</span>) <span class="co"># default</span></a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>, <span class="dt">bathy_style =</span> <span class="st">"poly_greys"</span>) <span class="co"># grey polygons with shading</span></a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-17-2.png" width="672"></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>, <span class="dt">bathy_style =</span> <span class="st">"contour_blues"</span>) <span class="co"># colored contours</span></a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-17-3.png" width="672"></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>, <span class="dt">bathy_style =</span> <span class="st">"contour_grey"</span>) <span class="co"># grey contours</span></a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-17-4.png" width="672"></p>
+<p>Adding depth labels to contours (ala nautical maps) is currently an unresolved issue.</p>
+</div>
+<div id="customizing-bathymetry-styles" class="section level3">
+<h3 class="hasAnchor">
+<a href="#customizing-bathymetry-styles" class="anchor"></a>Customizing bathymetry styles</h3>
+<p>The color scales for polygons and contours can be adjusted using ggplot2 syntax:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_viridis_d</span>(<span class="st">"Water depth (m)"</span>)</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="co">#&gt; Scale for 'fill' is already present. Adding another scale for 'fill',</span></a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="co">#&gt; which will replace the existing scale.</span></a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-18-1.png" width="672"></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>, <span class="dt">bathy_style =</span> <span class="st">"contour_blues"</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_hue</span>()</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="co">#&gt; Scale for 'colour' is already present. Adding another scale for</span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="co">#&gt; 'colour', which will replace the existing scale.</span></a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-18-2.png" width="672"></p>
+</div>
 </div>
 <div id="adding-data-to-basemaps" class="section level2">
 <h2 class="hasAnchor">
@@ -168,66 +225,67 @@
 <h3 class="hasAnchor">
 <a href="#adding-station-labels-text" class="anchor"></a>Adding station labels (text)</h3>
 <p>Text can be added to basemaps using the <code>geom_text()</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">"npi_stations"</span>)
-
-<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">24</span>,<span class="fl">78.5</span>,<span class="dv">82</span>), <span class="dt">round.lat =</span> <span class="dv">1</span>, <span class="dt">round.lon =</span> <span class="dv">2</span>, 
-  <span class="dt">border.col.land =</span> <span class="st">"#a9750d"</span>, <span class="dt">border.col.glacier =</span> <span class="st">"grey95"</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> npi_stations, <span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, 
-    <span class="dt">label =</span> Station), <span class="dt">color =</span> <span class="st">"red"</span>, <span class="dt">fontface =</span> <span class="dv">2</span>)</code></pre></div>
-<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-15-1.png" width="672"></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">data</span>(<span class="st">"npi_stations"</span>)</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/transform_coord.html">transform_coord</a></span>(npi_stations, <span class="dt">lon =</span> <span class="st">"Lon"</span>, <span class="dt">lat =</span> <span class="st">"Lat"</span>, <span class="dt">bind =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb23-5" data-line-number="5"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">24</span>,<span class="fl">78.5</span>,<span class="dv">82</span>), <span class="dt">round.lat =</span> <span class="dv">1</span>, <span class="dt">round.lon =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">  <span class="dt">border.col.land =</span> <span class="st">"#a9750d"</span>, <span class="dt">border.col.glacier =</span> <span class="st">"grey95"</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb23-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> x, <span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, </a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">    <span class="dt">label =</span> Station), <span class="dt">color =</span> <span class="st">"red"</span>, <span class="dt">fontface =</span> <span class="dv">2</span>)</a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-19-1.png" width="672"></p>
 <p>Text size can be mapped to variables using the standard ggplot2 syntax:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">"kongsfjord_moorings"</span>)
-
-<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="fl">11.3</span>, <span class="fl">12.69</span>, <span class="fl">78.85</span>, <span class="fl">79.1</span>), <span class="dt">round.lat =</span> <span class="fl">0.05</span>, <span class="dt">round.lon =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> kongsfjord_moorings, <span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, 
-  <span class="dt">label =</span> Mooring.name, <span class="dt">color =</span> Name), <span class="dt">fontface =</span> <span class="dv">2</span>, 
-  <span class="dt">size =</span> <span class="fl">25.4</span><span class="op">/</span><span class="fl">72.27</span><span class="op">*</span><span class="dv">8</span>) <span class="co"># font size = 8, see Graphical parameters</span></code></pre></div>
-<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-16-1.png" width="672"></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">data</span>(<span class="st">"kongsfjord_moorings"</span>)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="fl">11.3</span>, <span class="fl">12.69</span>, <span class="fl">78.85</span>, <span class="fl">79.1</span>), <span class="dt">round.lat =</span> <span class="fl">0.05</span>, <span class="dt">round.lon =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> kongsfjord_moorings, <span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, </a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">  <span class="dt">label =</span> Mooring.name, <span class="dt">color =</span> Name), <span class="dt">fontface =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb24-6" data-line-number="6">  <span class="dt">size =</span> <span class="fl">25.4</span><span class="op">/</span><span class="fl">72.27</span><span class="op">*</span><span class="dv">8</span>) <span class="co"># font size = 8, see Graphical parameters</span></a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-20-1.png" width="672"></p>
 </div>
 <div id="adding-piecharts" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adding-piecharts" class="anchor"></a>Adding piecharts</h3>
 <p>The <a href="https://cran.r-project.org/web/packages/scatterpie/index.html"><code>scatterpie</code></a> package allows relatively easy plotting of piecharts on maps. Extensions for ggplot2 work together with PlotSvalbard.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(zooplankton)
-
-x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/transform_coord.html">transform_coord</a></span>(zooplankton, <span class="dt">lon =</span> <span class="st">"Longitude"</span>, <span class="dt">lat =</span> <span class="st">"Latitude"</span>, <span class="dt">bind =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; projection transformed from +proj=longlat +datum=WGS84 to +init=epsg:32633</span>
-
-species &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[<span class="op">!</span><span class="kw">colnames</span>(x) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">"lon.utm"</span>, <span class="st">"lat.utm"</span>, <span class="st">"ID"</span>,
-  <span class="st">"Longitude"</span>, <span class="st">"Latitude"</span>, <span class="st">"Total"</span>)]
-
-<span class="kw">library</span>(scatterpie)
-
-<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">24</span>, <span class="fl">79.5</span>, <span class="fl">83.5</span>), <span class="dt">round.lon =</span> <span class="dv">2</span>, <span class="dt">round.lat =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_scatterpie</span>(<span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">group =</span> ID, <span class="dt">r =</span> <span class="dv">100</span><span class="op">*</span>Total), 
-  <span class="dt">data =</span> x, <span class="dt">cols =</span> species, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_discrete</span>(<span class="dt">name =</span> <span class="st">"Species"</span>, 
-  <span class="dt">breaks =</span> species, <span class="dt">labels =</span> <span class="kw">parse</span>(<span class="dt">text =</span> <span class="kw">paste0</span>(<span class="st">"italic("</span> , <span class="kw">sub</span>(<span class="st">"*</span><span class="ch">\\</span><span class="st">."</span>, <span class="st">"~"</span>, species), <span class="st">")"</span>)))</code></pre></div>
-<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-17-1.png" width="672"></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">data</span>(zooplankton)</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/transform_coord.html">transform_coord</a></span>(zooplankton, <span class="dt">lon =</span> <span class="st">"Longitude"</span>, <span class="dt">lat =</span> <span class="st">"Latitude"</span>, <span class="dt">bind =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">species &lt;-<span class="st"> </span><span class="kw">colnames</span>(x)[<span class="op">!</span><span class="kw">colnames</span>(x) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">"lon.utm"</span>, <span class="st">"lat.utm"</span>, <span class="st">"ID"</span>,</a>
+<a class="sourceLine" id="cb25-6" data-line-number="6">  <span class="st">"Longitude"</span>, <span class="st">"Latitude"</span>, <span class="st">"Total"</span>)]</a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="kw">library</span>(scatterpie)</a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">24</span>, <span class="fl">79.5</span>, <span class="fl">83.5</span>), <span class="dt">round.lon =</span> <span class="dv">2</span>, <span class="dt">round.lat =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_scatterpie</span>(<span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">group =</span> ID, <span class="dt">r =</span> <span class="dv">100</span><span class="op">*</span>Total), </a>
+<a class="sourceLine" id="cb25-12" data-line-number="12">  <span class="dt">data =</span> x, <span class="dt">cols =</span> species, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_discrete</span>(<span class="dt">name =</span> <span class="st">"Species"</span>, </a>
+<a class="sourceLine" id="cb25-13" data-line-number="13">  <span class="dt">breaks =</span> species, <span class="dt">labels =</span> <span class="kw">parse</span>(<span class="dt">text =</span> <span class="kw">paste0</span>(<span class="st">"italic("</span> , <span class="kw">sub</span>(<span class="st">"*</span><span class="ch">\\</span><span class="st">."</span>, <span class="st">"~"</span>, species), <span class="st">")"</span>)))</a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-21-1.png" width="672"></p>
 </div>
 <div id="adding-interpolated-2d-surfaces" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adding-interpolated-2d-surfaces" class="anchor"></a>Adding interpolated 2D surfaces</h3>
 <p>PlotSvalbard uses the <a href="https://www.rdocumentation.org/packages/gstat/versions/1.1-5/topics/krige"><code>krige</code> function</a> from the <a href="https://cran.r-project.org/web/packages/gstat/index.html"><strong>gstat</strong> package</a> to produce interpolated 2D plots:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">"chlorophyll"</span>)
-
-x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interpolate.html">interpolate</a></span>(chlorophyll, <span class="dt">Subset =</span> <span class="st">"From &lt;= 10"</span>, <span class="dt">value =</span> <span class="st">"Chla"</span>) ## Interpolate
-<span class="co">#&gt; [inverse distance weighted interpolation]</span>
-
-<span class="kw">plot</span>(x, <span class="dt">type =</span> <span class="st">"kongsfjorden"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="fl">11.4</span>,<span class="fl">12.7</span>,<span class="fl">78.855</span>,<span class="fl">79.05</span>), 
-  <span class="dt">legend.label =</span> <span class="st">"Chlorophyll-a</span><span class="ch">\n</span><span class="st">(mg/m3)"</span>) </code></pre></div>
-<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-18-1.png" width="672"></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">data</span>(<span class="st">"chlorophyll"</span>)</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interpolate.html">interpolate</a></span>(chlorophyll, <span class="dt">Subset =</span> <span class="st">"From &lt;= 10"</span>, <span class="dt">value =</span> <span class="st">"Chla"</span>) <span class="co">## Interpolate</span></a>
+<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co">#&gt; [inverse distance weighted interpolation]</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb26-6" data-line-number="6"><span class="kw">plot</span>(x, <span class="dt">type =</span> <span class="st">"kongsfjorden"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="fl">11.4</span>,<span class="fl">12.7</span>,<span class="fl">78.855</span>,<span class="fl">79.05</span>), </a>
+<a class="sourceLine" id="cb26-7" data-line-number="7">  <span class="dt">legend.label =</span> <span class="st">"Chlorophyll-a</span><span class="ch">\n</span><span class="st">(mg/m3)"</span>) </a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-22-1.png" width="672"></p>
 </div>
 </div>
 <div id="par" class="section level2">
 <h2 class="hasAnchor">
 <a href="#par" class="anchor"></a>Graphical parameters</h2>
 <p>The line widths and general looks of the basemaps are optimized for a half page sized <code>pdf</code> figure in scientific journals (<a href="http://www.springer.com/authors/manuscript+guidelines?SGWID=0-40162-6-795162-0">Springer figure dimensions</a> were used to develop the function). The line widths may not look good when printed on other devices. You can modify the line widths and colors using <code>size.*</code> and <code>border.col.*</code> arguments.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">size.land =</span> <span class="fl">0.01</span>, <span class="dt">size.glacier =</span> <span class="fl">0.05</span>, <span class="dt">size.grid =</span> <span class="fl">0.05</span>, 
-  <span class="dt">border.col.glacier =</span> <span class="st">"#52bfe4"</span>, <span class="dt">border.col.land =</span> <span class="st">"#a9750d"</span>)</code></pre></div>
-<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-19-1.png" width="672"></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">size.land =</span> <span class="fl">0.01</span>, <span class="dt">size.glacier =</span> <span class="fl">0.05</span>, <span class="dt">size.grid =</span> <span class="fl">0.05</span>, </a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">  <span class="dt">border.col.glacier =</span> <span class="st">"#52bfe4"</span>, <span class="dt">border.col.land =</span> <span class="st">"#a9750d"</span>)</a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-23-1.png" width="672"></p>
 <p>Approach to remove borders of land and glacier shapes:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="dt">border.col.glacier =</span> <span class="st">"grey95"</span>, <span class="dt">border.col.land =</span> <span class="st">"#eeeac4"</span>)</code></pre></div>
-<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-20-1.png" width="672"></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="dt">border.col.glacier =</span> <span class="st">"grey95"</span>, <span class="dt">border.col.land =</span> <span class="st">"#eeeac4"</span>)</a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-24-1.png" width="672"></p>
 <p>The <a href="https://stackoverflow.com/questions/47519624/how-is-the-line-width-size-defined-in-ggplot2/47521808#47521808">line width of ggplot2 is 2.13 wider than the line widths measured as points</a> (pt). This means that if you want a certain line width, multiply the desired line width by <span class="math inline">\(1/2.13\)</span> inside <code>size.*</code> arguments. Similar conversion factor for font size is <span class="math inline">\(1/2.845276\)</span>.</p>
 </div>
 <div id="performance" class="section level2">
@@ -235,53 +293,69 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interpola
 <a href="#performance" class="anchor"></a>Performance</h2>
 <p>The <code><a href="../reference/basemap.html">basemap("svalbard")</a></code> is currently fairly slow due to less than optimized code and the large size of the shapefiles that are used to generate the map. Zoomed in maps are considerably faster than full scale Svalbard maps.</p>
 <p>If you are looking for optimal <code>limits</code> for your data, you can use the <code><a href="../reference/basemap.html">basemap("barentssea")</a></code> option to find these limits and replace <code>"barentssea"</code> with <code>"svalbard"</code> once you are done:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>))
-<span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;    0.47    0.05    0.60</span>
-<span class="kw">system.time</span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>))
-<span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   17.80    0.09   18.25</span>
-<span class="kw">system.time</span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="kw">c</span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="dv">80</span>,<span class="fl">81.7</span>))))
-<span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;    0.10    0.02    0.12</span>
-<span class="kw">system.time</span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="kw">c</span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="dv">80</span>,<span class="fl">81.7</span>))))
-<span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;    2.11    0.01    2.17</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">system.time</span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>))</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="co">#&gt;    user  system elapsed </span></a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="co">#&gt;    0.41    0.02    0.50</span></a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="kw">system.time</span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>))</a>
+<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="co">#&gt;    user  system elapsed </span></a>
+<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="co">#&gt;   19.41    0.07   19.56</span></a>
+<a class="sourceLine" id="cb29-7" data-line-number="7"><span class="kw">system.time</span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="kw">c</span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="dv">80</span>,<span class="fl">81.7</span>))))</a>
+<a class="sourceLine" id="cb29-8" data-line-number="8"><span class="co">#&gt;    user  system elapsed </span></a>
+<a class="sourceLine" id="cb29-9" data-line-number="9"><span class="co">#&gt;    0.11    0.00    0.14</span></a>
+<a class="sourceLine" id="cb29-10" data-line-number="10"><span class="kw">system.time</span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="kw">c</span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="dv">80</span>,<span class="fl">81.7</span>))))</a>
+<a class="sourceLine" id="cb29-11" data-line-number="11"><span class="co">#&gt;    user  system elapsed </span></a>
+<a class="sourceLine" id="cb29-12" data-line-number="12"><span class="co">#&gt;    2.22    0.04    2.29</span></a></code></pre></div>
+</div>
+</div>
+<div id="other-functions" class="section level1">
+<h1 class="hasAnchor">
+<a href="#other-functions" class="anchor"></a>Other functions</h1>
+<div id="distance-to-land" class="section level2">
+<h2 class="hasAnchor">
+<a href="#distance-to-land" class="anchor"></a>Distance to land</h2>
+<p>The <a href=""><code>dist2land</code></a> function calculates the closest distance to land.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">data</span>(<span class="st">"npi_stations"</span>)</a>
+<a class="sourceLine" id="cb30-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb30-4" data-line-number="4">dists &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dist2land.html">dist2land</a></span>(npi_stations, <span class="dt">lon.col =</span> <span class="st">"Lon"</span>, <span class="dt">lat.col =</span> <span class="st">"Lat"</span>, <span class="dt">map.type =</span> <span class="st">"svalbard"</span>)</a>
+<a class="sourceLine" id="cb30-5" data-line-number="5">dists<span class="op">$</span>Area &lt;-<span class="st"> </span><span class="kw">ordered</span>(dists<span class="op">$</span>Area, <span class="kw">c</span>(<span class="st">"Kongsfjorden"</span>, <span class="st">"Framstrait"</span>, <span class="st">"Rijpfjorden"</span>))</a>
+<a class="sourceLine" id="cb30-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb30-7" data-line-number="7"><span class="kw">ggplot</span>(dists, <span class="kw">aes</span>(<span class="dt">x =</span> Area, <span class="dt">y =</span> dist, <span class="dt">label =</span> Station, <span class="dt">color =</span> Area)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb30-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_text</span>() <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">"Distance to land (km)"</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_hue</span>()</a></code></pre></div>
+<p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-26-1.png" width="672"></p>
 </div>
 </div>
 <div id="citing-plotsvalbard" class="section level1">
 <h1 class="hasAnchor">
 <a href="#citing-plotsvalbard" class="anchor"></a>Citing PlotSvalbard</h1>
 <p>The <code>citation</code> function tells how to cite PlotSvalbard package</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>(<span class="st">"PlotSvalbard"</span>)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; To cite package 'PlotSvalbard' in publications use:</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   Mikko Vihtakari (2018). PlotSvalbard: PlotSvalbard - plot</span>
-<span class="co">#&gt;   research data from Svalbard on maps. R package version 0.3.0.</span>
-<span class="co">#&gt;   https://github.com/MikkoVihtakari/PlotSvalbard</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   @Manual{,</span>
-<span class="co">#&gt;     title = {PlotSvalbard: PlotSvalbard - plot research data from Svalbard on maps},</span>
-<span class="co">#&gt;     author = {Mikko Vihtakari},</span>
-<span class="co">#&gt;     year = {2018},</span>
-<span class="co">#&gt;     note = {R package version 0.3.0},</span>
-<span class="co">#&gt;     url = {https://github.com/MikkoVihtakari/PlotSvalbard},</span>
-<span class="co">#&gt;   }</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">citation</span>(<span class="st">"PlotSvalbard"</span>)</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="co">#&gt; To cite package 'PlotSvalbard' in publications use:</span></a>
+<a class="sourceLine" id="cb31-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb31-5" data-line-number="5"><span class="co">#&gt;   Mikko Vihtakari (2018). PlotSvalbard: PlotSvalbard - plot</span></a>
+<a class="sourceLine" id="cb31-6" data-line-number="6"><span class="co">#&gt;   research data from Svalbard on maps. R package version 0.4.0.</span></a>
+<a class="sourceLine" id="cb31-7" data-line-number="7"><span class="co">#&gt;   https://github.com/MikkoVihtakari/PlotSvalbard</span></a>
+<a class="sourceLine" id="cb31-8" data-line-number="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb31-9" data-line-number="9"><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></a>
+<a class="sourceLine" id="cb31-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb31-11" data-line-number="11"><span class="co">#&gt;   @Manual{,</span></a>
+<a class="sourceLine" id="cb31-12" data-line-number="12"><span class="co">#&gt;     title = {PlotSvalbard: PlotSvalbard - plot research data from Svalbard on maps},</span></a>
+<a class="sourceLine" id="cb31-13" data-line-number="13"><span class="co">#&gt;     author = {Mikko Vihtakari},</span></a>
+<a class="sourceLine" id="cb31-14" data-line-number="14"><span class="co">#&gt;     year = {2018},</span></a>
+<a class="sourceLine" id="cb31-15" data-line-number="15"><span class="co">#&gt;     note = {R package version 0.4.0},</span></a>
+<a class="sourceLine" id="cb31-16" data-line-number="16"><span class="co">#&gt;     url = {https://github.com/MikkoVihtakari/PlotSvalbard},</span></a>
+<a class="sourceLine" id="cb31-17" data-line-number="17"><span class="co">#&gt;   }</span></a></code></pre></div>
 <p>However, please note that the maps generated by this package should be cited to their original source.</p>
 <ul>
-<li>Svalbard maps are property of the <a href="http://geodata.npolar.no/">Norwegian Polar Institute</a>
+<li>Svalbard maps originate from the <a href="http://geodata.npolar.no/">Norwegian Polar Institute</a>. Distributed under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a> (<a href="http://geodata.npolar.no/bruksvilkar/">terms of use</a>).</li>
+<li>Barents Sea and pan-Arctic maps are downloaded from <a href="http://www.naturalearthdata.com">Natural Earth Data</a>. They use the <a href="http://www.naturalearthdata.com/downloads/10m-physical-vectors/">ne_10m_land</a> and <a href="http://www.naturalearthdata.com/downloads/50m-physical-vectors/">ne_50m_land</a> (v 4.0.0) datasets, respectively. Distributed under the <a href="https://creativecommons.org/publicdomain/">CC Public Domain license</a> (<a href="http://www.naturalearthdata.com/about/terms-of-use/">terms of use</a>).</li>
+<li>Pan-Arctic and Barents Sea bathymetry shapefiles are generalized from <a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html">IBCAO v3.0 500m RR grid</a>. Should be cited as <a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/2012GL052219.pdf">Jakobsson, M., et al. The International Bathymetric Chart of the Arctic Ocean (IBCAO) Version 3.0. Geophys. Res. Lett. 2012, 39:L12609.</a>
 </li>
-<li>Barents Sea and pan-Arctic maps are downloaded from <a href="http://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-land/">Natural Earth Data</a>
-</li>
-<li>Bathymetry shapefiles are generalized from <a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html">IBCAO v3.0 500m RR grid</a>
-</li>
+<li>Svalbard fjord bathymetry shapefiles are from the <a href="https://kartkatalog.geonorge.no/metadata/kartverket/dybdedata/2751aacf-5472-4850-a208-3532a51c529a">Norwegian Mapping Authority</a>. Distributed under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a>.</li>
 </ul>
 <p>The example data included in the package are property of the Norwegian Polar Institute and should not be used in other instances. I.e. these data are unpublihed at the moment.</p>
 <p>PlotSvalbard depends on many packages (see <a href="https://mikkovihtakari.github.io/PlotSvalbard/index.html#dependencies"><strong>Dependencies</strong></a>). If you use these packages in your publications, please cite the respective packages.</p>
-</div>
 </div>
   </div>
 
@@ -298,6 +372,11 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interpola
       <li><a href="#adding-data-to-basemaps">Adding data to basemaps</a></li>
       <li><a href="#par">Graphical parameters</a></li>
       <li><a href="#performance">Performance</a></li>
+      </ul>
+</li>
+      <li>
+<a href="#other-functions">Other functions</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#distance-to-land">Distance to land</a></li>
       </ul>
 </li>
       <li><a href="#citing-plotsvalbard">Citing PlotSvalbard</a></li>
@@ -318,6 +397,8 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interpola
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

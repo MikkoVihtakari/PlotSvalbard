@@ -12,56 +12,55 @@
 }
 }
 \usage{
-basemap(type = "kongsfjorden", limits = NULL, round.lat = FALSE,
-  n.lat.grid = 3, lat.interval = 10, round.lon = FALSE,
-  n.lon.grid = 3, lon.interval = 45, keep.glaciers = TRUE,
-  bathymetry = FALSE, bathy_legend = TRUE, bathy_detailed = FALSE,
-  land.col = "#eeeac4", size.land = 0.1, border.col.land = "black",
-  gla.col = "grey95", size.glacier = 0.1,
-  border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1,
-  label.print = TRUE, label.offset = 1.05, label.font = 8,
-  base_size = 11)
+basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
+  limits.lat = 0.1, round.lon = FALSE, n.lon.grid = 3,
+  lon.interval = 45, round.lat = FALSE, n.lat.grid = 3,
+  lat.interval = 10, keep.glaciers = TRUE, bathymetry = FALSE,
+  bathy_style = "poly_blues", bathy_legend = TRUE,
+  bathy_detailed = FALSE, land.col = "#eeeac4",
+  border.col.land = "black", size.land = 0.1, gla.col = "grey95",
+  border.col.glacier = "black", size.glacier = 0.1,
+  grid.col = "grey70", size.grid = 0.1, label.print = TRUE,
+  label.offset = 1.05, label.font = 8, base_size = 11)
 }
 \arguments{
 \item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.}
 
-\item{limits}{Map limits. A numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", \code{\link{map_projection}} and \code{\link{transform_coord}} how to find these coordinates.}
+\item{limits}{Map limits. Either a numeric vector of length 4 or a character vector of length 3. Numeric vectors are used to constrain (zoom in) the maps using coordinates. Character vectors are used to automatically zoom into a dataset.
+\itemize{
+  \item \strong{numeric vector}: the first element defines the minimum longitude, the second element the maximum longitude, the third element the minimum latitude and the fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", \code{\link{map_projection}} and \code{\link{transform_coord}} how to find these coordinates.
+  \item \strong{character vector}: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the \code{limits.lon} and \code{limits.lat} agruments to define the accuracy of rounding.
+}}
 
-\item{round.lat}{Numeric value specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
+\item{limits.lon, limits.lat}{Numeric. The level of rounding for longitude and latitude, respectively, when using automatic limits (character vector in \code{limits} argument).}
 
-\item{n.lat.grid}{Numeric value specifying the number of latitude grid lines. Alternatively use \code{round.lat}}
+\item{round.lon, round.lat}{Numeric value specifying the level of rounding to be used to plot longitude and latitude grid lines. Override \code{n.lon.grid} or \code{n.lat.grid}}
 
-\item{lat.interval}{Numeric value specifying the interval of latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})}
+\item{n.lon.grid, n.lat.grid}{Numeric value specifying the number of longitude and latitude grid lines, respectively. Alternatively use \code{round.lon} and \code{round.lat}}
 
-\item{round.lon}{Numeric value specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}}
-
-\item{n.lon.grid}{Numeric value specifying the number of longitude grid lines. Alternatively use \code{round.lon}}
-
-\item{lon.interval}{Numeric value specifying the interval of longitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})}
+\item{lon.interval, lat.interval}{Numeric value specifying the interval of longitude and latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})}
 
 \item{keep.glaciers}{Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.}
 
 \item{bathymetry}{Logical indicating whether bathymetry should be added to the map. Relatively slow. Defaults to \code{FALSE}}
 
+\item{bathy_style}{Character defining the style for bathymetry contours. Alternatives: 
+\itemize{
+\item \code{"poly_blues"} plots polygons filled with different shades of blue.
+\item \code{"poly_greys"} plots polygons filled with different shades of grey.
+\item \code{"contour_blues"} contour lines with different shades of blue.
+\item \code{"contour_grey"} plots grey contour lines.
+}}
+
 \item{bathy_legend}{Logical indicating whether legend for bathymetry should be shown. Defaults to \code{TRUE}}
 
 \item{bathy_detailed}{Logical indicating whether detailed bathymetry shapefiles should be used. Works for Svalbard maps only (see \emph{Source}). Very slow due to the large file size. Use for limited areas, such as fjords, only.}
 
-\item{land.col}{Character code specifying the color of land.}
+\item{land.col, gla.col, grid.col}{Character code specifying the color of land, glaciers and grid lines, respectively. Use \code{NA} to remove the grid lines.}
 
-\item{size.land}{Numeric value specifying the width of the border line for land shapes. See details for explanation about line widths.}
+\item{border.col.land, border.col.glacier}{Character code specifying the color of the border line for land and glacier shapes.}
 
-\item{border.col.land}{Character code specifying the color of the border line for land shapes.}
-
-\item{gla.col}{Character code specifying the color of glaciers.}
-
-\item{size.glacier}{Numeric value specifying the width of the border line for glacier shapes.}
-
-\item{border.col.glacier}{Character code specifying the color of the border line for glacier shapes.}
-
-\item{grid.col}{Character code specifying the color of grid lines. Use \code{NA} to remove the grid lines.}
-
-\item{size.grid}{Numeric value specifying the width of the grid lines.}
+\item{size.land, size.glacier, size.grid}{Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.}
 
 \item{label.print}{Logical indicating whether labels should be printed for polar stereographic maps.}
 
@@ -91,7 +90,6 @@ The function uses \link[ggplot2]{ggplot2} and shapefiles to plot maps of Svalbar
 }
 
 Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection.
-
 
 \strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13.
 }
@@ -136,9 +134,9 @@ basemap("arctic60", limits = c(250000, -2500000, 2000000, -250000))
 ## Bathymetry can be added using the bathymetry argument
 basemap("arctic50", bathymetry = TRUE)
 
-## Current bathymetry shapefiles are not detailed
-## enough for Svalbard fjords
-basemap("kongsfjorden", bathymetry = TRUE)
+## Detailed bathymetry is available for some 
+## Svalbard fjords
+basemap("kongsfjorden", bathymetry = TRUE, bathy_detailed = TRUE)
 
 }
 \seealso{

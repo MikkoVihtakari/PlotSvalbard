@@ -14,6 +14,7 @@
 ##' @param gla.col Color of glaciers
 ##' @param grid.col Color of grid lines. Use \code{NA} to remove the grid lines.
 ##' @param keep.glaciers a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting little bit.
+##' @param size.land,border.col.land,size.glacier,border.col.glacier,size.grid,base_size See \code{\link{basemap}}
 ##' @param ... Additional arguments passed somewhere.
 ##' @method plot spatInt
 ##' @seealso \code{\link{interpolate}} \code{\link{basemap}}

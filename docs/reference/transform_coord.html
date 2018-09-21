@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transform spatial coordinates to another projection � transform_coord • PlotSvalbard</title>
+<title>Transform spatial coordinates to another projection — transform_coord • PlotSvalbard</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,13 +18,25 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Transform spatial coordinates to another projection — transform_coord" />
+
+<meta property="og:description" content="The function transforms spatial coordinates from original projection (decimal degrees assumed) to another projection." />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">PlotSvalbard</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">PlotSvalbard</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -82,6 +98,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,22 +106,27 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Transform spatial coordinates to another projection</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/R/transform_coord.R'><code>R/transform_coord.R</code></a></small>
+    <div class="hidden name"><code>transform_coord.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The function transforms spatial coordinates from original projection (decimal degrees assumed) to another projection.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>transform_coord</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='st'>"longitude"</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='st'>"latitude"</span>,
   <span class='kw'>new.names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"lon.utm"</span>, <span class='st'>"lat.utm"</span>),
-  <span class='kw'>proj.og</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat +datum=WGS84"</span>, <span class='kw'>proj.out</span> <span class='kw'>=</span> <span class='st'>"+init=epsg:32633"</span>,
-  <span class='kw'>map.type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>proj.og</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat +datum=WGS84"</span>,
+  <span class='kw'>proj.out</span> <span class='kw'>=</span> <span class='st'>"+init=epsg:32633"</span>, <span class='kw'>map.type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>bind</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -133,11 +155,11 @@
     </tr>
     <tr>
       <th>map.type</th>
-      <td><p>a character string specifying the map type for which coodrinates should be transformed to. If <code>NULL</code> (default), <code>proj.out</code> is used to determine the returned projection. See <code><a href='basemap.html'>type</a></code> argument for possible map types. Overrides <code>proj.out</code>.</p></td>
+      <td><p>a character string specifying the map type for which coordinates should be transformed to. If <code>NULL</code> (default), <code>proj.out</code> is used to determine the returned projection. See <code><a href='basemap.html'>type</a></code> argument for possible map types. Overrides <code>proj.out</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>if <code>TRUE</code> (default), the function prints information about the returned data frame. Switch to <code>FALSE</code> to make the function silent.</p></td>
+      <td><p>if <code>TRUE</code>, the function prints information about the changed projection. Switch to <code>FALSE</code> to make the function silent.</p></td>
     </tr>
     <tr>
       <th>bind</th>
@@ -178,5 +200,8 @@ Mikko Vihtakari
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

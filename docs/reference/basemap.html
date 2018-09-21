@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a ggplot2 basemap for plotting variables � basemap • PlotSvalbard</title>
+<title>Create a ggplot2 basemap for plotting variables — basemap • PlotSvalbard</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,13 +18,25 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Create a ggplot2 basemap for plotting variables — basemap" />
+
+<meta property="og:description" content="Creates a ggplot2 basemap for further plotting of variables." />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">PlotSvalbard</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">PlotSvalbard</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -82,6 +98,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,25 +106,32 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a ggplot2 basemap for plotting variables</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/R/basemap.R'><code>R/basemap.R</code></a></small>
+    <div class="hidden name"><code>basemap.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Creates a ggplot2 basemap for further plotting of variables.</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>basemap</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"kongsfjorden"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>n.lat.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>lat.interval</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>round.lon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>lon.interval</span> <span class='kw'>=</span> <span class='fl'>45</span>, <span class='kw'>keep.glaciers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>land.col</span> <span class='kw'>=</span> <span class='st'>"#eeeac4"</span>, <span class='kw'>size.land</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>border.col.land</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>gla.col</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>, <span class='kw'>size.glacier</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>border.col.glacier</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+    <pre class="usage"><span class='fu'>basemap</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"kongsfjorden"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>limits.lon</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>limits.lat</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>round.lon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>lon.interval</span> <span class='kw'>=</span> <span class='fl'>45</span>, <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lat.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>lat.interval</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>keep.glaciers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>bathy_style</span> <span class='kw'>=</span> <span class='st'>"poly_blues"</span>, <span class='kw'>bathy_legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>bathy_detailed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>land.col</span> <span class='kw'>=</span> <span class='st'>"#eeeac4"</span>,
+  <span class='kw'>border.col.land</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>size.land</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>gla.col</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
+  <span class='kw'>border.col.glacier</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>size.glacier</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
   <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"grey70"</span>, <span class='kw'>size.grid</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>label.print</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>label.offset</span> <span class='kw'>=</span> <span class='fl'>1.05</span>, <span class='kw'>label.font</span> <span class='kw'>=</span> <span class='fl'>8</span>)</pre>
+  <span class='kw'>label.offset</span> <span class='kw'>=</span> <span class='fl'>1.05</span>, <span class='kw'>label.font</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>base_size</span> <span class='kw'>=</span> <span class='fl'>11</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -116,31 +140,26 @@
     </tr>
     <tr>
       <th>limits</th>
-      <td><p>Map limits. A numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", <code><a href='map_projection.html'>map_projection</a></code> and <code><a href='transform_coord.html'>transform_coord</a></code> how to find these coordinates.</p></td>
+      <td><p>Map limits. Either a numeric vector of length 4 or a character vector of length 3. Numeric vectors are used to constrain (zoom in) the maps using coordinates. Character vectors are used to automatically zoom into a dataset.</p><ul>
+<li><p><strong>numeric vector</strong>: the first element defines the minimum longitude, the second element the maximum longitude, the third element the minimum latitude and the fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", <code><a href='map_projection.html'>map_projection</a></code> and <code><a href='transform_coord.html'>transform_coord</a></code> how to find these coordinates.</p></li>
+<li><p><strong>character vector</strong>: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the <code>limits.lon</code> and <code>limits.lat</code> agruments to define the accuracy of rounding.</p></li>
+</ul></td>
     </tr>
     <tr>
-      <th>round.lat</th>
-      <td><p>Numeric value specifying the level of rounding to be used to plot latitude grid lines. Overrides <code>n.lat.grid</code></p></td>
+      <th>limits.lon, limits.lat</th>
+      <td><p>Numeric. The level of rounding for longitude and latitude, respectively, when using automatic limits (character vector in <code>limits</code> argument).</p></td>
     </tr>
     <tr>
-      <th>n.lat.grid</th>
-      <td><p>Numeric value specifying the number of latitude grid lines. Alternatively use <code>round.lat</code></p></td>
+      <th>round.lon, round.lat</th>
+      <td><p>Numeric value specifying the level of rounding to be used to plot longitude and latitude grid lines. Override <code>n.lon.grid</code> or <code>n.lat.grid</code></p></td>
     </tr>
     <tr>
-      <th>lat.interval</th>
-      <td><p>Numeric value specifying the interval of latitude grids for polar stereographic maps (<code>type = "arctic50"</code> or <code>"arctic60"</code>)</p></td>
+      <th>n.lon.grid, n.lat.grid</th>
+      <td><p>Numeric value specifying the number of longitude and latitude grid lines, respectively. Alternatively use <code>round.lon</code> and <code>round.lat</code></p></td>
     </tr>
     <tr>
-      <th>round.lon</th>
-      <td><p>Numeric value specifying the level of rounding to be used to plot longitude grid lines. Overrides <code>n.lon.grid</code></p></td>
-    </tr>
-    <tr>
-      <th>n.lon.grid</th>
-      <td><p>Numeric value specifying the number of longitude grid lines. Alternatively use <code>round.lon</code></p></td>
-    </tr>
-    <tr>
-      <th>lon.interval</th>
-      <td><p>Numeric value specifying the interval of longitude grids for polar stereographic maps (<code>type = "arctic50"</code> or <code>"arctic60"</code>)</p></td>
+      <th>lon.interval, lat.interval</th>
+      <td><p>Numeric value specifying the interval of longitude and latitude grids for polar stereographic maps (<code>type = "arctic50"</code> or <code>"arctic60"</code>)</p></td>
     </tr>
     <tr>
       <th>keep.glaciers</th>
@@ -151,36 +170,33 @@
       <td><p>Logical indicating whether bathymetry should be added to the map. Relatively slow. Defaults to <code>FALSE</code></p></td>
     </tr>
     <tr>
-      <th>land.col</th>
-      <td><p>Character code specifying the color of land.</p></td>
+      <th>bathy_style</th>
+      <td><p>Character defining the style for bathymetry contours. Alternatives:</p><ul>
+<li><p><code>"poly_blues"</code> plots polygons filled with different shades of blue.</p></li>
+<li><p><code>"poly_greys"</code> plots polygons filled with different shades of grey.</p></li>
+<li><p><code>"contour_blues"</code> contour lines with different shades of blue.</p></li>
+<li><p><code>"contour_grey"</code> plots grey contour lines.</p></li>
+</ul></td>
     </tr>
     <tr>
-      <th>size.land</th>
-      <td><p>Numeric value specifying the width of the border line for land shapes. See details for explanation about line widths.</p></td>
+      <th>bathy_legend</th>
+      <td><p>Logical indicating whether legend for bathymetry should be shown. Defaults to <code>TRUE</code></p></td>
     </tr>
     <tr>
-      <th>border.col.land</th>
-      <td><p>Character code specifying the color of the border line for land shapes.</p></td>
+      <th>bathy_detailed</th>
+      <td><p>Logical indicating whether detailed bathymetry shapefiles should be used. Works for Svalbard maps only (see <em>Source</em>). Very slow due to the large file size. Use for limited areas, such as fjords, only.</p></td>
     </tr>
     <tr>
-      <th>gla.col</th>
-      <td><p>Character code specifying the color of glaciers.</p></td>
+      <th>land.col, gla.col, grid.col</th>
+      <td><p>Character code specifying the color of land, glaciers and grid lines, respectively. Use <code>NA</code> to remove the grid lines.</p></td>
     </tr>
     <tr>
-      <th>size.glacier</th>
-      <td><p>Numeric value specifying the width of the border line for glacier shapes.</p></td>
+      <th>border.col.land, border.col.glacier</th>
+      <td><p>Character code specifying the color of the border line for land and glacier shapes.</p></td>
     </tr>
     <tr>
-      <th>border.col.glacier</th>
-      <td><p>Character code specifying the color of the border line for glacier shapes.</p></td>
-    </tr>
-    <tr>
-      <th>grid.col</th>
-      <td><p>Character code specifying the color of grid lines. Use <code>NA</code> to remove the grid lines.</p></td>
-    </tr>
-    <tr>
-      <th>size.grid</th>
-      <td><p>Numeric value specifying the width of the grid lines.</p></td>
+      <th>size.land, size.glacier, size.grid</th>
+      <td><p>Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.</p></td>
     </tr>
     <tr>
       <th>label.print</th>
@@ -194,11 +210,20 @@
       <th>label.font</th>
       <td><p>Numeric value specifying the font size for labels in polar stereographic maps. Note that this value defines the actual font size in points, not the <code>ggplot2</code> font size.</p></td>
     </tr>
+    <tr>
+      <th>base_size</th>
+      <td><p>Base size parameter for ggplot. See <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme'>theme_bw</a>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>Svalbard shape files originate from the Norwegian Polar Institute (<a href='http://geodata.npolar.no/'>http://geodata.npolar.no/</a>). Barents Sea and polar stereographic maps are from  <a href='http://www.naturalearthdata.com'>http://www.naturalearthdata.com</a>. They use the <code>ne_10m_land</code> and <code>ne_50m_land</code> (v 4.0.0) datasets, respectively. Bathymetry polygons are generalized from <code>IBCAO v3.0 500m RR grid</code> <a href='https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html'>https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html</a>.</p>
+    <ul>
+<li><p>Svalbard maps originate from the <a href='http://geodata.npolar.no/'>Norwegian Polar Institute</a>. Distributed under the <a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0 license</a> (<a href='http://geodata.npolar.no/bruksvilkar/'>terms of use</a>).</p></li>
+<li><p>Barents Sea and pan-Arctic maps are downloaded from <a href='http://www.naturalearthdata.com'>Natural Earth Data</a>. They use the <a href='http://www.naturalearthdata.com/downloads/10m-physical-vectors/'><code>ne_10m_land</code></a> and <a href='http://www.naturalearthdata.com/downloads/50m-physical-vectors/'><code>ne_50m_land</code></a> (v 4.0.0) datasets, respectively. Distributed under the <a href='https://creativecommons.org/publicdomain/'>CC Public Domain license</a> (<a href='http://www.naturalearthdata.com/about/terms-of-use/'>terms of use</a>).</p></li>
+<li><p>Pan-Arctic and Barents Sea bathymetry shapefiles are generalized from <a href='https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html'>IBCAO v3.0 500m RR grid</a>. Should be cited as <a href='https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/2012GL052219.pdf'>Jakobsson, M., et al. The International Bathymetric Chart of the Arctic Ocean (IBCAO) Version 3.0. Geophys. Res. Lett. 2012, 39:L12609.</a></p></li>
+<li><p>Svalbard fjord bathymetry shapefiles are from the <a href='https://kartkatalog.geonorge.no/metadata/kartverket/dybdedata/2751aacf-5472-4850-a208-3532a51c529a'>Norwegian Mapping Authority</a>.  Distributed under the <a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0 license</a>.</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -221,42 +246,41 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot2-package'>ggplot2</a></code> <code><a href='theme_map.html'>theme_map</a></code>
-    <code>coastlineWorldMedium</code> from the <code>oce</code> package for plotting maps in maps in base graphics using the <code>ne_10m_land</code> dataset.</p>
+    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot2-package'>ggplot2</a></code> <code><a href='theme_map.html'>theme_map</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>basemap</span>() <span class='co'>## Plots Kongsfjorden</span></div><div class='img'><img src='basemap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>basemap</span>() <span class='co'>## Plots Kongsfjorden</span></div><div class='img'><img src='basemap-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Maps work as normal ggplot2 objects:</span>
 
 <span class='fu'>data</span>(<span class='no'>chlorophyll</span>)
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>basemap</span>(<span class='st'>"mosj"</span>)
 <span class='no'>p</span> + <span class='fu'>geom_point</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>chlorophyll</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lon.utm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat.utm</span>,
-<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>Chla</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>Chla</span>), <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='basemap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>Chla</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>Chla</span>), <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='basemap-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## limitting maps can be done using the limits argument:</span>
-<span class='fu'>basemap</span>(<span class='st'>"kongsfjordbotn"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>12.2</span>,<span class='fl'>12.65</span>,<span class='fl'>78.95</span>,<span class='fl'>79.00</span>))</div><div class='img'><img src='basemap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"kongsfjordbotn"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>12.2</span>,<span class='fl'>12.65</span>,<span class='fl'>78.95</span>,<span class='fl'>79.00</span>))</div><div class='img'><img src='basemap-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Svalbard map. Warning: this is SLOW</span>
-<span class='fu'>basemap</span>(<span class='st'>"svalbard"</span>)</div><div class='img'><img src='basemap-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"svalbard"</span>)</div><div class='img'><img src='basemap-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## grid.col = NA removes grid lines</span>
-<span class='fu'>basemap</span>(<span class='st'>"svalbard"</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>28</span>, <span class='fl'>79.5</span>, <span class='fl'>83</span>))</div><div class='img'><img src='basemap-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"svalbard"</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>28</span>, <span class='fl'>79.5</span>, <span class='fl'>83</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 90 rows containing missing values (geom_path).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 6 rows containing missing values (geom_path).</span></div><div class='img'><img src='basemap-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Use round.lat and n.lon.grid arguments</span>
 <span class='co'>## to control grid lines</span>
 <span class='fu'>basemap</span>(<span class='st'>"svalbard"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>24</span>,<span class='fl'>78.5</span>,<span class='fl'>82</span>), <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-<span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='img'><img src='basemap-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='img'><img src='basemap-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Barents Sea</span>
-<span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>)</div><div class='img'><img src='basemap-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>)</div><div class='img'><img src='basemap-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Barents Sea map also prints mainland Norway,</span>
 <span class='co'>## but the projection is not optimal.</span>
-<span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>12</span>, <span class='fl'>24</span>, <span class='fl'>68</span>, <span class='fl'>71</span>))</div><div class='img'><img src='basemap-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>12</span>, <span class='fl'>24</span>, <span class='fl'>68</span>, <span class='fl'>71</span>))</div><div class='img'><img src='basemap-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Polar stereographic pan-Arctic maps</span>
-<span class='fu'>basemap</span>(<span class='st'>"arctic50"</span>)</div><div class='img'><img src='basemap-9.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"arctic50"</span>)</div><div class='img'><img src='basemap-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## To find UTM coordinates to limit a pan-Arctic map:</span>
-<span class='fu'>basemap</span>(<span class='st'>"arctic60"</span>) + <span class='fu'>theme_bw</span>()</div><div class='img'><img src='basemap-10.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>basemap</span>(<span class='st'>"arctic60"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>250000</span>, -<span class='fl'>2500000</span>, <span class='fl'>2000000</span>, -<span class='fl'>250000</span>))</div><div class='img'><img src='basemap-11.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"arctic60"</span>) + <span class='fu'>theme_bw</span>()</div><div class='img'><img src='basemap-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>basemap</span>(<span class='st'>"arctic60"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>250000</span>, -<span class='fl'>2500000</span>, <span class='fl'>2000000</span>, -<span class='fl'>250000</span>))</div><div class='img'><img src='basemap-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Bathymetry can be added using the bathymetry argument</span>
-<span class='fu'>basemap</span>(<span class='st'>"arctic50"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-12.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'>## Current bathymetry shapefiles are not detailed</span>
-<span class='co'>## enough for Svalbard fjords</span>
-<span class='fu'>basemap</span>(<span class='st'>"kongsfjorden"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-13.png' alt='' width='700' height='432.632880098887' /></div><div class='input'> 
+<span class='fu'>basemap</span>(<span class='st'>"arctic50"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-12.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## Detailed bathymetry is available for some </span>
+<span class='co'>## Svalbard fjords</span>
+<span class='fu'>basemap</span>(<span class='st'>"kongsfjorden"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bathy_detailed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-13.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -277,7 +301,7 @@
 
     <h2>Author</h2>
     
-Mikko Vihtakari
+Mikko Vihtakari, Anders Skoglund
 
   </div>
 </div>
@@ -294,5 +318,8 @@ Mikko Vihtakari
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
