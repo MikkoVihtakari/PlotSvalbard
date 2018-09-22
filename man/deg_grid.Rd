@@ -8,7 +8,7 @@ deg_grid(dat, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE,
   n.lon.grid = 3, n.points = 30)
 }
 \arguments{
-\item{dat}{\code{\link[basemap_limits]{basemapLimits}} object}
+\item{dat}{\code{\link[=basemap_limits]{basemapLimits}} object}
 
 \item{round.lat}{specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
 

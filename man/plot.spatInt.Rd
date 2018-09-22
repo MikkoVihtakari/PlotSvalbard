@@ -4,13 +4,14 @@
 \alias{plot.spatInt}
 \title{Plot an interpolated map}
 \usage{
-\method{plot}{spatInt}(x, basemap = TRUE, type = "kongsfjorden",
-  col.scale.limits = NULL, legend.label = NA, limits = NULL,
-  round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE,
-  n.lon.grid = 3, keep.glaciers = TRUE, land.col = "#eeeac4",
-  size.land = 0.1, border.col.land = "black", gla.col = "grey95",
-  size.glacier = 0.1, border.col.glacier = "black",
-  grid.col = "grey70", size.grid = 0.1, base_size = 11, ...)
+\method{plot}{spatInt}(x, basemap = TRUE, type = "svalbard",
+  limits = "auto", limits.lon = 0.001, limits.lat = 0.001,
+  col.scale.limits = NULL, legend.label = NA, round.lat = FALSE,
+  n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3,
+  keep.glaciers = TRUE, land.col = "#eeeac4", size.land = 0.1,
+  border.col.land = "black", gla.col = "grey95", size.glacier = 0.1,
+  border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1,
+  base_size = 11, ...)
 }
 \arguments{
 \item{x}{\code{spatInt} object from \code{\link{interpolate}} function.}
@@ -19,31 +20,15 @@
 
 \item{type}{Type of basemap. See \code{\link{basemap}}. Used only if \code{basemap = TRUE}.}
 
+\item{limits}{Map limits. See \code{\link{basemap}}. The option "auto" (default) limits the map using coordinate range in \code{x}. Replace by \code{NULL} to remove the automatic zooming. Alternatively use a numeric vector as described in \code{\link{basemap}} documentation.}
+
+\item{limits.lon, limits.lat, round.lon, round.lat, n.lon.grid, n.lat.grid, size.land, land.col, gla.col, grid.col, border.col.land, size.glacier, border.col.glacier, size.grid, base_size, keep.glaciers}{See \code{\link{basemap}} documentation.}
+
 \item{col.scale.limits}{A numeric vector of lenght 2 defining the limits for color scale of interpolated results. If \code{NULL} (default), the limits will be generated automatically.}
 
 \item{legend.label}{Label for color legend. If NA (default), the labels are extracted from the \code{spatInt} object.}
 
-\item{limits}{Map limits. See \code{\link{basemap}}}
-
-\item{round.lat}{specifying the level of rounding to be used to plot latitude grid lines. Overrides \code{n.lat.grid}}
-
-\item{n.lat.grid}{number of latitude grid lines. Alternatively use \code{round.lat}}
-
-\item{round.lon}{specifying the level of rounding to be used to plot longitude grid lines. Overrides \code{n.lon.grid}}
-
-\item{n.lon.grid}{number of longitude grid lines. Alternatively use \code{round.lon}}
-
-\item{keep.glaciers}{a logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting little bit.}
-
-\item{land.col}{Color of land}
-
-\item{size.land, border.col.land, size.glacier, border.col.glacier, size.grid, base_size}{See \code{\link{basemap}}}
-
-\item{gla.col}{Color of glaciers}
-
-\item{grid.col}{Color of grid lines. Use \code{NA} to remove the grid lines.}
-
-\item{...}{Additional arguments passed somewhere.}
+\item{...}{Additional arguments. Required by R build checks. Ignore.}
 }
 \description{
 Plot method for \code{\link[=interpolate]{spatInt}} objects.

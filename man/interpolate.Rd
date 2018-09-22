@@ -10,29 +10,34 @@ interpolate(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"),
   unit = NULL, shear = NULL, n.tile = 100, accuracy = 100)
 }
 \arguments{
-\item{df}{dataframe containing required information}
+\item{df}{data frame containing required information}
 
-\item{value}{Name of the value column to be used for interpolation}
+\item{value}{Character referring to the name of the value column to be used for interpolation.}
 
-\item{Subset}{A subset argument as a name (i.e. with " ").}
+\item{Subset}{A subset argument as a character (i.e. with " ". See Examples).}
 
 \item{coords}{A vector of column names for x (longitude) and y (latitude) coordinates, respectively. It is recommended to use UTM coordinates instead of decimal degrees. See \code{\link[sp]{coordinates}}.}
 
-\item{station.col}{Name of the column that specifies unique stations (i.e. spatial points). Required.}
+\item{station.col}{Character. Name of the column that specifies unique stations (i.e. spatial points). Required.}
 
-\item{strata.col}{Columns that specify the sampling depth. Should be in order: 1) sample from ("From"), 2) sample to ("To"). "To" can be NA.}
+\item{strata.col}{Character. Column that specify the sampling depth.}
 
-\item{name.col}{Column giving sample names. Not required.}
+\item{name.col}{Character. Column giving sample names. Not required.}
 
-\item{id.cols}{Identification columns that should be preserved together with value, From, To and UTM coodinate columns}
+\item{id.cols}{Character vector. Identification columns that should be preserved together with value, From, To and UTM coodinate columns}
 
-\item{bin.method}{Method for binning data, if there are several observations for each spatial point. Either "average" for average values or "integrate" for vertical trapezoidal integration using the \code{\link[oce]{integrateTrapezoid}} function from \link[oce]{oce} package. See more in Details.}
+\item{bin.method}{Character giving the method for binning data, if there are several observations for each spatial point. Alternatives:
+\itemize{
+\item \strong{"none"} for no binning. Requires one value per unique coordinate.
+\item \strong{"average"} for average values
+\item \strong{"integrate"} for vertical trapezoidal integration using the \code{\link[oce]{integrateTrapezoid}} function from \link[oce]{oce} package.
+}}
 
-\item{int.method}{Method for interpolation. Currently only \code{\link[gstat]{krige}}.}
+\item{int.method}{Character giving the method for interpolation. Currently only \code{\link[gstat]{krige}}.}
 
-\item{unit}{The unit for \code{value} column}
+\item{unit}{The unit for \code{value} column. Not required.}
 
-\item{shear}{Map tilting. Either NULL for non-tilted maps or a shear matrix, f.ex (matrix(c(2,1.2,0,1),2,2)) to shear the interpolation.}
+\item{shear}{Map tilting. Either NULL for non-tilted maps or a shear matrix, f.ex (matrix(c(2,1.2,0,1),2,2)) to shear the interpolation. This feature works poorly.}
 
 \item{n.tile}{Number of horizontal and vertical tiles. Default is 100 resulting to 10000 tiles.}
 
@@ -42,10 +47,10 @@ interpolate(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"),
 Returns a \code{spatInt} object which is a list
 }
 \description{
-Interpolates a 2D surface from a data.frame of observations for plotting. Currenly uses the \code{\link[gstat]{krige}} function.
+Interpolates a 2D surface from a data frame of observations for plotting. Currenly uses the \code{\link[gstat]{krige}} function.
 }
 \details{
-The function removes missing values (NAs) from \code{value} column. Both \code{strata.cols} have to be specified. If the sample was from one depth, place that depth to "From" column and leave "To" column empty (NA).
+The function removes missing values (NAs) from \code{value} column.
 
 A word of warning about \code{bin.method = "integrate"}: this functionality works only if samples have been taken consistently at same depths. In other cases, it is recommended to use \code{bin.method = "average"}, although the user should be careful in comparing samples taken from different depths in general. The unit for integrated value is [amount]/m2, if the original value was [amount]/m3.
 }

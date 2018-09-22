@@ -1,21 +1,26 @@
 ##' @title Interpolate a spatial 2D surface from observations
-##' @description Interpolates a 2D surface from a data.frame of observations for plotting. Currenly uses the \code{\link[gstat]{krige}} function.
-##' @param df dataframe containing required information
-##' @param value Name of the value column to be used for interpolation
-##' @param Subset A subset argument as a name (i.e. with " ").
-##' @param unit The unit for \code{value} column
-##' @param bin.method Method for binning data, if there are several observations for each spatial point. Either "average" for average values or "integrate" for vertical trapezoidal integration using the \code{\link[oce]{integrateTrapezoid}} function from \link[oce]{oce} package. See more in Details.
-##' @param int.method Method for interpolation. Currently only \code{\link[gstat]{krige}}.
+##' @description Interpolates a 2D surface from a data frame of observations for plotting. Currenly uses the \code{\link[gstat]{krige}} function.
+##' @param df data frame containing required information
+##' @param value Character referring to the name of the value column to be used for interpolation.
+##' @param Subset A subset argument as a character (i.e. with " ". See Examples).
+##' @param unit The unit for \code{value} column. Not required.
+##' @param bin.method Character giving the method for binning data, if there are several observations for each spatial point. Alternatives:
+##' \itemize{
+##' \item \strong{"none"} for no binning. Requires one value per unique coordinate.
+##' \item \strong{"average"} for average values
+##' \item \strong{"integrate"} for vertical trapezoidal integration using the \code{\link[oce]{integrateTrapezoid}} function from \link[oce]{oce} package.
+##' }
+##' @param int.method Character giving the method for interpolation. Currently only \code{\link[gstat]{krige}}.
 ##' @param coords A vector of column names for x (longitude) and y (latitude) coordinates, respectively. It is recommended to use UTM coordinates instead of decimal degrees. See \code{\link[sp]{coordinates}}.
-##' @param station.col Name of the column that specifies unique stations (i.e. spatial points). Required.
-##' @param id.cols Identification columns that should be preserved together with value, From, To and UTM coodinate columns
-##' @param strata.col Columns that specify the sampling depth. Should be in order: 1) sample from ("From"), 2) sample to ("To"). "To" can be NA.
-##' @param name.col Column giving sample names. Not required.
-##' @param shear Map tilting. Either NULL for non-tilted maps or a shear matrix, f.ex (matrix(c(2,1.2,0,1),2,2)) to shear the interpolation.
+##' @param station.col Character. Name of the column that specifies unique stations (i.e. spatial points). Required.
+##' @param id.cols Character vector. Identification columns that should be preserved together with value, From, To and UTM coodinate columns
+##' @param strata.col Character. Column that specify the sampling depth.
+##' @param name.col Character. Column giving sample names. Not required.
+##' @param shear Map tilting. Either NULL for non-tilted maps or a shear matrix, f.ex (matrix(c(2,1.2,0,1),2,2)) to shear the interpolation. This feature works poorly.
 ##' @param n.tile Number of horizontal and vertical tiles. Default is 100 resulting to 10000 tiles.
 ##' @param accuracy Number to which the extent of the interpolation should be rounded.
 ##' @return Returns a \code{spatInt} object which is a list
-##' @details The function removes missing values (NAs) from \code{value} column. Both \code{strata.cols} have to be specified. If the sample was from one depth, place that depth to "From" column and leave "To" column empty (NA).
+##' @details The function removes missing values (NAs) from \code{value} column.
 ##'
 ##' A word of warning about \code{bin.method = "integrate"}: this functionality works only if samples have been taken consistently at same depths. In other cases, it is recommended to use \code{bin.method = "average"}, although the user should be careful in comparing samples taken from different depths in general. The unit for integrated value is [amount]/m2, if the original value was [amount]/m3.
 ##' @author Mikko Vihtakari
@@ -29,7 +34,8 @@
 ##' @export
 
 ## Test params
-#df = x; Subset = NULL; bin.method = "integrate"; int.method = "krige"; coords = c("lon.utm", "lat.utm"); value = "slope_ratio"; name.col = "sample_name"; station.col = "station"; id.cols = NULL; strata.col = "from"; shear = NULL; n.tile = 100; accuracy = 100; unit = NULL
+# df = y; Subset = NULL; bin.method = "none"; int.method = "krige"; coords = c("lon.utm", "lat.utm"); value = "aws"; name.col = NULL; station.col = "station"; id.cols = NULL; strata.col = "interv"; shear = NULL; n.tile = 100; accuracy = 100; unit = NULL
+# df = y; value = "aws"; station.col = "station"; strata.col = "interv"; bin.method = "none"; Subset = NULL; coords = c("lon.utm", "lat.utm"); name.col = NULL; id.cols = NULL; int.method = "krige"; unit = NULL; shear = NULL; n.tile = 100; accuracy = 100
 
 interpolate <- function(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"), station.col = "Station", strata.col = "From", name.col = NULL, id.cols = NULL, bin.method = "average", int.method = "krige", unit = NULL, shear = NULL, n.tile = 100, accuracy = 100) {
 
@@ -42,14 +48,14 @@ if(is.null(Subset)) x <- df else x <- subset(df, eval(parse(text=Subset)))
 x <- x[!is.na(x[value]),] ## Remove NAs
 x <- x[c(station.col, id.cols, name.col, coords, strata.col, value)]
 
-if(!any(colnames(x) %in% "To")) { ## Add "To" column
-  x$To <- NA
-}
+# if(!any(colnames(x) %in% "To")) { ## Add "To" column
+#   x$To <- NA
+# }
 
-x <- x[c(station.col, id.cols, name.col, coords, strata.col, "To", value)]
+x <- x[c(station.col, id.cols, name.col, coords, strata.col, value)]
 x <- x[order(x[station.col], x[strata.col]),] ## Order
 
-if(any(duplicated(x[station.col]))) {
+if(any(duplicated(x[station.col])) & bin.method != "none") {
   tmp <- split(x, x[station.col], drop = TRUE)
   x <- lapply(tmp, function(k) {
     tp <- k[1,]
@@ -96,8 +102,8 @@ y.range[2] <- ceiling(y.range[2] / accuracy) * accuracy
 
 grd <- expand.grid(Lon = seq(from = x.range[1], to = x.range[2], length.out = n.tile), Lat = seq(from = y.range[1], to = y.range[2], length.out = n.tile))  # expand points to grid
 
-coordinates(grd) <- ~Lon + Lat
-gridded(grd) <- TRUE
+sp::coordinates(grd) <- ~Lon + Lat
+sp::gridded(grd) <- TRUE
 
 idw <- gstat::krige(formula = get(value) ~ 1, locations = x, newdata = grd)
 
@@ -109,7 +115,7 @@ if(strata.col != "From") {
 
 output$interpolation <- as.data.frame(idw)  # output is defined as a data table
 output$data <- y
-output$variables <- list(interpolated.variable = value, unit = unit)
+output$variables <- list(interpolated.variable = value, unit = unit, method = bin.method)
 
 class(output) <- "spatInt"
 output
