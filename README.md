@@ -1,8 +1,3 @@
----
-output: 
-  html_document: 
-    keep_md: yes
----
 PlotSvalbard
 ======
 **Plot research data from Svalbard on maps**
