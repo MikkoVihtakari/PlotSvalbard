@@ -47,7 +47,7 @@ geom_text(data = kongsfjord_moorings,
 
 Most extensions for ggplot2 work together with PlotSvalbard.
 
-```{r}
+```{r message=FALSE}
 data(zooplankton)
 
 x <- transform_coord(zooplankton, lon = "Longitude", lat = "Latitude", bind = TRUE)
