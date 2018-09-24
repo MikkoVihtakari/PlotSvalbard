@@ -9,3 +9,4 @@
 ^PlotSvalbard - User Manual_files$
 ^\inst\figures\*.png$
 ^docs$
+^\*.html$

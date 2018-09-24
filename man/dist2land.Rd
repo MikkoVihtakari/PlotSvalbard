@@ -77,7 +77,8 @@ system.time(dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat",
 
 data("meiofauna")
 d_panarctic <- dist2land(meiofauna,  lon.col = "Lon", lat.col = "Lat", map.type = "arctic50")
-d_panarctic <- transform_coord(d_panarctic, lon = "Lon", lat = "Lat", map.type = "arctic50", bind = TRUE)
+d_panarctic <- transform_coord(d_panarctic, lon = "Lon", lat = "Lat", map.type = "arctic50",
+bind = TRUE)
 
 basemap("arctic50") +
  geom_point(data = d_panarctic, aes(x = lon.utm, y = lat.utm, color = dist), size = 3) +

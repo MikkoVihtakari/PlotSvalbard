@@ -43,7 +43,7 @@
 #' @keywords datasets
 #' @name meiofauna
 #' @usage data(meiofauna)
-#' @format A dataframe containing pna-Arcitc meiofauna data sampled using ice-cores
+#' @format A dataframe containing pan-Arcitc meiofauna data sampled using ice-cores
 #' @source \href{http://doi.wiley.com/10.1002/ece3.3797}{Bluhm, B.A., Hop, H., Vihtakari, M., Gradinger, R., Iken, K., Melnikov, I.A., & Søreide, J.E. (2018) Sea ice meiofauna distribution on local to pan-Arctic scales. Ecology and Evolution, 8:2350-2364.}
 "meiofauna"
 #' @title SpatialPolygons object for Svalbard landshapes
@@ -53,3 +53,4 @@
 #' @format Spatial polygons containing 1:250 000 landshapes of Svalbard. In \code{"+init=epsg:32633"} projection.
 #' @source Norwegian Polar Institute (\url{http://geodata.npolar.no/})
 "svalbard.ld"
+# 'barents_bathy' 'arctic_bathy' 'barents.ld' 'kong.cr' 'kong.gl' 'kong.ld' 'krone.cr' 'krone.cr.det' 'krone.cr.mid' 'mosj.cr' 'mosj.gl' 'mosj.ld' 'arctic50' 'arctic60' 'svalbard.gl'  'svalbard_bathy' 'zooplankton'

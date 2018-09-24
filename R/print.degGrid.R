@@ -18,7 +18,7 @@ print.degGrid <- function(x, ...) {
   cat("Decimal degree grid for maps", sep = "")
   cat(paste(" of class", class(x)), sep = "\n")
   cat("Object size: ", sep = "")
-  print(object.size(x), unit = "auto")
+  print(utils::object.size(x), unit = "auto")
   cat(NULL, sep = "\n")
   cat("List containing following elements:", sep = "\n")
   cat(names(x), sep = ", ")

@@ -15,7 +15,7 @@ print.basemapLimits <- function(x, ...) {
   cat("Basemap limits object")
   cat(paste(" of class", class(x)), sep = "\n")
   cat("Object size: ", sep = "")
-  print(object.size(x), unit = "auto")
+  print(utils::object.size(x), unit = "auto")
   cat("List containing following elements:", sep = "\n")
   cat(names(x), sep = ", ")
   cat(NULL, sep = "\n")
