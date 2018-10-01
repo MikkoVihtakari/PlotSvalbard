@@ -4,7 +4,7 @@
 \alias{transform_coord}
 \title{Transform spatial coordinates to another projection}
 \usage{
-transform_coord(x = NULL, lon = "longitude", lat = "latitude",
+transform_coord(x = NULL, lon = NULL, lat = NULL,
   new.names = c("lon.utm", "lat.utm"),
   proj.og = "+proj=longlat +datum=WGS84",
   proj.out = "+init=epsg:32633", map.type = NULL, verbose = FALSE,
@@ -13,9 +13,7 @@ transform_coord(x = NULL, lon = "longitude", lat = "latitude",
 \arguments{
 \item{x}{data frame to be transformed. Can be omitted if numeric vectors are assigned to \code{lon} and \code{lat}.}
 
-\item{lon}{either a name of the longitude column in \code{x} or a numeric vector containing longitude coordinates.}
-
-\item{lat}{either a name of the latitude column in \code{x} or a numeric vector containing latitude coordinates.}
+\item{lon, lat}{either a name of the longitude and latitude columns in \code{x} or a numeric vector containing longitude and latitude coordinates. Use \code{NULL} to guess the longitude and/or latitude columns in \code{x}.}
 
 \item{new.names}{a vector of length 2 specifying the names of transformed longitude and latitude columns, respectively. \code{NULL} returns column names from \code{x}}
 
@@ -34,6 +32,9 @@ Returns a data frame with transformed spatial coordinates
 }
 \description{
 The function transforms spatial coordinates from original projection (decimal degrees assumed) to another projection.
+}
+\details{
+If \code{x} is specified, the function guesses longitude and latitude columns from \code{x} by default.
 }
 \author{
 Mikko Vihtakari

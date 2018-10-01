@@ -1,8 +1,7 @@
 ##' @title Transform spatial coordinates to another projection
 ##' @description The function transforms spatial coordinates from original projection (decimal degrees assumed) to another projection.
 ##' @param x data frame to be transformed. Can be omitted if numeric vectors are assigned to \code{lon} and \code{lat}.
-##' @param lon either a name of the longitude column in \code{x} or a numeric vector containing longitude coordinates.
-##' @param lat either a name of the latitude column in \code{x} or a numeric vector containing latitude coordinates.
+##' @param lon,lat either a name of the longitude and latitude columns in \code{x} or a numeric vector containing longitude and latitude coordinates. Use \code{NULL} to guess the longitude and/or latitude columns in \code{x}.
 ##' @param new.names a vector of length 2 specifying the names of transformed longitude and latitude columns, respectively. \code{NULL} returns column names from \code{x}
 ##' @param proj.og original \code{\link[sp]{proj4string}} projection. If \code{NULL}, the projection is taken from \code{x}. \code{x} must be a \link[sp]{Spatial} object in that case.
 ##' @param proj.out the \code{\link[sp]{proj4string}} projection the coordinates should be transformed to. Defaults to the \link[=basemap]{"svalbard"} shape file projection.
@@ -10,6 +9,7 @@
 ##' @param verbose if \code{TRUE}, the function prints information about the changed projection. Switch to \code{FALSE} to make the function silent.
 ##' @param bind Should only transformed coordinates be returned (\code{FALSE}, default) or should x be returned with transformed coordinates (\code{TRUE})?
 ##' @return Returns a data frame with transformed spatial coordinates
+##' @details If \code{x} is specified, the function guesses longitude and latitude columns from \code{x} by default.
 ##' @author Mikko Vihtakari
 ##' @import sp
 ##' @export
@@ -17,15 +17,30 @@
 
 #x = lims; lon = "longitude"; lat = "latitude"; new.names = c("lon.utm", "lat.utm"); proj.og = "+proj=longlat +datum=WGS84"; proj.out = "+init=epsg:32633"; map.type = NULL; verbose = TRUE
 
-transform_coord <- function(x = NULL, lon = "longitude", lat = "latitude", new.names = c("lon.utm", "lat.utm"), proj.og = "+proj=longlat +datum=WGS84", proj.out = "+init=epsg:32633", map.type = NULL, verbose = FALSE, bind = FALSE) {
+transform_coord <- function(x = NULL, lon = NULL, lat = NULL, new.names = c("lon.utm", "lat.utm"), proj.og = "+proj=longlat +datum=WGS84", proj.out = "+init=epsg:32633", map.type = NULL, verbose = FALSE, bind = FALSE) {
+
+  ## Case for defined x and undefined lon or/and lat
+if(!is.null(x) & (is.null(lon) | is.null(lat))) {
+  if(class(x) != "data.frame") stop("x argument has to be a data.frame or NULL")
+
+  if(is.null(lon)) {
+    lon <- colnames(x)[grep("^lon$|longitude", gsub("(?<=[\\s])\\s*|^\\s+|\\s+$", "", gsub("[[:punct:]]", " ", colnames(x)), perl = TRUE), ignore.case = TRUE, perl = TRUE)][1]
+
+    if(verbose) message("lon argument not given, used ", lon, " from the given data frame")
+  }
+
+  if(is.null(lat)) {
+    lat <- colnames(x)[grep("^lat$|latitude", gsub("(?<=[\\s])\\s*|^\\s+|\\s+$", "", gsub("[[:punct:]]", " ", colnames(x)), perl = TRUE), ignore.case = TRUE, perl = TRUE)][1]
+
+    if(verbose) message("lat argument not given, used ", lat, " from the given data frame")
+  }
+
+}
 
 if(is.null(x) & (!is.numeric(lon) | !is.numeric(lat))) {
-  stop("give either x or lon and lat as numeric vectors")
+  stop("Define either x or lon and lat as numeric vectors")
 }
 
-if(!is.null(x) & (!is.character(lon) | !is.character(lat))) {
-  stop("lat and lon must give column names of x as character")
-}
 
 if(is.null(x) & (is.numeric(lon) | is.numeric(lat))) {
   if(length(lon) != length(lat)) stop("lat and lon must be of equal length")
