@@ -18,7 +18,7 @@
 ##' @param name.col Character. Column giving sample names. Not required.
 ##' @param shear Map tilting. Either NULL for non-tilted maps or a shear matrix, f.ex (matrix(c(2,1.2,0,1),2,2)) to shear the interpolation. This feature works poorly.
 ##' @param n.tile Number of horizontal and vertical tiles. Default is 100 resulting to 10000 tiles.
-##' @param accuracy Number to which the extent of the interpolation should be rounded.
+##' @param accuracy Number to which the extent of the interpolation area should be rounded. Given in meters.
 ##' @return Returns a \code{spatInt} object which is a list
 ##' @details The function removes missing values (NAs) from \code{value} column.
 ##'
@@ -36,11 +36,13 @@
 ## Test params
 # df = y; Subset = NULL; bin.method = "none"; int.method = "krige"; coords = c("lon.utm", "lat.utm"); value = "aws"; name.col = NULL; station.col = "station"; id.cols = NULL; strata.col = "interv"; shear = NULL; n.tile = 100; accuracy = 100; unit = NULL
 # df = y; value = "aws"; station.col = "station"; strata.col = "interv"; bin.method = "none"; Subset = NULL; coords = c("lon.utm", "lat.utm"); name.col = NULL; id.cols = NULL; int.method = "krige"; unit = NULL; shear = NULL; n.tile = 100; accuracy = 100
-
+# df = NT; value = "Chla"; Subset = NULL;  coords = c("lon.utm", "lat.utm"); station.col = "Station"; strata.col = "From"; name.col = NULL; id.cols = "Date"; bin.method = "average"; int.method = "krige"; unit = NULL; shear = NULL; n.tile = 100; accuracy = 100
 interpolate <- function(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"), station.col = "Station", strata.col = "From", name.col = NULL, id.cols = NULL, bin.method = "average", int.method = "krige", unit = NULL, shear = NULL, n.tile = 100, accuracy = 100) {
 
   output <- list()
 
+  if(missing(value)) stop("value column must be given.")
+  
   if(int.method != "krige") stop("Other methods are not incorporated yet")
 
 if(is.null(Subset)) x <- df else x <- subset(df, eval(parse(text=Subset)))
@@ -48,15 +50,10 @@ if(is.null(Subset)) x <- df else x <- subset(df, eval(parse(text=Subset)))
 x <- x[!is.na(x[value]),] ## Remove NAs
 x <- x[c(station.col, id.cols, name.col, coords, strata.col, value)]
 
-# if(!any(colnames(x) %in% "To")) { ## Add "To" column
-#   x$To <- NA
-# }
-
-x <- x[c(station.col, id.cols, name.col, coords, strata.col, value)]
 x <- x[order(x[station.col], x[strata.col]),] ## Order
 
-if(any(duplicated(x[station.col])) & bin.method != "none") {
-  tmp <- split(x, x[station.col], drop = TRUE)
+if(any(duplicated(x[c(station.col, id.cols, name.col)])) & bin.method != "none") {
+  tmp <- split(x, x[c(station.col, id.cols, name.col)], drop = TRUE)
   x <- lapply(tmp, function(k) {
     tp <- k[1,]
     tp[,name.col] <- paste(k[,name.col], collapse = " ")

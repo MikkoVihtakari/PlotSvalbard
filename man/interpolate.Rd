@@ -41,7 +41,7 @@ interpolate(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"),
 
 \item{n.tile}{Number of horizontal and vertical tiles. Default is 100 resulting to 10000 tiles.}
 
-\item{accuracy}{Number to which the extent of the interpolation should be rounded.}
+\item{accuracy}{Number to which the extent of the interpolation area should be rounded. Given in meters.}
 }
 \value{
 Returns a \code{spatInt} object which is a list

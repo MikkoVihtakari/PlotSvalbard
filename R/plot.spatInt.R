@@ -22,7 +22,6 @@
 ##' plot(x, type = "kongsfjorden", limits = c(11.4,12.7,78.85,79.05))
 ##' @author Mikko Vihtakari
 ##' @import ggplot2
-##' @importFrom colorRamps matlab.like
 ##' @export
 
 ## Test parameters
