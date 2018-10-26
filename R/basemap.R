@@ -8,22 +8,26 @@
 ##' } 
 ##' @param limits.lon,limits.lat Numeric. The level of rounding for longitude and latitude, respectively, when using automatic limits (character vector in \code{limits} argument).
 ##' @param bathymetry Logical indicating whether bathymetry should be added to the map. Relatively slow. Defaults to \code{FALSE}
-##' @param bathy_style Character defining the style for bathymetry contours. Alternatives: 
+##' @param bathy.style Character defining the style for bathymetry contours. Alternatives: 
 ##' \itemize{
 ##' \item \code{"poly_blues"} plots polygons filled with different shades of blue.
 ##' \item \code{"poly_greys"} plots polygons filled with different shades of grey.
 ##' \item \code{"contour_blues"} contour lines with different shades of blue.
 ##' \item \code{"contour_grey"} plots grey contour lines.
 ##' }
-##' @param bathy_legend Logical indicating whether legend for bathymetry should be shown. Defaults to \code{TRUE}
-##' @param bathy_detailed Logical indicating whether detailed bathymetry shapefiles should be used. Works for Svalbard maps only (see \emph{Source}). Very slow due to the large file size. Use for limited areas, such as fjords, only.
+##' @param bathy.legend Logical indicating whether legend for bathymetry should be shown. Defaults to \code{TRUE}
+##' @param bathy.detailed Logical indicating whether detailed bathymetry shapefiles should be used. Works for Svalbard maps only (see \emph{Source}). Very slow due to the large file size. Use for limited areas, such as fjords, only.
 ##' @param land.col,gla.col,grid.col Character code specifying the color of land, glaciers and grid lines, respectively. Use \code{NA} to remove the grid lines.
 ##' @param round.lon,round.lat Numeric value specifying the level of rounding to be used to plot longitude and latitude grid lines. Override \code{n.lon.grid} or \code{n.lat.grid}
 ##' @param n.lon.grid,n.lat.grid Numeric value specifying the number of longitude and latitude grid lines, respectively. Alternatively use \code{round.lon} and \code{round.lat}
 ##' @param lon.interval,lat.interval Numeric value specifying the interval of longitude and latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})
 ##' @param keep.glaciers Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.
-##' @param border.col.land,border.col.glacier Character code specifying the color of the border line for land and glacier shapes.
-##' @param size.land,size.glacier,size.grid Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.
+##' @param land.border.col,gla.border.col Character code specifying the color of the border line for land and glacier shapes.
+##' @param land.size,gla.size,grid.size Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.
+##' @param currents logical indicating whether Arctic and Atlantic ocean currents for the Barents Sea should be plotted. See details. 
+##' @param arc.col,atl.col Character code specifying the color for Arctic and Atlantic current arrows.
+##' @param current.size Numeric value specifying the width of ocean current arrows.  
+##' @param current.alpha Value between 0 and 1 defining the transparency of current arrows.
 ##' @param label.print Logical indicating whether labels should be printed for polar stereographic maps.
 ##' @param label.font Numeric value specifying the font size for labels in polar stereographic maps. Note that this value defines the actual font size in points, not the \code{ggplot2} font size.
 ##' @param label.offset Offset between the round polar stereographic maps and longitude labels. Optimized for a pdf output. Use 1.1 for larger size figures.
@@ -43,7 +47,9 @@
 ##'
 ##' Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection.
 ##'
-##' \strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13.
+##' \strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions \code{\link{LS}} and \code{\link{FS}} are available to convert line and font sizes in points to ggplot2 equivalents.
+##'
+##' \strong{Ocean currents} for the Barents Sea are implemented, but not peer-reviewed yet. This feature will be improved in the future versions of the package.
 ##'
 ##' @source \itemize{
 ##' \item Svalbard maps originate from the \href{http://geodata.npolar.no/}{Norwegian Polar Institute}. Distributed under the \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0 license} (\href{http://geodata.npolar.no/bruksvilkar/}{terms of use}).
@@ -94,8 +100,11 @@
 ##'
 ##' ## Detailed bathymetry is available for some 
 ##' ## Svalbard fjords
-##' basemap("kongsfjorden", bathymetry = TRUE, bathy_detailed = TRUE)
+##' basemap("kongsfjorden", bathymetry = TRUE, bathy.detailed = TRUE)
 ##'
+##' ## Ocean currents for the Barents Sea
+##' basemap("barentssea", bathymetry = TRUE, currents = TRUE)
+##' 
 ##' @seealso \code{\link[ggplot2]{ggplot2}} \code{\link{theme_map}}
 ##'
 ##' @author Mikko Vihtakari, Anders Skoglund
@@ -111,12 +120,13 @@
 # type = "arctic60"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04; bathymetry = TRUE
 # type = "arctic50"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; bathymetry = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04
 
-basemap <- function(type = "kongsfjorden", limits = NULL, limits.lon = 0.1, limits.lat = 0.1, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, keep.glaciers = TRUE, bathymetry = FALSE, bathy_style = "poly_blues", bathy_legend = TRUE, bathy_detailed = FALSE, land.col = "#eeeac4", border.col.land = "black", size.land = 0.1, gla.col = "grey95", border.col.glacier = "black", size.glacier = 0.1, grid.col = "grey70", size.grid = 0.1, label.print = TRUE, label.offset = 1.05, label.font = 8, base_size = 11) {
+basemap <- function(type = "kongsfjorden", limits = NULL, limits.lon = 0.1, limits.lat = 0.1, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, keep.glaciers = TRUE, bathymetry = FALSE, bathy.style = "poly_blues", bathy.legend = TRUE, bathy.detailed = FALSE, land.col = "#eeeac4", land.border.col = "black", land.size = 0.1, gla.col = "grey95", gla.border.col = "black", gla.size = 0.1, grid.col = "grey70", grid.size = 0.1, currents = FALSE, arc.col = "#D696C8", atl.col = "#BB1512", current.size = 0.5, current.alpha = 1, label.print = TRUE, label.offset = 1.05, label.font = 8, base_size = 11) {
 
   if(length(limits) == 3 & is.character(limits)) {
     limits <- c(round_any(min(get(limits[1])[limits[2]]), limits.lon, floor), round_any(max(get(limits[1])[limits[2]]), limits.lon, ceiling), round_any(min(get(limits[1])[limits[3]]), limits.lat, floor), round_any(max(get(limits[1])[limits[3]]), limits.lat, ceiling))
   }
   
+## Map data  
 X <- switch(map_type(type)$map.type,
   panarctic = eval(parse(text=paste(map_cmd("base_dat_polar")))),
   svalbard = eval(parse(text=paste(map_cmd("base_dat")))),
@@ -125,16 +135,23 @@ X <- switch(map_type(type)$map.type,
   stop(paste("map_type for", type, "not found."))
 )
 
+## Bathymetry data
 if(bathymetry) {
-  bathy <- clip_bathymetry(X, detailed = bathy_detailed)
+  bathy <- clip_bathymetry(X, detailed = bathy.detailed)
   
-  bathy_cmd <- switch(bathy_style,
+  bathy_cmd <- switch(bathy.style,
     poly_blues = "bathy_pb",
     poly_greys = "bathy_pg",
     contour_blues = "bathy_cb",
     contour_grey = "bathy_cg",
     stop(paste("bathy_type for", type, "not found."))
   )
+}
+
+## Ocean current data
+if(currents) {
+  atl <- clip_current(atlantic_currents, X)
+  arc <- clip_current(arctic_currents, X)
 }
 
 if(X$MapClass %in% c("panarctic")) {
@@ -186,21 +203,36 @@ if(X$MapClass %in% c("panarctic")) {
   if(keep.glaciers) { ## With glaciers
 
     if(bathymetry) { ## With bathymetry
-
-    eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
-
+      if(currents) { ## With currents
+        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+      } else { ## Without currents
+        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+      }
+    
     } else { ## Without bathymetry
-
-    eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+      if(currents) {
+        eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+      } else { ## Without currents
+        eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+      }
+    
 
   }} else {
 
     if(bathymetry) { ## With bathymetry
-
-    eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
-
+      if(currents) { ## With currents
+        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+      } else { ## Without currents
+        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+      }
+    
     } else { ## Without bathymetry
-    eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+      if(currents) {
+        eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+      } else {
+        eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))    
+      }
+    
     }
   }}
 

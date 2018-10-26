@@ -4,9 +4,9 @@
 ^README\.Rmd$
 ^README\.html$
 ^README_files$
-^runfirst\.R$ # Run first script for inter-OS compatibility
 ^/inst/docs/PlotSvalbard_user_manual.pdf$
 ^PlotSvalbard - User Manual_files$
 ^\inst\figures\*.png$
 ^docs$
 ^\*.html$
+^_pkgdown.yml$

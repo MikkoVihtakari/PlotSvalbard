@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -124,12 +124,14 @@
   <span class='kw'>limits.lat</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>round.lon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>lon.interval</span> <span class='kw'>=</span> <span class='fl'>45</span>, <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lat.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>lat.interval</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>keep.glaciers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>bathy_style</span> <span class='kw'>=</span> <span class='st'>"poly_blues"</span>, <span class='kw'>bathy_legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>bathy_detailed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>land.col</span> <span class='kw'>=</span> <span class='st'>"#eeeac4"</span>,
-  <span class='kw'>border.col.land</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>size.land</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>gla.col</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
-  <span class='kw'>border.col.glacier</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>size.glacier</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"grey70"</span>, <span class='kw'>size.grid</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>label.print</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>label.offset</span> <span class='kw'>=</span> <span class='fl'>1.05</span>, <span class='kw'>label.font</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>base_size</span> <span class='kw'>=</span> <span class='fl'>11</span>)</pre>
+  <span class='kw'>bathy.style</span> <span class='kw'>=</span> <span class='st'>"poly_blues"</span>, <span class='kw'>bathy.legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>bathy.detailed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>land.col</span> <span class='kw'>=</span> <span class='st'>"#eeeac4"</span>,
+  <span class='kw'>land.border.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>land.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>gla.col</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
+  <span class='kw'>gla.border.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>gla.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"grey70"</span>,
+  <span class='kw'>grid.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>currents</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>arc.col</span> <span class='kw'>=</span> <span class='st'>"#D696C8"</span>,
+  <span class='kw'>atl.col</span> <span class='kw'>=</span> <span class='st'>"#BB1512"</span>, <span class='kw'>current.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>current.alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>label.print</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label.offset</span> <span class='kw'>=</span> <span class='fl'>1.05</span>, <span class='kw'>label.font</span> <span class='kw'>=</span> <span class='fl'>8</span>,
+  <span class='kw'>base_size</span> <span class='kw'>=</span> <span class='fl'>11</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,7 +172,7 @@
       <td><p>Logical indicating whether bathymetry should be added to the map. Relatively slow. Defaults to <code>FALSE</code></p></td>
     </tr>
     <tr>
-      <th>bathy_style</th>
+      <th>bathy.style</th>
       <td><p>Character defining the style for bathymetry contours. Alternatives:</p><ul>
 <li><p><code>"poly_blues"</code> plots polygons filled with different shades of blue.</p></li>
 <li><p><code>"poly_greys"</code> plots polygons filled with different shades of grey.</p></li>
@@ -179,11 +181,11 @@
 </ul></td>
     </tr>
     <tr>
-      <th>bathy_legend</th>
+      <th>bathy.legend</th>
       <td><p>Logical indicating whether legend for bathymetry should be shown. Defaults to <code>TRUE</code></p></td>
     </tr>
     <tr>
-      <th>bathy_detailed</th>
+      <th>bathy.detailed</th>
       <td><p>Logical indicating whether detailed bathymetry shapefiles should be used. Works for Svalbard maps only (see <em>Source</em>). Very slow due to the large file size. Use for limited areas, such as fjords, only.</p></td>
     </tr>
     <tr>
@@ -191,12 +193,28 @@
       <td><p>Character code specifying the color of land, glaciers and grid lines, respectively. Use <code>NA</code> to remove the grid lines.</p></td>
     </tr>
     <tr>
-      <th>border.col.land, border.col.glacier</th>
+      <th>land.border.col, gla.border.col</th>
       <td><p>Character code specifying the color of the border line for land and glacier shapes.</p></td>
     </tr>
     <tr>
-      <th>size.land, size.glacier, size.grid</th>
+      <th>land.size, gla.size, grid.size</th>
       <td><p>Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.</p></td>
+    </tr>
+    <tr>
+      <th>currents</th>
+      <td><p>logical indicating whether Arctic and Atlantic ocean currents for the Barents Sea should be plotted. See details.</p></td>
+    </tr>
+    <tr>
+      <th>arc.col, atl.col</th>
+      <td><p>Character code specifying the color for Arctic and Atlantic current arrows.</p></td>
+    </tr>
+    <tr>
+      <th>current.size</th>
+      <td><p>Numeric value specifying the width of ocean current arrows.</p></td>
+    </tr>
+    <tr>
+      <th>current.alpha</th>
+      <td><p>Value between 0 and 1 defining the transparency of current arrows.</p></td>
     </tr>
     <tr>
       <th>label.print</th>
@@ -242,7 +260,8 @@
 <li><p>"arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.</p></li>
 </ul>
     <p>Svalbard and Barents Sea maps use the <code>"+init=epsg:32633"</code> UTM projection. The polar stereographic maps use <code>"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"</code> projection.</p>
-<p><strong>Line width</strong> (size) aesthatics in <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot2-package'>ggplot2</a> generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13.</p>
+<p><strong>Line width</strong> (size) aesthatics in <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot2-package'>ggplot2</a> generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions <code><a href='LS.html'>LS</a></code> and <code><a href='FS.html'>FS</a></code> are available to convert line and font sizes in points to ggplot2 equivalents.</p>
+<p><strong>Ocean currents</strong> for the Barents Sea are implemented, but not peer-reviewed yet. This feature will be improved in the future versions of the package.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -280,7 +299,9 @@
 <span class='fu'>basemap</span>(<span class='st'>"arctic50"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Detailed bathymetry is available for some </span>
 <span class='co'>## Svalbard fjords</span>
-<span class='fu'>basemap</span>(<span class='st'>"kongsfjorden"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bathy_detailed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-13.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"kongsfjorden"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bathy.detailed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-13.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## Ocean currents for the Barents Sea</span>
+<span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>currents</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-14.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

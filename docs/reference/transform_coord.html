@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -120,7 +120,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>transform_coord</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='st'>"longitude"</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='st'>"latitude"</span>,
+    <pre class="usage"><span class='fu'>transform_coord</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>new.names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"lon.utm"</span>, <span class='st'>"lat.utm"</span>),
   <span class='kw'>proj.og</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat +datum=WGS84"</span>,
   <span class='kw'>proj.out</span> <span class='kw'>=</span> <span class='st'>"+init=epsg:32633"</span>, <span class='kw'>map.type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -134,12 +134,8 @@
       <td><p>data frame to be transformed. Can be omitted if numeric vectors are assigned to <code>lon</code> and <code>lat</code>.</p></td>
     </tr>
     <tr>
-      <th>lon</th>
-      <td><p>either a name of the longitude column in <code>x</code> or a numeric vector containing longitude coordinates.</p></td>
-    </tr>
-    <tr>
-      <th>lat</th>
-      <td><p>either a name of the latitude column in <code>x</code> or a numeric vector containing latitude coordinates.</p></td>
+      <th>lon, lat</th>
+      <td><p>either a name of the longitude and latitude columns in <code>x</code> or a numeric vector containing longitude and latitude coordinates. Use <code>NULL</code> to guess the longitude and/or latitude columns in <code>x</code>.</p></td>
     </tr>
     <tr>
       <th>new.names</th>
@@ -171,6 +167,10 @@
 
     <p>Returns a data frame with transformed spatial coordinates</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>If <code>x</code> is specified, the function guesses longitude and latitude columns from <code>x</code> by default.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -179,6 +179,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
           </ul>
 
     <h2>Author</h2>

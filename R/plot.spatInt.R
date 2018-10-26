@@ -6,7 +6,7 @@
 ##' @param limits Map limits. See \code{\link{basemap}}. The option "auto" (default) limits the map using coordinate range in \code{x}. Replace by \code{NULL} to remove the automatic zooming. Alternatively use a numeric vector as described in \code{\link{basemap}} documentation.
 ##' @param col.scale.limits A numeric vector of lenght 2 defining the limits for color scale of interpolated results. If \code{NULL} (default), the limits will be generated automatically.
 ##' @param legend.label Label for color legend. If NA (default), the labels are extracted from the \code{spatInt} object.
-##' @param limits.lon,limits.lat,round.lon,round.lat,n.lon.grid,n.lat.grid,size.land,land.col,gla.col,grid.col,border.col.land,size.glacier,border.col.glacier,size.grid,base_size,keep.glaciers See \code{\link{basemap}} documentation.
+##' @param limits.lon,limits.lat,round.lon,round.lat,n.lon.grid,n.lat.grid,land.size,land.col,gla.col,grid.col,land.border.col,gla.size,gla.border.col,grid.size,base_size,keep.glaciers See \code{\link{basemap}} documentation.
 ##' @param ... Additional arguments. Required by R build checks. Ignore.
 ##' @method plot spatInt
 ##' @seealso \code{\link{interpolate}} \code{\link{basemap}}
@@ -27,7 +27,7 @@
 ## Test parameters
 #x = X; basemap = TRUE; type = "kongsfjorden"; col.scale.limits = NULL; legend.label = NA; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; x.lim = NULL; y.lim = NULL
 
-plot.spatInt <- function(x, basemap = TRUE, type = "svalbard", limits = "auto", limits.lon = 0.001, limits.lat = 0.001, col.scale.limits = NULL, legend.label = NA, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE, land.col = "#eeeac4", size.land = 0.1, border.col.land = "black", gla.col = "grey95", size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1, base_size = 11, ...) {
+plot.spatInt <- function(x, basemap = TRUE, type = "svalbard", limits = "auto", limits.lon = 0.001, limits.lat = 0.001, col.scale.limits = NULL, legend.label = NA, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE, land.col = "#eeeac4", land.size = 0.1, land.border.col = "black", gla.col = "grey95", gla.size = 0.1, gla.border.col = "black", grid.col = "grey70", grid.size = 0.1, base_size = 11, ...) {
 
 if(basemap) {
 

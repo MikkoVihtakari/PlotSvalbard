@@ -1,3 +1,8 @@
+---
+output: 
+  html_document: 
+    keep_md: yes
+---
 PlotSvalbard
 ======
 **Plot research data from Svalbard on maps**
@@ -35,12 +40,12 @@ library(PlotSvalbard)
 data("kongsfjord_moorings")
 
 basemap("kongsfjorden", limits = c(11.3, 12.69, 78.86, 79.1), round.lat = 0.05, round.lon = 0.5) + 
-geom_text(data = kongsfjord_moorings, aes(x = lon.utm, y = lat.utm, label = Mooring.name, color = Name), 
-fontface = 2, size = 25.4/72.27*8) # font size = 8, see Graphical parameters
+geom_text(data = kongsfjord_moorings,
+  aes(x = lon.utm, y = lat.utm, label = Mooring.name, color = Name), 
+  fontface = 2, size = 25.4/72.27*8) # font size = 8, see Graphical parameters
 ```
 
 ![](README_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
-
 
 ### Combining extensions for ggplot2
 
@@ -78,17 +83,17 @@ citation("PlotSvalbard")
 ## 
 ## To cite package 'PlotSvalbard' in publications use:
 ## 
-##   Mikko Vihtakari (2018). PlotSvalbard: PlotSvalbard - plot
-##   research data from Svalbard on maps. R package version 0.4.1.
+##   Mikko Vihtakari (2018). PlotSvalbard: PlotSvalbard - Plot
+##   research data from Svalbard on maps. R package version 0.5.0.
 ##   https://github.com/MikkoVihtakari/PlotSvalbard
 ## 
 ## A BibTeX entry for LaTeX users is
 ## 
 ##   @Manual{,
-##     title = {PlotSvalbard: PlotSvalbard - plot research data from Svalbard on maps},
+##     title = {PlotSvalbard: PlotSvalbard - Plot research data from Svalbard on maps},
 ##     author = {Mikko Vihtakari},
 ##     year = {2018},
-##     note = {R package version 0.4.1},
+##     note = {R package version 0.5.0},
 ##     url = {https://github.com/MikkoVihtakari/PlotSvalbard},
 ##   }
 ```
@@ -134,4 +139,6 @@ The **PlotSvalbard** package depends on:
 
 News
 --------
+2018-10-26 Updated to next major version v0.5. Added ocean currents for Barents Sea as well as (rudimentary) waffle charts. Made the arguments for basemap more logical. *This update will break the maps made using previous versions of the package*. Change the argument names inside basemap, and it should work as before.
+
 2018-09-21 Updated to v0.4 with many new features, such as improved bathymetry and automatic map limits. See [the user manual](https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html) for details. 

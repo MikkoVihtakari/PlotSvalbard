@@ -82,7 +82,7 @@ bind = TRUE)
 
 basemap("arctic50") +
  geom_point(data = d_panarctic, aes(x = lon.utm, y = lat.utm, color = dist), size = 3) +
- scale_color_gradientn(name = "Distance (km)", colours = colorRamps::matlab.like(7))
+ scale_color_viridis_c(name = "Distance (km)")
 
 }
 \author{

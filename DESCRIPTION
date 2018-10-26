@@ -1,8 +1,8 @@
 Package: PlotSvalbard
 Type: Package
 Title: PlotSvalbard - Plot research data from Svalbard on maps
-Version: 0.4.4
-Date: 2018-10-09
+Version: 0.5.0
+Date: 2018-10-26
 Authors@R: c(person("Mikko", "Vihtakari", email = "mikko.vihtakari@gmail.com",
                   role = c("aut", "cre")), 
           person("Anders", "Skoglund",
@@ -11,8 +11,10 @@ URL: https://github.com/MikkoVihtakari/PlotSvalbard
 BugReports: https://github.com/MikkoVihtakari/PlotSvalbard/issues
 Description: Uses ggplot2 syntax and high resolution up-to-date shape files to plot research data from Svalbard on maps. Includes other utility functions to help ocean research on Svalbard.
 Depends: R (>= 2.10), ggplot2 
-Imports: maptools, rgdal, sp, rgeos, gstat, oce, broom, geosphere
+Imports: maptools, rgdal, sp, rgeos, gstat, oce, broom, geosphere, magrittr, dplyr
+Suggests: knitr, rmarkdown, bookdown, scatterpie
 License: GPL-2 | file LICENSE
 Encoding: UTF-8
 LazyData: true
+VignetteBuilder: knitr
 RoxygenNote: 6.1.0

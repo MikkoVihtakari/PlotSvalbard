@@ -16,19 +16,11 @@ output:
     fig_caption: true
     number_sections: false
 ---
-
-<!-- --- -->
-<!-- title: "PlotSvalbard - User Manual" -->
-<!-- author: "Mikko Vihtakari" -->
-<!-- date: "`r Sys.Date()`" -->
-<!-- output: rmarkdown::pdf_document -->
-<!-- vignette: > -->
-<!--   %\VignetteIndexEntry{PlotSvalbard - User Manual} -->
-<!--   %\VignetteEngine{knitr::rmarkdown} -->
-<!--   %\VignetteEncoding{UTF-8} -->
-<!-- --- -->
-
-
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{PlotSvalbard - plot your research data from Svalbard on maps}
+  %\usepackage[utf8]{inputenc}
+-->
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(fig.dpi = 96, collapse = TRUE, fig.width = 7, fig.height = 6, comment = "#>")
 ```
@@ -140,21 +132,21 @@ The default bathymetry shapefile is too low resolution to be used inside Svalbar
 basemap("kongsfjorden", bathymetry = TRUE)
 ```
 
-PlotSvalbard contains more detailed shapefiles from the Norwegian Mapping Authority, but these files have gaps in them. More detailed shapefiles can be plotted using the `bathy_detailed` argument (warning: detailed bathymetries are large and therefore slow.)
+PlotSvalbard contains more detailed shapefiles from the Norwegian Mapping Authority, but these files have gaps in them. More detailed shapefiles can be plotted using the `bathy.detailed` argument (warning: detailed bathymetries are large and therefore slow.)
 
 ```{r}
-basemap("kongsfjorden", bathymetry = TRUE, bathy_detailed = TRUE)
+basemap("kongsfjorden", bathymetry = TRUE, bathy.detailed = TRUE)
 ```
 
 ### Bathymetry styles
 
 PlotSvalbard has 4 preprogrammed style alternatives:
 
-```{r}
-basemap("barentssea", bathymetry = TRUE, bathy_style = "poly_blues") # default
-basemap("barentssea", bathymetry = TRUE, bathy_style = "poly_greys") # grey polygons with shading
-basemap("barentssea", bathymetry = TRUE, bathy_style = "contour_blues") # colored contours
-basemap("barentssea", bathymetry = TRUE, bathy_style = "contour_grey") # grey contours
+```{r bathystyle}
+basemap("barentssea", bathymetry = TRUE, bathy.style = "poly_blues") # default
+basemap("barentssea", bathymetry = TRUE, bathy.style = "poly_greys") # grey polygons with shading
+basemap("barentssea", bathymetry = TRUE, bathy.style = "contour_blues") # colored contours
+basemap("barentssea", bathymetry = TRUE, bathy.style = "contour_grey") # grey contours
 ```
 
 Adding depth labels to contours (ala nautical maps) is currently an unresolved issue.   
@@ -165,9 +157,19 @@ The color scales for polygons and contours can be adjusted using ggplot2 syntax:
 
 ```{r}
 basemap("barentssea", bathymetry = TRUE) + scale_fill_viridis_d("Water depth (m)")
-basemap("barentssea", bathymetry = TRUE, bathy_style = "contour_blues") + scale_color_hue()
+basemap("barentssea", bathymetry = TRUE, bathy.style = "contour_blues") + scale_color_hue()
 
 ```
+
+## Ocean currents
+
+Ocean currents for the Barents Sea have been implemented in the most recent version, but not peer-reviewed yet. This feature will be improved in the future versions of the package. Atlantic and Arctic currents are represented using red and purple arrows, respectively. The arrow color can be changed using `atl.color` and `arc.color` arguments. 
+
+```{r currents}
+basemap("barentssea", bathymetry = TRUE, bathy.style = "poly_greys", currents = TRUE, current.alpha = 0.7)
+```
+
+
 
 ## Adding data to basemaps
 
@@ -183,7 +185,7 @@ data("npi_stations")
 x <- transform_coord(npi_stations, lon = "Lon", lat = "Lat", bind = TRUE)
 
 basemap("svalbard", limits = c(3,24,78.5,82), round.lat = 1, round.lon = 2, 
-  border.col.land = "#a9750d", border.col.glacier = "grey95") + 
+  land.col = "#a9750d", gla.border.col = "grey95") + 
   geom_text(data = x, aes(x = lon.utm, y = lat.utm, 
     label = Station), color = "red", fontface = 2)
 ```
@@ -236,17 +238,17 @@ plot(x, type = "kongsfjorden", limits = c(11.4,12.7,78.855,79.05),
 
 ## Graphical parameters {#par}
 
-The line widths and general looks of the basemaps are optimized for a half page sized `pdf` figure in scientific journals ([Springer figure dimensions](http://www.springer.com/authors/manuscript+guidelines?SGWID=0-40162-6-795162-0) were used to develop the function). The line widths may not look good when printed on other devices. You can modify the line widths and colors using `size.*` and `border.col.*` arguments.
+The line widths and general looks of the basemaps are optimized for a half page sized `pdf` figure in scientific journals ([Springer figure dimensions](http://www.springer.com/authors/manuscript+guidelines?SGWID=0-40162-6-795162-0) were used to develop the function). The line widths may not look good when printed on other devices. You can modify the line widths and colors using `*.size` and `*.border.col` arguments.
 
 ```{r message=FALSE, warning=FALSE}
-basemap("svalbard", size.land = 0.01, size.glacier = 0.05, size.grid = 0.05, 
-  border.col.glacier = "#52bfe4", border.col.land = "#a9750d")
+basemap("svalbard", land.size = 0.01, gla.size = 0.05, grid.size = 0.05, 
+  gla.border.col = "#52bfe4", land.border.col = "#a9750d")
 ```
 
 Approach to remove borders of land and glacier shapes:
 
 ```{r message=FALSE, warning=FALSE}
-basemap("kongsfjorden", border.col.glacier = "grey95", border.col.land = "#eeeac4")
+basemap("kongsfjorden", gla.border.col = "grey95", land.border.col = "#eeeac4")
 ```
 
 The [line width of ggplot2 is 2.13 wider than the line widths measured as points](https://stackoverflow.com/questions/47519624/how-is-the-line-width-size-defined-in-ggplot2/47521808#47521808) (pt). This means that if you want a certain line width, multiply the desired line width by $1/2.13$ inside `size.*` arguments. Similar conversion factor for font size is $1/2.845276$. 
@@ -269,7 +271,7 @@ system.time(basemap("svalbard", limits = c(c(19.5,23.5,80,81.7))))
 
 ## Distance to land
 
-The [`dist2land`]() function calculates the closest distance to land.
+The [`dist2land`](https://mikkovihtakari.github.io/PlotSvalbard/reference/dist2land.html) function calculates the closest distance to land.
 
 ```{r}
 library(ggplot2)
@@ -282,6 +284,36 @@ ggplot(dists, aes(x = Area, y = dist, label = Station, color = Area)) +
   geom_text() + ylab("Distance to land (km)") + scale_color_hue()
 
 ```
+
+## Waffle charts
+
+Code for waffle charts has been recently implemented into the package and will be extended to enable plotting the waffles on maps. Currently the waffle plotting on maps has to be done manually using the `grid`and `gridExtra` packages (see StackOverflow how to do this). Waffle charts are filled from bottom upwards and from left to right:
+
+```{r waffle}
+library(reshape2)
+data("zooplankton")
+
+# Remove coordinates
+x <- zooplankton[!names(zooplankton) %in% c("Longitude", "Latitude")]
+
+## Make get the absolute values
+x[!names(x) %in% c("ID", "Total")] <- (x[!names(x) %in% c("ID", "Total")]/100)*x$Total
+x <- melt(x, id = c("ID", "Total"))
+
+waffle_chart(x, fill = "variable", facet = "ID")
+```
+
+The waffles can also be scaled to maximum values
+
+```{r waffle scaled}
+library(dplyr)
+
+y <- x %>% group_by(ID) %>% summarise(sum = sum(value))
+
+waffle_chart(x, fill = "variable", facet = "ID", composition = FALSE, max_value = max(y$sum))
+
+```
+
 
 
 # Citing PlotSvalbard

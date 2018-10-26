@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -195,12 +195,12 @@
 
 <span class='fu'>system.time</span>(<span class='fu'>dist2land</span>(<span class='no'>npi_stations</span>, <span class='kw'>lon.col</span> <span class='kw'>=</span> <span class='st'>"Lon"</span>, <span class='kw'>lat.col</span> <span class='kw'>=</span> <span class='st'>"Lat"</span>,
  <span class='kw'>map.type</span> <span class='kw'>=</span> <span class='st'>"barentssea"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;    0.14    0.00    0.14 </div><div class='input'><span class='co'>#&gt; user  system elapsed </span>
+#&gt;    0.16    0.00    0.17 </div><div class='input'><span class='co'>#&gt; user  system elapsed </span>
 <span class='co'>#&gt; 0.22    0.01    0.25 </span>
 
 <span class='fu'>system.time</span>(<span class='fu'>dist2land</span>(<span class='no'>npi_stations</span>, <span class='kw'>lon.col</span> <span class='kw'>=</span> <span class='st'>"Lon"</span>, <span class='kw'>lat.col</span> <span class='kw'>=</span> <span class='st'>"Lat"</span>,
  <span class='kw'>map.type</span> <span class='kw'>=</span> <span class='st'>"barentssea"</span>, <span class='kw'>geodesic_distances</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   27.09    0.25   28.08 </div><div class='input'><span class='co'>#&gt; user  system elapsed </span>
+#&gt;   31.44    0.44   33.84 </div><div class='input'><span class='co'>#&gt; user  system elapsed </span>
 <span class='co'>#&gt; 32.04    0.39   32.97 </span>
 
 <span class='co'>## Despite the inaccuracy due to polar stereographic protection</span>
@@ -209,11 +209,12 @@
 
 <span class='fu'>data</span>(<span class='st'>"meiofauna"</span>)
 <span class='no'>d_panarctic</span> <span class='kw'>&lt;-</span> <span class='fu'>dist2land</span>(<span class='no'>meiofauna</span>,  <span class='kw'>lon.col</span> <span class='kw'>=</span> <span class='st'>"Lon"</span>, <span class='kw'>lat.col</span> <span class='kw'>=</span> <span class='st'>"Lat"</span>, <span class='kw'>map.type</span> <span class='kw'>=</span> <span class='st'>"arctic50"</span>)
-<span class='no'>d_panarctic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='transform_coord.html'>transform_coord</a></span>(<span class='no'>d_panarctic</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='st'>"Lon"</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='st'>"Lat"</span>, <span class='kw'>map.type</span> <span class='kw'>=</span> <span class='st'>"arctic50"</span>, <span class='kw'>bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>d_panarctic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='transform_coord.html'>transform_coord</a></span>(<span class='no'>d_panarctic</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='st'>"Lon"</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='st'>"Lat"</span>, <span class='kw'>map.type</span> <span class='kw'>=</span> <span class='st'>"arctic50"</span>,
+<span class='kw'>bind</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'><a href='basemap.html'>basemap</a></span>(<span class='st'>"arctic50"</span>) +
  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>d_panarctic</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lon.utm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat.utm</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>dist</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>) +
- <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_gradient'>scale_color_gradientn</a></span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"Distance (km)"</span>, <span class='kw'>colours</span> <span class='kw'>=</span> <span class='kw pkg'>colorRamps</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/colorRamps/topics/matlab.like'>matlab.like</a></span>(<span class='fl'>7</span>))</div><div class='img'><img src='dist2land-3.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_viridis'>scale_color_viridis_c</a></span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"Distance (km)"</span>)</div><div class='img'><img src='dist2land-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

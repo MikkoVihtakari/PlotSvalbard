@@ -1,0 +1,40 @@
+articles:
+  PlotSvalbard_user_manual: PlotSvalbard_user_manual.html
+reference:
+- title: Basemap functions
+  desc:  Main functions to plot maps
+  contents:
+  - basemap
+  - add_land
+- title: Internal basemap functions
+  desc: Internal functions dealing with data and graphics for basemap
+  contents:
+  - basemap_data
+  - basemap_limits
+  - clip_bathymetry
+  - clip_current
+  - clip_shapefile
+  - deg_grid
+  - deg_grid_polar
+  - map_cmd
+  - map_projection
+  - map_type
+  - theme_map
+- title: Other functions
+  desc: Functions that do other things
+  contents:
+  - dist2land
+  - interpolate
+  - plot.spatInt
+  - transform_coord
+  - waffle_chart
+- title: Datasets
+  desc: Datasets used as examples for package functions
+  contents: 
+  - chlorophyll
+  - kongsfjord_moorings
+  - npi_stations
+  - meiofauna
+  - zooplankton
+  
+  

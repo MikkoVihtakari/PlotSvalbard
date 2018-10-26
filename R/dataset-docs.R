@@ -53,4 +53,4 @@
 #' @format Spatial polygons containing 1:250 000 landshapes of Svalbard. In \code{"+init=epsg:32633"} projection.
 #' @source Norwegian Polar Institute (\url{http://geodata.npolar.no/})
 "svalbard.ld"
-# 'barents_bathy' 'arctic_bathy' 'barents.ld' 'kong.cr' 'kong.gl' 'kong.ld' 'krone.cr' 'krone.cr.det' 'krone.cr.mid' 'mosj.cr' 'mosj.gl' 'mosj.ld' 'arctic50' 'arctic60' 'svalbard.gl'  'svalbard_bathy' 'zooplankton'
+# Missing: 'barents_bathy' 'arctic_bathy' 'barents.ld' 'kong.cr' 'kong.gl' 'kong.ld' 'krone.cr' 'krone.cr.det' 'krone.cr.mid' 'mosj.cr' 'mosj.gl' 'mosj.ld' 'arctic50' 'arctic60' 'svalbard.gl'  'svalbard_bathy' 'zooplankton' 'atlantic_currents' 'arctic_currents'

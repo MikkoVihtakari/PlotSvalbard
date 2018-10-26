@@ -16,12 +16,14 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
   limits.lat = 0.1, round.lon = FALSE, n.lon.grid = 3,
   lon.interval = 45, round.lat = FALSE, n.lat.grid = 3,
   lat.interval = 10, keep.glaciers = TRUE, bathymetry = FALSE,
-  bathy_style = "poly_blues", bathy_legend = TRUE,
-  bathy_detailed = FALSE, land.col = "#eeeac4",
-  border.col.land = "black", size.land = 0.1, gla.col = "grey95",
-  border.col.glacier = "black", size.glacier = 0.1,
-  grid.col = "grey70", size.grid = 0.1, label.print = TRUE,
-  label.offset = 1.05, label.font = 8, base_size = 11)
+  bathy.style = "poly_blues", bathy.legend = TRUE,
+  bathy.detailed = FALSE, land.col = "#eeeac4",
+  land.border.col = "black", land.size = 0.1, gla.col = "grey95",
+  gla.border.col = "black", gla.size = 0.1, grid.col = "grey70",
+  grid.size = 0.1, currents = FALSE, arc.col = "#D696C8",
+  atl.col = "#BB1512", current.size = 0.5, current.alpha = 1,
+  label.print = TRUE, label.offset = 1.05, label.font = 8,
+  base_size = 11)
 }
 \arguments{
 \item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.}
@@ -44,7 +46,7 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
 
 \item{bathymetry}{Logical indicating whether bathymetry should be added to the map. Relatively slow. Defaults to \code{FALSE}}
 
-\item{bathy_style}{Character defining the style for bathymetry contours. Alternatives: 
+\item{bathy.style}{Character defining the style for bathymetry contours. Alternatives: 
 \itemize{
 \item \code{"poly_blues"} plots polygons filled with different shades of blue.
 \item \code{"poly_greys"} plots polygons filled with different shades of grey.
@@ -52,15 +54,23 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
 \item \code{"contour_grey"} plots grey contour lines.
 }}
 
-\item{bathy_legend}{Logical indicating whether legend for bathymetry should be shown. Defaults to \code{TRUE}}
+\item{bathy.legend}{Logical indicating whether legend for bathymetry should be shown. Defaults to \code{TRUE}}
 
-\item{bathy_detailed}{Logical indicating whether detailed bathymetry shapefiles should be used. Works for Svalbard maps only (see \emph{Source}). Very slow due to the large file size. Use for limited areas, such as fjords, only.}
+\item{bathy.detailed}{Logical indicating whether detailed bathymetry shapefiles should be used. Works for Svalbard maps only (see \emph{Source}). Very slow due to the large file size. Use for limited areas, such as fjords, only.}
 
 \item{land.col, gla.col, grid.col}{Character code specifying the color of land, glaciers and grid lines, respectively. Use \code{NA} to remove the grid lines.}
 
-\item{border.col.land, border.col.glacier}{Character code specifying the color of the border line for land and glacier shapes.}
+\item{land.border.col, gla.border.col}{Character code specifying the color of the border line for land and glacier shapes.}
 
-\item{size.land, size.glacier, size.grid}{Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.}
+\item{land.size, gla.size, grid.size}{Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.}
+
+\item{currents}{logical indicating whether Arctic and Atlantic ocean currents for the Barents Sea should be plotted. See details.}
+
+\item{arc.col, atl.col}{Character code specifying the color for Arctic and Atlantic current arrows.}
+
+\item{current.size}{Numeric value specifying the width of ocean current arrows.}
+
+\item{current.alpha}{Value between 0 and 1 defining the transparency of current arrows.}
 
 \item{label.print}{Logical indicating whether labels should be printed for polar stereographic maps.}
 
@@ -91,7 +101,9 @@ The function uses \link[ggplot2]{ggplot2} and shapefiles to plot maps of Svalbar
 
 Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection.
 
-\strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13.
+\strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions \code{\link{LS}} and \code{\link{FS}} are available to convert line and font sizes in points to ggplot2 equivalents.
+
+\strong{Ocean currents} for the Barents Sea are implemented, but not peer-reviewed yet. This feature will be improved in the future versions of the package.
 }
 \examples{
 basemap() ## Plots Kongsfjorden
@@ -136,7 +148,10 @@ basemap("arctic50", bathymetry = TRUE)
 
 ## Detailed bathymetry is available for some 
 ## Svalbard fjords
-basemap("kongsfjorden", bathymetry = TRUE, bathy_detailed = TRUE)
+basemap("kongsfjorden", bathymetry = TRUE, bathy.detailed = TRUE)
+
+## Ocean currents for the Barents Sea
+basemap("barentssea", bathymetry = TRUE, currents = TRUE)
 
 }
 \seealso{
