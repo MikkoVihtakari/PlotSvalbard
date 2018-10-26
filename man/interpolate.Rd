@@ -6,7 +6,7 @@
 \usage{
 interpolate(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"),
   station.col = "Station", strata.col = "From", name.col = NULL,
-  id.cols = NULL, bin.method = "average", int.method = "krige",
+  id.cols = NULL, bin.method = "average", int.method = "idw",
   unit = NULL, shear = NULL, n.tile = 100, accuracy = 100)
 }
 \arguments{
@@ -33,7 +33,7 @@ interpolate(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"),
 \item \strong{"integrate"} for vertical trapezoidal integration using the \code{\link[oce]{integrateTrapezoid}} function from \link[oce]{oce} package.
 }}
 
-\item{int.method}{Character giving the method for interpolation. Currently only \code{\link[gstat]{krige}}.}
+\item{int.method}{Character giving the method for interpolation. Currently only one option is implementd: "idw", inverse distance weighted interpolation using the \code{\link[gstat]{idw}} function.}
 
 \item{unit}{The unit for \code{value} column. Not required.}
 
@@ -47,7 +47,7 @@ interpolate(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"),
 Returns a \code{spatInt} object which is a list
 }
 \description{
-Interpolates a 2D surface from a data frame of observations for plotting. Currenly uses the \code{\link[gstat]{krige}} function.
+Interpolates a 2D surface from a data frame of observations for plotting. Currenly uses the \code{\link[gstat]{idw}} function.
 }
 \details{
 The function removes missing values (NAs) from \code{value} column.

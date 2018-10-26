@@ -1,5 +1,5 @@
 ##' @title Interpolate a spatial 2D surface from observations
-##' @description Interpolates a 2D surface from a data frame of observations for plotting. Currenly uses the \code{\link[gstat]{krige}} function.
+##' @description Interpolates a 2D surface from a data frame of observations for plotting. Currenly uses the \code{\link[gstat]{idw}} function.
 ##' @param df data frame containing required information
 ##' @param value Character referring to the name of the value column to be used for interpolation.
 ##' @param Subset A subset argument as a character (i.e. with " ". See Examples).
@@ -10,7 +10,7 @@
 ##' \item \strong{"average"} for average values
 ##' \item \strong{"integrate"} for vertical trapezoidal integration using the \code{\link[oce]{integrateTrapezoid}} function from \link[oce]{oce} package.
 ##' }
-##' @param int.method Character giving the method for interpolation. Currently only \code{\link[gstat]{krige}}.
+##' @param int.method Character giving the method for interpolation. Currently only one option is implementd: "idw", inverse distance weighted interpolation using the \code{\link[gstat]{idw}} function.
 ##' @param coords A vector of column names for x (longitude) and y (latitude) coordinates, respectively. It is recommended to use UTM coordinates instead of decimal degrees. See \code{\link[sp]{coordinates}}.
 ##' @param station.col Character. Name of the column that specifies unique stations (i.e. spatial points). Required.
 ##' @param id.cols Character vector. Identification columns that should be preserved together with value, From, To and UTM coodinate columns
@@ -28,7 +28,7 @@
 ##' x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
 ##' plot(x, type = "kongsfjorden") ## Plot
 ##' @seealso \code{\link{plot.spatInt}}
-##' @importFrom gstat krige
+##' @importFrom gstat idw
 ##' @importFrom oce integrateTrapezoid
 ##' @import sp
 ##' @export
@@ -36,14 +36,14 @@
 ## Test params
 # df = y; Subset = NULL; bin.method = "none"; int.method = "krige"; coords = c("lon.utm", "lat.utm"); value = "aws"; name.col = NULL; station.col = "station"; id.cols = NULL; strata.col = "interv"; shear = NULL; n.tile = 100; accuracy = 100; unit = NULL
 # df = y; value = "aws"; station.col = "station"; strata.col = "interv"; bin.method = "none"; Subset = NULL; coords = c("lon.utm", "lat.utm"); name.col = NULL; id.cols = NULL; int.method = "krige"; unit = NULL; shear = NULL; n.tile = 100; accuracy = 100
-# df = NT; value = "Chla"; Subset = NULL;  coords = c("lon.utm", "lat.utm"); station.col = "Station"; strata.col = "From"; name.col = NULL; id.cols = "Date"; bin.method = "average"; int.method = "krige"; unit = NULL; shear = NULL; n.tile = 100; accuracy = 100
-interpolate <- function(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"), station.col = "Station", strata.col = "From", name.col = NULL, id.cols = NULL, bin.method = "average", int.method = "krige", unit = NULL, shear = NULL, n.tile = 100, accuracy = 100) {
+# df = chlorophyll; value = "Chla"; Subset = NULL;  coords = c("lon.utm", "lat.utm"); station.col = "Station"; strata.col = "From"; name.col = NULL; id.cols = "Date"; bin.method = "average"; int.method = "krige"; unit = NULL; shear = NULL; n.tile = 100; accuracy = 100
+interpolate <- function(df, value, Subset = NULL, coords = c("lon.utm", "lat.utm"), station.col = "Station", strata.col = "From", name.col = NULL, id.cols = NULL, bin.method = "average", int.method = "idw", unit = NULL, shear = NULL, n.tile = 100, accuracy = 100) {
 
   output <- list()
 
   if(missing(value)) stop("value column must be given.")
-  
-  if(int.method != "krige") stop("Other methods are not incorporated yet")
+
+  if(int.method != "idw") stop("Other methods are not incorporated yet")
 
 if(is.null(Subset)) x <- df else x <- subset(df, eval(parse(text=Subset)))
 
