@@ -35,7 +35,7 @@
 #' @keywords datasets
 #' @name kongsfjord_moorings
 #' @usage data(kongsfjord_moorings)
-#' @format A dataframe 
+#' @format A dataframe
 #' @source Hop, H., Cottier, F., and Berge, J. (in press). "Marine observatories in Kongsfjorden, Svalbard" in The ecosystem of Kongsfjorden, Svalbard, eds. H. Hop and C. Wiencke (Advances in Polar Ecology, Springer Verlag).
 "kongsfjord_moorings"
 #' @title Pan-Arctic meiofauna data from Bluhm et al. 2018
@@ -46,9 +46,17 @@
 #' @format A dataframe containing pan-Arcitc meiofauna data sampled using ice-cores
 #' @source \href{http://doi.wiley.com/10.1002/ece3.3797}{Bluhm, B.A., Hop, H., Vihtakari, M., Gradinger, R., Iken, K., Melnikov, I.A., & Søreide, J.E. (2018) Sea ice meiofauna distribution on local to pan-Arctic scales. Ecology and Evolution, 8:2350-2364.}
 "meiofauna"
-#' @title SpatialPolygons object for Svalbard landshapes
+#' @title Zooplankton data
 #' @docType data
 #' @keywords datasets
+#' @name zooplankton
+#' @usage data(zooplankton)
+#' @format A dataframe
+"zooplankton"
+#' @title SpatialPolygons object for Svalbard landshapes
+#' @docType data
+#' @keywords datasets shapefiles
+#' @family shapefiles
 #' @name svalbard.ld
 #' @format Spatial polygons containing 1:250 000 landshapes of Svalbard. In \code{"+init=epsg:32633"} projection.
 #' @source Norwegian Polar Institute (\url{http://geodata.npolar.no/})

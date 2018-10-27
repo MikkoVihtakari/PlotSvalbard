@@ -7,7 +7,9 @@ reference:
   - basemap
   - add_land
 - title: Internal basemap functions
-  desc: Internal functions dealing with data and graphics for basemap
+  desc: >
+    Internal functions dealing with data and graphics for basemap. These functions are run on the
+    background and only needed if you modify your maps beyond the options offered by PlotSvalbard.
   contents:
   - basemap_data
   - basemap_limits
@@ -30,11 +32,13 @@ reference:
   - waffle_chart
 - title: Datasets
   desc: Datasets used as examples for package functions
-  contents: 
+  contents:
   - chlorophyll
   - kongsfjord_moorings
   - npi_stations
   - meiofauna
   - zooplankton
-  
-  
+- title: Shapefiles
+  desc: Shapefiles used by the package
+  contents:
+  - svalbard.ld
