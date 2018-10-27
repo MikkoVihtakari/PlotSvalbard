@@ -1,3 +1,8 @@
+---
+output: 
+  html_document: 
+    keep_md: yes
+---
 PlotSvalbard
 ======
 **Plot research data from Svalbard on maps**
@@ -31,7 +36,24 @@ Detailed information on how to use the package can be found from [the user manua
 
 ```r
 library(PlotSvalbard)
+```
 
+```
+## Warning: replacing previous import 'dplyr::union' by 'rgeos::union' when
+## loading 'PlotSvalbard'
+```
+
+```
+## Warning: replacing previous import 'dplyr::setdiff' by 'rgeos::setdiff'
+## when loading 'PlotSvalbard'
+```
+
+```
+## Warning: replacing previous import 'dplyr::intersect' by 'rgeos::intersect'
+## when loading 'PlotSvalbard'
+```
+
+```r
 data("kongsfjord_moorings")
 
 basemap("kongsfjorden", limits = c(11.3, 12.69, 78.86, 79.1), round.lat = 0.05, round.lon = 0.5) + 
@@ -117,20 +139,24 @@ The **PlotSvalbard** package depends on:
 - [maptools][maptools]: Used to handle geographical information.
 - [rgdal][rgdal]: Used to handle geographical information.
 - [rgeos][rgeos]: Used to generalize and clip shapefiles.
-- [colorRamps][colorRamps]: matlab.like color scheme is used in 2D surface colors.
-- [gstat][gstat]: the krige function is used for interpolation.
+- [gstat][gstat]: the idw function is used for interpolation.
 - [oce][oce]: Used for trapetsoidal intergration.
 - [broom][broom]: Used to transform shapefiles to data frames for ggplot2.
+- [geosphere][geosphere]: Used to calculated shortest distances to land.
+- [dplyr][dplyr]: Used for advanced data manipulation.
+- [magrittr][magrittr]: Used for pipe operations in advanced data manipulation.
 
-[sp]: https://cran.r-project.org/web/packages/sp/index.html
 [ggplot2]: http://ggplot2.tidyverse.org/reference/
-[oce]: https://cran.r-project.org/web/packages/oce/index.html
-[colorRamps]: https://cran.r-project.org/web/packages/colorRamps/index.html
-[gstat]: https://cran.r-project.org/web/packages/gstat/index.html
-[rgdal]: https://cran.r-project.org/web/packages/rgdal/index.html
+[sp]: https://cran.r-project.org/web/packages/sp/index.html
 [maptools]: https://cran.r-project.org/web/packages/maptools/index.html
+[rgdal]: https://cran.r-project.org/web/packages/rgdal/index.html
 [rgeos]: https://cran.r-project.org/web/packages/rgeos/index.html
+[gstat]: https://cran.r-project.org/web/packages/gstat/index.html
+[oce]: https://cran.r-project.org/web/packages/oce/index.html
 [broom]: https://cran.r-project.org/web/packages/broom/index.html
+[geosphere]: https://cran.r-project.org/web/packages/geosphere/index.html
+[dplyr]: https://cran.r-project.org/web/packages/dplyr/index.html
+[magrittr]: https://cran.r-project.org/web/packages/magrittr/index.html
 
 News
 --------
