@@ -33,21 +33,6 @@ Detailed information on how to use the package can be found from [the user manua
 library(PlotSvalbard)
 ```
 
-```
-## Warning: replacing previous import 'dplyr::union' by 'rgeos::union' when
-## loading 'PlotSvalbard'
-```
-
-```
-## Warning: replacing previous import 'dplyr::setdiff' by 'rgeos::setdiff'
-## when loading 'PlotSvalbard'
-```
-
-```
-## Warning: replacing previous import 'dplyr::intersect' by 'rgeos::intersect'
-## when loading 'PlotSvalbard'
-```
-
 ```r
 data("kongsfjord_moorings")
 
