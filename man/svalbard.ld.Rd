@@ -14,4 +14,6 @@ svalbard.ld
 \description{
 SpatialPolygons object for Svalbard landshapes
 }
+\concept{shapefiles}
 \keyword{datasets}
+\keyword{shapefiles}
