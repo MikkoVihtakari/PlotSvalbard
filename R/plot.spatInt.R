@@ -64,14 +64,20 @@ if(is.na(legend.label)) {
 }}
 
 if(keep.glaciers) {
-
-  eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("grid_utm"), map_cmd("defs_interpl_utm"), sep = "+")))
-
+  if(length(X$Land) == 0) {
+    eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("grid_utm"), map_cmd("defs_interpl_utm"), sep = "+")))
   } else {
-
-     eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_interpl_utm"), sep = "+")))
-
-    }
+    eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("grid_utm"), map_cmd("defs_interpl_utm"), sep = "+")))
+  }
+  
+  } else {
+    if(length(X$Land) == 0) {
+    eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("grid_utm"), map_cmd("defs_interpl_utm"), sep = "+")))  
+    } else {
+    eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_interpl_utm"), sep = "+")))  
+    } 
+     
+  }
 
   } else stop("basemap = FALSE is not implemented yet")
 }

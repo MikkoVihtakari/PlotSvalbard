@@ -119,6 +119,7 @@
 # limits = c("kongsfjord_moorings", "Lon", "Lat")
 # type = "arctic60"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04; bathymetry = TRUE
 # type = "arctic50"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; bathymetry = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04
+# type = "barentssea"; limits = c(24,33, 81, 82.5); limits.lon = 0.1; limits.lat = 0.1; round.lon = FALSE; n.lon.grid = 3; lon.interval = 45; round.lat = FALSE; n.lat.grid = 3; lat.interval = 10; keep.glaciers = TRUE; bathymetry = FALSE; bathy.style = "poly_blues"; bathy.legend = TRUE; bathy.detailed = FALSE; land.col = "#eeeac4"; land.border.col = "black"; land.size = 0.1; gla.col = "grey95"; gla.border.col = "black"; gla.size = 0.1; grid.col = "grey70"; grid.size = 0.1; currents = FALSE; arc.col = "#D696C8"; atl.col = "#BB1512"; current.size = 0.5; current.alpha = 1; label.print = TRUE; label.offset = 1.05; label.font = 8; base_size = 11
 
 basemap <- function(type = "kongsfjorden", limits = NULL, limits.lon = 0.1, limits.lat = 0.1, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, keep.glaciers = TRUE, bathymetry = FALSE, bathy.style = "poly_blues", bathy.legend = TRUE, bathy.detailed = FALSE, land.col = "#eeeac4", land.border.col = "black", land.size = 0.1, gla.col = "grey95", gla.border.col = "black", gla.size = 0.1, grid.col = "grey70", grid.size = 0.1, currents = FALSE, arc.col = "#D696C8", atl.col = "#BB1512", current.size = 0.5, current.alpha = 1, label.print = TRUE, label.offset = 1.05, label.font = 8, base_size = 11) {
 
@@ -204,16 +205,35 @@ if(X$MapClass %in% c("panarctic")) {
 
     if(bathymetry) { ## With bathymetry
       if(currents) { ## With currents
-        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        if(length(X$Land) == 0) {
+          eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        } else {
+          eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        }
+        
       } else { ## Without currents
-        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        if(length(X$Land) == 0) {
+          eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        } else {
+        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))  
+        }
+        
       }
     
     } else { ## Without bathymetry
       if(currents) {
-        eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        if(length(X$Land) == 0) {
+          eval(parse(text=paste(map_cmd("base"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        } else {
+          eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        }
+        
       } else { ## Without currents
-        eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        if(length(X$Land) == 0) {
+          eval(parse(text=paste(map_cmd("base"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        } else {
+          eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        }
       }
     
 
@@ -221,16 +241,28 @@ if(X$MapClass %in% c("panarctic")) {
 
     if(bathymetry) { ## With bathymetry
       if(currents) { ## With currents
-        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        if(length(X$Land) == 0) {
+        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))  
+        } else {
+        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))  
+        }
+        
       } else { ## Without currents
         eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
       }
     
     } else { ## Without bathymetry
       if(currents) {
-        eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
-      } else {
-        eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))    
+        if(length(X$Land) == 0) {
+          eval(parse(text=paste(map_cmd("base"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        } else {
+          eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+        }} else {
+          if(length(X$Land) == 0) {
+          eval(parse(text=paste(map_cmd("base"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))      
+          } else {
+          eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))      
+          }
       }
     
     }
