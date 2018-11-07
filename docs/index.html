@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">PlotSvalbard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.0</span>
       </span>
     </div>
 
@@ -91,16 +91,26 @@
 <a href="#installation-of-the-github-version" class="anchor"></a>Installation of the GitHub version</h2>
 <p>Using the <a href="https://cran.r-project.org/web/packages/devtools/index.html"><strong>devtools</strong></a> package:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(devtools)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"MikkoVihtakari/PlotSvalbard"</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install_github</span>(<span class="st">"MikkoVihtakari/PlotSvalbard"</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p><strong>PlotSvalbard</strong> extends on <a href="http://ggplot2.tidyverse.org/reference/"><strong>ggplot2</strong></a>. Data that contains geographic information can be plotted on these maps using the ggplot2 layers separated by the <code>+</code> operator.</p>
-<div id="user-manual-and-website" class="section level3">
+<div id="website" class="section level3">
 <h3 class="hasAnchor">
-<a href="#user-manual-and-website" class="anchor"></a>User manual and website</h3>
-<p>Detailed information on how to use the package can be found from <a href="https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html">the user manual</a> and <a href="https://mikkovihtakari.github.io/PlotSvalbard/index.html">PlotSvalbard website</a>.</p>
+<a href="#website" class="anchor"></a>Website</h3>
+<p>PlotSvalbard has a <a href="https://mikkovihtakari.github.io/PlotSvalbard/index.html">website</a>, which is updated together with each major release.</p>
+</div>
+<div id="function-reference" class="section level3">
+<h3 class="hasAnchor">
+<a href="#function-reference" class="anchor"></a>Function reference</h3>
+<p><a href="https://mikkovihtakari.github.io/PlotSvalbard/reference/index.html">An organized list of functions</a> included in the package can be found from the website.</p>
+</div>
+<div id="user-manual" class="section level3">
+<h3 class="hasAnchor">
+<a href="#user-manual" class="anchor"></a>User manual</h3>
+<p>Detailed information on how to use the package can be found from <a href="https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html">the user manual</a></p>
 </div>
 <div id="making-a-map-with-text" class="section level3">
 <h3 class="hasAnchor">
@@ -128,7 +138,7 @@
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw">library</span>(scatterpie)</a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">24</span>, <span class="fl">79.5</span>, <span class="fl">83.5</span>), <span class="dt">round.lon =</span> <span class="dv">2</span>, <span class="dt">round.lat =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw"><a href="http://www.rdocumentation.org/packages/scatterpie/topics/geom_scatterpie">geom_scatterpie</a></span>(<span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">group =</span> ID, <span class="dt">r =</span> <span class="dv">100</span><span class="op">*</span>Total), <span class="dt">data =</span> x, <span class="dt">cols =</span> species, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw">geom_scatterpie</span>(<span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">group =</span> ID, <span class="dt">r =</span> <span class="dv">100</span><span class="op">*</span>Total), <span class="dt">data =</span> x, <span class="dt">cols =</span> species, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="kw">scale_fill_discrete</span>(<span class="dt">name =</span> <span class="st">"Species"</span>, <span class="dt">breaks =</span> species, </a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="dt">labels =</span> <span class="kw">parse</span>(<span class="dt">text =</span> <span class="kw">paste0</span>(<span class="st">"italic("</span> , <span class="kw">sub</span>(<span class="st">"*</span><span class="ch">\\</span><span class="st">."</span>, <span class="st">"~"</span>, species), <span class="st">")"</span>)))</a></code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
@@ -143,7 +153,7 @@
 ## To cite package 'PlotSvalbard' in publications use:
 ## 
 ##   Mikko Vihtakari (2018). PlotSvalbard: PlotSvalbard - Plot
-##   research data from Svalbard on maps. R package version 0.5.4.
+##   research data from Svalbard on maps. R package version 0.6.0.
 ##   https://github.com/MikkoVihtakari/PlotSvalbard
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -152,7 +162,7 @@
 ##     title = {PlotSvalbard: PlotSvalbard - Plot research data from Svalbard on maps},
 ##     author = {Mikko Vihtakari},
 ##     year = {2018},
-##     note = {R package version 0.5.4},
+##     note = {R package version 0.6.0},
 ##     url = {https://github.com/MikkoVihtakari/PlotSvalbard},
 ##   }</code></pre>
 <p>The maps generated by this package should be cited to their original source.</p>
@@ -198,12 +208,16 @@
 <a href="https://cran.r-project.org/web/packages/dplyr/index.html">dplyr</a>: Used for advanced data manipulation.</li>
 <li>
 <a href="https://cran.r-project.org/web/packages/magrittr/index.html">magrittr</a>: Used for pipe operations in advanced data manipulation.</li>
+<li>
+<a href="https://cran.r-project.org/web/packages/gtable/index.html">gtable</a>: Used to modify ggplot2 default options.</li>
+<li>
+<a href="https://cran.r-project.org/web/packages/cowplot/index.html">cowplot</a>: Used to plot several ggplot2 objects into a grid and to extract a common legend.</li>
 </ul>
 </div>
 <div id="news" class="section level2">
 <h2 class="hasAnchor">
 <a href="#news" class="anchor"></a>News</h2>
-<p>2018-11-07 Updated online documentation, streamlined shape files (they take less space now, but Kongsfjorden maps take a couple of second longer to generate), fixed a bug that caused <code>basemap</code> function to crash if there was no land within the limits. Begun to add temperature - salinity plot functions from the MarineDatabase package.</p>
+<p>2018-11-07 Updated to the next major version v0.6. Added temperature - salinity plot functions from the MarineDatabase package. These functions are still under development. Updated online documentation, streamlined shape files (they take less space now, but Kongsfjorden maps take a couple of second longer to generate), and fixed a bug that caused <code>basemap</code> function to crash if there was no land within the limits (thanks for noticing it Allison!).</p>
 <p>2018-10-26 Updated to next major version v0.5. Added ocean currents for Barents Sea as well as (rudimentary) waffle charts. Made the arguments for basemap more logical. <em>This update will break the maps made using previous versions of the package</em>. Change the argument names inside basemap, and it should work as before.</p>
 <p>2018-09-21 Updated to v0.4 with many new features, such as improved bathymetry and automatic map limits. See <a href="https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html">the user manual</a> for details.</p>
 </div>

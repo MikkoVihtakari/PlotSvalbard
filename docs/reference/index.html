@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.0</span>
       </span>
     </div>
 
@@ -121,7 +121,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-basemap-functions" class="hasAnchor"><a href="#section-basemap-functions" class="anchor"></a>Basemap functions</h2>
-          <p class="section-desc"><p>Main functions to plot maps</p></p>
+          <p class="section-desc"><p>Main functions to plot maps and transform data to correct projection</p></p>
         </th>
       </tr>
       <tr>
@@ -165,6 +165,12 @@
         </th>
       </tr>
       <tr>
+        
+        <td>
+          <p><code><a href="ts_plot.html">ts_plot()</a></code> </p>
+        </td>
+        <td><p>Temperature-salinity (T-S) plot from a data frame using ggplot2</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="define_water_type.html">define_water_type()</a></code> </p>
@@ -409,9 +415,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="svalbard.ld.html">svalbard.gl</a></code> <code><a href="svalbard.ld.html">svalbard.ld</a></code> </p>
+          <p><code><a href="svalbard.gl.html">svalbard.gl</a></code> </p>
         </td>
         <td><p>SpatialPolygonsDataFrame containing glacier boundaries on Svalbard. The tidal-glacier fronts for Kongsfjorden are from July 2017, while the rest vary between 2005 and 2017.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="svalbard.ld.html">svalbard.ld</a></code> </p>
+        </td>
+        <td><p>SpatialPolygonsDataFrame containing land shapes for Svalbard</p></td>
       </tr>
     </tbody>
     </table>

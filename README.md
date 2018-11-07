@@ -1,3 +1,5 @@
+PlotSvalbard
+======
 **Plot research data from Svalbard on maps**
 
 This is a developmental version of the **PlotSvalbard** package providing functions to plot research data from Svalbard on detailed and up-to-date maps that are not available in online databases. The package is developed by the Norwegian Polar Institute. Glacier fronts and land shapes of Kongsfjorden originate from July 2017.
@@ -85,7 +87,7 @@ citation("PlotSvalbard")
 ## To cite package 'PlotSvalbard' in publications use:
 ## 
 ##   Mikko Vihtakari (2018). PlotSvalbard: PlotSvalbard - Plot
-##   research data from Svalbard on maps. R package version 0.5.4.
+##   research data from Svalbard on maps. R package version 0.6.0.
 ##   https://github.com/MikkoVihtakari/PlotSvalbard
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -94,7 +96,7 @@ citation("PlotSvalbard")
 ##     title = {PlotSvalbard: PlotSvalbard - Plot research data from Svalbard on maps},
 ##     author = {Mikko Vihtakari},
 ##     year = {2018},
-##     note = {R package version 0.5.4},
+##     note = {R package version 0.6.0},
 ##     url = {https://github.com/MikkoVihtakari/PlotSvalbard},
 ##   }
 ```
@@ -129,6 +131,8 @@ The **PlotSvalbard** package depends on:
 - [geosphere][geosphere]: Used to calculated shortest distances to land.
 - [dplyr][dplyr]: Used for advanced data manipulation.
 - [magrittr][magrittr]: Used for pipe operations in advanced data manipulation.
+- [gtable][gtable]: Used to modify ggplot2 default options.
+- [cowplot][cowplot]: Used to plot several ggplot2 objects into a grid and to extract a common legend.
 
 [ggplot2]: http://ggplot2.tidyverse.org/reference/
 [sp]: https://cran.r-project.org/web/packages/sp/index.html
@@ -141,10 +145,12 @@ The **PlotSvalbard** package depends on:
 [geosphere]: https://cran.r-project.org/web/packages/geosphere/index.html
 [dplyr]: https://cran.r-project.org/web/packages/dplyr/index.html
 [magrittr]: https://cran.r-project.org/web/packages/magrittr/index.html
+[gtable]: https://cran.r-project.org/web/packages/gtable/index.html
+[cowplot]: https://cran.r-project.org/web/packages/cowplot/index.html
 
 News
 --------
-2018-11-07 Updated online documentation, streamlined shape files (they take less space now, but Kongsfjorden maps take a couple of second longer to generate), fixed a bug that caused `basemap` function to crash if there was no land within the limits. Begun to add temperature - salinity plot functions from the MarineDatabase package.
+2018-11-07 Updated to the next major version v0.6. Added temperature - salinity plot functions from the MarineDatabase package. These functions are still under development. Updated online documentation, streamlined shape files (they take less space now, but Kongsfjorden maps take a couple of second longer to generate), and fixed a bug that caused `basemap` function to crash if there was no land within the limits (thanks for noticing it Allison!). 
 
 2018-10-26 Updated to next major version v0.5. Added ocean currents for Barents Sea as well as (rudimentary) waffle charts. Made the arguments for basemap more logical. *This update will break the maps made using previous versions of the package*. Change the argument names inside basemap, and it should work as before.
 

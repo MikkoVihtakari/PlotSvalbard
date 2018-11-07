@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.0</span>
       </span>
     </div>
 
@@ -195,12 +195,12 @@
 
 <span class='fu'>system.time</span>(<span class='fu'>dist2land</span>(<span class='no'>npi_stations</span>, <span class='kw'>lon.col</span> <span class='kw'>=</span> <span class='st'>"Lon"</span>, <span class='kw'>lat.col</span> <span class='kw'>=</span> <span class='st'>"Lat"</span>,
  <span class='kw'>map.type</span> <span class='kw'>=</span> <span class='st'>"barentssea"</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.094   0.001   0.097 </div><div class='input'><span class='co'>#&gt; user  system elapsed </span>
+#&gt;    0.16    0.01    0.19 </div><div class='input'><span class='co'>#&gt; user  system elapsed </span>
 <span class='co'>#&gt; 0.22    0.01    0.25 </span>
 
 <span class='fu'>system.time</span>(<span class='fu'>dist2land</span>(<span class='no'>npi_stations</span>, <span class='kw'>lon.col</span> <span class='kw'>=</span> <span class='st'>"Lon"</span>, <span class='kw'>lat.col</span> <span class='kw'>=</span> <span class='st'>"Lat"</span>,
  <span class='kw'>map.type</span> <span class='kw'>=</span> <span class='st'>"barentssea"</span>, <span class='kw'>geodesic_distances</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;  22.004   1.125  23.653 </div><div class='input'><span class='co'>#&gt; user  system elapsed </span>
+#&gt;   36.18    0.42   42.53 </div><div class='input'><span class='co'>#&gt; user  system elapsed </span>
 <span class='co'>#&gt; 32.04    0.39   32.97 </span>
 
 <span class='co'>## Despite the inaccuracy due to polar stereographic protection</span>

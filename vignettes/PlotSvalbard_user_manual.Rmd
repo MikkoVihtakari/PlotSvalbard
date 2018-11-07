@@ -315,7 +315,14 @@ waffle_chart(x, fill = "variable", facet = "ID", composition = FALSE, max_value 
 
 ```
 
+## Temperature salinity plots
 
+You can make TS-plots with water type definitions. See `?ts_plot` for more plotting alternatives
+
+```{r tsplot, message=FALSE, warning=FALSE}
+data("ctd_kongsfjord")
+ts_plot(ctd_kongsfjord, color = "watertype", margin_distr = TRUE)
+```
 
 # Citing PlotSvalbard
 
