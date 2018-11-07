@@ -20,9 +20,17 @@ Usage
 -------
 **PlotSvalbard** extends on [**ggplot2**](http://ggplot2.tidyverse.org/reference/). Data that contains geographic information can be plotted on these maps using the ggplot2 layers separated by the `+` operator.
 
-### User manual and website
+### Website
 
-Detailed information on how to use the package can be found from [the user manual](https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html) and [PlotSvalbard website](https://mikkovihtakari.github.io/PlotSvalbard/index.html).
+PlotSvalbard has a [website](https://mikkovihtakari.github.io/PlotSvalbard/index.html), which is updated together with each major release.
+
+### Function reference
+
+[An organized list of functions](https://mikkovihtakari.github.io/PlotSvalbard/reference/index.html) included in the package can be found from the website.
+
+### User manual
+
+Detailed information on how to use the package can be found from [the user manual](https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html) 
 
 ### Making a map with text
 
