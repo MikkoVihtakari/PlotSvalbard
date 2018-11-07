@@ -57,7 +57,7 @@ A word of warning about \code{bin.method = "integrate"}: this functionality work
 \examples{
 data(chlorophyll) ## load an example dataset
 x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
-plot(x, type = "kongsfjorden") ## Plot
+plot(x) ## Plot
 }
 \seealso{
 \code{\link{plot.spatInt}}

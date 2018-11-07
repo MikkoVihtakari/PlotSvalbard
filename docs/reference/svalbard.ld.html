@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SpatialPolygons object for Svalbard landshapes — svalbard.ld • PlotSvalbard</title>
+<title>SpatialPolygonsDataFrame containing glacier boundaries on Svalbard. The tidal-glacier fronts for Kongsfjorden are from July 2017, while the rest vary between 2005 and 2017. — svalbard.ld • PlotSvalbard</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="SpatialPolygons object for Svalbard landshapes — svalbard.ld" />
+<meta property="og:title" content="SpatialPolygonsDataFrame containing glacier boundaries on Svalbard. The tidal-glacier fronts for Kongsfjorden are from July 2017, while the rest vary between 2005 and 2017. — svalbard.ld" />
 
-<meta property="og:description" content="SpatialPolygons object for Svalbard landshapes" />
+<meta property="og:description" content="SpatialPolygonsDataFrame containing glacier boundaries on Svalbard. The tidal-glacier fronts for Kongsfjorden are from July 2017, while the rest vary between 2005 and 2017.
+SpatialPolygonsDataFrame containing land shapes for Svalbard" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.4</span>
       </span>
     </div>
 
@@ -109,26 +110,47 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>SpatialPolygons object for Svalbard landshapes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/R/dataset-docs.R'><code>R/dataset-docs.R</code></a></small>
+    <h1>SpatialPolygonsDataFrame containing glacier boundaries on Svalbard. The tidal-glacier fronts for Kongsfjorden are from July 2017, while the rest vary between 2005 and 2017.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/R/shapefiles-docs.R'><code>R/shapefiles-docs.R</code></a></small>
     <div class="hidden name"><code>svalbard.ld.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>SpatialPolygons object for Svalbard landshapes</p>
+    <p>SpatialPolygonsDataFrame containing glacier boundaries on Svalbard. The tidal-glacier fronts for Kongsfjorden are from July 2017, while the rest vary between 2005 and 2017.</p>
+<p>SpatialPolygonsDataFrame containing land shapes for Svalbard</p>
     
     </div>
 
-    <pre class="usage"><span class='no'>svalbard.ld</span></pre>
+    <pre class="usage"><span class='no'>svalbard.gl</span>
+
+<span class='no'>svalbard.ld</span></pre>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>Spatial polygons containing 1:250 000 landshapes of Svalbard. In <code>"+init=epsg:32633"</code> projection.</p>
+    <p>SpatialPolygonsDataFrame containing 1:250 000 glacier shapes of Svalbard. In <code>"+init=epsg:32633"</code> projection.</p>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p>Norwegian Polar Institute (<a href='http://geodata.npolar.no/'>http://geodata.npolar.no/</a>)</p>
+<p>Norwegian Polar Institute (<a href='http://geodata.npolar.no/'>http://geodata.npolar.no/</a>)</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>basemap</p>
+<p>basemap</p>
+<p>Other shapefiles: <code><a href='arctic50.html'>arctic50</a></code>,
+  <code><a href='arctic60.html'>arctic60</a></code>, <code><a href='arctic_bathy.html'>arctic_bathy</a></code>,
+  <code><a href='arctic_currents.html'>arctic_currents</a></code>,
+  <code><a href='atlantic_currents.html'>atlantic_currents</a></code>,
+  <code><a href='barents_bathy.html'>barents_bathy</a></code>, <code><a href='kong.cr.html'>kong.cr</a></code>,
+  <code><a href='mosj.cr.html'>mosj.cr</a></code>, <code><a href='svalbard_bathy.html'>svalbard_bathy</a></code></p>
+<p>Other shapefiles: <code><a href='arctic50.html'>arctic50</a></code>,
+  <code><a href='arctic60.html'>arctic60</a></code>, <code><a href='arctic_bathy.html'>arctic_bathy</a></code>,
+  <code><a href='arctic_currents.html'>arctic_currents</a></code>,
+  <code><a href='atlantic_currents.html'>atlantic_currents</a></code>,
+  <code><a href='barents_bathy.html'>barents_bathy</a></code>, <code><a href='kong.cr.html'>kong.cr</a></code>,
+  <code><a href='mosj.cr.html'>mosj.cr</a></code>, <code><a href='svalbard_bathy.html'>svalbard_bathy</a></code></p></div>
     
 
   </div>
@@ -139,6 +161,8 @@
       <li><a href="#format">Format</a></li>
 
       <li><a href="#source">Source</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>

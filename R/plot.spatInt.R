@@ -12,14 +12,14 @@
 ##' @seealso \code{\link{interpolate}} \code{\link{basemap}}
 ##' @examples data(chlorophyll) ## load an example dataset
 ##' x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
-##' plot(x, type = "kongsfjorden") ## Plot
+##' plot(x) ## Plot
 ##'
 ##' ## PlotSvalbard functions can be expanded by using ggplot2 syntax
-##' plot(x, type = "kongsfjorden") + geom_text(data = chlorophyll,
-##' aes(x = lon.utm, y = lat.utm, label = Station))
+##' plot(x) + geom_text(data = chlorophyll, aes(x = lon.utm, y = lat.utm, label = Station))
 ##'
+##' ## Auto limits leave an empty space around the gridded surface.
 ##' ## Changing limits is easiest using the inbuild argument
-##' plot(x, type = "kongsfjorden", limits = c(11.4,12.7,78.85,79.05))
+##' plot(x, limits = c(11.4,12.7,78.85,79.05))
 ##' @author Mikko Vihtakari
 ##' @import ggplot2
 ##' @export
@@ -69,14 +69,14 @@ if(keep.glaciers) {
   } else {
     eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("grid_utm"), map_cmd("defs_interpl_utm"), sep = "+")))
   }
-  
+
   } else {
     if(length(X$Land) == 0) {
-    eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("grid_utm"), map_cmd("defs_interpl_utm"), sep = "+")))  
+    eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("grid_utm"), map_cmd("defs_interpl_utm"), sep = "+")))
     } else {
-    eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_interpl_utm"), sep = "+")))  
-    } 
-     
+    eval(parse(text=paste(map_cmd("base"), map_cmd("interpl_surface"), map_cmd("land_utm"), map_cmd("grid_utm"), map_cmd("defs_interpl_utm"), sep = "+")))
+    }
+
   }
 
   } else stop("basemap = FALSE is not implemented yet")

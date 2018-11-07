@@ -2,10 +2,39 @@ articles:
   PlotSvalbard_user_manual: PlotSvalbard_user_manual.html
 reference:
 - title: Basemap functions
-  desc:  Main functions to plot maps
+  desc: Main functions to plot maps and transform data to correct projection
   contents:
   - basemap
   - add_land
+  - transform_coord
+- title: Add charts on maps
+  desc: Functions to add charts on maps. Under development.
+  contents:
+  - waffle_chart
+- title: Create oceanographic plots
+  desc: Functions and datasets to create temperature-salinity and section plots. Under development.
+  contents:
+  - define_water_type
+  - kongsfjord_watermasses
+  - rijpfjord_watermasses
+- title: Other functions
+  desc: Functions that do other things
+  contents:
+  - dist2land
+  - interpolate
+  - plot.spatInt
+  - LS
+  - FS
+- title: Example datasets
+  desc: Datasets used as examples for package functions
+  contents:
+  - chlorophyll
+  - kongsfjord_moorings
+  - npi_stations
+  - meiofauna
+  - zooplankton
+  - ctd_kongsfjord
+  - ctd_rijpfjord
 - title: Internal basemap functions
   desc: >
     Internal functions dealing with data and graphics for basemap. These functions are run on the
@@ -22,23 +51,21 @@ reference:
   - map_projection
   - map_type
   - theme_map
-- title: Other functions
-  desc: Functions that do other things
-  contents:
-  - dist2land
-  - interpolate
-  - plot.spatInt
-  - transform_coord
-  - waffle_chart
-- title: Datasets
-  desc: Datasets used as examples for package functions
-  contents:
-  - chlorophyll
-  - kongsfjord_moorings
-  - npi_stations
-  - meiofauna
-  - zooplankton
 - title: Shapefiles
-  desc: Shapefiles used by the package
+  desc: >
+    Shapefiles used by the package. These shapefiles are automatically used by the basemap function.
+    Introducing new shapefiles is only required if you want to improve the resolution or use
+    PlotSvalbard to make maps outside the Svalbard region.
   contents:
+  - arctic_bathy
+  - arctic_currents
+  - arctic50
+  - arctic60
+  - atlantic_currents
+  - barents_bathy
+  - barents.ld
+  - kong.cr
+  - mosj.cr
+  - svalbard_bathy
+  - svalbard.gl
   - svalbard.ld

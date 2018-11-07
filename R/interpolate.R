@@ -26,7 +26,7 @@
 ##' @author Mikko Vihtakari
 ##' @examples data(chlorophyll) ## load an example dataset
 ##' x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
-##' plot(x, type = "kongsfjorden") ## Plot
+##' plot(x) ## Plot
 ##' @seealso \code{\link{plot.spatInt}}
 ##' @importFrom gstat idw
 ##' @importFrom oce integrateTrapezoid

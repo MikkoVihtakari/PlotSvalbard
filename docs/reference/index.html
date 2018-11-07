@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.4</span>
       </span>
     </div>
 
@@ -136,12 +136,146 @@
           <p><code><a href="add_land.html">add_land()</a></code> </p>
         </td>
         <td><p>Add a land layer on basemaps</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="transform_coord.html">transform_coord()</a></code> </p>
+        </td>
+        <td><p>Transform spatial coordinates to another projection</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-add-charts-on-maps" class="hasAnchor"><a href="#section-add-charts-on-maps" class="anchor"></a>Add charts on maps</h2>
+          <p class="section-desc"><p>Functions to add charts on maps. Under development.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="waffle_chart.html">waffle_chart()</a></code> </p>
+        </td>
+        <td><p>Plot waffle charts</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-create-oceanographic-plots" class="hasAnchor"><a href="#section-create-oceanographic-plots" class="anchor"></a>Create oceanographic plots</h2>
+          <p class="section-desc"><p>Functions and datasets to create temperature-salinity and section plots. Under development.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="define_water_type.html">define_water_type()</a></code> </p>
+        </td>
+        <td><p>Define water type based on temperature and salinity</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="kongsfjord_watermasses.html">kongsfjord_watermasses</a></code> </p>
+        </td>
+        <td><p>Water mass definitions for Kongsfjorden</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rijpfjord_watermasses.html">rijpfjord_watermasses</a></code> </p>
+        </td>
+        <td><p>Water mass definitions for Rijpfjorden</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other functions</h2>
+          <p class="section-desc"><p>Functions that do other things</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="dist2land.html">dist2land()</a></code> </p>
+        </td>
+        <td><p>Calculate the closest distance to land for given coordinates</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="interpolate.html">interpolate()</a></code> </p>
+        </td>
+        <td><p>Interpolate a spatial 2D surface from observations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot.spatInt.html">plot(<i>&lt;spatInt&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot an interpolated map</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="LS.html">LS()</a></code> </p>
+        </td>
+        <td><p>Convert line sizes measured as points to ggplot line sizes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FS.html">FS()</a></code> </p>
+        </td>
+        <td><p>Convert font sizes measured as points to ggplot font sizes</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-example-datasets" class="hasAnchor"><a href="#section-example-datasets" class="anchor"></a>Example datasets</h2>
+          <p class="section-desc"><p>Datasets used as examples for package functions</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="chlorophyll.html">chlorophyll</a></code> </p>
+        </td>
+        <td><p>Chlorophyll-a recordings in Kongsfjorden</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="kongsfjord_moorings.html">kongsfjord_moorings</a></code> </p>
+        </td>
+        <td><p>Location of recorded moorings in Kongsfjorden</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="npi_stations.html">npi_stations</a></code> </p>
+        </td>
+        <td><p>Location of NPI's permanent marine biological monitoring stations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="meiofauna.html">meiofauna</a></code> </p>
+        </td>
+        <td><p>Pan-Arctic meiofauna data from Bluhm et al. 2018</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="zooplankton.html">zooplankton</a></code> </p>
+        </td>
+        <td><p>Zooplankton data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ctd_kongsfjord.html">ctd_kongsfjord</a></code> </p>
+        </td>
+        <td><p>Example CTD data for Kongsfjorden</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ctd_rijpfjord.html">ctd_rijpfjord</a></code> </p>
+        </td>
+        <td><p>Example CTD data for Rijpfjorden</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
           <h2 id="section-internal-basemap-functions" class="hasAnchor"><a href="#section-internal-basemap-functions" class="anchor"></a>Internal basemap functions</h2>
-          <p class="section-desc"><p>Internal functions dealing with data and graphics for basemap</p></p>
+          <p class="section-desc"><p>Internal functions dealing with data and graphics for basemap. These functions are run on the background and only needed if you modify your maps beyond the options offered by PlotSvalbard.</p></p>
         </th>
       </tr>
       <tr>
@@ -214,72 +348,70 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other functions</h2>
-          <p class="section-desc"><p>Functions that do other things</p></p>
+          <h2 id="section-shapefiles" class="hasAnchor"><a href="#section-shapefiles" class="anchor"></a>Shapefiles</h2>
+          <p class="section-desc"><p>Shapefiles used by the package. These shapefiles are automatically used by the basemap function. Introducing new shapefiles is only required if you want to improve the resolution or use PlotSvalbard to make maps outside the Svalbard region.</p></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="dist2land.html">dist2land()</a></code> </p>
+          <p><code><a href="arctic_bathy.html">arctic_bathy</a></code> </p>
         </td>
-        <td><p>Calculate the closest distance to land for given coordinates</p></td>
+        <td><p>SpatialPolygonsDataFrame containing pan-Arctic bathymetry</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="interpolate.html">interpolate()</a></code> </p>
+          <p><code><a href="arctic_currents.html">arctic_currents</a></code> </p>
         </td>
-        <td><p>Interpolate a spatial 2D surface from observations</p></td>
+        <td><p>Data frame containing Arctic ocean currents in the Barents Sea</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="plot.spatInt.html">plot(<i>&lt;spatInt&gt;</i>)</a></code> </p>
+          <p><code><a href="arctic50.html">arctic50</a></code> </p>
         </td>
-        <td><p>Plot an interpolated map</p></td>
+        <td><p>SpatialPolygonsDataFrame containing land shapes for pan-Arctic map with a cutpoint at 50 degrees latitude.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="transform_coord.html">transform_coord()</a></code> </p>
+          <p><code><a href="arctic60.html">arctic60</a></code> <code><a href="arctic60.html">barents.ld</a></code> </p>
         </td>
-        <td><p>Transform spatial coordinates to another projection</p></td>
+        <td><p>SpatialPolygonsDataFrame containing land shapes for pan-Arctic map with a cutpoint at 60 degrees latitude.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="waffle_chart.html">waffle_chart()</a></code> </p>
+          <p><code><a href="atlantic_currents.html">atlantic_currents</a></code> </p>
         </td>
-        <td><p>Plot waffle charts</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-datasets" class="hasAnchor"><a href="#section-datasets" class="anchor"></a>Datasets</h2>
-          <p class="section-desc"><p>Datasets used as examples for package functions</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="chlorophyll.html">chlorophyll</a></code> </p>
-        </td>
-        <td><p>Chlorophyll-a recordings in Kongsfjorden</p></td>
+        <td><p>Data frame containing Atlantic ocean currents in the Barents Sea</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="kongsfjord_moorings.html">kongsfjord_moorings</a></code> </p>
+          <p><code><a href="barents_bathy.html">barents_bathy</a></code> </p>
         </td>
-        <td><p>Location of recorded moorings in Kongsfjorden</p></td>
+        <td><p>SpatialPolygonsDataFrame containing bathymetry for the Barents Sea</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="npi_stations.html">npi_stations</a></code> </p>
+          <p><code><a href="kong.cr.html">kong.cr</a></code> </p>
         </td>
-        <td><p>Location of NPI's permanent marine biological monitoring stations</p></td>
+        <td><p>SpatialPolygonsDataFrame containing clip boundaries for Kongsfjorden</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="meiofauna.html">meiofauna</a></code> </p>
+          <p><code><a href="mosj.cr.html">mosj.cr</a></code> </p>
         </td>
-        <td><p>Pan-Arctic meiofauna data from Bluhm et al. 2018</p></td>
+        <td><p>SpatialPolygonsDataFrame containing clip boundaries for the Environmental Monitoring on Svalbard and Jan Mayen transect</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="svalbard_bathy.html">svalbard_bathy</a></code> </p>
+        </td>
+        <td><p>SpatialPolygonsDataFrame containing detailed bathymetry for Svalbard region</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="svalbard.ld.html">svalbard.gl</a></code> <code><a href="svalbard.ld.html">svalbard.ld</a></code> </p>
+        </td>
+        <td><p>SpatialPolygonsDataFrame containing glacier boundaries on Svalbard. The tidal-glacier fronts for Kongsfjorden are from July 2017, while the rest vary between 2005 and 2017.</p></td>
       </tr>
     </tbody>
     </table>
@@ -289,9 +421,12 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-basemap-functions">Basemap functions</a></li>
-      <li><a href="#section-internal-basemap-functions">Internal basemap functions</a></li>
+      <li><a href="#section-add-charts-on-maps">Add charts on maps</a></li>
+      <li><a href="#section-create-oceanographic-plots">Create oceanographic plots</a></li>
       <li><a href="#section-other-functions">Other functions</a></li>
-      <li><a href="#section-datasets">Datasets</a></li>
+      <li><a href="#section-example-datasets">Example datasets</a></li>
+      <li><a href="#section-internal-basemap-functions">Internal basemap functions</a></li>
+      <li><a href="#section-shapefiles">Shapefiles</a></li>
     </ul>
   </div>
 </div>

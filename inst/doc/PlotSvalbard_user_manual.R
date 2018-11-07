@@ -103,8 +103,7 @@ data("chlorophyll")
 
 x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
 
-plot(x, type = "kongsfjorden", limits = c(11.4,12.7,78.855,79.05), 
-  legend.label = "Chlorophyll-a\n(mg/m3)") 
+plot(x, legend.label = "Chlorophyll-a\n(mg/m3)") 
 
 
 ## ----message=FALSE, warning=FALSE----------------------------------------
@@ -144,7 +143,7 @@ x <- melt(x, id = c("ID", "Total"))
 
 waffle_chart(x, fill = "variable", facet = "ID")
 
-## ----waffle scaled-------------------------------------------------------
+## ----waffle scaled, message=FALSE, warning=FALSE-------------------------
 library(dplyr)
 
 y <- x %>% group_by(ID) %>% summarise(sum = sum(value))

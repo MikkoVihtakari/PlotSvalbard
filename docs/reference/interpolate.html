@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="Interpolate a spatial 2D surface from observations — interpolate" />
 
-<meta property="og:description" content="Interpolates a 2D surface from a data frame of observations for plotting. Currenly uses the krige function." />
+<meta property="og:description" content="Interpolates a 2D surface from a data frame of observations for plotting. Currenly uses the idw function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.4</span>
       </span>
     </div>
 
@@ -116,13 +116,13 @@
 
     <div class="ref-description">
     
-    <p>Interpolates a 2D surface from a data frame of observations for plotting. Currenly uses the <code><a href='http://www.rdocumentation.org/packages/gstat/topics/krige'>krige</a></code> function.</p>
+    <p>Interpolates a 2D surface from a data frame of observations for plotting. Currenly uses the <code><a href='http://www.rdocumentation.org/packages/gstat/topics/krige'>idw</a></code> function.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>interpolate</span>(<span class='no'>df</span>, <span class='no'>value</span>, <span class='kw'>Subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coords</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"lon.utm"</span>, <span class='st'>"lat.utm"</span>),
   <span class='kw'>station.col</span> <span class='kw'>=</span> <span class='st'>"Station"</span>, <span class='kw'>strata.col</span> <span class='kw'>=</span> <span class='st'>"From"</span>, <span class='kw'>name.col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>id.cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bin.method</span> <span class='kw'>=</span> <span class='st'>"average"</span>, <span class='kw'>int.method</span> <span class='kw'>=</span> <span class='st'>"krige"</span>,
+  <span class='kw'>id.cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bin.method</span> <span class='kw'>=</span> <span class='st'>"average"</span>, <span class='kw'>int.method</span> <span class='kw'>=</span> <span class='st'>"idw"</span>,
   <span class='kw'>unit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>shear</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n.tile</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>accuracy</span> <span class='kw'>=</span> <span class='fl'>100</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -170,7 +170,7 @@
     </tr>
     <tr>
       <th>int.method</th>
-      <td><p>Character giving the method for interpolation. Currently only <code><a href='http://www.rdocumentation.org/packages/gstat/topics/krige'>krige</a></code>.</p></td>
+      <td><p>Character giving the method for interpolation. Currently only one option is implementd: "idw", inverse distance weighted interpolation using the <code><a href='http://www.rdocumentation.org/packages/gstat/topics/krige'>idw</a></code> function.</p></td>
     </tr>
     <tr>
       <th>unit</th>
@@ -206,7 +206,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>chlorophyll</span>) <span class='co'>## load an example dataset</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>interpolate</span>(<span class='no'>chlorophyll</span>, <span class='kw'>Subset</span> <span class='kw'>=</span> <span class='st'>"From &lt;= 10"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"Chla"</span>) <span class='co'>## Interpolate</span></div><div class='output co'>#&gt; [inverse distance weighted interpolation]</div><div class='input'><span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"kongsfjorden"</span>) <span class='co'>## Plot</span></div><div class='img'><img src='interpolate-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>interpolate</span>(<span class='no'>chlorophyll</span>, <span class='kw'>Subset</span> <span class='kw'>=</span> <span class='st'>"From &lt;= 10"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"Chla"</span>) <span class='co'>## Interpolate</span></div><div class='output co'>#&gt; [inverse distance weighted interpolation]</div><div class='input'><span class='fu'>plot</span>(<span class='no'>x</span>) <span class='co'>## Plot</span></div><div class='img'><img src='interpolate-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

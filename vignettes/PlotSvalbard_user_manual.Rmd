@@ -231,8 +231,7 @@ data("chlorophyll")
 
 x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
 
-plot(x, type = "kongsfjorden", limits = c(11.4,12.7,78.855,79.05), 
-  legend.label = "Chlorophyll-a\n(mg/m3)") 
+plot(x, legend.label = "Chlorophyll-a\n(mg/m3)") 
 
 ```
 
@@ -252,6 +251,8 @@ basemap("kongsfjorden", gla.border.col = "grey95", land.border.col = "#eeeac4")
 ```
 
 The [line width of ggplot2 is 2.13 wider than the line widths measured as points](https://stackoverflow.com/questions/47519624/how-is-the-line-width-size-defined-in-ggplot2/47521808#47521808) (pt). This means that if you want a certain line width, multiply the desired line width by $1/2.13$ inside `size.*` arguments. Similar conversion factor for font size is $1/2.845276$. 
+
+The internal `LS` and `FS` functions convert line and font sizes from points to ggplot2 equivalents.
 
 ## Performance
 
@@ -305,7 +306,7 @@ waffle_chart(x, fill = "variable", facet = "ID")
 
 The waffles can also be scaled to maximum values
 
-```{r waffle scaled}
+```{r waffle scaled, message=FALSE, warning=FALSE}
 library(dplyr)
 
 y <- x %>% group_by(ID) %>% summarise(sum = sum(value))

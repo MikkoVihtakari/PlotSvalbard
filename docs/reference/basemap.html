@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.4</span>
       </span>
     </div>
 
@@ -230,7 +230,7 @@
     </tr>
     <tr>
       <th>base_size</th>
-      <td><p>Base size parameter for ggplot. See <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme'>theme_bw</a>.</p></td>
+      <td><p>Base size parameter for ggplot. See <a href='ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a>.</p></td>
     </tr>
     </table>
     
@@ -245,11 +245,11 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot2-package'>ggplot2</a> map, which can be assigned to an object and modified as any ggplot object.</p>
+    <p>Returns a <a href='ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a> map, which can be assigned to an object and modified as any ggplot object.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function uses <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot2-package'>ggplot2</a> and shapefiles to plot maps of Svalbard and other polar regions. The Svalbard shapefiles are detailed and glaciers varyinly up-to-date (2017 for Kongsfjorden; mostly 2015 for the rest, but not systematically checked) detailed The map type is defined using the <code>type</code> argument and map limits can be controlled with the <code>limits</code> argument. Currently implemented map <code>type</code>s:</p><ul>
+    <p>The function uses <a href='ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a> and shapefiles to plot maps of Svalbard and other polar regions. The Svalbard shapefiles are detailed and glaciers varyinly up-to-date (2017 for Kongsfjorden; mostly 2015 for the rest, but not systematically checked) detailed The map type is defined using the <code>type</code> argument and map limits can be controlled with the <code>limits</code> argument. Currently implemented map <code>type</code>s:</p><ul>
 <li><p>"svalbard". Detailed 1:250 000 map of Svalbard land and glaciers. This option is slow (approx. 25 seconds) due to the large file size.</p></li>
 <li><p>"mosj" shows Kongsfjoden and Fram Strait as sampled during Norwegian Polar Institute's MOSJ campaigns. Some glaciers can be older than 2015.</p></li>
 <li><p>"kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to smaller file size.</p></li>
@@ -260,12 +260,12 @@
 <li><p>"arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.</p></li>
 </ul>
     <p>Svalbard and Barents Sea maps use the <code>"+init=epsg:32633"</code> UTM projection. The polar stereographic maps use <code>"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"</code> projection.</p>
-<p><strong>Line width</strong> (size) aesthatics in <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot2-package'>ggplot2</a> generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions <code><a href='LS.html'>LS</a></code> and <code><a href='FS.html'>FS</a></code> are available to convert line and font sizes in points to ggplot2 equivalents.</p>
+<p><strong>Line width</strong> (size) aesthatics in <a href='ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a> generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions <code><a href='LS.html'>LS</a></code> and <code><a href='FS.html'>FS</a></code> are available to convert line and font sizes in points to ggplot2 equivalents.</p>
 <p><strong>Ocean currents</strong> for the Barents Sea are implemented, but not peer-reviewed yet. This feature will be improved in the future versions of the package.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot2-package'>ggplot2</a></code> <code><a href='theme_map.html'>theme_map</a></code></p></div>
+    <div class='dont-index'><p><code><a href='ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a></code> <code><a href='theme_map.html'>theme_map</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

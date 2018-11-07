@@ -36,14 +36,14 @@ Plot method for \code{\link[=interpolate]{spatInt}} objects.
 \examples{
 data(chlorophyll) ## load an example dataset
 x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
-plot(x, type = "kongsfjorden") ## Plot
+plot(x) ## Plot
 
 ## PlotSvalbard functions can be expanded by using ggplot2 syntax
-plot(x, type = "kongsfjorden") + geom_text(data = chlorophyll,
-aes(x = lon.utm, y = lat.utm, label = Station))
+plot(x) + geom_text(data = chlorophyll, aes(x = lon.utm, y = lat.utm, label = Station))
 
+## Auto limits leave an empty space around the gridded surface.
 ## Changing limits is easiest using the inbuild argument
-plot(x, type = "kongsfjorden", limits = c(11.4,12.7,78.85,79.05))
+plot(x, limits = c(11.4,12.7,78.85,79.05))
 }
 \seealso{
 \code{\link{interpolate}} \code{\link{basemap}}
