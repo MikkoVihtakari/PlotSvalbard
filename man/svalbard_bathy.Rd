@@ -22,7 +22,8 @@ Other shapefiles: \code{\link{arctic50}},
   \code{\link{arctic_currents}},
   \code{\link{atlantic_currents}},
   \code{\link{barents_bathy}}, \code{\link{kong.cr}},
-  \code{\link{mosj.cr}}, \code{\link{svalbard.ld}}
+  \code{\link{mosj.cr}}, \code{\link{svalbard.gl}},
+  \code{\link{svalbard.ld}}
 }
 \concept{shapefiles}
 \keyword{datasets}

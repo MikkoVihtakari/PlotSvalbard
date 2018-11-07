@@ -3,42 +3,27 @@
 \docType{data}
 \name{svalbard.ld}
 \alias{svalbard.ld}
-\alias{svalbard.gl}
-\title{SpatialPolygonsDataFrame containing glacier boundaries on Svalbard. The tidal-glacier fronts for Kongsfjorden are from July 2017, while the rest vary between 2005 and 2017.}
-\format{SpatialPolygonsDataFrame containing 1:250 000 glacier shapes of Svalbard. In \code{"+init=epsg:32633"} projection.}
+\title{SpatialPolygonsDataFrame containing land shapes for Svalbard}
+\format{SpatialPolygonsDataFrame containing 1:250 000 landshapes of Svalbard. In \code{"+init=epsg:32633"} projection.}
 \source{
-Norwegian Polar Institute (\url{http://geodata.npolar.no/})
-
 Norwegian Polar Institute (\url{http://geodata.npolar.no/})
 }
 \usage{
-svalbard.gl
-
 svalbard.ld
 }
 \description{
-SpatialPolygonsDataFrame containing glacier boundaries on Svalbard. The tidal-glacier fronts for Kongsfjorden are from July 2017, while the rest vary between 2005 and 2017.
-
 SpatialPolygonsDataFrame containing land shapes for Svalbard
 }
 \seealso{
 basemap
 
-basemap
-
 Other shapefiles: \code{\link{arctic50}},
   \code{\link{arctic60}}, \code{\link{arctic_bathy}},
   \code{\link{arctic_currents}},
   \code{\link{atlantic_currents}},
   \code{\link{barents_bathy}}, \code{\link{kong.cr}},
-  \code{\link{mosj.cr}}, \code{\link{svalbard_bathy}}
-
-Other shapefiles: \code{\link{arctic50}},
-  \code{\link{arctic60}}, \code{\link{arctic_bathy}},
-  \code{\link{arctic_currents}},
-  \code{\link{atlantic_currents}},
-  \code{\link{barents_bathy}}, \code{\link{kong.cr}},
-  \code{\link{mosj.cr}}, \code{\link{svalbard_bathy}}
+  \code{\link{mosj.cr}}, \code{\link{svalbard.gl}},
+  \code{\link{svalbard_bathy}}
 }
 \concept{shapefiles}
 \keyword{datasets}

@@ -102,7 +102,7 @@
 #' @docType data
 #' @keywords datasets shapefiles internal
 #' @family shapefiles
-#' @name svalbard.ld
+#' @name svalbard.gl
 #' @format SpatialPolygonsDataFrame containing 1:250 000 glacier shapes of Svalbard. In \code{"+init=epsg:32633"} projection.
 #' @source Norwegian Polar Institute (\url{http://geodata.npolar.no/})
 #' @seealso basemap
