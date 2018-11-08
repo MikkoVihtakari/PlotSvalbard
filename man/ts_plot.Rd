@@ -75,13 +75,22 @@ ts_plot(ctd_kongsfjord, color = "red", margin_distr = TRUE) # no color scaling
 
 data("ctd_rijpfjord")
 
-ts_plot(ctd_rijpfjord, WM = rijpfjord_watermasses, temp_col = "theta", sal_col = "salinity")
-ts_plot(ctd_rijpfjord, symbol_shape = 16, symbol_size = 0.1, symbol_alpha = 0.8,
- margin_distr = TRUE, xlim = c(32, 35), temp_col = "theta", sal_col = "salinity", color = "area")
+ts_plot(ctd_rijpfjord, WM = rijpfjord_watermasses)
+
+# example of graphical parameter modification
+ts_plot(ctd_rijpfjord, WM = rijpfjord_watermasses, symbol_shape = 16, symbol_size = 0.1, 
+symbol_alpha = 0.8, margin_distr = TRUE, xlim = c(32, 35), color = "area") 
 }
 \seealso{
 \code{\link{define_water_type}}, the \link{kongsfjord_watermasses} data.frame ,the \link{rijpfjord_watermasses} data.frame
+
+Other ts_plot: \code{\link{ctd_kongsfjord}},
+  \code{\link{ctd_rijpfjord}},
+  \code{\link{define_water_type}},
+  \code{\link{kongsfjord_watermasses}},
+  \code{\link{rijpfjord_watermasses}}
 }
 \author{
 Mikko Vihtakari with help from \href{https://stackoverflow.com/questions/17370853/align-ggplot2-plots-vertically/17371177#17371177}{baptiste} to align marginal plots.
 }
+\concept{ts_plot}

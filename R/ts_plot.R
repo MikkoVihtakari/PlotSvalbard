@@ -21,6 +21,7 @@
 #' @param plot_data logical indicating whether salinity and temperature data should be plotted. \code{FALSE} returns an empty T-S plot frame allowing further customization using ggplot2 syntax.
 #' @param base_size Base size parameter for ggplot. See \link[ggplot2]{theme_bw}.
 #' @seealso \code{\link{define_water_type}}, the \link{kongsfjord_watermasses} data.frame ,the \link{rijpfjord_watermasses} data.frame
+#' @family ts_plot
 #' @author Mikko Vihtakari with help from \href{https://stackoverflow.com/questions/17370853/align-ggplot2-plots-vertically/17371177#17371177}{baptiste} to align marginal plots.
 #' @import ggplot2
 #' @importFrom gtable gtable_add_cols gtable_add_grob gtable_add_rows
@@ -46,9 +47,11 @@
 #'
 #' data("ctd_rijpfjord")
 #'
-#' ts_plot(ctd_rijpfjord, WM = rijpfjord_watermasses, temp_col = "theta", sal_col = "salinity")
-#' ts_plot(ctd_rijpfjord, symbol_shape = 16, symbol_size = 0.1, symbol_alpha = 0.8,
-#'  margin_distr = TRUE, xlim = c(32, 35), temp_col = "theta", sal_col = "salinity", color = "area")
+#' ts_plot(ctd_rijpfjord, WM = rijpfjord_watermasses)
+#' 
+#' # example of graphical parameter modification
+#' ts_plot(ctd_rijpfjord, WM = rijpfjord_watermasses, symbol_shape = 16, symbol_size = 0.1, 
+#' symbol_alpha = 0.8, margin_distr = TRUE, xlim = c(32, 35), color = "area") 
 #' @export
 
 ## ####
@@ -83,9 +86,19 @@ if(!is.null(WM)) {
 if(is.null(xlim) & zoom) {
   xbreaks <- pretty(range(dt[[sal_col]]), n = nlevels)
   xlim <- range(xbreaks)
+
+    if(max(dt[[sal_col]]) < 35.15 & xlim[2] == 36) {
+    xlim <- c(xlim[1], 35.15)
+  }
+
 } else if(is.null(xlim)) {
   xbreaks <- pretty(range(c(dt[[sal_col]], c(32, 35))), n = nlevels)
   xlim <- range(xbreaks)
+
+    if(max(dt[[sal_col]]) < 35.15 & xlim[2] == 36) {
+    xlim <- c(xlim[1], 35.15)
+  }
+
 } else {
   xbreaks <- pretty(xlim)
 }
@@ -279,7 +292,13 @@ if(margin_distr & plot_data) {
 if(scale2color & (!is.null(color_scale) | color == "watertype") & plot_data) {
 
   if(is.null(color_scale) & color == "watertype") {
-    color_scale <- c("AWs" = "#D44F56", "SWs" = "#649971", "ArWs" = "#3881AC", "AW" = "#B6434A", "TAW" = "#FF5F68", "AdW" = "#FF727C", "IW" = "#82C893", "SW" = "#517D5B", "WCW" = "#B27DA6", "ArW" = "#449BCF", "Other" = "grey50")
+    
+    if(any(WM$abb %in% "TAW")) {
+      color_scale <- c("AWs" = "#D44F56", "SWs" = "#649971", "ArWs" = "#3881AC", "AW" = "#B6434A", "AIW" = "#056A89", "TAW" = "#FF5F68", "IW" = "#82C893", "SW" = "#517D5B", "WCW" = "#B27DA6", "ArW" = "#449BCF", "PSW" = "#449BCF", "Other" = "grey50")
+    } else {
+      color_scale <- c("AWs" = "#D44F56", "SWs" = "#649971", "ArWs" = "#3881AC", "AW" = "#FF5F68", "AIW" = "#056A89", "IW" = "#82C893", "SW" = "#517D5B", "WCW" = "#B27DA6", "ArW" = "#449BCF", "PSW" = "#449BCF", "Other" = "grey50")
+    }
+    
     color_var_name <- "Water type"
   } else {
     if(is.null(color_var_name)) color_var_name <- color

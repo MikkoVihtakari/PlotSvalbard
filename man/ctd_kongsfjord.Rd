@@ -11,5 +11,12 @@ ctd_kongsfjord
 \description{
 A dataframe containing example CTD data for Kongsfjorden.
 }
+\seealso{
+Other ts_plot: \code{\link{ctd_rijpfjord}},
+  \code{\link{define_water_type}},
+  \code{\link{kongsfjord_watermasses}},
+  \code{\link{rijpfjord_watermasses}},
+  \code{\link{ts_plot}}
+}
+\concept{ts_plot}
 \keyword{datasets}
-\keyword{ts_plot}

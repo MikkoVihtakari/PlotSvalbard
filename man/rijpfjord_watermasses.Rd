@@ -11,5 +11,15 @@ rijpfjord_watermasses
 \description{
 A dataframe containing water mass definitions for Rijpfjorden.
 }
+\details{
+A pre-made \code{\link[=define_water_type]{WM}} data frame for the NPI's Rijpfjorden transect. The water types in this classification have been modified from Pérez-Hernández et al. (2017), which was originally made for the same region without the fjord. The changes include addition of Winter Cooled Water from Cottier et al. (2005) and exlusion of density in the categorization. Instead, salinity threshold of 34.87 for Atlantic and Arctic Intermediate Waters (AIW) was used. This decision is purely due to the difficulty of programming polygons in 3D space. It may cause very minor changes in water mass classification at the boundary of AIW and PSW.
+}
+\seealso{
+Other ts_plot: \code{\link{ctd_kongsfjord}},
+  \code{\link{ctd_rijpfjord}},
+  \code{\link{define_water_type}},
+  \code{\link{kongsfjord_watermasses}},
+  \code{\link{ts_plot}}
+}
+\concept{ts_plot}
 \keyword{datasets}
-\keyword{ts_plot}

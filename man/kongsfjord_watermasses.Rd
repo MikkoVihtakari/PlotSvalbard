@@ -11,5 +11,15 @@ kongsfjord_watermasses
 \description{
 A dataframe containing water mass definitions for Kongsfjorden. An example of formatting of the \code{WM} argument in \code{\link{define_water_type}}
 }
+\details{
+A pre-made \code{\link[=define_water_type]{WM}} data frame for the NPI's Kongsfjorden transect (also called MOSJ transect). the water types are returned after the definition in Cottier et al. (2005) with slight modifications to avoid overlaps of water types. \strong{Density} boundaries have not been implemented as these seem to have relatively little meaning in tested data after limiting water types using temperature and salinity.
+}
+\seealso{
+Other ts_plot: \code{\link{ctd_kongsfjord}},
+  \code{\link{ctd_rijpfjord}},
+  \code{\link{define_water_type}},
+  \code{\link{rijpfjord_watermasses}},
+  \code{\link{ts_plot}}
+}
+\concept{ts_plot}
 \keyword{datasets}
-\keyword{ts_plot}
