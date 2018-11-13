@@ -20,7 +20,7 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
   bathy.detailed = FALSE, land.col = "#eeeac4",
   land.border.col = "black", land.size = 0.1, gla.col = "grey95",
   gla.border.col = "black", gla.size = 0.1, grid.col = "grey70",
-  grid.size = 0.1, currents = FALSE, arc.col = "#D696C8",
+  grid.size = 0.1, currents = FALSE, arc.col = "blue",
   atl.col = "#BB1512", current.size = 0.5, current.alpha = 1,
   label.print = TRUE, label.offset = 1.05, label.font = 8,
   base_size = 11)
@@ -68,7 +68,7 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
 
 \item{arc.col, atl.col}{Character code specifying the color for Arctic and Atlantic current arrows.}
 
-\item{current.size}{Numeric value specifying the width of ocean current arrows.}
+\item{current.size}{Either a numeric value specifying the width of ocean current arrows or "scaled" for ocean currents that are approximately scaled to their size.}
 
 \item{current.alpha}{Value between 0 and 1 defining the transparency of current arrows.}
 

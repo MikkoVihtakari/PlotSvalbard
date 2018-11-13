@@ -1,6 +1,7 @@
 #' @title Return map elements for basemap
 #' @description An internal function to make \code{\link{basemap}} code more readable
 #' @param command basemap layer to be added
+#' @param alternative logical to return alternative formmatting in certain cases. Used to reduce \code{if}-\code{else} statements in \code{\link{basemap}}.
 #' @details This is an internal function, which is automatically run by the \code{\link{basemap}} function. Common users do not need to worry about these details. Basemap elements can added together using this function, \code{\link[base]{parse}} and \code{\link[base]{eval}}.
 #' @examples ## An example for utm map without glaciers or bathymetry
 #' \dontrun{eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"),
@@ -11,7 +12,7 @@
 #' @author Mikko Vihtakari
 #' @seealso \code{\link{basemap}}
 
-map_cmd <- function(command) {
+map_cmd <- function(command, alternative = FALSE) {
   switch(command,
     base_dat = 'basemap_data(type = type, limits = limits, round.lat. = round.lat, n.lat.grid. = n.lat.grid, round.lon. = round.lon, n.lon.grid. = n.lon.grid, keep.glaciers. = keep.glaciers)',
     base_dat_polar = 'basemap_data(type = type, limits = limits, lat.interval. = lat.interval, lon.interval. = lon.interval, keep.glaciers. = FALSE)',
@@ -24,7 +25,10 @@ map_cmd <- function(command) {
     glacier_utm = 'geom_polygon(data = X$Glacier, aes(x = long, y = lat, group = group), fill = gla.col, color = gla.border.col, size = gla.size) + geom_polygon(data = X$Holes, aes(x=long, y=lat, group = group), fill = land.col, color = gla.border.col, size = land.size)',
     grid_utm = 'geom_line(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = grid.size) + geom_line(data = X$Grid$lon, aes(x=lon.utm, y=lat.utm, group = ID), color = grid.col, size = grid.size)',
     defs_utm = 'scale_y_continuous(name = "Latitude (decimal degrees)", breaks = X$Grid$lat.breaks$lat_utm, labels = X$Grid$lat.breaks$label) + scale_x_continuous(name = "Longitude (decimal degrees)", breaks = X$Grid$lon.breaks$lon_utm, labels = X$Grid$lon.breaks$label) + coord_fixed(xlim = c(X$Grid$limits$lon.utm[1], X$Grid$limits$lon.utm[2]), ylim = c(X$Grid$limits$lat.utm[1], X$Grid$limits$lat.utm[2]), expand = FALSE) + theme_map(base_size = base_size)',
-    currents_utm = 'geom_path(data = atl, aes(x = long, y = lat, group = group), color = atl.col, size = current.size, alpha = current.alpha, arrow = arrow(type = "closed", angle = 15, ends = "last", length = unit(0.3, "lines"))) + geom_path(data = arc, aes(x = long, y = lat, group = group), color = arc.col, size = current.size, alpha = current.alpha, arrow = arrow(type = "closed", angle = 15, ends = "last", length = unit(0.3, "lines")))',
+    currents_utm = if(alternative) {
+      'geom_path(data = atl, aes(x = long, y = lat, group = group, size = size), color = atl.col, alpha = current.alpha, arrow = arrow(type = "closed", angle = 15, ends = "last", length = unit(0.3, "lines"))) + geom_path(data = arc, aes(x = long, y = lat, group = group, size = size), color = arc.col, alpha = current.alpha, arrow = arrow(type = "closed", angle = 15, ends = "last", length = unit(0.3, "lines")))'
+    } else {'geom_path(data = atl, aes(x = long, y = lat, group = group), color = atl.col, size = current.size, alpha = current.alpha, arrow = arrow(type = "closed", angle = 15, ends = "last", length = unit(0.3, "lines"))) + geom_path(data = arc, aes(x = long, y = lat, group = group), color = arc.col, size = current.size, alpha = current.alpha, arrow = arrow(type = "closed", angle = 15, ends = "last", length = unit(0.3, "lines")))'
+      },
     land_polar = 'geom_polygon(data = X$Land, aes(x = long, y = lat, group = group), fill = land.col, color = land.border.col, size = land.size)',
     grid_polar = 'geom_path(data = X$Grid$lat, aes(x = lon.utm, y=lat.utm, group = ID), color = grid.col, size = grid.size) + geom_segment(data = X$Grid$lon, aes(x = lon.start, xend = lon.end, y = lat.start, yend = lat.end, group = label), color = grid.col, size = grid.size)',
     labels_polar = 'geom_text(data = X$Grid$lon, aes(x = label.offset*lon.end, y = label.offset*lat.end, angle = angle, label = paste(label, "^o", sep = "")), size = label.font/2.845276, parse = TRUE) + geom_text(data = X$Grid$lat.breaks, aes(x = lon.utm, y = lat.utm, label = paste(label, "^o", sep = "")), hjust = 0, vjust = 0, size = LS(label.font), parse = TRUE)',
@@ -38,6 +42,3 @@ map_cmd <- function(command) {
 )
 }
 
-formatterUTMkm <- function(x){
-    x/1000
-}

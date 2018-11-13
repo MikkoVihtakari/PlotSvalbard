@@ -4,10 +4,12 @@
 \alias{map_cmd}
 \title{Return map elements for basemap}
 \usage{
-map_cmd(command)
+map_cmd(command, alternative = FALSE)
 }
 \arguments{
 \item{command}{basemap layer to be added}
+
+\item{alternative}{logical to return alternative formmatting in certain cases. Used to reduce \code{if}-\code{else} statements in \code{\link{basemap}}.}
 }
 \description{
 An internal function to make \code{\link{basemap}} code more readable

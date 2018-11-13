@@ -26,7 +26,7 @@
 ##' @param land.size,gla.size,grid.size Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.
 ##' @param currents logical indicating whether Arctic and Atlantic ocean currents for the Barents Sea should be plotted. See details. 
 ##' @param arc.col,atl.col Character code specifying the color for Arctic and Atlantic current arrows.
-##' @param current.size Numeric value specifying the width of ocean current arrows.  
+##' @param current.size Either a numeric value specifying the width of ocean current arrows or "scaled" for ocean currents that are approximately scaled to their size.   
 ##' @param current.alpha Value between 0 and 1 defining the transparency of current arrows.
 ##' @param label.print Logical indicating whether labels should be printed for polar stereographic maps.
 ##' @param label.font Numeric value specifying the font size for labels in polar stereographic maps. Note that this value defines the actual font size in points, not the \code{ggplot2} font size.
@@ -119,9 +119,9 @@
 # limits = c("kongsfjord_moorings", "Lon", "Lat")
 # type = "arctic60"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04; bathymetry = TRUE
 # type = "arctic50"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; bathymetry = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04
-# type = "barentssea"; limits = c(24,33, 81, 82.5); limits.lon = 0.1; limits.lat = 0.1; round.lon = FALSE; n.lon.grid = 3; lon.interval = 45; round.lat = FALSE; n.lat.grid = 3; lat.interval = 10; keep.glaciers = TRUE; bathymetry = FALSE; bathy.style = "poly_blues"; bathy.legend = TRUE; bathy.detailed = FALSE; land.col = "#eeeac4"; land.border.col = "black"; land.size = 0.1; gla.col = "grey95"; gla.border.col = "black"; gla.size = 0.1; grid.col = "grey70"; grid.size = 0.1; currents = FALSE; arc.col = "#D696C8"; atl.col = "#BB1512"; current.size = 0.5; current.alpha = 1; label.print = TRUE; label.offset = 1.05; label.font = 8; base_size = 11
+# type = "barentssea"; limits = NULL; limits.lon = 0.1; limits.lat = 0.1; round.lon = FALSE; n.lon.grid = 3; lon.interval = 45; round.lat = FALSE; n.lat.grid = 3; lat.interval = 10; keep.glaciers = TRUE; bathymetry = TRUE; bathy.style = "poly_blues"; bathy.legend = TRUE; bathy.detailed = FALSE; land.col = "#eeeac4"; land.border.col = "black"; land.size = 0.1; gla.col = "grey95"; gla.border.col = "black"; gla.size = 0.1; grid.col = "grey70"; grid.size = 0.1; currents = TRUE; arc.col = "#D696C8"; atl.col = "#BB1512"; current.size = "scaled"; current.alpha = 1; label.print = TRUE; label.offset = 1.05; label.font = 8; base_size = 11
 
-basemap <- function(type = "kongsfjorden", limits = NULL, limits.lon = 0.1, limits.lat = 0.1, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, keep.glaciers = TRUE, bathymetry = FALSE, bathy.style = "poly_blues", bathy.legend = TRUE, bathy.detailed = FALSE, land.col = "#eeeac4", land.border.col = "black", land.size = 0.1, gla.col = "grey95", gla.border.col = "black", gla.size = 0.1, grid.col = "grey70", grid.size = 0.1, currents = FALSE, arc.col = "#D696C8", atl.col = "#BB1512", current.size = 0.5, current.alpha = 1, label.print = TRUE, label.offset = 1.05, label.font = 8, base_size = 11) {
+basemap <- function(type = "kongsfjorden", limits = NULL, limits.lon = 0.1, limits.lat = 0.1, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, keep.glaciers = TRUE, bathymetry = FALSE, bathy.style = "poly_blues", bathy.legend = TRUE, bathy.detailed = FALSE, land.col = "#eeeac4", land.border.col = "black", land.size = 0.1, gla.col = "grey95", gla.border.col = "black", gla.size = 0.1, grid.col = "grey70", grid.size = 0.1, currents = FALSE, arc.col = "blue", atl.col = "#BB1512", current.size = 0.5, current.alpha = 1, label.print = TRUE, label.offset = 1.05, label.font = 8, base_size = 11) {
 
   if(length(limits) == 3 & is.character(limits)) {
     limits <- c(round_any(min(get(limits[1])[limits[2]]), limits.lon, floor), round_any(max(get(limits[1])[limits[2]]), limits.lon, ceiling), round_any(min(get(limits[1])[limits[3]]), limits.lat, floor), round_any(max(get(limits[1])[limits[3]]), limits.lat, ceiling))
@@ -153,6 +153,7 @@ if(bathymetry) {
 if(currents) {
   atl <- clip_current(atlantic_currents, X)
   arc <- clip_current(arctic_currents, X)
+  scaled_currents <- ifelse(current.size == "scaled", TRUE, FALSE)
 }
 
 if(X$MapClass %in% c("panarctic")) {
@@ -206,7 +207,7 @@ if(X$MapClass %in% c("panarctic")) {
     if(bathymetry) { ## With bathymetry
       if(currents) { ## With currents
         if(length(X$Land) == 0) {
-          eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+          eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("currents_utm", scaled_currents), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
         } else {
           eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
         }
@@ -221,11 +222,11 @@ if(X$MapClass %in% c("panarctic")) {
       }
     
     } else { ## Without bathymetry
-      if(currents) {
+      if(currents) { ## With currents
         if(length(X$Land) == 0) {
-          eval(parse(text=paste(map_cmd("base"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+          eval(parse(text=paste(map_cmd("base"), map_cmd("currents_utm", scaled_currents), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
         } else {
-          eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+          eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("glacier_utm"), map_cmd("currents_utm", scaled_currents), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
         }
         
       } else { ## Without currents
@@ -242,9 +243,9 @@ if(X$MapClass %in% c("panarctic")) {
     if(bathymetry) { ## With bathymetry
       if(currents) { ## With currents
         if(length(X$Land) == 0) {
-        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))  
+        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("currents_utm", scaled_currents), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))  
         } else {
-        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))  
+        eval(parse(text=paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("land_utm"), map_cmd("currents_utm", scaled_currents), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))  
         }
         
       } else { ## Without currents
@@ -256,7 +257,7 @@ if(X$MapClass %in% c("panarctic")) {
         if(length(X$Land) == 0) {
           eval(parse(text=paste(map_cmd("base"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
         } else {
-          eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("currents_utm"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
+          eval(parse(text=paste(map_cmd("base"), map_cmd("land_utm"), map_cmd("currents_utm", scaled_currents), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))
         }} else {
           if(length(X$Land) == 0) {
           eval(parse(text=paste(map_cmd("base"), map_cmd("grid_utm"), map_cmd("defs_utm"), sep = "+")))      

@@ -6,13 +6,15 @@
 \title{Data frame containing Atlantic ocean currents in the Barents Sea}
 \format{Data frame}
 \source{
-Institute of Marine Research, Mikko Vihtakari
+Institute of Marine Research (mostly Harald Gjøsæter), Norwegian Polar Institute (Arild Sundfjord, Mikko Vihtakari). 
+
+Modified from Eriksen E, Gjøsæter H, Prozorkevich D et al. (2018) From single species surveys towards monitoring of the Barents Sea ecosystem. Progress in Oceanography, 166, 4–14. doi:https://doi.org/10.1016/j.pocean.2017.09.007
 }
 \usage{
 atlantic_currents
 }
 \description{
-Data frame containing Atlantic ocean currents in the Barents Sea
+The data frame, intended to be shown as arrows, represents the current understanding of Atlantic ocean currents. The currents are updated as our knowledge increases. The Barent Sea currents are based on Eriksen et al. 2018, while North of Svalbard currents are based on the articles published by Arild Sundfjord.
 }
 \seealso{
 basemap

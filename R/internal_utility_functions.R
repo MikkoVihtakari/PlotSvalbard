@@ -37,3 +37,14 @@ select <- function(x,y) sapply(x, "[", y)
 round_any <- function(x, accuracy, f = round) {
   f(x / accuracy) * accuracy
 }
+
+#' @title Convert direct UTM distances to kilometers
+#' @description Divides \code{x} by 1000 (i.e from meters to kilometers, since polar stereographic are meters from the North Pole). Used for ggplot2 labels.
+#' @param x numeric to be converted
+#' @keywords internal
+#' @export
+#' 
+formatterUTMkm <- function(x){
+    x/1000
+}
+
