@@ -16,14 +16,13 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
   limits.lat = 0.1, round.lon = FALSE, n.lon.grid = 3,
   lon.interval = 45, round.lat = FALSE, n.lat.grid = 3,
   lat.interval = 10, keep.glaciers = TRUE, bathymetry = FALSE,
-  bathy.style = "poly_blues", bathy.legend = TRUE,
-  bathy.detailed = FALSE, land.col = "#eeeac4",
-  land.border.col = "black", land.size = 0.1, gla.col = "grey95",
-  gla.border.col = "black", gla.size = 0.1, grid.col = "grey70",
-  grid.size = 0.1, currents = FALSE, arc.col = "blue",
-  atl.col = "#BB1512", current.size = 0.5, current.alpha = 1,
-  label.print = TRUE, label.offset = 1.05, label.font = 8,
-  base_size = 11)
+  bathy.style = "poly_blues", bathy.detailed = FALSE, legends = TRUE,
+  land.col = "#eeeac4", land.border.col = "black", land.size = 0.1,
+  gla.col = "grey95", gla.border.col = "black", gla.size = 0.1,
+  grid.col = "grey70", grid.size = 0.1, currents = FALSE,
+  arc.col = "blue", atl.col = "#BB1512", current.size = 0.5,
+  current.alpha = 1, label.print = TRUE, label.offset = 1.05,
+  label.font = 8, base_size = 11)
 }
 \arguments{
 \item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.}
@@ -54,9 +53,9 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
 \item \code{"contour_grey"} plots grey contour lines.
 }}
 
-\item{bathy.legend}{Logical indicating whether legend for bathymetry should be shown. Defaults to \code{TRUE}}
-
 \item{bathy.detailed}{Logical indicating whether detailed bathymetry shapefiles should be used. Works for Svalbard maps only (see \emph{Source}). Very slow due to the large file size. Use for limited areas, such as fjords, only.}
+
+\item{legends}{Logical indicating whether legends for bathymetry and/or ocean currents should be shown. Defaults to \code{TRUE}}
 
 \item{land.col, gla.col, grid.col}{Character code specifying the color of land, glaciers and grid lines, respectively. Use \code{NA} to remove the grid lines.}
 
