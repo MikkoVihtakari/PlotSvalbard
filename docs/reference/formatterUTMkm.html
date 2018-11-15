@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Decimal degree grid from UTM projected spatial objects — deg_grid • PlotSvalbard</title>
+<title>Convert direct UTM distances to kilometers — formatterUTMkm • PlotSvalbard</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Decimal degree grid from UTM projected spatial objects — deg_grid" />
+<meta property="og:title" content="Convert direct UTM distances to kilometers — formatterUTMkm" />
 
-<meta property="og:description" content="Outputs a list of grid lines that can be used to plot a grid on maps. Requires a spatial object projected using UTM coordinates" />
+<meta property="og:description" content="Divides x by 1000 (i.e from meters to kilometers, since polar stereographic are meters from the North Pole). Used for ggplot2 labels." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,60 +109,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Decimal degree grid from UTM projected spatial objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/R/deg_grid.R'><code>R/deg_grid.R</code></a></small>
-    <div class="hidden name"><code>deg_grid.Rd</code></div>
+    <h1>Convert direct UTM distances to kilometers</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/R/internal_utility_functions.R'><code>R/internal_utility_functions.R</code></a></small>
+    <div class="hidden name"><code>formatterUTMkm.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Outputs a list of grid lines that can be used to plot a grid on maps. Requires a spatial object projected using UTM coordinates</p>
+    <p>Divides <code>x</code> by 1000 (i.e from meters to kilometers, since polar stereographic are meters from the North Pole). Used for ggplot2 labels.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>deg_grid</span>(<span class='no'>dat</span>, <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lat.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>round.lon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>n.points</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
+    <pre class="usage"><span class='fu'>formatterUTMkm</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dat</th>
-      <td><p><code><a href='basemap_limits.html'>basemapLimits</a></code> object</p></td>
-    </tr>
-    <tr>
-      <th>round.lat</th>
-      <td><p>specifying the level of rounding to be used to plot latitude grid lines. Overrides <code>n.lat.grid</code></p></td>
-    </tr>
-    <tr>
-      <th>n.lat.grid</th>
-      <td><p>number of latitude grid lines. Alternatively use <code>round.lat</code></p></td>
-    </tr>
-    <tr>
-      <th>round.lon</th>
-      <td><p>specifying the level of rounding to be used to plot longitude grid lines. Overrides <code>n.lon.grid</code></p></td>
-    </tr>
-    <tr>
-      <th>n.lon.grid</th>
-      <td><p>number of longitude grid lines. Alternatively use <code>round.lon</code></p></td>
-    </tr>
-    <tr>
-      <th>n.points</th>
-      <td><p>number of points used in creating the grid lines. The more points, the smoother the lines.</p></td>
+      <th>x</th>
+      <td><p>numeric to be converted</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Returns a UTM coodrinate grid.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This is an internal function, which is automatically run by the <code><a href='basemap.html'>basemap</a></code> function. Common users do not need to worry about these details.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='basemap.html'>basemap</a></code></p></div>
     
 
   </div>
@@ -170,17 +137,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
-
-    <h2>Author</h2>
-    
-Mikko Vihtakari
+                </ul>
 
   </div>
 </div>

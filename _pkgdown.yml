@@ -59,11 +59,10 @@ reference:
     PlotSvalbard to make maps outside the Svalbard region.
   contents:
   - arctic_bathy
-  - arctic_currents
   - arctic50
   - arctic60
-  - atlantic_currents
   - barents_bathy
+  - barents_currents
   - barents.ld
   - kong.cr
   - mosj.cr

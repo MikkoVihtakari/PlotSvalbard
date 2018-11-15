@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.5</span>
       </span>
     </div>
 
@@ -153,12 +153,21 @@
     <p>Water-types are useful in summarizing salinity, temperature and density characteristics of water masses. By default, the water types are returned after the definition in Cottier et al. (2005) with slight modifications to avoid overlaps of water types. <strong>Density</strong> boundaries have not been implemented as these seem to have relatively little meaning on Svalbard after limiting water types using temperature and salinity.</p>
 <p><strong>Custom water type classifications</strong> can be defined using the <code>WM</code> argument. This argument should be a data frame containing the following column names: type, abb, sal.min, sal.max, temp.min, and temp.max. See the default <code>WM</code>, <a href='kongsfjord_watermasses.html'>kongsfjord_watermasses</a>, as an example. Rows in the data frame represent separate water types. The "type" column gives the name of the water mass and the "abb" column the abbreviation of the water mass (used in <code><a href='ts_plot.html'>ts_plot</a></code>). The water types are defined using <strong>rectangular</strong> boundaries on salinity (x) - temperature (y) coordinate system. The "sal.min" and "sal.max" columns give the minimum and maximum extent for the x-axis while the corresponding "temp.*" columns define the limits for the y-axis of the rectangles. The rectangles are rendered to polygons inside the function. If water types overlap, the water type that <strong>comes first</strong> in the <code>WM</code> data frame dominates and defines the water type for a point based on salinity and temperature. Consequently, <strong>one point cannot have more than one water type</strong>. When making the <code>WM</code> data frame, use <code>Inf</code> and <code>-Inf</code> for water types, which do not have positive and negative limits, respectively.</p>
 <p>You can use the <a href='ts_plot.html'>TS diagram</a> to check that your custom water types are defined correctly. Note that most sources refer to <strong>potential temperatures</strong> and <strong>practical salinities</strong>. Make sure that your data use the same units and standards than the source when defining water types.</p>
-<p>MarineDatabase also contains a pre-made <code>WM</code> data frame for the NPI's Rijpfjorden transect (<a href='rijpfjord_watermasses.html'>rijpfjord_watermasses</a>). The water types in this classification have been modified from Cottier et al. (2005) to better correspond water masses for North of Svalbard. The salinity limit of the Atlantic water layer has been increased to match that in the Atlantic current north of Rijpfjorden (main Atlantic water pathway to the Arctic Ocean) after Crews et al. (2018). Deep Atlantic Water layer represents the water under the current that is clearly Atlantic origin, but has been mixed with Deep Arctic Ocean water masses.</p>
+<p>MarineDatabase also contains a pre-made <code>WM</code> data frame for the NPI's Rijpfjorden transect (<a href='rijpfjord_watermasses.html'>rijpfjord_watermasses</a>). The water types in this classification have been modified from Pérez-Hernández et al. (2017), which was originally made for the same region without the fjord. The changes include addition of Winter Cooled Water from Cottier et al. (2005) and exlusion of density in the categorization. Instead, salinity threshold of 34.87 for Atlantic and Arctic Intermediate Waters (AIW) was used. This decision is purely due to the difficulty of programming polygons in 3D space. It may cause very minor changes in water mass classification at the boundary of AIW and PSW.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Cottier, F., Tverberg, V., Inall, M., Svendsen, H., Nilsen, F., Griffiths, C., 2005. Water mass modification in an Arctic fjord through cross-shelf exchange: The seasonal hydrography of Kongsfjorden, Svalbard. J. Geophys. Res. 110, C12005. doi:10.1029/2004JC002757</p>
-<p>Crews L, Sundfjord A, Albretsen J, Hattermann T (2018) Mesoscale Eddy Activity and Transport in the Atlantic Water Inflow Region North of Svalbard. J Geophys Res Ocean 123:201–215. doi: 10.1002/2017JC013198</p>
+    <p>Cottier F, Tverberg V, Inall M, Svendsen H, Nilsen F, Griffiths C (2005) Water mass modification in an Arctic fjord through cross-shelf exchange: The seasonal hydrography of Kongsfjorden, Svalbard. Journal of Geophysical Research, 110, C12005. doi:10.1029/2004JC002757</p>
+<p>Pérez-Hernández M.D., Pickart R.S., Pavlov V. et al. (2017) The Atlantic Water boundary current north of Svalbard in late summer. Journal of Geophysical Research: Oceans, 122, 2269–2290. doi:10.1002/2016JC012486</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='ts_plot.html'>ts_plot</a></code>, the <a href='kongsfjord_watermasses.html'>kongsfjord_watermasses</a> data.frame ,the <a href='rijpfjord_watermasses.html'>rijpfjord_watermasses</a> data.frame</p>
+<p>Other ts_plot: <code><a href='ctd_kongsfjord.html'>ctd_kongsfjord</a></code>,
+  <code><a href='ctd_rijpfjord.html'>ctd_rijpfjord</a></code>,
+  <code><a href='kongsfjord_watermasses.html'>kongsfjord_watermasses</a></code>,
+  <code><a href='rijpfjord_watermasses.html'>rijpfjord_watermasses</a></code>,
+  <code><a href='ts_plot.html'>ts_plot</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -177,6 +186,8 @@
       <li><a href="#details">Details</a></li>
 
       <li><a href="#references">References</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

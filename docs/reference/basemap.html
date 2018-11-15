@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.5</span>
       </span>
     </div>
 
@@ -123,22 +123,22 @@
     <pre class="usage"><span class='fu'>basemap</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"kongsfjorden"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>limits.lon</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
   <span class='kw'>limits.lat</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>round.lon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>lon.interval</span> <span class='kw'>=</span> <span class='fl'>45</span>, <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lat.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>lat.interval</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>keep.glaciers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>bathy.style</span> <span class='kw'>=</span> <span class='st'>"poly_blues"</span>, <span class='kw'>bathy.legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>bathy.detailed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>land.col</span> <span class='kw'>=</span> <span class='st'>"#eeeac4"</span>,
-  <span class='kw'>land.border.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>land.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>gla.col</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
-  <span class='kw'>gla.border.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>gla.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"grey70"</span>,
-  <span class='kw'>grid.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>currents</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>arc.col</span> <span class='kw'>=</span> <span class='st'>"#D696C8"</span>,
-  <span class='kw'>atl.col</span> <span class='kw'>=</span> <span class='st'>"#BB1512"</span>, <span class='kw'>current.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>current.alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>label.print</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label.offset</span> <span class='kw'>=</span> <span class='fl'>1.05</span>, <span class='kw'>label.font</span> <span class='kw'>=</span> <span class='fl'>8</span>,
-  <span class='kw'>base_size</span> <span class='kw'>=</span> <span class='fl'>11</span>)</pre>
+  <span class='kw'>lat.interval</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>keep.glaciers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>legends</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>bathy.style</span> <span class='kw'>=</span> <span class='st'>"poly_blues"</span>,
+  <span class='kw'>bathy.detailed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>bathy.border.col</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>bathy.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>land.col</span> <span class='kw'>=</span> <span class='st'>"#eeeac4"</span>, <span class='kw'>land.border.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>land.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>gla.col</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>, <span class='kw'>gla.border.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>gla.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"grey70"</span>, <span class='kw'>grid.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>currents</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>arc.col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>atl.col</span> <span class='kw'>=</span> <span class='st'>"#BB1512"</span>, <span class='kw'>current.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>current.alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label.print</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label.offset</span> <span class='kw'>=</span> <span class='fl'>1.05</span>,
+  <span class='kw'>label.font</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>base_size</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>type</th>
-      <td><p>Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.</p></td>
+      <td><p>Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "rijpfjorden", "barentssea", "arctic50" or "arctic60". See details.</p></td>
     </tr>
     <tr>
       <th>limits</th>
@@ -168,8 +168,12 @@
       <td><p>Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to <code>FALSE</code> speeds up map plotting by a few seconds.</p></td>
     </tr>
     <tr>
+      <th>legends</th>
+      <td><p>Logical indicating whether legends for bathymetry and/or ocean currents should be shown. Can be a single logical applying to all legends or a logical vector of length 2. The first element applies for bathymetry and the second for ocean currents.</p></td>
+    </tr>
+    <tr>
       <th>bathymetry</th>
-      <td><p>Logical indicating whether bathymetry should be added to the map. Relatively slow. Defaults to <code>FALSE</code></p></td>
+      <td><p>Logical indicating whether bathymetry should be added to the map. Relatively slow.</p></td>
     </tr>
     <tr>
       <th>bathy.style</th>
@@ -181,10 +185,6 @@
 </ul></td>
     </tr>
     <tr>
-      <th>bathy.legend</th>
-      <td><p>Logical indicating whether legend for bathymetry should be shown. Defaults to <code>TRUE</code></p></td>
-    </tr>
-    <tr>
       <th>bathy.detailed</th>
       <td><p>Logical indicating whether detailed bathymetry shapefiles should be used. Works for Svalbard maps only (see <em>Source</em>). Very slow due to the large file size. Use for limited areas, such as fjords, only.</p></td>
     </tr>
@@ -193,11 +193,11 @@
       <td><p>Character code specifying the color of land, glaciers and grid lines, respectively. Use <code>NA</code> to remove the grid lines.</p></td>
     </tr>
     <tr>
-      <th>land.border.col, gla.border.col</th>
-      <td><p>Character code specifying the color of the border line for land and glacier shapes.</p></td>
+      <th>land.border.col, gla.border.col, bathy.border.col</th>
+      <td><p>Character code specifying the color of the border line for land, glacier, and bathymetry shapes.</p></td>
     </tr>
     <tr>
-      <th>land.size, gla.size, grid.size</th>
+      <th>land.size, gla.size, bathy.size, grid.size</th>
       <td><p>Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.</p></td>
     </tr>
     <tr>
@@ -210,7 +210,7 @@
     </tr>
     <tr>
       <th>current.size</th>
-      <td><p>Numeric value specifying the width of ocean current arrows.</p></td>
+      <td><p>Either a numeric value specifying the width of ocean current arrows or "scaled" for ocean currents that are approximately scaled to their size.</p></td>
     </tr>
     <tr>
       <th>current.alpha</th>
@@ -232,6 +232,10 @@
       <th>base_size</th>
       <td><p>Base size parameter for ggplot. See <a href='ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a>.</p></td>
     </tr>
+    <tr>
+      <th>plot</th>
+      <td><p>logical indicting whether a ggplot should be returned. If <code>FALSE</code> underlying data for the <code>basemap</code> will be returned allowing further customization.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
@@ -245,21 +249,22 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a <a href='ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a> map, which can be assigned to an object and modified as any ggplot object.</p>
+    <p>If <code>plot = TRUE</code>, returns a <a href='ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a> map, which can be assigned to an object and modified as any ggplot object. Otherwise returns a list of <a href='basemap_data.html'>basemap data</a>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function uses <a href='ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a> and shapefiles to plot maps of Svalbard and other polar regions. The Svalbard shapefiles are detailed and glaciers varyinly up-to-date (2017 for Kongsfjorden; mostly 2015 for the rest, but not systematically checked) detailed The map type is defined using the <code>type</code> argument and map limits can be controlled with the <code>limits</code> argument. Currently implemented map <code>type</code>s:</p><ul>
+    <p>The function uses <a href='ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a> and shapefiles to plot maps of Svalbard and other polar regions. The Svalbard shapefiles are detailed and glaciers varyingly up-to-date (2017 for Kongsfjorden; mostly 2015 for the rest, but not systematically checked) detailed The map type is defined using the <code>type</code> argument and map limits can be controlled with the <code>limits</code> argument. Currently implemented map <code>type</code>s:</p><ul>
 <li><p>"svalbard". Detailed 1:250 000 map of Svalbard land and glaciers. This option is slow (approx. 25 seconds) due to the large file size.</p></li>
-<li><p>"mosj" shows Kongsfjoden and Fram Strait as sampled during Norwegian Polar Institute's MOSJ campaigns. Some glaciers can be older than 2015.</p></li>
-<li><p>"kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to smaller file size.</p></li>
-<li><p>"kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to a smaller file size.</p></li>
-<li><p>"kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to a smaller file size.</p></li>
+<li><p>"mosj" shows Kongsfjoden and Fram Strait as sampled during Norwegian Polar Institute's (NPI) MOSJ campaigns. Some glaciers can be older than 2015.</p></li>
+<li><p>"kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017.</p></li>
+<li><p>"kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017.</p></li>
+<li><p>"kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017.</p></li>
+<li><p>"rijpfjorden" shows NPI's Rijpfjorden to the Arctic Ocean transect. The glaciers have not been updated and might be old.</p></li>
 <li><p>"barentssea". A 1:10 000 000 map of the Barents Sea.</p></li>
 <li><p>"arctic50". A polar stereographic map of the Arctic with a limit at 50 degrees North.</p></li>
 <li><p>"arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.</p></li>
 </ul>
-    <p>Svalbard and Barents Sea maps use the <code>"+init=epsg:32633"</code> UTM projection. The polar stereographic maps use <code>"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"</code> projection.</p>
+    <p>Svalbard and Barents Sea maps use the <code>"+init=epsg:32633"</code> UTM projection. The polar stereographic maps use <code>"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"</code> projection. The "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", and "rijpfjorden" maps use a subset of the Svalbard shape files and are faster to plot due to a smaller file size. These alternatives give convinient limits for certain regions the main author has worked with recently. New map types can be implemented relatively easily, but require digging into the source code.</p>
 <p><strong>Line width</strong> (size) aesthatics in <a href='ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a> generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions <code><a href='LS.html'>LS</a></code> and <code><a href='FS.html'>FS</a></code> are available to convert line and font sizes in points to ggplot2 equivalents.</p>
 <p><strong>Ocean currents</strong> for the Barents Sea are implemented, but not peer-reviewed yet. This feature will be improved in the future versions of the package.</p>
     
@@ -297,11 +302,11 @@
 <span class='fu'>basemap</span>(<span class='st'>"arctic60"</span>) + <span class='fu'>theme_bw</span>()</div><div class='img'><img src='basemap-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>basemap</span>(<span class='st'>"arctic60"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>250000</span>, -<span class='fl'>2500000</span>, <span class='fl'>2000000</span>, -<span class='fl'>250000</span>))</div><div class='img'><img src='basemap-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Bathymetry can be added using the bathymetry argument</span>
 <span class='fu'>basemap</span>(<span class='st'>"arctic50"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-12.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Detailed bathymetry is available for some </span>
+<span class='co'>## Detailed bathymetry is available for some</span>
 <span class='co'>## Svalbard fjords</span>
 <span class='fu'>basemap</span>(<span class='st'>"kongsfjorden"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bathy.detailed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Ocean currents for the Barents Sea</span>
-<span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>currents</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-14.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>currents</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>currents</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>current.size</span> <span class='kw'>=</span> <span class='st'>"scaled"</span>)</div><div class='img'><img src='basemap-15.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

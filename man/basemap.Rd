@@ -15,17 +15,18 @@
 basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
   limits.lat = 0.1, round.lon = FALSE, n.lon.grid = 3,
   lon.interval = 45, round.lat = FALSE, n.lat.grid = 3,
-  lat.interval = 10, keep.glaciers = TRUE, bathymetry = FALSE,
-  bathy.style = "poly_blues", bathy.detailed = FALSE, legends = TRUE,
+  lat.interval = 10, keep.glaciers = TRUE, legends = TRUE,
+  bathymetry = FALSE, bathy.style = "poly_blues",
+  bathy.detailed = FALSE, bathy.border.col = NA, bathy.size = 0.1,
   land.col = "#eeeac4", land.border.col = "black", land.size = 0.1,
   gla.col = "grey95", gla.border.col = "black", gla.size = 0.1,
   grid.col = "grey70", grid.size = 0.1, currents = FALSE,
   arc.col = "blue", atl.col = "#BB1512", current.size = 0.5,
   current.alpha = 1, label.print = TRUE, label.offset = 1.05,
-  label.font = 8, base_size = 11)
+  label.font = 8, base_size = 11, plot = TRUE)
 }
 \arguments{
-\item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "barentssea", "arctic50" or "arctic60". See details.}
+\item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "rijpfjorden", "barentssea", "arctic50" or "arctic60". See details.}
 
 \item{limits}{Map limits. Either a numeric vector of length 4 or a character vector of length 3. Numeric vectors are used to constrain (zoom in) the maps using coordinates. Character vectors are used to automatically zoom into a dataset.
 \itemize{
@@ -43,7 +44,9 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
 
 \item{keep.glaciers}{Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.}
 
-\item{bathymetry}{Logical indicating whether bathymetry should be added to the map. Relatively slow. Defaults to \code{FALSE}}
+\item{legends}{Logical indicating whether legends for bathymetry and/or ocean currents should be shown. Can be a single logical applying to all legends or a logical vector of length 2. The first element applies for bathymetry and the second for ocean currents.}
+
+\item{bathymetry}{Logical indicating whether bathymetry should be added to the map. Relatively slow.}
 
 \item{bathy.style}{Character defining the style for bathymetry contours. Alternatives:
 \itemize{
@@ -55,13 +58,11 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
 
 \item{bathy.detailed}{Logical indicating whether detailed bathymetry shapefiles should be used. Works for Svalbard maps only (see \emph{Source}). Very slow due to the large file size. Use for limited areas, such as fjords, only.}
 
-\item{legends}{Logical indicating whether legends for bathymetry and/or ocean currents should be shown. Defaults to \code{TRUE}}
-
 \item{land.col, gla.col, grid.col}{Character code specifying the color of land, glaciers and grid lines, respectively. Use \code{NA} to remove the grid lines.}
 
-\item{land.border.col, gla.border.col}{Character code specifying the color of the border line for land and glacier shapes.}
+\item{land.border.col, gla.border.col, bathy.border.col}{Character code specifying the color of the border line for land, glacier, and bathymetry shapes.}
 
-\item{land.size, gla.size, grid.size}{Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.}
+\item{land.size, gla.size, bathy.size, grid.size}{Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.}
 
 \item{currents}{logical indicating whether Arctic and Atlantic ocean currents for the Barents Sea should be plotted. See details.}
 
@@ -78,27 +79,30 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
 \item{label.font}{Numeric value specifying the font size for labels in polar stereographic maps. Note that this value defines the actual font size in points, not the \code{ggplot2} font size.}
 
 \item{base_size}{Base size parameter for ggplot. See \link[ggplot2]{theme_bw}.}
+
+\item{plot}{logical indicting whether a ggplot should be returned. If \code{FALSE} underlying data for the \code{basemap} will be returned allowing further customization.}
 }
 \value{
-Returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object.
+If \code{plot = TRUE}, returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object. Otherwise returns a list of \link[=basemap_data]{basemap data}.
 }
 \description{
 Creates a ggplot2 basemap for further plotting of variables.
 }
 \details{
-The function uses \link[ggplot2]{ggplot2} and shapefiles to plot maps of Svalbard and other polar regions. The Svalbard shapefiles are detailed and glaciers varyinly up-to-date (2017 for Kongsfjorden; mostly 2015 for the rest, but not systematically checked) detailed The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
+The function uses \link[ggplot2]{ggplot2} and shapefiles to plot maps of Svalbard and other polar regions. The Svalbard shapefiles are detailed and glaciers varyingly up-to-date (2017 for Kongsfjorden; mostly 2015 for the rest, but not systematically checked) detailed The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
 \itemize{
 \item "svalbard". Detailed 1:250 000 map of Svalbard land and glaciers. This option is slow (approx. 25 seconds) due to the large file size.
-\item "mosj" shows Kongsfjoden and Fram Strait as sampled during Norwegian Polar Institute's MOSJ campaigns. Some glaciers can be older than 2015.
-\item "kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to smaller file size.
-\item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to a smaller file size.
-\item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017. This map uses a subset of the Svalbard shape files and is faster to plot due to a smaller file size.
+\item "mosj" shows Kongsfjoden and Fram Strait as sampled during Norwegian Polar Institute's (NPI) MOSJ campaigns. Some glaciers can be older than 2015.
+\item "kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017. 
+\item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017. 
+\item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017. 
+\item "rijpfjorden" shows NPI's Rijpfjorden to the Arctic Ocean transect. The glaciers have not been updated and might be old. 
 \item "barentssea". A 1:10 000 000 map of the Barents Sea.
 \item "arctic50". A polar stereographic map of the Arctic with a limit at 50 degrees North.
 \item "arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.
 }
 
-Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection.
+Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection. The "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", and "rijpfjorden" maps use a subset of the Svalbard shape files and are faster to plot due to a smaller file size. These alternatives give convinient limits for certain regions the main author has worked with recently. New map types can be implemented relatively easily, but require digging into the source code. 
 
 \strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions \code{\link{LS}} and \code{\link{FS}} are available to convert line and font sizes in points to ggplot2 equivalents.
 
@@ -151,6 +155,7 @@ basemap("kongsfjorden", bathymetry = TRUE, bathy.detailed = TRUE)
 
 ## Ocean currents for the Barents Sea
 basemap("barentssea", bathymetry = TRUE, currents = TRUE)
+basemap("barentssea", bathymetry = TRUE, currents = TRUE, current.size = "scaled")
 
 }
 \seealso{

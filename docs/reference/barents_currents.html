@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Decimal degree grid from UTM projected spatial objects — deg_grid • PlotSvalbard</title>
+<title>Data frame containing Atlantic and Arctic ocean currents for the Barents Sea — barents_currents • PlotSvalbard</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Decimal degree grid from UTM projected spatial objects — deg_grid" />
+<meta property="og:title" content="Data frame containing Atlantic and Arctic ocean currents for the Barents Sea — barents_currents" />
 
-<meta property="og:description" content="Outputs a list of grid lines that can be used to plot a grid on maps. Requires a spatial object projected using UTM coordinates" />
+<meta property="og:description" content="The data frame, intended to be shown as arrows, represents the current understanding of Atlantic and Arctic ocean currents. The currents are updated as our knowledge increases. The Barent Sea currents are based on Eriksen et al. 2018, while North of Svalbard currents are based on the articles published by Arild Sundfjord." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,78 +109,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Decimal degree grid from UTM projected spatial objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/R/deg_grid.R'><code>R/deg_grid.R</code></a></small>
-    <div class="hidden name"><code>deg_grid.Rd</code></div>
+    <h1>Data frame containing Atlantic and Arctic ocean currents for the Barents Sea</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/R/shapefiles-docs.R'><code>R/shapefiles-docs.R</code></a></small>
+    <div class="hidden name"><code>barents_currents.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Outputs a list of grid lines that can be used to plot a grid on maps. Requires a spatial object projected using UTM coordinates</p>
+    <p>The data frame, intended to be shown as arrows, represents the current understanding of Atlantic and Arctic ocean currents. The currents are updated as our knowledge increases. The Barent Sea currents are based on Eriksen et al. 2018, while North of Svalbard currents are based on the articles published by Arild Sundfjord.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>deg_grid</span>(<span class='no'>dat</span>, <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lat.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>round.lon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>n.points</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>dat</th>
-      <td><p><code><a href='basemap_limits.html'>basemapLimits</a></code> object</p></td>
-    </tr>
-    <tr>
-      <th>round.lat</th>
-      <td><p>specifying the level of rounding to be used to plot latitude grid lines. Overrides <code>n.lat.grid</code></p></td>
-    </tr>
-    <tr>
-      <th>n.lat.grid</th>
-      <td><p>number of latitude grid lines. Alternatively use <code>round.lat</code></p></td>
-    </tr>
-    <tr>
-      <th>round.lon</th>
-      <td><p>specifying the level of rounding to be used to plot longitude grid lines. Overrides <code>n.lon.grid</code></p></td>
-    </tr>
-    <tr>
-      <th>n.lon.grid</th>
-      <td><p>number of longitude grid lines. Alternatively use <code>round.lon</code></p></td>
-    </tr>
-    <tr>
-      <th>n.points</th>
-      <td><p>number of points used in creating the grid lines. The more points, the smoother the lines.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='no'>barents_currents</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>Returns a UTM coodrinate grid.</p>
+    <p>Data frame</p>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>This is an internal function, which is automatically run by the <code><a href='basemap.html'>basemap</a></code> function. Common users do not need to worry about these details.</p>
+    <p>Institute of Marine Research (mostly Harald Gjøsæter), Norwegian Polar Institute (Arild Sundfjord, Mikko Vihtakari).</p>
+<p>Modified from Eriksen E, Gjøsæter H, Prozorkevich D et al. (2018) From single species surveys towards monitoring of the Barents Sea ecosystem. Progress in Oceanography, 166, 4–14. doi:https://doi.org/10.1016/j.pocean.2017.09.007</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='basemap.html'>basemap</a></code></p></div>
+    <div class='dont-index'><p>basemap</p>
+<p>Other shapefiles: <code><a href='arctic50.html'>arctic50</a></code>,
+  <code><a href='arctic60.html'>arctic60</a></code>, <code><a href='arctic_bathy.html'>arctic_bathy</a></code>,
+  <code><a href='barents_bathy.html'>barents_bathy</a></code>, <code><a href='kong.cr.html'>kong.cr</a></code>,
+  <code><a href='mosj.cr.html'>mosj.cr</a></code>, <code><a href='svalbard.gl.html'>svalbard.gl</a></code>,
+  <code><a href='svalbard.ld.html'>svalbard.ld</a></code>, <code><a href='svalbard_bathy.html'>svalbard_bathy</a></code></p></div>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#format">Format</a></li>
 
-      <li><a href="#details">Details</a></li>
+      <li><a href="#source">Source</a></li>
 
       <li><a href="#see-also">See also</a></li>
           </ul>
-
-    <h2>Author</h2>
-    
-Mikko Vihtakari
 
   </div>
 </div>

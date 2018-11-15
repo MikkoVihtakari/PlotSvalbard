@@ -169,6 +169,11 @@ Ocean currents for the Barents Sea have been implemented in the most recent vers
 basemap("barentssea", bathymetry = TRUE, bathy.style = "poly_greys", currents = TRUE, current.alpha = 0.7)
 ```
 
+The package also supports currents, where the amount of water is approximately scaled to the thickness. The thickness is approximatation and based more on feelings than actual science
+
+```{r currents_scaled}
+basemap("barentssea", bathymetry = TRUE, currents = TRUE, current.size = "scaled")
+```
 
 
 ## Adding data to basemaps
