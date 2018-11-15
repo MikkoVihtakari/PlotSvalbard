@@ -5,10 +5,10 @@
 ##' \itemize{
 ##'   \item \strong{numeric vector}: the first element defines the minimum longitude, the second element the maximum longitude, the third element the minimum latitude and the fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", \code{\link{map_projection}} and \code{\link{transform_coord}} how to find these coordinates.
 ##'   \item \strong{character vector}: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the \code{limits.lon} and \code{limits.lat} agruments to define the accuracy of rounding.
-##' } 
+##' }
 ##' @param limits.lon,limits.lat Numeric. The level of rounding for longitude and latitude, respectively, when using automatic limits (character vector in \code{limits} argument).
 ##' @param bathymetry Logical indicating whether bathymetry should be added to the map. Relatively slow. Defaults to \code{FALSE}
-##' @param bathy.style Character defining the style for bathymetry contours. Alternatives: 
+##' @param bathy.style Character defining the style for bathymetry contours. Alternatives:
 ##' \itemize{
 ##' \item \code{"poly_blues"} plots polygons filled with different shades of blue.
 ##' \item \code{"poly_greys"} plots polygons filled with different shades of grey.
@@ -24,9 +24,9 @@
 ##' @param keep.glaciers Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.
 ##' @param land.border.col,gla.border.col Character code specifying the color of the border line for land and glacier shapes.
 ##' @param land.size,gla.size,grid.size Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.
-##' @param currents logical indicating whether Arctic and Atlantic ocean currents for the Barents Sea should be plotted. See details. 
+##' @param currents logical indicating whether Arctic and Atlantic ocean currents for the Barents Sea should be plotted. See details.
 ##' @param arc.col,atl.col Character code specifying the color for Arctic and Atlantic current arrows.
-##' @param current.size Either a numeric value specifying the width of ocean current arrows or "scaled" for ocean currents that are approximately scaled to their size.   
+##' @param current.size Either a numeric value specifying the width of ocean current arrows or "scaled" for ocean currents that are approximately scaled to their size.
 ##' @param current.alpha Value between 0 and 1 defining the transparency of current arrows.
 ##' @param label.print Logical indicating whether labels should be printed for polar stereographic maps.
 ##' @param label.font Numeric value specifying the font size for labels in polar stereographic maps. Note that this value defines the actual font size in points, not the \code{ggplot2} font size.
@@ -98,13 +98,13 @@
 ##' ## Bathymetry can be added using the bathymetry argument
 ##' basemap("arctic50", bathymetry = TRUE)
 ##'
-##' ## Detailed bathymetry is available for some 
+##' ## Detailed bathymetry is available for some
 ##' ## Svalbard fjords
 ##' basemap("kongsfjorden", bathymetry = TRUE, bathy.detailed = TRUE)
 ##'
 ##' ## Ocean currents for the Barents Sea
 ##' basemap("barentssea", bathymetry = TRUE, currents = TRUE)
-##' 
+##'
 ##' @seealso \code{\link[ggplot2]{ggplot2}} \code{\link{theme_map}}
 ##'
 ##' @author Mikko Vihtakari, Anders Skoglund
@@ -126,8 +126,8 @@ basemap <- function(type = "kongsfjorden", limits = NULL, limits.lon = 0.1, limi
   if(length(limits) == 3 & is.character(limits)) {
     limits <- c(round_any(min(get(limits[1])[limits[2]]), limits.lon, floor), round_any(max(get(limits[1])[limits[2]]), limits.lon, ceiling), round_any(min(get(limits[1])[limits[3]]), limits.lat, floor), round_any(max(get(limits[1])[limits[3]]), limits.lat, ceiling))
   }
-  
-## Map data  
+
+## Map data
 X <- switch(map_type(type)$map.type,
   panarctic = eval(parse(text=paste(map_cmd("base_dat_polar")))),
   svalbard = eval(parse(text=paste(map_cmd("base_dat")))),
@@ -139,7 +139,7 @@ X <- switch(map_type(type)$map.type,
 ## Bathymetry data
 if(bathymetry) {
   bathy <- clip_bathymetry(X, detailed = bathy.detailed)
-  
+
   bathy_cmd <- switch(bathy.style,
     poly_blues = "bathy_pb",
     poly_greys = "bathy_pg",
@@ -151,8 +151,7 @@ if(bathymetry) {
 
 ## Ocean current data
 if(currents) {
-  atl <- clip_current(atlantic_currents, X)
-  arc <- clip_current(arctic_currents, X)
+  cur <- clip_current(barents_currents, X)
   scaled.currents <- ifelse(current.size == "scaled", TRUE, FALSE)
 }
 
@@ -162,7 +161,7 @@ if(is.null(map_type(X$MapType)$glacier)) {
   keep.glaciers <- FALSE
 }
 
-## Map composing 
+## Map composing
 
 if(X$MapClass %in% c("panarctic")) {
 
@@ -174,60 +173,60 @@ if(X$MapClass %in% c("panarctic")) {
   } else {
     layers <- paste(map_cmd("base"), map_cmd("grid_polar"), sep = " + ")
   }
-  
+
   ## Land
   if(length(X$Land) != 0) {
-    layers <- paste(layers, map_cmd("land_polar"), sep = " + ")  
+    layers <- paste(layers, map_cmd("land_polar"), sep = " + ")
   }
-  
+
   ## Square and round maps
-  
+
   if(X$Grid$limits) { ## Square maps
-    
+
     if(label.print) { ## With labels
-      layers <- paste(layers, map_cmd("labels_polar_limits"), map_cmd("defs_polar_limits"), sep = " + ")  
+      layers <- paste(layers, map_cmd("labels_polar_limits"), map_cmd("defs_polar_limits"), sep = " + ")
     } else { ## Without labels
-      layers <- paste(layers, map_cmd("defs_polar_limits"), map_cmd("remove_labels"), sep = " + ")  
-    } 
-    
+      layers <- paste(layers, map_cmd("defs_polar_limits"), map_cmd("remove_labels"), sep = " + ")
+    }
+
   } else { ## Round maps
-    
+
     if(label.print) { ## With labels
-      layers <- paste(layers, map_cmd("labels_polar"), map_cmd("defs_polar"), sep = " + ")  
+      layers <- paste(layers, map_cmd("labels_polar"), map_cmd("defs_polar"), sep = " + ")
     } else { ## Without labels
-      layers <- paste(layers, map_cmd("defs_polar"), sep = " + ")  
+      layers <- paste(layers, map_cmd("defs_polar"), sep = " + ")
     }
   }
-  
+
   ## Final plotting
   eval(parse(text=layers))
 
-  
+
   } else {
 
   ## UTM maps (Svalbard, Barents Sea, etc.) ####
-  
+
   ## Bathymetry
   if(bathymetry) {
     layers <- paste(map_cmd("base"), map_cmd(bathy_cmd), sep = " + ")
   } else {
     layers <- map_cmd("base")
   }
-  
+
   ## Land and glaciers
   if(length(X$Land) != 0) {
     if(keep.glaciers) {
-      layers <- paste(layers, map_cmd("land_utm"), map_cmd("glacier_utm"), sep = " + ")  
+      layers <- paste(layers, map_cmd("land_utm"), map_cmd("glacier_utm"), sep = " + ")
     } else {
-      layers <- paste(layers, map_cmd("land_utm"), sep = " + ") 
+      layers <- paste(layers, map_cmd("land_utm"), sep = " + ")
     }
   }
-  
+
   ## Ocean currents
   if(currents) {
     layers <- paste(layers, map_cmd("currents_utm", scaled.currents), sep = " + ")
   }
-  
+
   ## Final plotting
   eval(parse(text=paste(layers, map_cmd("grid_utm"), map_cmd("defs_utm"), sep = " + ")))
 

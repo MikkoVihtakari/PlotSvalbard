@@ -8,16 +8,6 @@
 #' @seealso basemap
 "arctic_bathy"
 
-#' @title Data frame containing Arctic ocean currents in the Barents Sea
-#' @docType data
-#' @keywords datasets shapefiles internal
-#' @family shapefiles
-#' @name arctic_currents
-#' @format Data frame
-#' @source Institute of Marine Research, Mikko Vihtakari
-#' @seealso basemap
-"arctic_currents"
-
 #' @title SpatialPolygonsDataFrame containing land shapes for pan-Arctic map with a cutpoint at 50 degrees latitude.
 #' @docType data
 #' @keywords datasets shapefiles internal
@@ -38,18 +28,18 @@
 #' @seealso basemap
 "arctic60"
 
-#' @title Data frame containing Atlantic ocean currents in the Barents Sea
-#' @description The data frame, intended to be shown as arrows, represents the current understanding of Atlantic ocean currents. The currents are updated as our knowledge increases. The Barent Sea currents are based on Eriksen et al. 2018, while North of Svalbard currents are based on the articles published by Arild Sundfjord.  
+#' @title Data frame containing Atlantic and Arctic ocean currents for the Barents Sea
+#' @description The data frame, intended to be shown as arrows, represents the current understanding of Atlantic and Arctic ocean currents. The currents are updated as our knowledge increases. The Barent Sea currents are based on Eriksen et al. 2018, while North of Svalbard currents are based on the articles published by Arild Sundfjord.
 #' @docType data
 #' @keywords datasets shapefiles internal
 #' @family shapefiles
-#' @name atlantic_currents
+#' @name barents_currents
 #' @format Data frame
-#' @source Institute of Marine Research (mostly Harald Gjøsæter), Norwegian Polar Institute (Arild Sundfjord, Mikko Vihtakari). 
-#' 
-#' Modified from Eriksen E, Gjøsæter H, Prozorkevich D et al. (2018) From single species surveys towards monitoring of the Barents Sea ecosystem. Progress in Oceanography, 166, 4–14. doi:https://doi.org/10.1016/j.pocean.2017.09.007 
+#' @source Institute of Marine Research (mostly Harald Gjøsæter), Norwegian Polar Institute (Arild Sundfjord, Mikko Vihtakari).
+#'
+#' Modified from Eriksen E, Gjøsæter H, Prozorkevich D et al. (2018) From single species surveys towards monitoring of the Barents Sea ecosystem. Progress in Oceanography, 166, 4–14. doi:https://doi.org/10.1016/j.pocean.2017.09.007
 #' @seealso basemap
-"atlantic_currents"
+"barents_currents"
 
 #' @title SpatialPolygonsDataFrame containing bathymetry for the Barents Sea
 #' @docType data

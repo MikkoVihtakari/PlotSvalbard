@@ -45,7 +45,7 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
 
 \item{bathymetry}{Logical indicating whether bathymetry should be added to the map. Relatively slow. Defaults to \code{FALSE}}
 
-\item{bathy.style}{Character defining the style for bathymetry contours. Alternatives: 
+\item{bathy.style}{Character defining the style for bathymetry contours. Alternatives:
 \itemize{
 \item \code{"poly_blues"} plots polygons filled with different shades of blue.
 \item \code{"poly_greys"} plots polygons filled with different shades of grey.
@@ -145,7 +145,7 @@ basemap("arctic60", limits = c(250000, -2500000, 2000000, -250000))
 ## Bathymetry can be added using the bathymetry argument
 basemap("arctic50", bathymetry = TRUE)
 
-## Detailed bathymetry is available for some 
+## Detailed bathymetry is available for some
 ## Svalbard fjords
 basemap("kongsfjorden", bathymetry = TRUE, bathy.detailed = TRUE)
 
