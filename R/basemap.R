@@ -106,7 +106,7 @@
 ##'
 ##' ## Ocean currents for the Barents Sea
 ##' basemap("barentssea", bathymetry = TRUE, currents = TRUE)
-##' basemap("barentssea", bathymetry = TRUE, currents = TRUE, current.size = "scaled")
+##' basemap("barentssea", bathymetry = TRUE, currents = TRUE, current.size = "scaled", legends = c(FALSE, TRUE))
 ##' 
 ##' @seealso \code{\link[ggplot2]{ggplot2}} \code{\link{theme_map}}
 ##'

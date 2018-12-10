@@ -155,7 +155,7 @@ basemap("kongsfjorden", bathymetry = TRUE, bathy.detailed = TRUE)
 
 ## Ocean currents for the Barents Sea
 basemap("barentssea", bathymetry = TRUE, currents = TRUE)
-basemap("barentssea", bathymetry = TRUE, currents = TRUE, current.size = "scaled")
+basemap("barentssea", bathymetry = TRUE, currents = TRUE, current.size = "scaled", legends = c(FALSE, TRUE))
 
 }
 \seealso{
