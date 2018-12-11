@@ -6,7 +6,7 @@
 \title{Data frame containing Atlantic and Arctic ocean currents for the Barents Sea}
 \format{Data frame}
 \source{
-Institute of Marine Research (mostly Harald Gjøsæter), Norwegian Polar Institute (Arild Sundfjord, Mikko Vihtakari).
+Vihtakari M, Sundfjord A, Gjøsæter H, de Steur L. (2019). Norwegian Polar Institute and Institute of Marine Research.
 
 Modified from Eriksen E, Gjøsæter H, Prozorkevich D et al. (2018) From single species surveys towards monitoring of the Barents Sea ecosystem. Progress in Oceanography, 166, 4–14. doi:https://doi.org/10.1016/j.pocean.2017.09.007
 }
