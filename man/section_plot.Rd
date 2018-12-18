@@ -7,9 +7,10 @@
 section_plot(df, x, y, z, bottom = NULL, interpolate = FALSE,
   interp_method = "mba", log_y = FALSE, xlab = "Distance",
   ylab = "Depth", zlab = "Variable", ybreaks = waiver(),
-  xbreaks = waiver(), zbreaks = waiver(), xlim = NULL, ylim = NULL,
-  zlim = NULL, zrange = c(1, 6), add_bottom = NULL,
-  legend.position = "right", base_size = 10)
+  xbreaks = waiver(), zbreaks = waiver(), contour = NULL,
+  contour_label_cex = 0.8, xlim = NULL, ylim = NULL, zlim = NULL,
+  zrange = c(1, 6), add_bottom = NULL, legend.position = "right",
+  base_size = 10)
 }
 \arguments{
 \item{df}{Data frame containing the data}
@@ -34,6 +35,10 @@ section_plot(df, x, y, z, bottom = NULL, interpolate = FALSE,
 
 \item{zbreaks}{Numeric vector specifying the breaks for z legend if \code{interpolate = FALSE} or contour lines if  \code{interpolate = TRUE}}
 
+\item{contour}{Numeric vector defining contour lines to be plotted if \code{interpolate = TRUE}. Use \code{NULL} not to plot the contour lines.}
+
+\item{contour_label_cex}{Numeric giving the \code{cex} (=size) parameter for contour labels. See \code{\link[directlabels]{geom_dl}}.}
+
 \item{xlim, ylim}{Numeric vector of length two providing limits of the scale. Use NA to refer to the existing minimum or maximum. Use \code{NULL} for default limits.}
 
 \item{zlim}{Numeric vector of length two providing limits for fill or bubble size. Any values outside these limits will get the extreme values defined by \code{zrange}}
@@ -42,15 +47,32 @@ section_plot(df, x, y, z, bottom = NULL, interpolate = FALSE,
 
 \item{add_bottom}{A numeric vector of length two providing the depths that should be added to \code{bottom} at the extremes (\code{\link[base]{range}}) of \code{xbreaks}.}
 
-\item{legend.position}{Position for ggplot2 legend. See the argument with the same name in\link[ggplot2]{theme}.}
+\item{legend.position}{Position for ggplot2 legend. See the argument with the same name in \link[ggplot2]{theme}.}
 
 \item{base_size}{Base size parameter for ggplot. See \link[ggplot2]{theme_bw}.}
 }
-\description{
-Make an oceanographic section plot from an x-y-z data frame
+\value{
+Returns either an interpolated section (\code{\link[ggplot2]{geom_tile}}) or a bubble (\code{\link[ggplot2]{geom_point}}) ggplot2 object.
 }
-\details{
+\description{
 Creates an oceanographic section plot from a data frame using ggplot2. Returns either an interpolated section or a bubble plot.
+}
+\examples{
+# Bubble plots
+section_plot(df = chlorophyll[grepl("KpN.|Kb[0-4]", chlorophyll$Station),], x = "lon", y = "From",
+  z = "Chla")
+
+# Interpolated CTD sections
+## Standard temperature section plot. Difficult to see surface due to large differences in y-scale
+section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth", interpolate = TRUE)
+
+## Logarithmic y axis
+section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth", interpolate = TRUE,
+  log_y = TRUE)
+
+## Contour lines
+section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth", interpolate = TRUE,
+  log_y = TRUE, contour = c(-1.8, 0, 1, 3))
 }
 \author{
 Mikko Vihtakari

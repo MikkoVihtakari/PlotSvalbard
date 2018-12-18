@@ -14,7 +14,7 @@
   base_size = 11, legend.position = "right", ...)
 }
 \arguments{
-\item{x}{\code{spatInt} object from \code{\link{interpolate}} function.}
+\item{x}{\code{spatInt} object from \code{\link{interpolate_spatial}} function.}
 
 \item{basemap}{Logical. Should basemap from \code{\link{basemap}} be used? Not implemented}
 
@@ -31,11 +31,11 @@
 \item{...}{Additional arguments. Required by R build checks. Ignore.}
 }
 \description{
-Plot method for \code{\link[=interpolate]{spatInt}} objects.
+Plot method for \code{\link[=interpolate_spatial]{spatInt}} objects.
 }
 \examples{
 data(chlorophyll) ## load an example dataset
-x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
+x <- interpolate_spatial(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
 plot(x) ## Plot
 
 ## PlotSvalbard functions can be expanded by using ggplot2 syntax
@@ -46,7 +46,7 @@ plot(x) + geom_text(data = chlorophyll, aes(x = lon.utm, y = lat.utm, label = St
 plot(x, limits = c(11.4,12.7,78.85,79.05))
 }
 \seealso{
-\code{\link{interpolate}} \code{\link{basemap}}
+\code{\link{interpolate_spatial}} \code{\link{basemap}}
 }
 \author{
 Mikko Vihtakari
