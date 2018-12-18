@@ -234,7 +234,7 @@ PlotSvalbard uses the [`krige` function](https://www.rdocumentation.org/packages
 ```{r}
 data("chlorophyll")
 
-x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
+x <- interpolate_spatial(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
 
 plot(x, legend.label = "Chlorophyll-a\n(mg/m3)") 
 
@@ -274,6 +274,10 @@ system.time(basemap("svalbard", limits = c(c(19.5,23.5,80,81.7))))
 ```
 
 # Other functions
+
+## Section plots and interpolation
+
+Added to v0.7. Not documented yet.
 
 ## Distance to land
 

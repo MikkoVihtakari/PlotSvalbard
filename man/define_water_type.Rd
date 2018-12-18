@@ -44,7 +44,6 @@ Pérez-Hernández M.D., Pickart R.S., Pavlov V. et al. (2017) The Atlantic Water
 \code{\link{ts_plot}}, the \link{kongsfjord_watermasses} data.frame ,the \link{rijpfjord_watermasses} data.frame
 
 Other ts_plot: \code{\link{ctd_kongsfjord}},
-  \code{\link{ctd_rijpfjord}},
   \code{\link{kongsfjord_watermasses}},
   \code{\link{rijpfjord_watermasses}},
   \code{\link{ts_plot}}

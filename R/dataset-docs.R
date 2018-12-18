@@ -61,9 +61,9 @@
 #' @title Example CTD data for Rijpfjorden
 #' @docType data
 #' @keywords datasets
-#' @family ts_plot
+#' @family ts_plot section_plot
 #' @name ctd_rijpfjord
-#' @description A dataframe containing example CTD data for Rijpfjorden.
+#' @description A dataframe containing an example CTD transect data from Rijpfjorden.
 #' @format data.frame
 "ctd_rijpfjord"
 

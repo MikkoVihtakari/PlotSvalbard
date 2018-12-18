@@ -9,14 +9,7 @@
 ctd_rijpfjord
 }
 \description{
-A dataframe containing example CTD data for Rijpfjorden.
+A dataframe containing an example CTD transect data from Rijpfjorden.
 }
-\seealso{
-Other ts_plot: \code{\link{ctd_kongsfjord}},
-  \code{\link{define_water_type}},
-  \code{\link{kongsfjord_watermasses}},
-  \code{\link{rijpfjord_watermasses}},
-  \code{\link{ts_plot}}
-}
-\concept{ts_plot}
+\concept{ts_plot section_plot}
 \keyword{datasets}

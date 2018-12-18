@@ -18,11 +18,13 @@ reference:
   - define_water_type
   - kongsfjord_watermasses
   - rijpfjord_watermasses
+  - interpolate_section
+  - section_plot
 - title: Other functions
   desc: Functions that do other things
   contents:
   - dist2land
-  - interpolate
+  - interpolate_spatial
   - plot.spatInt
   - LS
   - FS

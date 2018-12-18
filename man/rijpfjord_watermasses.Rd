@@ -16,7 +16,6 @@ A pre-made \code{\link[=define_water_type]{WM}} data frame for the NPI's Rijpfjo
 }
 \seealso{
 Other ts_plot: \code{\link{ctd_kongsfjord}},
-  \code{\link{ctd_rijpfjord}},
   \code{\link{define_water_type}},
   \code{\link{kongsfjord_watermasses}},
   \code{\link{ts_plot}}

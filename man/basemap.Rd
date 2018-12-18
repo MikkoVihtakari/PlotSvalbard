@@ -16,14 +16,15 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
   limits.lat = 0.1, round.lon = FALSE, n.lon.grid = 3,
   lon.interval = 45, round.lat = FALSE, n.lat.grid = 3,
   lat.interval = 10, keep.glaciers = TRUE, legends = TRUE,
-  bathymetry = FALSE, bathy.style = "poly_blues",
-  bathy.detailed = FALSE, bathy.border.col = NA, bathy.size = 0.1,
-  land.col = "#eeeac4", land.border.col = "black", land.size = 0.1,
-  gla.col = "grey95", gla.border.col = "black", gla.size = 0.1,
-  grid.col = "grey70", grid.size = 0.1, currents = FALSE,
-  arc.col = "blue", atl.col = "#BB1512", current.size = 0.5,
-  current.alpha = 1, label.print = TRUE, label.offset = 1.05,
-  label.font = 8, base_size = 11, plot = TRUE)
+  legend.position = "right", bathymetry = FALSE,
+  bathy.style = "poly_blues", bathy.detailed = FALSE,
+  bathy.border.col = NA, bathy.size = 0.1, land.col = "#eeeac4",
+  land.border.col = "black", land.size = 0.1, gla.col = "grey95",
+  gla.border.col = "black", gla.size = 0.1, grid.col = "grey70",
+  grid.size = 0.1, currents = FALSE, arc.col = "blue",
+  atl.col = "#BB1512", current.size = 0.5, current.alpha = 1,
+  label.print = TRUE, label.offset = 1.05, label.font = 8,
+  base_size = 11, plot = TRUE)
 }
 \arguments{
 \item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "rijpfjorden", "barentssea", "arctic50" or "arctic60". See details.}
@@ -31,7 +32,7 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
 \item{limits}{Map limits. Either a numeric vector of length 4 or a character vector of length 3. Numeric vectors are used to constrain (zoom in) the maps using coordinates. Character vectors are used to automatically zoom into a dataset.
 \itemize{
   \item \strong{numeric vector}: the first element defines the minimum longitude, the second element the maximum longitude, the third element the minimum latitude and the fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", \code{\link{map_projection}} and \code{\link{transform_coord}} how to find these coordinates.
-  \item \strong{character vector}: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the \code{limits.lon} and \code{limits.lat} agruments to define the accuracy of rounding.
+  \item \strong{character vector}: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the \code{limits.lon} and \code{limits.lat} arguments to define the accuracy of rounding.
 }}
 
 \item{limits.lon, limits.lat}{Numeric. The level of rounding for longitude and latitude, respectively, when using automatic limits (character vector in \code{limits} argument).}
@@ -45,6 +46,8 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
 \item{keep.glaciers}{Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.}
 
 \item{legends}{Logical indicating whether legends for bathymetry and/or ocean currents should be shown. Can be a single logical applying to all legends or a logical vector of length 2. The first element applies for bathymetry and the second for ocean currents.}
+
+\item{legend.position}{Position for ggplot2 legend. See the argument with the same name in \link[ggplot2]{theme}.}
 
 \item{bathymetry}{Logical indicating whether bathymetry should be added to the map. Relatively slow.}
 
@@ -102,9 +105,9 @@ The function uses \link[ggplot2]{ggplot2} and shapefiles to plot maps of Svalbar
 \item "arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.
 }
 
-Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection. The "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", and "rijpfjorden" maps use a subset of the Svalbard shape files and are faster to plot due to a smaller file size. These alternatives give convinient limits for certain regions the main author has worked with recently. New map types can be implemented relatively easily, but require digging into the source code. 
+Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection. The "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", and "rijpfjorden" maps use a subset of the Svalbard shape files and are faster to plot due to a smaller file size. These alternatives give convenient limits for certain regions the main author has worked with recently. New map types can be implemented relatively easily, but require digging into the source code. 
 
-\strong{Line width} (size) aesthatics in \link[ggplot2]{ggplot2} generetes approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions \code{\link{LS}} and \code{\link{FS}} are available to convert line and font sizes in points to ggplot2 equivalents.
+\strong{Line width} (size) aesthetics in \link[ggplot2]{ggplot2} generates approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions \code{\link{LS}} and \code{\link{FS}} are available to convert line and font sizes in points to ggplot2 equivalents.
 
 \strong{Ocean currents} for the Barents Sea are implemented, but not peer-reviewed yet. This feature will be improved in the future versions of the package.
 }

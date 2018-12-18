@@ -85,7 +85,6 @@ symbol_alpha = 0.8, margin_distr = TRUE, xlim = c(32, 35), color = "area")
 \code{\link{define_water_type}}, the \link{kongsfjord_watermasses} data.frame ,the \link{rijpfjord_watermasses} data.frame
 
 Other ts_plot: \code{\link{ctd_kongsfjord}},
-  \code{\link{ctd_rijpfjord}},
   \code{\link{define_water_type}},
   \code{\link{kongsfjord_watermasses}},
   \code{\link{rijpfjord_watermasses}}

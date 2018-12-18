@@ -87,7 +87,7 @@ citation("PlotSvalbard")
 ## To cite package 'PlotSvalbard' in publications use:
 ## 
 ##   Mikko Vihtakari (2018). PlotSvalbard: PlotSvalbard - Plot
-##   research data from Svalbard on maps. R package version 0.6.0.
+##   research data from Svalbard on maps. R package version 0.7.0.
 ##   https://github.com/MikkoVihtakari/PlotSvalbard
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -96,7 +96,7 @@ citation("PlotSvalbard")
 ##     title = {PlotSvalbard: PlotSvalbard - Plot research data from Svalbard on maps},
 ##     author = {Mikko Vihtakari},
 ##     year = {2018},
-##     note = {R package version 0.6.0},
+##     note = {R package version 0.7.0},
 ##     url = {https://github.com/MikkoVihtakari/PlotSvalbard},
 ##   }
 ```
@@ -150,6 +150,8 @@ The **PlotSvalbard** package depends on:
 
 News
 --------
+2018-12-18 Updated to v0.7. Added interpolation for oceanographic section plots together with a function that produces such plots using ggplot2. Renamed the previous `interpolate` function, which performed spatial interpolation to `interpolate_spatial`. Added possibility to adjust legend positions to `basemap`. Improved Barents Sea current arrow plotting. The new functions are still relatively unstabile and introduce more dependancies. Please report if you do not manage to install the new version of PlotSvalbard. The situation will be improved in the future updates.
+
 2018-11-07 Updated to the next major version v0.6. Added temperature - salinity plot functions from the MarineDatabase package. These functions are still under development. Updated online documentation, streamlined shape files (they take less space now, but Kongsfjorden maps take a couple of second longer to generate), and fixed a bug that caused `basemap` function to crash if there was no land within the limits (thanks for noticing it Allison!). 
 
 2018-10-26 Updated to next major version v0.5. Added ocean currents for Barents Sea as well as (rudimentary) waffle charts. Made the arguments for basemap more logical. *This update will break the maps made using previous versions of the package*. Change the argument names inside basemap, and it should work as before.

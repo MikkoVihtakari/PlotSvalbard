@@ -29,13 +29,13 @@
 "arctic60"
 
 #' @title Data frame containing Atlantic and Arctic ocean currents for the Barents Sea
-#' @description The data frame, intended to be shown as arrows, represents the current understanding of Atlantic and Arctic ocean currents. The currents are updated as our knowledge increases. The Barent Sea currents are based on Eriksen et al. 2018, while North of Svalbard currents are based on the articles published by Arild Sundfjord.
+#' @description The data frame, intended to be shown as arrows, represents the current understanding of Atlantic and Arctic ocean currents. The currents are updated as our knowledge increases. The Barent Sea currents are based on Eriksen et al. 2018, while North of Svalbard currents are based on the articles published by Arild Sundfjord and Fram Strait currents on work done by Laura de Steur.
 #' @docType data
 #' @keywords datasets shapefiles internal
 #' @family shapefiles
 #' @name barents_currents
 #' @format Data frame
-#' @source Vihtakari M, Sundfjord A, Gjøsæter H, de Steur L. (2019). Norwegian Polar Institute and Institute of Marine Research.
+#' @source Vihtakari M, Sundfjord A, de Steur L (2019). Barents Sea ocean-current arrows modified from Eriksen et al. (2018). Norwegian Polar Institute and Institute of Marine Research. Available at: https://github.com/MikkoVihtakari/Barents-Sea-currents
 #'
 #' Modified from Eriksen E, Gjøsæter H, Prozorkevich D et al. (2018) From single species surveys towards monitoring of the Barents Sea ecosystem. Progress in Oceanography, 166, 4–14. doi:https://doi.org/10.1016/j.pocean.2017.09.007
 #' @seealso basemap

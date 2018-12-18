@@ -1,17 +1,17 @@
 ##' @title Plot an interpolated map
-##' @description Plot method for \code{\link[=interpolate]{spatInt}} objects.
-##' @param x \code{spatInt} object from \code{\link{interpolate}} function.
+##' @description Plot method for \code{\link[=interpolate_spatial]{spatInt}} objects.
+##' @param x \code{spatInt} object from \code{\link{interpolate_spatial}} function.
 ##' @param basemap Logical. Should basemap from \code{\link{basemap}} be used? Not implemented
 ##' @param type Type of basemap. See \code{\link{basemap}}. Used only if \code{basemap = TRUE}.
 ##' @param limits Map limits. See \code{\link{basemap}}. The option "auto" (default) limits the map using coordinate range in \code{x}. Replace by \code{NULL} to remove the automatic zooming. Alternatively use a numeric vector as described in \code{\link{basemap}} documentation.
 ##' @param col.scale.limits A numeric vector of lenght 2 defining the limits for color scale of interpolated results. If \code{NULL} (default), the limits will be generated automatically.
 ##' @param legend.label Label for color legend. If NA (default), the labels are extracted from the \code{spatInt} object.
-##' @param limits.lon,limits.lat,round.lon,round.lat,n.lon.grid,n.lat.grid,land.size,land.col,gla.col,grid.col,land.border.col,gla.size,gla.border.col,grid.size,base_size,keep.glaciers See \code{\link{basemap}} documentation.
+##' @param limits.lon,limits.lat,round.lon,round.lat,n.lon.grid,n.lat.grid,land.size,land.col,gla.col,grid.col,land.border.col,gla.size,gla.border.col,grid.size,base_size,keep.glaciers,legend.position See \code{\link{basemap}} documentation.
 ##' @param ... Additional arguments. Required by R build checks. Ignore.
 ##' @method plot spatInt
-##' @seealso \code{\link{interpolate}} \code{\link{basemap}}
+##' @seealso \code{\link{interpolate_spatial}} \code{\link{basemap}}
 ##' @examples data(chlorophyll) ## load an example dataset
-##' x <- interpolate(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
+##' x <- interpolate_spatial(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
 ##' plot(x) ## Plot
 ##'
 ##' ## PlotSvalbard functions can be expanded by using ggplot2 syntax
@@ -27,7 +27,7 @@
 ## Test parameters
 #x = X; basemap = TRUE; type = "kongsfjorden"; col.scale.limits = NULL; legend.label = NA; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; x.lim = NULL; y.lim = NULL
 
-plot.spatInt <- function(x, basemap = TRUE, type = "svalbard", limits = "auto", limits.lon = 0.001, limits.lat = 0.001, col.scale.limits = NULL, legend.label = NA, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE, land.col = "#eeeac4", land.size = 0.1, land.border.col = "black", gla.col = "grey95", gla.size = 0.1, gla.border.col = "black", grid.col = "grey70", grid.size = 0.1, base_size = 11, ...) {
+plot.spatInt <- function(x, basemap = TRUE, type = "svalbard", limits = "auto", limits.lon = 0.001, limits.lat = 0.001, col.scale.limits = NULL, legend.label = NA, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3, keep.glaciers = TRUE, land.col = "#eeeac4", land.size = 0.1, land.border.col = "black", gla.col = "grey95", gla.size = 0.1, gla.border.col = "black", grid.col = "grey70", grid.size = 0.1, base_size = 11, legend.position = "right", ...) {
 
 if(basemap) {
 
