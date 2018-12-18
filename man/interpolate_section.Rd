@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpolate_section.R
 \name{interpolate_section}
 \alias{interpolate_section}
-\title{Interpolate 3D data for oceanographic section plots}
+\title{Interpolate x-y-z data for oceanographic section plots}
 \usage{
 interpolate_section(df = NULL, x, y, z, method = "linear",
   format = "ggplot", nx = 100, ny = 100, scale_distances = FALSE,
@@ -31,7 +31,7 @@ interpolate_section(df = NULL, x, y, z, method = "linear",
 \item{return_df_names}{logical indicating whether the original column names should be returned instead of x, y, and z if \code{df != NULL}}
 }
 \value{
-Returns a data.frame with interpolated \code{x, y, z} coordinates.
+Returns a data.frame with interpolated \code{x,y,z} coordinates.
 }
 \description{
 Wrapper function which interpolates 3D data. Designed for oceanographic section plots.

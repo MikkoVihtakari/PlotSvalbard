@@ -1,5 +1,5 @@
-##' @title Interpolate a spatial 2D surface from observations
-##' @description Interpolates a 2D surface from a data frame of spatial observations for plotting. Currently uses the \code{\link[gstat]{idw}} function.
+##' @title Interpolate a spatial surface from observations
+##' @description Interpolates a x-y surface from a data frame of spatial observations for plotting. Currently uses the \code{\link[gstat]{idw}} function.
 ##' @param df data frame containing required information
 ##' @param value Character referring to the name of the value column to be used for interpolation.
 ##' @param Subset A subset argument as a character (i.e. with " ". See Examples).
@@ -27,7 +27,7 @@
 ##' @examples data(chlorophyll) ## load an example dataset
 ##' x <- interpolate_spatial(chlorophyll, Subset = "From <= 10", value = "Chla") ## Interpolate
 ##' plot(x) ## Plot
-##' @seealso \code{\link{plot.spatInt}} for plotting; \code{\link{interpolate_section}} for  
+##' @seealso \code{\link{plot.spatInt}} for plotting; \code{\link{interpolate_section}} for
 ##' @importFrom gstat idw
 ##' @importFrom oce integrateTrapezoid
 ##' @import sp

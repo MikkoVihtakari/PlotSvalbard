@@ -12,14 +12,14 @@ reference:
   contents:
   - waffle_chart
 - title: Create oceanographic plots
-  desc: Functions and datasets to create temperature-salinity and section plots. Under development.
+  desc: Functions and datasets to create temperature-salinity and section plots.
   contents:
   - ts_plot
+  - section_plot
+  - interpolate_section
   - define_water_type
   - kongsfjord_watermasses
   - rijpfjord_watermasses
-  - interpolate_section
-  - section_plot
 - title: Other functions
   desc: Functions that do other things
   contents:

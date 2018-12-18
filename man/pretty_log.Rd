@@ -15,6 +15,9 @@ pretty_log(x, f = round)
 \description{
 Round to pretty log breaks
 }
+\seealso{
+\code{\link{round_any}}
+}
 \author{
 Mikko Vihtakari
 }

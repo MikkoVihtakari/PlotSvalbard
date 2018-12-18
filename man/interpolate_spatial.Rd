@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpolate_spatial.R
 \name{interpolate_spatial}
 \alias{interpolate_spatial}
-\title{Interpolate a spatial 2D surface from observations}
+\title{Interpolate a spatial surface from observations}
 \usage{
 interpolate_spatial(df, value, Subset = NULL, coords = c("lon.utm",
   "lat.utm"), station.col = "Station", strata.col = "From",
@@ -48,7 +48,7 @@ interpolate_spatial(df, value, Subset = NULL, coords = c("lon.utm",
 Returns a \code{spatInt} object which is a list
 }
 \description{
-Interpolates a 2D surface from a data frame of spatial observations for plotting. Currently uses the \code{\link[gstat]{idw}} function.
+Interpolates a x-y surface from a data frame of spatial observations for plotting. Currently uses the \code{\link[gstat]{idw}} function.
 }
 \details{
 The function removes missing values (NAs) from \code{value} column.

@@ -273,11 +273,44 @@ system.time(basemap("barentssea", limits = c(c(19.5,23.5,80,81.7))))
 system.time(basemap("svalbard", limits = c(c(19.5,23.5,80,81.7))))
 ```
 
-# Other functions
+# Oceanographic plots
+
+## Temperature salinity plots
+
+You can make TS-plots with water type definitions. See `?ts_plot` for more plotting alternatives
+
+```{r tsplot, message=FALSE, warning=FALSE}
+data("ctd_kongsfjord")
+ts_plot(ctd_kongsfjord, color = "watertype", margin_distr = TRUE)
+```
 
 ## Section plots and interpolation
 
-Added to v0.7. Not documented yet.
+Standard temperature section plot. Difficult to see surface due to large differences in y-scale:
+
+```{r section1, message=FALSE, warning=FALSE}
+section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", 
+  bottom = "bdepth", interpolate = TRUE)
+```
+
+Logarithmic y axis:
+
+```{r section2, message=FALSE, warning=FALSE}
+section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", 
+  bottom = "bdepth", interpolate = TRUE, log_y = TRUE)
+
+```
+
+Contour lines:
+
+```{r section3, message=FALSE, warning=FALSE}
+section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", 
+  bottom = "bdepth", interpolate = TRUE, log_y = TRUE, contour = c(-1.8, 0, 1, 3))
+```
+
+The `interpolate_section` function has not been documented yet here, but check the help sheet on how to use it. 
+
+# Other functions
 
 ## Distance to land
 
@@ -324,14 +357,6 @@ waffle_chart(x, fill = "variable", facet = "ID", composition = FALSE, max_value 
 
 ```
 
-## Temperature salinity plots
-
-You can make TS-plots with water type definitions. See `?ts_plot` for more plotting alternatives
-
-```{r tsplot, message=FALSE, warning=FALSE}
-data("ctd_kongsfjord")
-ts_plot(ctd_kongsfjord, color = "watertype", margin_distr = TRUE)
-```
 
 # Citing PlotSvalbard
 
