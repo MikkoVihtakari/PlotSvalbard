@@ -17,7 +17,14 @@
 #' @param zlim Numeric vector of length two providing limits for fill or bubble size. Any values outside these limits will get the extreme values defined by \code{zrange} (using the \code{\link[scales]{squish}} function).
 #' @param zscale (\code{interpolate = TRUE} only). Character specifying the color scale for interpolation tile fill. Either one of the \code{\link[ggplot2]{scale_colour_viridis_c}} \code{option} alternatives ("A", "B", "C", or "D") or "gradient2" for a \code{\link[ggplot2]{scale_colour_gradient2}} (red-white-blue) color scale. Note that you can use the ggplot2 color scale arguments to adjust the color scales as you want. Just place them inside the \code{section_plot} function.
 #' @param zcolor (\code{interpolate = FALSE} only). Character specifying the color of bubbles. Use column name in \code{df} to scale a variable to bubble color (not implemented yet, here as a reminder).
-#' @param add_bottom A numeric vector of length two providing the depths that should be added to \code{bottom} at the extremes (\code{\link[base]{range}}) of \code{xbreaks}. Useful for extending the plot giving space for graphical elements.
+#' @param add_bottom Numeric vector of length two providing the depths that should be added to \code{bottom} at the extremes (\code{\link[base]{range}}) of \code{xbreaks}. Useful for extending the plot giving space for graphical elements.
+#' @param sampling_indicator (\code{interpolate = TRUE} only). Character giving the style of sampling indicator. Alternatives:
+#' \itemize{
+#' \item \code{"lines"} A dashed line reaching from data start depth to end depth at each station. Recommended for CTD sections.
+#' \item \code{"points"} Points indicating the vertical and horizontal location of sample. Recommended for water samples.
+#' \item \code{"ticks"} A black tick mark above the plot indicating the horizontal location of each station. A way to avoid clutter. 
+#' \item \code{"none"} No sampling indicator will be plotted.
+#' }
 #' @param legend.position Position for the ggplot legend. See the argument with the same name in \link[ggplot2]{theme}.
 #' @param base_size Base size parameter for ggplot. See \link[ggplot2]{theme_bw}.
 #' @param ... Additional arguments passed to color and size scales. See \code{\link[ggplot2]{scale_colour_gradient2}}, \code{\link[ggplot2]{scale_colour_viridis_c}} and \code{\link[ggplot2]{scale_size}}.
@@ -53,7 +60,10 @@
 # df = ctd_rijpfjord; x = "dist"; y = "pressure"; z = "temp"; bottom = "bdepth"; interpolate = TRUE; log_y = TRUE; add_bottom = NULL
 #
 # Fix:  add option to define the sampling range/location
-section_plot <- function(df, x, y, z, bottom = NULL, interpolate = FALSE, interp_method = "mba", log_y = FALSE, xlab = "Distance", ylab = "Depth", zlab = "Variable", ybreaks = waiver(), xbreaks = waiver(), zbreaks = waiver(), contour = NULL, contour_label_cex = 0.8, contour_color = "white", xlim = NULL, ylim = NULL, zlim = NULL, zscale = "viridis", zcolor = "black", add_bottom = NULL, legend.position = "right", base_size = 10, ...) {
+section_plot <- function(df, x, y, z, bottom = NULL, interpolate = FALSE, interp_method = "mba", log_y = FALSE, xlab = "Distance", ylab = "Depth", zlab = "Variable", ybreaks = waiver(), xbreaks = waiver(), zbreaks = waiver(), contour = NULL, contour_label_cex = 0.8, contour_color = "white", xlim = NULL, ylim = NULL, zlim = NULL, zscale = "viridis", zcolor = "black", add_bottom = NULL, sampling_indicator = "lines", legend.position = "right", base_size = 10, ...) {
+
+## Setup and tests
+
 
 ## Log_y
 
@@ -98,7 +108,9 @@ if(interpolate) {
 ## Parameters ###
 
 if(log_y) {
-
+  yzero <- 0.98
+  ytick.lim <- 0.95
+  
   if(class(ybreaks) == "waiver") {
     ybreaks <- pretty_log(10^pretty(range(dt$y), n = 10) - 10)
     ybreaks_actual <- log10(ybreaks + 10)
@@ -109,7 +121,14 @@ if(log_y) {
 
 
 } else {
-  ybreaks_actual <- waiver()
+  yzero <- -2
+  ytick.lim <- -diff(range(df[[y]]))*0.02
+  
+  if(class(ybreaks) == "waiver") {
+    ybreaks_actual <- waiver()
+  } else {
+    ybreaks_actual <- ybreaks
+  }
 }
 
 
@@ -126,8 +145,13 @@ if(interpolate) {
           method = list("bottom.pieces", cex = contour_label_cex, vjust = 0.5),
           stat = "contour", color = contour_color, breaks = contour)
       }
-    } +
-    geom_segment(data = samples, aes(x = x, xend = x, y = min, yend = max), size = LS(0.5), color = "grey", linetype = 2) + {
+    } + {
+     if(sampling_indicator == "lines") geom_segment(data = samples, aes(x = x, xend = x, y = min, yend = max), size = LS(0.5), color = "grey", linetype = 2) 
+    } + {
+     if(sampling_indicator == "points") geom_point(data = df, aes(x = get(x), y = get(y)), size = 1, color = "black") 
+    } + {
+     if(sampling_indicator == "ticks") geom_segment(data = samples, aes(x = x, xend = x, y = ytick.lim, yend = yzero), size = LS(1), color = "black")   
+    } + {
       if(!is.null(bottom)) geom_ribbon(data = bd, aes(x = x, ymax = Inf, ymin = y), fill = "grey90")
       } +
     scale_y_reverse(name = ylab, breaks = ybreaks_actual, labels = ybreaks, limits = ylim, expand = c(0.03, 0)) +

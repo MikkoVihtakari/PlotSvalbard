@@ -10,7 +10,8 @@ section_plot(df, x, y, z, bottom = NULL, interpolate = FALSE,
   xbreaks = waiver(), zbreaks = waiver(), contour = NULL,
   contour_label_cex = 0.8, contour_color = "white", xlim = NULL,
   ylim = NULL, zlim = NULL, zscale = "viridis", zcolor = "black",
-  add_bottom = NULL, legend.position = "right", base_size = 10, ...)
+  add_bottom = NULL, sampling_indicator = "lines",
+  legend.position = "right", base_size = 10, ...)
 }
 \arguments{
 \item{df}{Data frame containing the data}
@@ -47,7 +48,15 @@ section_plot(df, x, y, z, bottom = NULL, interpolate = FALSE,
 
 \item{zcolor}{(\code{interpolate = FALSE} only). Character specifying the color of bubbles. Use column name in \code{df} to scale a variable to bubble color (not implemented yet, here as a reminder).}
 
-\item{add_bottom}{A numeric vector of length two providing the depths that should be added to \code{bottom} at the extremes (\code{\link[base]{range}}) of \code{xbreaks}. Useful for extending the plot giving space for graphical elements.}
+\item{add_bottom}{Numeric vector of length two providing the depths that should be added to \code{bottom} at the extremes (\code{\link[base]{range}}) of \code{xbreaks}. Useful for extending the plot giving space for graphical elements.}
+
+\item{sampling_indicator}{(\code{interpolate = TRUE} only). Character giving the style of sampling indicator. Alternatives:
+\itemize{
+\item \code{"lines"} A dashed line reaching from data start depth to end depth at each station. Recommended for CTD sections.
+\item \code{"points"} Points indicating the vertical and horizontal location of sample. Recommended for water samples.
+\item \code{"ticks"} A black tick mark above the plot indicating the horizontal location of each station. A way to avoid clutter. 
+\item \code{"none"} No sampling indicator will be plotted.
+}}
 
 \item{legend.position}{Position for the ggplot legend. See the argument with the same name in \link[ggplot2]{theme}.}
 
