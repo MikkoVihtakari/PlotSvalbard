@@ -15,13 +15,13 @@
 #' @param contour_color Character defining the color to be used for contour lines and labels.
 #' @param xlim,ylim Numeric vector of length two providing limits of the scale. Use NA to refer to the existing minimum or maximum. Use \code{NULL} for default limits.
 #' @param zlim Numeric vector of length two providing limits for fill or bubble size. Any values outside these limits will get the extreme values defined by \code{zrange} (using the \code{\link[scales]{squish}} function).
-#' @param zscale (\code{interpolate = TRUE} only). Character specifying the color scale for interpolation tile fill. Either one of the \code{\link[ggplot2]{scale_colour_viridis_c}} \type{option} alternatives ("A", "B", "C", or "D") or "gradient2" for a \code{\link[ggplot2]{scale_colour_gradient2}} (red-white-blue) color scale. Note that you can use the ggplot2 color scale arguments to adjust the color scales as you will. Just place them inside the \code{section_plot} function.
+#' @param zscale (\code{interpolate = TRUE} only). Character specifying the color scale for interpolation tile fill. Either one of the \code{\link[ggplot2]{scale_colour_viridis_c}} \code{option} alternatives ("A", "B", "C", or "D") or "gradient2" for a \code{\link[ggplot2]{scale_colour_gradient2}} (red-white-blue) color scale. Note that you can use the ggplot2 color scale arguments to adjust the color scales as you want. Just place them inside the \code{section_plot} function.
 #' @param zcolor (\code{interpolate = FALSE} only). Character specifying the color of bubbles. Use column name in \code{df} to scale a variable to bubble color (not implemented yet, here as a reminder).
-#' @param zsize (\code{interpolate = FALSE} only). Numeric defining the size of largest points (\code{max_size} in \code{\link[ggplot2]{scale_size_area}}). Zero size (yet visible) will be used as minimum value as set by the scale.
-#' @param add_bottom A numeric vector of length two providing the depths that should be added to \code{bottom} at the extremes (\code{\link[base]{range}}) of \code{xbreaks}.
-#' @param legend.position Position for ggplot2 legend. See the argument with the same name in \link[ggplot2]{theme}.
+#' @param add_bottom A numeric vector of length two providing the depths that should be added to \code{bottom} at the extremes (\code{\link[base]{range}}) of \code{xbreaks}. Useful for extending the plot giving space for graphical elements.
+#' @param legend.position Position for the ggplot legend. See the argument with the same name in \link[ggplot2]{theme}.
 #' @param base_size Base size parameter for ggplot. See \link[ggplot2]{theme_bw}.
-#' @param ... additional arguments passed to color and size scales. See \code{\link[ggplot2]{scale_colour_viridis_c}} and \code{\link[ggplot2]{scale_size_area}}.
+#' @param ... Additional arguments passed to color and size scales. See \code{\link[ggplot2]{scale_colour_gradient2}}, \code{\link[ggplot2]{scale_colour_viridis_c}} and \code{\link[ggplot2]{scale_size}}.
+#' @details Note that you can use the ggplot2 color and size scale arguments to adjust the scales as you want. Just place them inside the \code{section_plot} function. See \code{\link[ggplot2]{scale_colour_gradient2}}, \code{\link[ggplot2]{scale_colour_viridis_c}} and \code{\link[ggplot2]{scale_size}}.
 #' @return Returns either an interpolated section (\code{\link[ggplot2]{geom_tile}}) or a bubble (\code{\link[ggplot2]{geom_point}}) ggplot2 object.
 #' @importFrom directlabels geom_dl
 #' @importFrom dplyr summarise group_by
@@ -53,7 +53,7 @@
 # df = ctd_rijpfjord; x = "dist"; y = "pressure"; z = "temp"; bottom = "bdepth"; interpolate = TRUE; log_y = TRUE; add_bottom = NULL
 #
 # Fix:  add option to define the sampling range/location
-section_plot <- function(df, x, y, z, bottom = NULL, interpolate = FALSE, interp_method = "mba", log_y = FALSE, xlab = "Distance", ylab = "Depth", zlab = "Variable", ybreaks = waiver(), xbreaks = waiver(), zbreaks = waiver(), contour = NULL, contour_label_cex = 0.8, contour_color = "white", xlim = NULL, ylim = NULL, zlim = NULL, zscale = "viridis", zcolor = "black", zsize = 6, add_bottom = NULL, legend.position = "right", base_size = 10, ...) {
+section_plot <- function(df, x, y, z, bottom = NULL, interpolate = FALSE, interp_method = "mba", log_y = FALSE, xlab = "Distance", ylab = "Depth", zlab = "Variable", ybreaks = waiver(), xbreaks = waiver(), zbreaks = waiver(), contour = NULL, contour_label_cex = 0.8, contour_color = "white", xlim = NULL, ylim = NULL, zlim = NULL, zscale = "viridis", zcolor = "black", add_bottom = NULL, legend.position = "right", base_size = 10, ...) {
 
 ## Log_y
 
@@ -160,7 +160,7 @@ if(interpolate) {
     if(!is.null(bottom)) geom_ribbon(data = bd, aes(x = x, ymax = Inf, ymin = y), fill = "grey90")
     } +
     geom_point(data = dt, aes(x = x, y = y, size = z), pch = 21, stroke = LS(0.5), color = zcolor) +
-    scale_size_area(name = zlab, limits = zlim, breaks = zbreaks, oob = scales::squish, max_size = zsize) +
+    scale_radius(name = zlab, limits = zlim, breaks = zbreaks, ...) +
     scale_y_reverse(name = ylab, breaks = ybreaks_actual, labels = ybreaks, limits = ylim, expand = c(0.03, 0)) +
     scale_x_continuous(name = xlab, breaks = xbreaks, limits = xlim) + #, expand = c(0, 0)
     theme_classic(base_size = base_size) +

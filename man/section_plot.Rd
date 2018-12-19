@@ -10,8 +10,7 @@ section_plot(df, x, y, z, bottom = NULL, interpolate = FALSE,
   xbreaks = waiver(), zbreaks = waiver(), contour = NULL,
   contour_label_cex = 0.8, contour_color = "white", xlim = NULL,
   ylim = NULL, zlim = NULL, zscale = "viridis", zcolor = "black",
-  zsize = 6, add_bottom = NULL, legend.position = "right",
-  base_size = 10, ...)
+  add_bottom = NULL, legend.position = "right", base_size = 10, ...)
 }
 \arguments{
 \item{df}{Data frame containing the data}
@@ -44,25 +43,26 @@ section_plot(df, x, y, z, bottom = NULL, interpolate = FALSE,
 
 \item{zlim}{Numeric vector of length two providing limits for fill or bubble size. Any values outside these limits will get the extreme values defined by \code{zrange} (using the \code{\link[scales]{squish}} function).}
 
-\item{zscale}{(\code{interpolate = TRUE} only). Character specifying the color scale for interpolation tile fill. Either one of the \code{\link[ggplot2]{scale_colour_viridis_c}} \type{option} alternatives ("A", "B", "C", or "D") or "gradient2" for a \code{\link[ggplot2]{scale_colour_gradient2}} (red-white-blue) color scale. Note that you can use the ggplot2 color scale arguments to adjust the color scales as you will. Just place them inside the \code{section_plot} function.}
+\item{zscale}{(\code{interpolate = TRUE} only). Character specifying the color scale for interpolation tile fill. Either one of the \code{\link[ggplot2]{scale_colour_viridis_c}} \code{option} alternatives ("A", "B", "C", or "D") or "gradient2" for a \code{\link[ggplot2]{scale_colour_gradient2}} (red-white-blue) color scale. Note that you can use the ggplot2 color scale arguments to adjust the color scales as you want. Just place them inside the \code{section_plot} function.}
 
 \item{zcolor}{(\code{interpolate = FALSE} only). Character specifying the color of bubbles. Use column name in \code{df} to scale a variable to bubble color (not implemented yet, here as a reminder).}
 
-\item{zsize}{(\code{interpolate = FALSE} only). Numeric defining the size of largest points (\code{max_size} in \code{\link[ggplot2]{scale_size_area}}). Zero size (yet visible) will be used as minimum value as set by the scale.}
+\item{add_bottom}{A numeric vector of length two providing the depths that should be added to \code{bottom} at the extremes (\code{\link[base]{range}}) of \code{xbreaks}. Useful for extending the plot giving space for graphical elements.}
 
-\item{add_bottom}{A numeric vector of length two providing the depths that should be added to \code{bottom} at the extremes (\code{\link[base]{range}}) of \code{xbreaks}.}
-
-\item{legend.position}{Position for ggplot2 legend. See the argument with the same name in \link[ggplot2]{theme}.}
+\item{legend.position}{Position for the ggplot legend. See the argument with the same name in \link[ggplot2]{theme}.}
 
 \item{base_size}{Base size parameter for ggplot. See \link[ggplot2]{theme_bw}.}
 
-\item{...}{additional arguments passed to color and size scales. See \code{\link[ggplot2]{scale_colour_viridis_c}} and \code{\link[ggplot2]{scale_size_area}}.}
+\item{...}{Additional arguments passed to color and size scales. See \code{\link[ggplot2]{scale_colour_gradient2}}, \code{\link[ggplot2]{scale_colour_viridis_c}} and \code{\link[ggplot2]{scale_size}}.}
 }
 \value{
 Returns either an interpolated section (\code{\link[ggplot2]{geom_tile}}) or a bubble (\code{\link[ggplot2]{geom_point}}) ggplot2 object.
 }
 \description{
 Creates an oceanographic section plot from a data frame using ggplot2. Returns either an interpolated section or a bubble plot.
+}
+\details{
+Note that you can use the ggplot2 color and size scale arguments to adjust the scales as you want. Just place them inside the \code{section_plot} function. See \code{\link[ggplot2]{scale_colour_gradient2}}, \code{\link[ggplot2]{scale_colour_viridis_c}} and \code{\link[ggplot2]{scale_size}}.
 }
 \examples{
 # Bubble plots
