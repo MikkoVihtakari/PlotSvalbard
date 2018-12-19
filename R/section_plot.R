@@ -148,7 +148,7 @@ if(interpolate) {
     } + {
      if(sampling_indicator == "lines") geom_segment(data = samples, aes(x = x, xend = x, y = min, yend = max), size = LS(0.5), color = "grey", linetype = 2) 
     } + {
-     if(sampling_indicator == "points") geom_point(data = df, aes(x = get(x), y = get(y)), size = 1, color = "black") 
+     if(sampling_indicator == "points") geom_point(data = df, aes(x = get(x), y = get(y)), size = contour_label_cex, color = "black") 
     } + {
      if(sampling_indicator == "ticks") geom_segment(data = samples, aes(x = x, xend = x, y = ytick.lim, yend = yzero), size = LS(1), color = "black")   
     } + {
@@ -158,10 +158,13 @@ if(interpolate) {
     scale_x_continuous(name = xlab, breaks = xbreaks, limits = xlim, expand = c(0, 0)) +
     theme_classic(base_size = base_size) +
     theme(legend.position = legend.position,
-      legend.background = element_blank(),
       legend.key.size = unit(0.8,"line"),
       legend.spacing.y = unit(0.1,"line"),
-      legend.title = element_text(size = 0.8*base_size))
+      legend.title = element_text(size = 0.8*base_size),
+      panel.background = element_blank(),
+      plot.background = element_blank(),
+      legend.background = element_blank(),
+      legend.box.background = element_blank())
 
   ## Color scales
 
@@ -189,10 +192,13 @@ if(interpolate) {
     scale_x_continuous(name = xlab, breaks = xbreaks, limits = xlim) + #, expand = c(0, 0)
     theme_classic(base_size = base_size) +
     theme(legend.position = legend.position,
-      legend.background = element_blank(),
       legend.key.size = unit(0.8,"line"),
       legend.spacing.y = unit(0.1,"line"),
-      legend.title = element_text(size = 0.8*base_size))
+      legend.title = element_text(size = 0.8*base_size),
+      panel.background = element_blank(),
+      plot.background = element_blank(),
+      legend.background = element_blank(),
+      legend.box.background = element_blank())
 }
 
 ## ####
