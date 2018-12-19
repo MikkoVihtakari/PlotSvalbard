@@ -6,19 +6,22 @@
 #' @param z Character specifying the column name which should be for bubbles or interpolation fill depending on the \code{interpolate} argument.
 #' @param bottom Optional character specifying the column name which contains bottom depths OR a data frame with x-axis values in the first column and bottom depths in the second column. If provided, unique combinations of \code{x} and \code{bottom} will be used to plot bottom for the section plot
 #' @param interpolate Logical indicating whether an interpolated section plot (\code{TRUE}) or a bubble plot (\code{FALSE}) should be returned.
-#' @param interp_method Character specifying the interpolation method, if \code{interpolate = TRUE}. See \code{\link{interpolate_section}}.
+#' @param interp_method (\code{interpolate = TRUE} only). Character specifying the interpolation method. See \code{\link{interpolate_section}}.
 #' @param log_y logical indicating whether the y-axis should be \code{log10(y + 10)} transformed before plotting. Helps showing differences close to the surface if some stations are much deeper than others.
-#' @param xlab,ylab,zlab Character specifying the labels for x-axis, y-axis and legend, respectively.
-#' @param xbreaks,ybreaks Numeric vector specifying the breaks for x and y-axes. See \link[ggplot]{scale_continuous}.
-#' @param zbreaks Numeric vector specifying the breaks for z legend if \code{interpolate = FALSE} or contour lines if  \code{interpolate = TRUE}
-#' @param contour Numeric vector defining contour lines to be plotted if \code{interpolate = TRUE}. Use \code{NULL} not to plot the contour lines.
+#' @param xlab,ylab,zlab Character specifying the labels for the x-axis, y-axis and legend, respectively.
+#' @param xbreaks,ybreaks,zbreaks Numeric vector specifying the breaks for the x-axis, y-axis and legend. See \link[ggplot]{scale_continuous}.
+#' @param contour (\code{interpolate = TRUE} only). Numeric vector defining breaks for contour lines. Use \code{NULL} not to plot the contour lines.
 #' @param contour_label_cex Numeric giving the \code{cex} (=size) parameter for contour labels. See \code{\link[directlabels]{geom_dl}}.
+#' @param contour_color Character defining the color to be used for contour lines and labels.
 #' @param xlim,ylim Numeric vector of length two providing limits of the scale. Use NA to refer to the existing minimum or maximum. Use \code{NULL} for default limits.
-#' @param zlim Numeric vector of length two providing limits for fill or bubble size. Any values outside these limits will get the extreme values defined by \code{zrange}
-#' @param zrange Range for z graphical parameter. At the moment only considered for \code{interpolate = FALSE}.
+#' @param zlim Numeric vector of length two providing limits for fill or bubble size. Any values outside these limits will get the extreme values defined by \code{zrange} (using the \code{\link[scales]{squish}} function).
+#' @param zscale (\code{interpolate = TRUE} only). Character specifying the color scale for interpolation tile fill. Either one of the \code{\link[ggplot2]{scale_colour_viridis_c}} \type{option} alternatives ("A", "B", "C", or "D") or "gradient2" for a \code{\link[ggplot2]{scale_colour_gradient2}} (red-white-blue) color scale. Note that you can use the ggplot2 color scale arguments to adjust the color scales as you will. Just place them inside the \code{section_plot} function.
+#' @param zcolor (\code{interpolate = FALSE} only). Character specifying the color of bubbles. Use column name in \code{df} to scale a variable to bubble color (not implemented yet, here as a reminder).
+#' @param zsize (\code{interpolate = FALSE} only). Numeric defining the size of largest points (\code{max_size} in \code{\link[ggplot2]{scale_size_area}}). Zero size (yet visible) will be used as minimum value as set by the scale.
 #' @param add_bottom A numeric vector of length two providing the depths that should be added to \code{bottom} at the extremes (\code{\link[base]{range}}) of \code{xbreaks}.
 #' @param legend.position Position for ggplot2 legend. See the argument with the same name in \link[ggplot2]{theme}.
 #' @param base_size Base size parameter for ggplot. See \link[ggplot2]{theme_bw}.
+#' @param ... additional arguments passed to color and size scales. See \code{\link[ggplot2]{scale_colour_viridis_c}} and \code{\link[ggplot2]{scale_size_area}}.
 #' @return Returns either an interpolated section (\code{\link[ggplot2]{geom_tile}}) or a bubble (\code{\link[ggplot2]{geom_point}}) ggplot2 object.
 #' @importFrom directlabels geom_dl
 #' @importFrom dplyr summarise group_by
@@ -49,8 +52,8 @@
 # df = g; x = "dist"; y = "depth"; z = "no"; bottom = bottom; interpolate = FALSE; interp_method = "mba"; log_y = TRUE; xlab = NULL; ylab = "Depth (dbar, log scale)"; zlab = expression(NO[x]); ybreaks = c(0, 20, 50, 100, 200, 500, 1000, 2000, 4000); xbreaks = c(0, 20, 50, 100, 150, 200, 250, 280); zbreaks = waiver(); zlim = NULL; ylim = NULL; add_bottom = c(0,4000); legend.position = "right"; base_size = 10
 # df = ctd_rijpfjord; x = "dist"; y = "pressure"; z = "temp"; bottom = "bdepth"; interpolate = TRUE; log_y = TRUE; add_bottom = NULL
 #
-# Fix: add flexible color scales, add option to define the sampling range/location
-section_plot <- function(df, x, y, z, bottom = NULL, interpolate = FALSE, interp_method = "mba", log_y = FALSE, xlab = "Distance", ylab = "Depth", zlab = "Variable", ybreaks = waiver(), xbreaks = waiver(), zbreaks = waiver(), contour = NULL, contour_label_cex = 0.8, xlim = NULL, ylim = NULL, zlim = NULL, zrange = c(1, 6), add_bottom = NULL, legend.position = "right", base_size = 10) {
+# Fix:  add option to define the sampling range/location
+section_plot <- function(df, x, y, z, bottom = NULL, interpolate = FALSE, interp_method = "mba", log_y = FALSE, xlab = "Distance", ylab = "Depth", zlab = "Variable", ybreaks = waiver(), xbreaks = waiver(), zbreaks = waiver(), contour = NULL, contour_label_cex = 0.8, contour_color = "white", xlim = NULL, ylim = NULL, zlim = NULL, zscale = "viridis", zcolor = "black", zsize = 6, add_bottom = NULL, legend.position = "right", base_size = 10, ...) {
 
 ## Log_y
 
@@ -114,19 +117,17 @@ if(log_y) {
 
 if(interpolate) {
 
-  ggplot() +
+  p <- ggplot() +
     geom_tile(data = dt, aes(x = x, y = y, fill = z, color = z)) + {
-      if(!is.null(contour)) geom_contour(data = dt, aes(x = x, y = y, z = z), color = "white", size = LS(0.5), breaks = contour)
+      if(!is.null(contour)) geom_contour(data = dt, aes(x = x, y = y, z = z), color = contour_color, size = LS(0.5), breaks = contour)
     } + {
       if(!is.null(contour)) {
         directlabels::geom_dl(data = dt, aes(x = x, y = y, z = z, label = ..level..),
           method = list("bottom.pieces", cex = contour_label_cex, vjust = 0.5),
-          stat = "contour", color = "white", breaks = contour)
+          stat = "contour", color = contour_color, breaks = contour)
       }
     } +
-    geom_segment(data = samples, aes(x = x, xend = x, y = min, yend = max), size = LS(0.5), color = "grey", linetype = 2) +
-    scale_fill_continuous(type = "viridis", name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, oob = scales::squish) +
-    scale_colour_continuous(type = "viridis", name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, oob = scales::squish) + {
+    geom_segment(data = samples, aes(x = x, xend = x, y = min, yend = max), size = LS(0.5), color = "grey", linetype = 2) + {
       if(!is.null(bottom)) geom_ribbon(data = bd, aes(x = x, ymax = Inf, ymin = y), fill = "grey90")
       } +
     scale_y_reverse(name = ylab, breaks = ybreaks_actual, labels = ybreaks, limits = ylim, expand = c(0.03, 0)) +
@@ -138,14 +139,28 @@ if(interpolate) {
       legend.spacing.y = unit(0.1,"line"),
       legend.title = element_text(size = 0.8*base_size))
 
+  ## Color scales
+
+  if(zscale == "gradient2") {
+
+    p + scale_fill_gradient2(name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, oob = scales::squish, ...) +
+    scale_colour_gradient2(name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, oob = scales::squish, ...)
+
+  } else {
+
+    p + scale_fill_viridis_c(option = zscale, name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, oob = scales::squish, ...) +
+    scale_colour_viridis_c(option = zscale, name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, oob = scales::squish, ...)
+
+  }
+
 
 } else {
 
   ggplot() + {
     if(!is.null(bottom)) geom_ribbon(data = bd, aes(x = x, ymax = Inf, ymin = y), fill = "grey90")
     } +
-    geom_point(data = dt, aes(x = x, y = y, size = z), pch = 21, stroke = LS(0.5)) +
-    scale_size_area(name = zlab, limits = zlim, breaks = zbreaks, oob = scales::squish, max_size = zrange[2]) +
+    geom_point(data = dt, aes(x = x, y = y, size = z), pch = 21, stroke = LS(0.5), color = zcolor) +
+    scale_size_area(name = zlab, limits = zlim, breaks = zbreaks, oob = scales::squish, max_size = zsize) +
     scale_y_reverse(name = ylab, breaks = ybreaks_actual, labels = ybreaks, limits = ylim, expand = c(0.03, 0)) +
     scale_x_continuous(name = xlab, breaks = xbreaks, limits = xlim) + #, expand = c(0, 0)
     theme_classic(base_size = base_size) +

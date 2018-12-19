@@ -8,9 +8,10 @@ section_plot(df, x, y, z, bottom = NULL, interpolate = FALSE,
   interp_method = "mba", log_y = FALSE, xlab = "Distance",
   ylab = "Depth", zlab = "Variable", ybreaks = waiver(),
   xbreaks = waiver(), zbreaks = waiver(), contour = NULL,
-  contour_label_cex = 0.8, xlim = NULL, ylim = NULL, zlim = NULL,
-  zrange = c(1, 6), add_bottom = NULL, legend.position = "right",
-  base_size = 10)
+  contour_label_cex = 0.8, contour_color = "white", xlim = NULL,
+  ylim = NULL, zlim = NULL, zscale = "viridis", zcolor = "black",
+  zsize = 6, add_bottom = NULL, legend.position = "right",
+  base_size = 10, ...)
 }
 \arguments{
 \item{df}{Data frame containing the data}
@@ -25,31 +26,37 @@ section_plot(df, x, y, z, bottom = NULL, interpolate = FALSE,
 
 \item{interpolate}{Logical indicating whether an interpolated section plot (\code{TRUE}) or a bubble plot (\code{FALSE}) should be returned.}
 
-\item{interp_method}{Character specifying the interpolation method, if \code{interpolate = TRUE}. See \code{\link{interpolate_section}}.}
+\item{interp_method}{(\code{interpolate = TRUE} only). Character specifying the interpolation method. See \code{\link{interpolate_section}}.}
 
 \item{log_y}{logical indicating whether the y-axis should be \code{log10(y + 10)} transformed before plotting. Helps showing differences close to the surface if some stations are much deeper than others.}
 
-\item{xlab, ylab, zlab}{Character specifying the labels for x-axis, y-axis and legend, respectively.}
+\item{xlab, ylab, zlab}{Character specifying the labels for the x-axis, y-axis and legend, respectively.}
 
-\item{xbreaks, ybreaks}{Numeric vector specifying the breaks for x and y-axes. See \link[ggplot]{scale_continuous}.}
+\item{xbreaks, ybreaks, zbreaks}{Numeric vector specifying the breaks for the x-axis, y-axis and legend. See \link[ggplot]{scale_continuous}.}
 
-\item{zbreaks}{Numeric vector specifying the breaks for z legend if \code{interpolate = FALSE} or contour lines if  \code{interpolate = TRUE}}
-
-\item{contour}{Numeric vector defining contour lines to be plotted if \code{interpolate = TRUE}. Use \code{NULL} not to plot the contour lines.}
+\item{contour}{(\code{interpolate = TRUE} only). Numeric vector defining breaks for contour lines. Use \code{NULL} not to plot the contour lines.}
 
 \item{contour_label_cex}{Numeric giving the \code{cex} (=size) parameter for contour labels. See \code{\link[directlabels]{geom_dl}}.}
 
+\item{contour_color}{Character defining the color to be used for contour lines and labels.}
+
 \item{xlim, ylim}{Numeric vector of length two providing limits of the scale. Use NA to refer to the existing minimum or maximum. Use \code{NULL} for default limits.}
 
-\item{zlim}{Numeric vector of length two providing limits for fill or bubble size. Any values outside these limits will get the extreme values defined by \code{zrange}}
+\item{zlim}{Numeric vector of length two providing limits for fill or bubble size. Any values outside these limits will get the extreme values defined by \code{zrange} (using the \code{\link[scales]{squish}} function).}
 
-\item{zrange}{Range for z graphical parameter. At the moment only considered for \code{interpolate = FALSE}.}
+\item{zscale}{(\code{interpolate = TRUE} only). Character specifying the color scale for interpolation tile fill. Either one of the \code{\link[ggplot2]{scale_colour_viridis_c}} \type{option} alternatives ("A", "B", "C", or "D") or "gradient2" for a \code{\link[ggplot2]{scale_colour_gradient2}} (red-white-blue) color scale. Note that you can use the ggplot2 color scale arguments to adjust the color scales as you will. Just place them inside the \code{section_plot} function.}
+
+\item{zcolor}{(\code{interpolate = FALSE} only). Character specifying the color of bubbles. Use column name in \code{df} to scale a variable to bubble color (not implemented yet, here as a reminder).}
+
+\item{zsize}{(\code{interpolate = FALSE} only). Numeric defining the size of largest points (\code{max_size} in \code{\link[ggplot2]{scale_size_area}}). Zero size (yet visible) will be used as minimum value as set by the scale.}
 
 \item{add_bottom}{A numeric vector of length two providing the depths that should be added to \code{bottom} at the extremes (\code{\link[base]{range}}) of \code{xbreaks}.}
 
 \item{legend.position}{Position for ggplot2 legend. See the argument with the same name in \link[ggplot2]{theme}.}
 
 \item{base_size}{Base size parameter for ggplot. See \link[ggplot2]{theme_bw}.}
+
+\item{...}{additional arguments passed to color and size scales. See \code{\link[ggplot2]{scale_colour_viridis_c}} and \code{\link[ggplot2]{scale_size_area}}.}
 }
 \value{
 Returns either an interpolated section (\code{\link[ggplot2]{geom_tile}}) or a bubble (\code{\link[ggplot2]{geom_point}}) ggplot2 object.
