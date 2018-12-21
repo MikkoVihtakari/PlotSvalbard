@@ -131,6 +131,34 @@ if(log_y) {
   }
 }
 
+# Add ≥ and ≤ signs to legend
+
+if(!is.null(zlim)) {
+
+  if(class(zbreaks) == "waiver") {
+      zbreaks <- pretty(zlim, n = 4)
+  }
+  
+  zlabels <- zbreaks
+  
+  if(any(df[[z]] > zlim[2])) {
+    zlabels[length(zlabels)] <- paste0(">", zlabels[length(zlabels)])
+  }
+  
+  if(any(df[[z]] < zlim[1])) {
+    zlabels[1] <- paste0("<", zlabels[1])
+  }
+      
+} else {
+   if(class(zbreaks) == "waiver") {
+    zlabels <- waiver()
+   } else {
+    zlabels <- zbreaks
+  }
+  
+  
+}
+
 
 ## Plot ####
 
@@ -170,13 +198,13 @@ if(interpolate) {
 
   if(zscale == "gradient2") {
 
-    p + scale_fill_gradient2(name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, oob = scales::squish, ...) +
-    scale_colour_gradient2(name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, oob = scales::squish, ...)
+    p + scale_fill_gradient2(name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...) +
+    scale_colour_gradient2(name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...)
 
   } else {
 
-    p + scale_fill_viridis_c(option = zscale, name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, oob = scales::squish, ...) +
-    scale_colour_viridis_c(option = zscale, name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, oob = scales::squish, ...)
+    p + scale_fill_viridis_c(option = zscale, name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...) +
+    scale_colour_viridis_c(option = zscale, name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...)
 
   }
 
@@ -187,9 +215,9 @@ if(interpolate) {
     if(!is.null(bottom)) geom_ribbon(data = bd, aes(x = x, ymax = Inf, ymin = y), fill = "grey90")
     } +
     geom_point(data = dt, aes(x = x, y = y, size = z), pch = 21, stroke = LS(0.5), color = zcolor) +
-    scale_radius(name = zlab, limits = zlim, breaks = zbreaks, ...) +
+    scale_size_area(name = zlab, limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...) +
     scale_y_reverse(name = ylab, breaks = ybreaks_actual, labels = ybreaks, limits = ylim, expand = c(0.03, 0)) +
-    scale_x_continuous(name = xlab, breaks = xbreaks, limits = xlim) + #, expand = c(0, 0)
+    scale_x_continuous(name = xlab, breaks = xbreaks, limits = xlim, expand = c(0, 0)) + 
     theme_classic(base_size = base_size) +
     theme(legend.position = legend.position,
       legend.key.size = unit(0.8,"line"),
