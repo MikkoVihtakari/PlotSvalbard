@@ -12,8 +12,8 @@
 }
 }
 \usage{
-basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
-  limits.lat = 0.1, round.lon = FALSE, n.lon.grid = 3,
+basemap(type = "kongsfjorden", limits = NULL, limits.lon = NULL,
+  limits.lat = NULL, round.lon = FALSE, n.lon.grid = 3,
   lon.interval = 45, round.lat = FALSE, n.lat.grid = 3,
   lat.interval = 10, keep.glaciers = TRUE, legends = TRUE,
   legend.position = "right", bathymetry = FALSE,
@@ -35,7 +35,7 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = 0.1,
   \item \strong{character vector}: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the \code{limits.lon} and \code{limits.lat} arguments to define the accuracy of rounding.
 }}
 
-\item{limits.lon, limits.lat}{Numeric. The level of rounding for longitude and latitude, respectively, when using automatic limits (character vector in \code{limits} argument).}
+\item{limits.lon, limits.lat}{Numeric. The level of rounding for longitude and latitude, respectively, when using automatic limits (character vector in \code{limits} argument). If \code{NULL}, sensible default values are used.}
 
 \item{round.lon, round.lat}{Numeric value specifying the level of rounding to be used to plot longitude and latitude grid lines. Override \code{n.lon.grid} or \code{n.lat.grid}}
 
@@ -96,16 +96,16 @@ The function uses \link[ggplot2]{ggplot2} and shapefiles to plot maps of Svalbar
 \itemize{
 \item "svalbard". Detailed 1:250 000 map of Svalbard land and glaciers. This option is slow (approx. 25 seconds) due to the large file size.
 \item "mosj" shows Kongsfjoden and Fram Strait as sampled during Norwegian Polar Institute's (NPI) MOSJ campaigns. Some glaciers can be older than 2015.
-\item "kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017. 
-\item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017. 
-\item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017. 
-\item "rijpfjorden" shows NPI's Rijpfjorden to the Arctic Ocean transect. The glaciers have not been updated and might be old. 
+\item "kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017.
+\item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017.
+\item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017.
+\item "rijpfjorden" shows NPI's Rijpfjorden to the Arctic Ocean transect. The glaciers have not been updated and might be old.
 \item "barentssea". A 1:10 000 000 map of the Barents Sea.
 \item "arctic50". A polar stereographic map of the Arctic with a limit at 50 degrees North.
 \item "arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.
 }
 
-Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection. The "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", and "rijpfjorden" maps use a subset of the Svalbard shape files and are faster to plot due to a smaller file size. These alternatives give convenient limits for certain regions the main author has worked with recently. New map types can be implemented relatively easily, but require digging into the source code. 
+Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection. The "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", and "rijpfjorden" maps use a subset of the Svalbard shape files and are faster to plot due to a smaller file size. These alternatives give convenient limits for certain regions the main author has worked with recently. New map types can be implemented relatively easily, but require digging into the source code.
 
 \strong{Line width} (size) aesthetics in \link[ggplot2]{ggplot2} generates approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions \code{\link{LS}} and \code{\link{FS}} are available to convert line and font sizes in points to ggplot2 equivalents.
 
@@ -158,7 +158,7 @@ basemap("kongsfjorden", bathymetry = TRUE, bathy.detailed = TRUE)
 
 ## Ocean currents for the Barents Sea
 basemap("barentssea", bathymetry = TRUE, currents = TRUE)
-basemap("barentssea", bathymetry = TRUE, currents = TRUE, 
+basemap("barentssea", bathymetry = TRUE, currents = TRUE,
 current.size = "scaled", legends = c(FALSE, TRUE))
 
 }

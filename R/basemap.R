@@ -6,8 +6,8 @@
 #'   \item \strong{numeric vector}: the first element defines the minimum longitude, the second element the maximum longitude, the third element the minimum latitude and the fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", \code{\link{map_projection}} and \code{\link{transform_coord}} how to find these coordinates.
 #'   \item \strong{character vector}: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the \code{limits.lon} and \code{limits.lat} arguments to define the accuracy of rounding.
 #' }
-#' @param limits.lon,limits.lat Numeric. The level of rounding for longitude and latitude, respectively, when using automatic limits (character vector in \code{limits} argument).
-#' @param bathymetry Logical indicating whether bathymetry should be added to the map. Relatively slow. 
+#' @param limits.lon,limits.lat Numeric. The level of rounding for longitude and latitude, respectively, when using automatic limits (character vector in \code{limits} argument). If \code{NULL}, sensible default values are used.
+#' @param bathymetry Logical indicating whether bathymetry should be added to the map. Relatively slow.
 #' @param bathy.style Character defining the style for bathymetry contours. Alternatives:
 #' \itemize{
 #' \item \code{"poly_blues"} plots polygons filled with different shades of blue.
@@ -15,7 +15,7 @@
 #' \item \code{"contour_blues"} contour lines with different shades of blue.
 #' \item \code{"contour_grey"} plots grey contour lines.
 #' }
-#' @param legends Logical indicating whether legends for bathymetry and/or ocean currents should be shown. Can be a single logical applying to all legends or a logical vector of length 2. The first element applies for bathymetry and the second for ocean currents. 
+#' @param legends Logical indicating whether legends for bathymetry and/or ocean currents should be shown. Can be a single logical applying to all legends or a logical vector of length 2. The first element applies for bathymetry and the second for ocean currents.
 #' @param legend.position Position for ggplot2 legend. See the argument with the same name in \link[ggplot2]{theme}.
 #' @param bathy.detailed Logical indicating whether detailed bathymetry shapefiles should be used. Works for Svalbard maps only (see \emph{Source}). Very slow due to the large file size. Use for limited areas, such as fjords, only.
 #' @param land.col,gla.col,grid.col Character code specifying the color of land, glaciers and grid lines, respectively. Use \code{NA} to remove the grid lines.
@@ -39,16 +39,16 @@
 #' \itemize{
 #' \item "svalbard". Detailed 1:250 000 map of Svalbard land and glaciers. This option is slow (approx. 25 seconds) due to the large file size.
 #' \item "mosj" shows Kongsfjoden and Fram Strait as sampled during Norwegian Polar Institute's (NPI) MOSJ campaigns. Some glaciers can be older than 2015.
-#' \item "kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017. 
-#' \item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017. 
-#' \item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017. 
-#' \item "rijpfjorden" shows NPI's Rijpfjorden to the Arctic Ocean transect. The glaciers have not been updated and might be old. 
+#' \item "kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017.
+#' \item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017.
+#' \item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017.
+#' \item "rijpfjorden" shows NPI's Rijpfjorden to the Arctic Ocean transect. The glaciers have not been updated and might be old.
 #' \item "barentssea". A 1:10 000 000 map of the Barents Sea.
 #' \item "arctic50". A polar stereographic map of the Arctic with a limit at 50 degrees North.
 #' \item "arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.
 #' }
 #'
-#' Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection. The "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", and "rijpfjorden" maps use a subset of the Svalbard shape files and are faster to plot due to a smaller file size. These alternatives give convenient limits for certain regions the main author has worked with recently. New map types can be implemented relatively easily, but require digging into the source code. 
+#' Svalbard and Barents Sea maps use the \code{"+init=epsg:32633"} UTM projection. The polar stereographic maps use \code{"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"} projection. The "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", and "rijpfjorden" maps use a subset of the Svalbard shape files and are faster to plot due to a smaller file size. These alternatives give convenient limits for certain regions the main author has worked with recently. New map types can be implemented relatively easily, but require digging into the source code.
 #'
 #' \strong{Line width} (size) aesthetics in \link[ggplot2]{ggplot2} generates approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions \code{\link{LS}} and \code{\link{FS}} are available to convert line and font sizes in points to ggplot2 equivalents.
 #'
@@ -107,9 +107,9 @@
 #'
 #' ## Ocean currents for the Barents Sea
 #' basemap("barentssea", bathymetry = TRUE, currents = TRUE)
-#' basemap("barentssea", bathymetry = TRUE, currents = TRUE, 
+#' basemap("barentssea", bathymetry = TRUE, currents = TRUE,
 #' current.size = "scaled", legends = c(FALSE, TRUE))
-#' 
+#'
 #' @seealso \code{\link[ggplot2]{ggplot2}} \code{\link{theme_map}}
 #'
 #' @author Mikko Vihtakari, Anders Skoglund
@@ -118,24 +118,49 @@
 #' @export
 
 ## Test parameters
-# type = "barentssea"
-# type = "svalbard"
-# type = "kongsfjorden"
-# limits = c("kongsfjord_moorings", "Lon", "Lat")
-# type = "arctic60"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04; bathymetry = TRUE
-# type = "arctic50"; land.col = "#eeeac4"; gla.col = "grey95"; grid.col = "grey70"; limits = NULL; round.lat = FALSE; n.lat.grid = 3; round.lon = FALSE; n.lon.grid = 3; keep.glaciers = TRUE; bathymetry = TRUE; size.land = 0.1; size.glacier = 0.1; size.grid = 0.1; border.col.land = "black"; border.col.glacier = "black"; lat.interval = 10; lon.interval = 45; label.font = 3; label.offset = 1.04
-# type = "barentssea"; limits = NULL; limits.lon = 0.1; limits.lat = 0.1; round.lon = FALSE; n.lon.grid = 3; lon.interval = 45; round.lat = FALSE; n.lat.grid = 3; lat.interval = 10; keep.glaciers = TRUE; bathymetry = TRUE; bathy.style = "poly_blues"; legends = TRUE; bathy.detailed = FALSE; land.col = "#eeeac4"; land.border.col = "black"; land.size = 0.1; gla.col = "grey95"; gla.border.col = "black"; gla.size = 0.1; grid.col = "grey70"; grid.size = 0.1; currents = TRUE; arc.col = "#D696C8"; atl.col = "#BB1512"; current.size = "scaled"; current.alpha = 1; label.print = TRUE; label.offset = 1.05; label.font = 8; base_size = 11; bathy.border.col = NA; bathy.size = 0.1
+# type = "arctic50"; limits = c("z", "lon.utm", "lat.utm")
+# limits.lon = NULL; limits.lat = NULL; round.lon = FALSE; n.lon.grid = 3; lon.interval = 45; round.lat = FALSE; n.lat.grid = 3; lat.interval = 10; keep.glaciers = TRUE; legends = FALSE; legend.position = "right"; bathymetry = TRUE; bathy.style = "poly_greys"; bathy.detailed = FALSE; bathy.border.col = NA; bathy.size = 0.1; land.col = "grey30"; land.border.col = "black"; land.size = 0.1; gla.col = "grey95"; gla.border.col = "black"; gla.size = 0.1; grid.col = "grey70"; grid.size = 0.1; currents = FALSE; arc.col = "blue"; atl.col = "#BB1512"; current.size = 0.5; current.alpha = 1; label.print = TRUE; label.offset = 1.05; label.font = 8; base_size = 11; plot = TRUE
 
-basemap <- function(type = "kongsfjorden", limits = NULL, limits.lon = 0.1, limits.lat = 0.1, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, keep.glaciers = TRUE, legends = TRUE, legend.position = "right", bathymetry = FALSE, bathy.style = "poly_blues", bathy.detailed = FALSE, bathy.border.col = NA, bathy.size = 0.1, land.col = "#eeeac4", land.border.col = "black", land.size = 0.1, gla.col = "grey95", gla.border.col = "black", gla.size = 0.1, grid.col = "grey70", grid.size = 0.1, currents = FALSE, arc.col = "blue", atl.col = "#BB1512", current.size = 0.5, current.alpha = 1, label.print = TRUE, label.offset = 1.05, label.font = 8, base_size = 11, plot = TRUE) {
+basemap <- function(type = "kongsfjorden", limits = NULL, limits.lon = NULL, limits.lat = NULL, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, keep.glaciers = TRUE, legends = TRUE, legend.position = "right", bathymetry = FALSE, bathy.style = "poly_blues", bathy.detailed = FALSE, bathy.border.col = NA, bathy.size = 0.1, land.col = "#eeeac4", land.border.col = "black", land.size = 0.1, gla.col = "grey95", gla.border.col = "black", gla.size = 0.1, grid.col = "grey70", grid.size = 0.1, currents = FALSE, arc.col = "blue", atl.col = "#BB1512", current.size = 0.5, current.alpha = 1, label.print = TRUE, label.offset = 1.05, label.font = 8, base_size = 11, plot = TRUE) {
 
 ## Checks
-  
+
   if(class(legends) != "logical" | !length(legends) %in% 1:2) stop("'legends' argument has to be a logical vector of length 1 or 2. Read the explantion for the argument in ?basemap")
-  
-## Limits  
-  
+
+## Automatic limits
+
   if(length(limits) == 3 & is.character(limits)) {
-    limits <- c(round_any(min(get(limits[1])[limits[2]]), limits.lon, floor), round_any(max(get(limits[1])[limits[2]]), limits.lon, ceiling), round_any(min(get(limits[1])[limits[3]]), limits.lat, floor), round_any(max(get(limits[1])[limits[3]]), limits.lat, ceiling))
+
+    rdiff.lon <- diff(range(get(limits[1])[limits[2]]))
+    rdiff.lat <- diff(range(get(limits[1])[limits[3]]))
+
+    ## Pan-Arctic maps (makes a square map)
+    if(type %in% c("arctic50", "arctic60")) {
+
+      if(is.null(limits.lon)) {
+        limits.lon <- ifelse(rdiff.lon > 1e6, 1e5, ifelse(rdiff.lon > 1e5, 1e4, 1e3))
+      }
+
+      if(is.null(limits.lat)) {
+        limits.lat <- ifelse(nchar(round(rdiff.lon, 0)) == nchar(round(rdiff.lat, 0)), limits.lon, ifelse(rdiff.lon > 1e6, 1e5, ifelse(rdiff.lon > 1e5, 1e4, 1e3)))
+      }
+
+      limits <- c(round_any(min(get(limits[1])[limits[2]]), limits.lon, floor), round_any(max(get(limits[1])[limits[2]]), limits.lon, ceiling), round_any(min(get(limits[1])[limits[3]]), limits.lat, floor), round_any(max(get(limits[1])[limits[3]]), limits.lat, ceiling))
+
+    ## UTM maps
+    } else {
+
+      if(is.null(limits.lon)) {
+        limits.lon <- ifelse(rdiff.lon > 30, 2, ifelse(rdiff.lon > 10, 1, 0.1))
+      }
+
+      if(is.null(limits.lat)) {
+        limits.lat <- ifelse(rdiff.lon > 10, 1, ifelse(rdiff.lon > 1, 0.1, 0.05))
+      }
+
+
+      limits <- c(round_any(min(get(limits[1])[limits[2]]), limits.lon, floor), round_any(max(get(limits[1])[limits[2]]), limits.lon, ceiling), round_any(min(get(limits[1])[limits[3]]), limits.lat, floor), round_any(max(get(limits[1])[limits[3]]), limits.lat, ceiling))
+    }
   }
 
 ## Map data
@@ -158,9 +183,9 @@ if(bathymetry) {
     contour_grey = "bathy_cg",
     stop(paste("bathy_type for", type, "not found."))
   )
-  
+
   bathy.legend <- ifelse(length(legends) == 1, legends, legends[1])
-  
+
   if(bathy_cmd == "bathy_cg" & is.na(bathy.border.col)) bathy.border.col <- "grey"
 }
 
@@ -178,11 +203,11 @@ if(is.null(map_type(X$MapType)$glacier)) {
 }
 
 
-  
+
 if(!plot) { ## Return data
-  
+
    list("basemap_data" = X, "bathymetry" = if(bathymetry) {bathy} else {NULL}, "currents" = if(currents) {cur} else {NULL})
-   
+
   } else {
 
 ## Map composing

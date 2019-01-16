@@ -23,6 +23,7 @@
 #' @importFrom MBA mba.surf
 #' @importFrom scales rescale
 #' @importFrom reshape2 melt dcast
+#' @importFrom stats na.omit
 #' @author Mikko Vihtakari
 #' @export
 # Add clip
@@ -52,7 +53,7 @@ interpolate_section <- function(df = NULL, x, y, z, method = "linear", format = 
 
   ## Remove NAs ##
 
-  if(na.rm & any(is.na(dt))) dt <- na.omit(dt)
+  if(na.rm & any(is.na(dt))) dt <- stats::na.omit(dt)
 
   ## Scale & log transform ##
 

@@ -12,10 +12,10 @@
 \item{...}{further arguments passed to \code{\link{print}}.}
 }
 \description{
-\code{\link{print}} function for \code{\link[=interpolate]{spatInt}} objects
+\code{\link{print}} function for \code{\link[=interpolate_section]{spatInt}} objects
 }
 \seealso{
-\code{\link{interpolate}}
+\code{\link{interpolate_section}}
 }
 \author{
 Mikko Vihtakari

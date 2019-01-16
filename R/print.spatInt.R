@@ -1,11 +1,11 @@
 ##' @title Print \code{spatInt} objects
-##' @description \code{\link{print}} function for \code{\link[=interpolate]{spatInt}} objects
+##' @description \code{\link{print}} function for \code{\link[=interpolate_section]{spatInt}} objects
 ##' @param x \code{spatInt} object to be printed.
 ##' @param ... further arguments passed to \code{\link{print}}.
 ##' @method print spatInt
 ##' @export
 ##' @author Mikko Vihtakari
-##' @seealso \code{\link{interpolate}}
+##' @seealso \code{\link{interpolate_section}}
 ##' @keywords internal
 
 print.spatInt <- function(x, ...) {

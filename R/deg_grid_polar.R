@@ -1,6 +1,6 @@
 ##' @title Decimal degree grid from polar stereographic spatial objects
 ##' @description Outputs a list of grid lines that can be used to plot a grid on polar stereographic maps. Requires a spatial object projected using UTM coordinates
-##' @param dat Spatial object projected using UTM coordinates, such as \code{\link{readShapeSpatial}} OR a numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box. In case of a numeric vector, the coordinates have to be given as decimal degrees.
+##' @param dat Spatial object projected using UTM coordinates, such as \code{\link{readShapeSpatial}} OR a numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box.
 ##' @param lat.interval the interval of latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})
 ##' @param lon.interval the interval of longitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})
 ##' @param n.points number of points used in creating the grid lines. The more points, the smoother the lines.

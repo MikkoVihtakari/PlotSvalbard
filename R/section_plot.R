@@ -9,7 +9,7 @@
 #' @param interp_method (\code{interpolate = TRUE} only). Character specifying the interpolation method. See \code{\link{interpolate_section}}.
 #' @param log_y logical indicating whether the y-axis should be \code{log10(y + 10)} transformed before plotting. Helps showing differences close to the surface if some stations are much deeper than others.
 #' @param xlab,ylab,zlab Character specifying the labels for the x-axis, y-axis and legend, respectively.
-#' @param xbreaks,ybreaks,zbreaks Numeric vector specifying the breaks for the x-axis, y-axis and legend. See \link[ggplot]{scale_continuous}.
+#' @param xbreaks,ybreaks,zbreaks Numeric vector specifying the breaks for the x-axis, y-axis and legend. See \link[ggplot2]{scale_continuous}.
 #' @param contour (\code{interpolate = TRUE} only). Numeric vector defining breaks for contour lines. Use \code{NULL} not to plot the contour lines.
 #' @param contour_label_cex Numeric giving the \code{cex} (=size) parameter for contour labels. See \code{\link[directlabels]{geom_dl}}.
 #' @param contour_color Character defining the color to be used for contour lines and labels.
@@ -22,7 +22,7 @@
 #' \itemize{
 #' \item \code{"lines"} A dashed line reaching from data start depth to end depth at each station. Recommended for CTD sections.
 #' \item \code{"points"} Points indicating the vertical and horizontal location of sample. Recommended for water samples.
-#' \item \code{"ticks"} A black tick mark above the plot indicating the horizontal location of each station. A way to avoid clutter. 
+#' \item \code{"ticks"} A black tick mark above the plot indicating the horizontal location of each station. A way to avoid clutter.
 #' \item \code{"none"} No sampling indicator will be plotted.
 #' }
 #' @param legend.position Position for the ggplot legend. See the argument with the same name in \link[ggplot2]{theme}.
@@ -43,15 +43,16 @@
 #'
 #' # Interpolated CTD sections
 #' ## Standard temperature section plot. Difficult to see surface due to large differences in y-scale
-#' section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth", interpolate = TRUE)
+#' section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth",
+#' interpolate = TRUE)
 #'
 #' ## Logarithmic y axis
-#' section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth", interpolate = TRUE,
-#'   log_y = TRUE)
+#' section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth",
+#' interpolate = TRUE, log_y = TRUE)
 #'
 #' ## Contour lines
-#' section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth", interpolate = TRUE,
-#'   log_y = TRUE, contour = c(-1.8, 0, 1, 3))
+#' section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth",
+#' interpolate = TRUE, log_y = TRUE, contour = c(-1.8, 0, 1, 3))
 #' @export
 
 # Test parameters
@@ -110,7 +111,7 @@ if(interpolate) {
 if(log_y) {
   yzero <- 0.98
   ytick.lim <- 0.95
-  
+
   if(class(ybreaks) == "waiver") {
     ybreaks <- pretty_log(10^pretty(range(dt$y), n = 10) - 10)
     ybreaks_actual <- log10(ybreaks + 10)
@@ -123,7 +124,7 @@ if(log_y) {
 } else {
   yzero <- -2
   ytick.lim <- -diff(range(df[[y]]))*0.02
-  
+
   if(class(ybreaks) == "waiver") {
     ybreaks_actual <- waiver()
   } else {
@@ -138,25 +139,25 @@ if(!is.null(zlim)) {
   if(class(zbreaks) == "waiver") {
       zbreaks <- pretty(zlim, n = 4)
   }
-  
+
   zlabels <- zbreaks
-  
+
   if(any(df[[z]] > zlim[2])) {
     zlabels[length(zlabels)] <- paste0(">", zlabels[length(zlabels)])
   }
-  
+
   if(any(df[[z]] < zlim[1])) {
     zlabels[1] <- paste0("<", zlabels[1])
   }
-      
+
 } else {
    if(class(zbreaks) == "waiver") {
     zlabels <- waiver()
    } else {
     zlabels <- zbreaks
   }
-  
-  
+
+
 }
 
 
@@ -174,11 +175,11 @@ if(interpolate) {
           stat = "contour", color = contour_color, breaks = contour)
       }
     } + {
-     if(sampling_indicator == "lines") geom_segment(data = samples, aes(x = x, xend = x, y = min, yend = max), size = LS(0.5), color = "grey", linetype = 2) 
+     if(sampling_indicator == "lines") geom_segment(data = samples, aes(x = x, xend = x, y = min, yend = max), size = LS(0.5), color = "grey", linetype = 2)
     } + {
-     if(sampling_indicator == "points") geom_point(data = df, aes(x = get(x), y = get(y)), size = contour_label_cex, color = "black") 
+     if(sampling_indicator == "points") geom_point(data = df, aes(x = get(x), y = get(y)), size = contour_label_cex, color = "black")
     } + {
-     if(sampling_indicator == "ticks") geom_segment(data = samples, aes(x = x, xend = x, y = ytick.lim, yend = yzero), size = LS(1), color = "black")   
+     if(sampling_indicator == "ticks") geom_segment(data = samples, aes(x = x, xend = x, y = ytick.lim, yend = yzero), size = LS(1), color = "black")
     } + {
       if(!is.null(bottom)) geom_ribbon(data = bd, aes(x = x, ymax = Inf, ymin = y), fill = "grey90")
       } +
@@ -217,7 +218,7 @@ if(interpolate) {
     geom_point(data = dt, aes(x = x, y = y, size = z), pch = 21, stroke = LS(0.5), color = zcolor) +
     scale_size_area(name = zlab, limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...) +
     scale_y_reverse(name = ylab, breaks = ybreaks_actual, labels = ybreaks, limits = ylim, expand = c(0.03, 0)) +
-    scale_x_continuous(name = xlab, breaks = xbreaks, limits = xlim, expand = c(0, 0)) + 
+    scale_x_continuous(name = xlab, breaks = xbreaks, limits = xlim, expand = c(0, 0)) +
     theme_classic(base_size = base_size) +
     theme(legend.position = legend.position,
       legend.key.size = unit(0.8,"line"),

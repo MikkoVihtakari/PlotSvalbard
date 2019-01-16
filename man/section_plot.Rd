@@ -32,7 +32,7 @@ section_plot(df, x, y, z, bottom = NULL, interpolate = FALSE,
 
 \item{xlab, ylab, zlab}{Character specifying the labels for the x-axis, y-axis and legend, respectively.}
 
-\item{xbreaks, ybreaks, zbreaks}{Numeric vector specifying the breaks for the x-axis, y-axis and legend. See \link[ggplot]{scale_continuous}.}
+\item{xbreaks, ybreaks, zbreaks}{Numeric vector specifying the breaks for the x-axis, y-axis and legend. See \link[ggplot2]{scale_continuous}.}
 
 \item{contour}{(\code{interpolate = TRUE} only). Numeric vector defining breaks for contour lines. Use \code{NULL} not to plot the contour lines.}
 
@@ -54,7 +54,7 @@ section_plot(df, x, y, z, bottom = NULL, interpolate = FALSE,
 \itemize{
 \item \code{"lines"} A dashed line reaching from data start depth to end depth at each station. Recommended for CTD sections.
 \item \code{"points"} Points indicating the vertical and horizontal location of sample. Recommended for water samples.
-\item \code{"ticks"} A black tick mark above the plot indicating the horizontal location of each station. A way to avoid clutter. 
+\item \code{"ticks"} A black tick mark above the plot indicating the horizontal location of each station. A way to avoid clutter.
 \item \code{"none"} No sampling indicator will be plotted.
 }}
 
@@ -80,15 +80,16 @@ section_plot(df = chlorophyll[grepl("KpN.|Kb[0-4]", chlorophyll$Station),], x = 
 
 # Interpolated CTD sections
 ## Standard temperature section plot. Difficult to see surface due to large differences in y-scale
-section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth", interpolate = TRUE)
+section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth",
+interpolate = TRUE)
 
 ## Logarithmic y axis
-section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth", interpolate = TRUE,
-  log_y = TRUE)
+section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth",
+interpolate = TRUE, log_y = TRUE)
 
 ## Contour lines
-section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth", interpolate = TRUE,
-  log_y = TRUE, contour = c(-1.8, 0, 1, 3))
+section_plot(ctd_rijpfjord, x = "dist", y = "pressure", z = "temp", bottom = "bdepth",
+interpolate = TRUE, log_y = TRUE, contour = c(-1.8, 0, 1, 3))
 }
 \author{
 Mikko Vihtakari
