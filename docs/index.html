@@ -18,7 +18,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-home">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">PlotSvalbard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.9</span>
       </span>
     </div>
 
@@ -75,7 +75,11 @@
 
       
       </header><div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
+    
+
+    
+    
 <div id="plotsvalbard" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#plotsvalbard" class="anchor"></a>PlotSvalbard</h1></div>
@@ -87,8 +91,8 @@
 <h2 class="hasAnchor">
 <a href="#installation-of-the-github-version" class="anchor"></a>Installation of the GitHub version</h2>
 <p>Using the <a href="https://cran.r-project.org/web/packages/devtools/index.html"><strong>devtools</strong></a> package:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(devtools)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"MikkoVihtakari/PlotSvalbard"</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(devtools)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"MikkoVihtakari/PlotSvalbard"</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -112,45 +116,57 @@
 <div id="making-a-map-with-text" class="section level3">
 <h3 class="hasAnchor">
 <a href="#making-a-map-with-text" class="anchor"></a>Making a map with text</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(PlotSvalbard)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"kongsfjord_moorings"</span>)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">11.3</span>, <span class="fl">12.69</span>, <span class="fl">78.86</span>, <span class="fl">79.1</span>), <span class="dt">round.lat =</span> <span class="fl">0.05</span>, <span class="dt">round.lon =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw">geom_text</span>(<span class="dt">data =</span> kongsfjord_moorings,</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">label =</span> Mooring.name, <span class="dt">color =</span> Name), </a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="dt">fontface =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">25.4</span><span class="op">/</span><span class="fl">72.27</span><span class="op">*</span><span class="dv">8</span>) <span class="co"># font size = 8, see Graphical parameters</span></a></code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(PlotSvalbard)</a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"kongsfjord_moorings"</span>)</a>
+<a class="sourceLine" id="cb2-4" title="4"></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">11.3</span>, <span class="fl">12.69</span>, <span class="fl">78.86</span>, <span class="fl">79.1</span>), <span class="dt">round.lat =</span> <span class="fl">0.05</span>, <span class="dt">round.lon =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="kw">geom_text</span>(<span class="dt">data =</span> kongsfjord_moorings,</a>
+<a class="sourceLine" id="cb2-7" title="7">  <span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">label =</span> Mooring.name, <span class="dt">color =</span> Name), </a>
+<a class="sourceLine" id="cb2-8" title="8">  <span class="dt">fontface =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">25.4</span><span class="op">/</span><span class="fl">72.27</span><span class="op">*</span><span class="dv">8</span>) <span class="co"># font size = 8, see Graphical parameters</span></a></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="1440"></p>
+</div>
+<div id="barents-sea-ocean-current-arrows" class="section level3">
+<h3 class="hasAnchor">
+<a href="#barents-sea-ocean-current-arrows" class="anchor"></a>Barents Sea ocean-current arrows</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>, <span class="dt">currents =</span> <span class="ot">TRUE</span>, <span class="dt">current.size =</span> <span class="st">"scaled"</span>)</a></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="1440"></p>
+</div>
+<div id="pan-arctic-maps" class="section level3">
+<h3 class="hasAnchor">
+<a href="#pan-arctic-maps" class="anchor"></a>Pan-Arctic maps</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"arctic60"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="1440"></p>
 </div>
 <div id="combining-extensions-for-ggplot2" class="section level3">
 <h3 class="hasAnchor">
 <a href="#combining-extensions-for-ggplot2" class="anchor"></a>Combining extensions for ggplot2</h3>
 <p>Most extensions for ggplot2 work together with PlotSvalbard.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(zooplankton)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">x &lt;-<span class="st"> </span><span class="kw"><a href="reference/transform_coord.html">transform_coord</a></span>(zooplankton, <span class="dt">lon =</span> <span class="st">"Longitude"</span>, <span class="dt">lat =</span> <span class="st">"Latitude"</span>, <span class="dt">bind =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">species &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(x)[<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(x) <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"lon.utm"</span>, <span class="st">"lat.utm"</span>, <span class="st">"ID"</span>, <span class="st">"Longitude"</span>, <span class="st">"Latitude"</span>, <span class="st">"Total"</span>)]</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(scatterpie)</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>, <span class="dv">24</span>, <span class="fl">79.5</span>, <span class="fl">83.5</span>), <span class="dt">round.lon =</span> <span class="dv">2</span>, <span class="dt">round.lat =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/scatterpie/topics/geom_scatterpie">geom_scatterpie</a></span>(<span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">group =</span> ID, <span class="dt">r =</span> <span class="dv">100</span><span class="op">*</span>Total), <span class="dt">data =</span> x, <span class="dt">cols =</span> species, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="kw">scale_fill_discrete</span>(<span class="dt">name =</span> <span class="st">"Species"</span>, <span class="dt">breaks =</span> species, </a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/parse">parse</a></span>(<span class="dt">text =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"italic("</span> , <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">"*</span><span class="ch">\\</span><span class="st">."</span>, <span class="st">"~"</span>, species), <span class="st">")"</span>)))</a></code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(zooplankton)</a>
+<a class="sourceLine" id="cb5-2" title="2"></a>
+<a class="sourceLine" id="cb5-3" title="3">x &lt;-<span class="st"> </span><span class="kw"><a href="reference/transform_coord.html">transform_coord</a></span>(zooplankton, <span class="dt">lon =</span> <span class="st">"Longitude"</span>, <span class="dt">lat =</span> <span class="st">"Latitude"</span>, <span class="dt">bind =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb5-4" title="4"></a>
+<a class="sourceLine" id="cb5-5" title="5">species &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(x)[<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(x) <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"lon.utm"</span>, <span class="st">"lat.utm"</span>, <span class="st">"ID"</span>, <span class="st">"Longitude"</span>, <span class="st">"Latitude"</span>, <span class="st">"Total"</span>)]</a>
+<a class="sourceLine" id="cb5-6" title="6"></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(scatterpie)</a>
+<a class="sourceLine" id="cb5-8" title="8"></a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>, <span class="dv">24</span>, <span class="fl">79.5</span>, <span class="fl">83.5</span>), <span class="dt">round.lon =</span> <span class="dv">2</span>, <span class="dt">round.lat =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/scatterpie/topics/geom_scatterpie">geom_scatterpie</a></span>(<span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">group =</span> ID, <span class="dt">r =</span> <span class="dv">100</span><span class="op">*</span>Total), <span class="dt">data =</span> x, <span class="dt">cols =</span> species, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="kw">scale_fill_discrete</span>(<span class="dt">name =</span> <span class="st">"Species"</span>, <span class="dt">breaks =</span> species, </a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/parse">parse</a></span>(<span class="dt">text =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"italic("</span> , <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">"*</span><span class="ch">\\</span><span class="st">."</span>, <span class="st">"~"</span>, species), <span class="st">")"</span>)))</a></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="1440"></p>
 </div>
 </div>
 <div id="data-sources-and-citations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-sources-and-citations" class="anchor"></a>Data sources and citations</h2>
 <p>If you use the package to make maps for your publications, please cite it. For up-to-date citation information, please use:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation</a></span>(<span class="st">"PlotSvalbard"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation</a></span>(<span class="st">"PlotSvalbard"</span>)</a></code></pre></div>
 <pre><code>## 
 ## To cite package 'PlotSvalbard' in publications use:
 ## 
-##   Mikko Vihtakari (2018). PlotSvalbard: PlotSvalbard - Plot
-##   research data from Svalbard on maps. R package version 0.7.1.
+##   Mikko Vihtakari (2019). PlotSvalbard: PlotSvalbard - Plot
+##   research data from Svalbard on maps. R package version 0.7.9.
 ##   https://github.com/MikkoVihtakari/PlotSvalbard
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -158,8 +174,8 @@
 ##   @Manual{,
 ##     title = {PlotSvalbard: PlotSvalbard - Plot research data from Svalbard on maps},
 ##     author = {Mikko Vihtakari},
-##     year = {2018},
-##     note = {R package version 0.7.1},
+##     year = {2019},
+##     note = {R package version 0.7.9},
 ##     url = {https://github.com/MikkoVihtakari/PlotSvalbard},
 ##   }</code></pre>
 <p>The maps generated by this package should be cited to their original source.</p>
@@ -171,45 +187,11 @@
 <li>Svalbard fjord bathymetry shapefiles are from the <a href="https://kartkatalog.geonorge.no/metadata/kartverket/dybdedata/2751aacf-5472-4850-a208-3532a51c529a">Norwegian Mapping Authority</a>. Distributed under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a>.</li>
 </ul>
 <p>The example data included in the package are property of the Norwegian Polar Institute and should not be used in other instances. I.e. these data are unpublihed at the moment.</p>
-<p>PlotSvalbard depends on many packages (see <strong>Dependencies</strong>). If you use these packages in your publications, please cite the respective packages.</p>
 </div>
 <div id="contributions-and-contact-information" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contributions-and-contact-information" class="anchor"></a>Contributions and contact information</h2>
-<p>Any contributions to the package are more than welcome. Please contact the package creator Mikko Vihtakari (<a href="mailto:mikko.vihtakari@gmail.com">mikko.vihtakari@gmail.com</a>) to discuss your ideas on improving the package.</p>
-</div>
-<div id="dependencies" class="section level2">
-<h2 class="hasAnchor">
-<a href="#dependencies" class="anchor"></a>Dependencies</h2>
-<p>The <strong>PlotSvalbard</strong> package depends on:</p>
-<ul>
-<li>
-<a href="http://ggplot2.tidyverse.org/reference/">ggplot2</a>: PlotSvalbard expands on ggplot2.</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/sp/index.html">sp</a>: Used to handle geographical information.</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/maptools/index.html">maptools</a>: Used to handle geographical information.</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/rgdal/index.html">rgdal</a>: Used to handle geographical information.</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/rgeos/index.html">rgeos</a>: Used to generalize and clip shapefiles.</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/gstat/index.html">gstat</a>: the idw function is used for interpolation.</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/oce/index.html">oce</a>: Used for trapetsoidal intergration.</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/broom/index.html">broom</a>: Used to transform shapefiles to data frames for ggplot2.</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/geosphere/index.html">geosphere</a>: Used to calculated shortest distances to land.</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/dplyr/index.html">dplyr</a>: Used for advanced data manipulation.</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/magrittr/index.html">magrittr</a>: Used for pipe operations in advanced data manipulation.</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/gtable/index.html">gtable</a>: Used to modify ggplot2 default options.</li>
-<li>
-<a href="https://cran.r-project.org/web/packages/cowplot/index.html">cowplot</a>: Used to plot several ggplot2 objects into a grid and to extract a common legend.</li>
-</ul>
+<p>Any contributions to the package are more than welcome. Please contact the package creator Mikko Vihtakari (<a href="mailto:mikko.vihtakari@gmail.com" class="email">mikko.vihtakari@gmail.com</a>) to discuss your ideas on improving the package.</p>
 </div>
 <div id="news" class="section level2">
 <h2 class="hasAnchor">
@@ -222,7 +204,7 @@
 </div>
   </div>
 
-  <div class="col-md-3" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
@@ -248,7 +230,8 @@
 </ul>
 </div>
 
-  </div>
+      </div>
+
 </div>
 
 
@@ -257,7 +240,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
 </div>

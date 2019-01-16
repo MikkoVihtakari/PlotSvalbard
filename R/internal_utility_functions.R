@@ -71,3 +71,16 @@ formatterUTMkm <- function(x){
     x/1000
 }
 
+#' @title Return function output quietly
+#' @description Returns function output without printed \code{\link{cat}} messages
+#' @param x function
+#' @keywords internal
+#' @author Hadley Wickham
+#' @export
+
+quiet <- function(x) {
+  sink(tempfile())
+  on.exit(sink())
+  invisible(force(x))
+}
+

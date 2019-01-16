@@ -44,7 +44,7 @@ if(X$MapClass == "panarctic") {
 
 
   ## Clip bathymetry
-  bathy <- clip_shapefile(clip_bathy, clipBound)
+  bathy <- quiet(clip_shapefile(clip_bathy, clipBound))
   fbathy <- suppressWarnings(broom::tidy(bathy))
 
   fbathy$id <- select(strsplit(fbathy$id, " "), 1)

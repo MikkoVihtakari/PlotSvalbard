@@ -105,10 +105,11 @@ Note that some map types are already limited, so if you are looking for a map of
 
 ### Automatic limits
 
-Requires a character vector: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the `limits.lon` and ` limits.lat` agruments to define the accuracy of rounding.
+Requires a character vector: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the `limits.lon` and ` limits.lat` arguments can be used to override the default rounding. 
 
 ```{r}
-basemap(type = "svalbard", limits = c("kongsfjord_moorings", "Lon", "Lat"), limits.lon = 0.01, limits.lat = 0.01) + geom_point(data = kongsfjord_moorings, aes(x = lon.utm, y = lat.utm), color = "red")
+basemap(type = "svalbard", limits = c("kongsfjord_moorings", "Lon", "Lat")) + 
+  geom_point(data = kongsfjord_moorings, aes(x = lon.utm, y = lat.utm), color = "red")
 ```
 
 ## Bathymetry
