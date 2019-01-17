@@ -119,6 +119,7 @@
 
 ## Test parameters
 # type = "arctic50"; limits = c("z", "lon.utm", "lat.utm")
+# limits = NULL
 # limits.lon = NULL; limits.lat = NULL; round.lon = FALSE; n.lon.grid = 3; lon.interval = 45; round.lat = FALSE; n.lat.grid = 3; lat.interval = 10; keep.glaciers = TRUE; legends = FALSE; legend.position = "right"; bathymetry = TRUE; bathy.style = "poly_greys"; bathy.detailed = FALSE; bathy.border.col = NA; bathy.size = 0.1; land.col = "grey30"; land.border.col = "black"; land.size = 0.1; gla.col = "grey95"; gla.border.col = "black"; gla.size = 0.1; grid.col = "grey70"; grid.size = 0.1; currents = FALSE; arc.col = "blue"; atl.col = "#BB1512"; current.size = 0.5; current.alpha = 1; label.print = TRUE; label.offset = 1.05; label.font = 8; base_size = 11; plot = TRUE
 
 basemap <- function(type = "kongsfjorden", limits = NULL, limits.lon = NULL, limits.lat = NULL, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, keep.glaciers = TRUE, legends = TRUE, legend.position = "right", bathymetry = FALSE, bathy.style = "poly_blues", bathy.detailed = FALSE, bathy.border.col = NA, bathy.size = 0.1, land.col = "#eeeac4", land.border.col = "black", land.size = 0.1, gla.col = "grey95", gla.border.col = "black", gla.size = 0.1, grid.col = "grey70", grid.size = 0.1, currents = FALSE, arc.col = "blue", atl.col = "#BB1512", current.size = 0.5, current.alpha = 1, label.print = TRUE, label.offset = 1.05, label.font = 8, base_size = 11, plot = TRUE) {

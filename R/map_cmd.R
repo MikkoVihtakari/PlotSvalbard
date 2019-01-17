@@ -39,7 +39,7 @@ map_cmd <- function(command, alternative = FALSE) {
   } else {
     FALSE
   }) + scale_size(name = "Current\nsize", range = c(LS(0.5), LS(3)), breaks = c(1, 2, 4, 8, 14), labels = c("Intermittent", "Minor", "Medium", "Major", "Main"), guide = if(current.legend) {
-   guide_legend(order = 3, override.aes = list(fill = NA)) 
+   guide_legend(order = 3, override.aes = list(fill = NA))
   } else {
     FALSE
   })'

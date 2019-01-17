@@ -43,8 +43,8 @@ if(X$MapClass == "panarctic") {
 }
 
 
-  ## Clip bathymetry
-  bathy <- quiet(clip_shapefile(clip_bathy, clipBound))
+## Clip bathymetry
+  bathy <- clip_shapefile(clip_bathy, clipBound)
   fbathy <- suppressWarnings(broom::tidy(bathy))
 
   fbathy$id <- select(strsplit(fbathy$id, " "), 1)
@@ -61,6 +61,7 @@ if(X$MapClass == "panarctic") {
 
   out <- merge(fbathy, info[c("id", "depth")], by = "id", all.x = TRUE, sort = FALSE)
 
+  out$id <- ordered(out$id, levels = sort(as.numeric(unique(out$id))))
   out$depth <- ordered(out$depth)
 
   if(X$MapClass == "panarctic") {

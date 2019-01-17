@@ -10,7 +10,7 @@
 #' @import sp rgdal
 #' @importFrom rgeos gIntersection gIntersects gSimplify
 #' @importFrom methods slot slot<-
-#' @author Mikko Vihtakari with a solution from \href{https://stackoverflow.com/questions/15881455/how-to-clip-worldmap-with-polygon-in-r}{Keith W. Larson/SO community}
+#' @author Mikko Vihtakari with a solution from \href{https://stackoverflow.com/questions/15881455/how-to-clip-worldmap-with-polygon-in-r}{Simon O'Hanlon, Roger Bivand/SO community}
 #' @export
 
 # Test parameters
@@ -58,25 +58,33 @@ if(simplify) {
 ## Clipping the bathymetry (using a bypass scavenged from here: https://stackoverflow.com/questions/15881455/how-to-clip-worldmap-with-polygon-in-r)
 ## Sometimes rgeos::gIntersection gets confused when the resulting clipped SpatialPolygon contains other shapes than polygons. The bypass fixes this problem, but takes a longer time to complete than the regular method. Therefore two methods
 
-error_test <- try(rgeos::gIntersection(x, clip_boundary, byid = TRUE), silent = TRUE)
+error_test <- quiet(try(rgeos::gIntersection(x, clip_boundary, byid = TRUE), silent = TRUE))
 
 if(class(error_test) == "try-error") {
-    info <- x@data
-    info$keep <- c(rgeos::gIntersects(x, clip_boundary, byid = TRUE))
+  message("clip_shapefile function used a bypass, which takes a longer time, but should produce the same results as the normal route. Remove the bypass once you have made sure that the results actually match.")
 
-    out <- lapply(which(info$keep) , function(k) {rgeos::gIntersection(x[k,], clip_boundary)})
-    info <- info[info$keep,]
+rgeos::gIntersection(x, clip_boundary, byid = TRUE, drop_lower_td = TRUE)
+    # info <- x@data
+    # info$plotOrder <- x@plotOrder
+    # info$keep <- c(rgeos::gIntersects(x, clip_boundary, byid = TRUE))
+    #
+    # out <- lapply(which(info$keep), function(k) {rgeos::gIntersection(x[k,], clip_boundary, byid = TRUE)})
+    # info <- info[info$keep,]
+    #
+    # info$keep <- sapply(out, class) == "SpatialPolygons"
+    # out <- out[info$keep]
+    # info <- info[info$keep,]
+    #
+    # tmp <- sp::SpatialPolygons(lapply(1:length(out), function(i) {
+    #   Pol <- methods::slot(out[[i]], "polygons")[[1]]
+    #   methods::slot(Pol, "ID") <- rownames(info)[i]
+    #   Pol
+    # }))
+    #
+    # #tmp@plotOrder <- info$plotOrder
+    # proj4string(tmp) <- proj4string(x)
+    # tmp
 
-    info$keep <- sapply(out, class) == "SpatialPolygons"
-    out <- out[info$keep]
-
-    info <- info[info$keep,]
-
-    sp::SpatialPolygons(lapply(1:length(out), function(i) {
-      Pol <- methods::slot(out[[i]], "polygons")[[1]]
-      methods::slot(Pol, "ID") <- rownames(info)[i]
-      Pol
-    }))
   } else {
     error_test
   }
