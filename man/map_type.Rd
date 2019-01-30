@@ -12,6 +12,16 @@ map_type(type)
 \description{
 The function prints the information used in internal calculations by the \code{\link{basemap}} function
 }
+\details{
+Returns a list of different map \code{type} definitions required by the \code{\link{basemap}} function. The list consists of following elements:
+\itemize{
+\item \strong{land} name of the land shapefile.
+\item \strong{glacier} name of the glacier shapefile. \code{NULL} if glaciers are not provided.
+\item \strong{boundary} either a shapefile or a \code{\link[=basemap]{limit}} argument defining the default limits for the map. Will be overriden by the \code{basemap limit} argument.
+\item \strong{map.type} defines the class of the map with "svalbard", "barents", and "panarctic" as options. Due to more and longsighted naming early on during the package writing, this argument got the name \code{map.type}, which is unfortunate. Should be changed to map.class eventually.
+\item \strong{round.lon,round.lat} default \code{\link[=basemap]{rounding}} arguments specifying the level of rounding to be used to plot longitude and latitude grid lines.
+}
+}
 \seealso{
 \code{\link{map_projection}} \code{\link{basemap}}
 }

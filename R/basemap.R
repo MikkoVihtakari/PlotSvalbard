@@ -1,10 +1,11 @@
 #' @title Create a ggplot2 basemap for plotting variables
 #' @description Creates a ggplot2 basemap for further plotting of variables.
-#' @param type Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "rijpfjorden", "barentssea", "arctic50" or "arctic60". See details.
-#' @param limits Map limits. Either a numeric vector of length 4 or a character vector of length 3. Numeric vectors are used to constrain (zoom in) the maps using coordinates. Character vectors are used to automatically zoom into a dataset.
+#' @param type Type of map area. Options: "panarctic", "barentssea", "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "rijpfjorden", "arctic50" or "arctic60". See details.
+#' @param limits Map limits. One of the following options:
 #' \itemize{
-#'   \item \strong{numeric vector}: the first element defines the minimum longitude, the second element the maximum longitude, the third element the minimum latitude and the fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", \code{\link{map_projection}} and \code{\link{transform_coord}} how to find these coordinates.
-#'   \item \strong{character vector}: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the \code{limits.lon} and \code{limits.lat} arguments to define the accuracy of rounding.
+#'   \item \strong{numeric vector} of length 4: The first element defines the minimum longitude, the second element the maximum longitude, the third element the minimum latitude and the fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", \code{\link{map_projection}} and \code{\link{transform_coord}} how to find these coordinates.
+#'   \item \strong{character vector} of length 3: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the \code{limits.lon} and \code{limits.lat} arguments to define the accuracy of rounding.
+#'   \item \strong{single integer} between 40 and 88: works only for the "panarctic" map \code{type}. Round map will be produced with a limit at the given decimal degree latitude.
 #' }
 #' @param limits.lon,limits.lat Numeric. The level of rounding for longitude and latitude, respectively, when using automatic limits (character vector in \code{limits} argument). If \code{NULL}, sensible default values are used.
 #' @param bathymetry Logical indicating whether bathymetry should be added to the map. Relatively slow.
@@ -21,7 +22,7 @@
 #' @param land.col,gla.col,grid.col Character code specifying the color of land, glaciers and grid lines, respectively. Use \code{NA} to remove the grid lines.
 #' @param round.lon,round.lat Numeric value specifying the level of rounding to be used to plot longitude and latitude grid lines. Override \code{n.lon.grid} or \code{n.lat.grid}
 #' @param n.lon.grid,n.lat.grid Numeric value specifying the number of longitude and latitude grid lines, respectively. Alternatively use \code{round.lon} and \code{round.lat}
-#' @param lon.interval,lat.interval Numeric value specifying the interval of longitude and latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})
+#' @param lon.interval,lat.interval Numeric value specifying the interval of longitude and latitude grids for the "panarctic" map \code{type}. \code{NULL} finds reasonable defaults depending on \code{limits}.
 #' @param keep.glaciers Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.
 #' @param land.border.col,gla.border.col,bathy.border.col Character code specifying the color of the border line for land, glacier, and bathymetry shapes.
 #' @param land.size,gla.size,bathy.size,grid.size Numeric value specifying the width of the border line for land and glacier shapes as well as the width of the grid lines, respectively. See details for explanation about line widths.
@@ -37,13 +38,14 @@
 #' @return If \code{plot = TRUE}, returns a \link[ggplot2]{ggplot2} map, which can be assigned to an object and modified as any ggplot object. Otherwise returns a list of \link[=basemap_data]{basemap data}.
 #' @details The function uses \link[ggplot2]{ggplot2} and shapefiles to plot maps of Svalbard and other polar regions. The Svalbard shapefiles are detailed and glaciers varyingly up-to-date (2017 for Kongsfjorden; mostly 2015 for the rest, but not systematically checked) detailed The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
 #' \itemize{
+#' \item "panarctic". A polar stereographic map of the Arctic with a limit at 40 degrees North. This map type can be used to plot maps of any location north of 40 degrees latitude.
+#' \item "barentssea". A 1:10 000 000 map of the Barents Sea.
 #' \item "svalbard". Detailed 1:250 000 map of Svalbard land and glaciers. This option is slow (approx. 25 seconds) due to the large file size.
 #' \item "mosj" shows Kongsfjoden and Fram Strait as sampled during Norwegian Polar Institute's (NPI) MOSJ campaigns. Some glaciers can be older than 2015.
 #' \item "kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017.
 #' \item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017.
 #' \item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017.
 #' \item "rijpfjorden" shows NPI's Rijpfjorden to the Arctic Ocean transect. The glaciers have not been updated and might be old.
-#' \item "barentssea". A 1:10 000 000 map of the Barents Sea.
 #' \item "arctic50". A polar stereographic map of the Arctic with a limit at 50 degrees North.
 #' \item "arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.
 #' }
@@ -92,14 +94,14 @@
 #' basemap("barentssea", limits = c(12, 24, 68, 71))
 #'
 #' ## Polar stereographic pan-Arctic maps
-#' basemap("arctic50")
+#' basemap("panarctic", limits = 50)
 #'
 #' ## To find UTM coordinates to limit a pan-Arctic map:
-#' basemap("arctic60") + theme_bw()
-#' basemap("arctic60", limits = c(250000, -2500000, 2000000, -250000))
+#' basemap("panarctic") + theme_bw()
+#' basemap("panarctic", limits = c(2.5e4, -2.5e6, 2e6, -2.5e5))
 #'
 #' ## Bathymetry can be added using the bathymetry argument
-#' basemap("arctic50", bathymetry = TRUE)
+#' basemap("panarctic", limits = 50, bathymetry = TRUE)
 #'
 #' ## Detailed bathymetry is available for some
 #' ## Svalbard fjords
@@ -118,51 +120,51 @@
 #' @export
 
 ## Test parameters
-# type = "arctic50"; limits = c("z", "lon.utm", "lat.utm")
+# type = "panarctic"
+# limits = 60
+# limits = c("z", "lon.utm", "lat.utm")
 # limits = NULL
-# limits.lon = NULL; limits.lat = NULL; round.lon = FALSE; n.lon.grid = 3; lon.interval = 45; round.lat = FALSE; n.lat.grid = 3; lat.interval = 10; keep.glaciers = TRUE; legends = FALSE; legend.position = "right"; bathymetry = TRUE; bathy.style = "poly_greys"; bathy.detailed = FALSE; bathy.border.col = NA; bathy.size = 0.1; land.col = "grey30"; land.border.col = "black"; land.size = 0.1; gla.col = "grey95"; gla.border.col = "black"; gla.size = 0.1; grid.col = "grey70"; grid.size = 0.1; currents = FALSE; arc.col = "blue"; atl.col = "#BB1512"; current.size = 0.5; current.alpha = 1; label.print = TRUE; label.offset = 1.05; label.font = 8; base_size = 11; plot = TRUE
+# limits = c(250000, -2500000, 2000000, -250000)
+# limits.lon = NULL; limits.lat = NULL; round.lon = FALSE; n.lon.grid = 3; lon.interval = NULL; round.lat = FALSE; n.lat.grid = 3; lat.interval = NULL; keep.glaciers = TRUE; legends = FALSE; legend.position = "right"; bathymetry = TRUE; bathy.style = "poly_greys"; bathy.detailed = FALSE; bathy.border.col = NA; bathy.size = 0.1; land.col = "grey30"; land.border.col = "black"; land.size = 0.1; gla.col = "grey95"; gla.border.col = "black"; gla.size = 0.1; grid.col = "grey70"; grid.size = 0.1; currents = FALSE; arc.col = "blue"; atl.col = "#BB1512"; current.size = 0.5; current.alpha = 1; label.print = TRUE; label.offset = 1.05; label.font = 8; base_size = 11; plot = TRUE
 
-basemap <- function(type = "kongsfjorden", limits = NULL, limits.lon = NULL, limits.lat = NULL, round.lon = FALSE, n.lon.grid = 3, lon.interval = 45, round.lat = FALSE, n.lat.grid = 3, lat.interval = 10, keep.glaciers = TRUE, legends = TRUE, legend.position = "right", bathymetry = FALSE, bathy.style = "poly_blues", bathy.detailed = FALSE, bathy.border.col = NA, bathy.size = 0.1, land.col = "#eeeac4", land.border.col = "black", land.size = 0.1, gla.col = "grey95", gla.border.col = "black", gla.size = 0.1, grid.col = "grey70", grid.size = 0.1, currents = FALSE, arc.col = "blue", atl.col = "#BB1512", current.size = 0.5, current.alpha = 1, label.print = TRUE, label.offset = 1.05, label.font = 8, base_size = 11, plot = TRUE) {
+basemap <- function(type = "kongsfjorden", limits = NULL, limits.lon = NULL, limits.lat = NULL, round.lon = FALSE, n.lon.grid = 3, lon.interval = NULL, round.lat = FALSE, n.lat.grid = 3, lat.interval = NULL, keep.glaciers = TRUE, legends = TRUE, legend.position = "right", bathymetry = FALSE, bathy.style = "poly_blues", bathy.detailed = FALSE, bathy.border.col = NA, bathy.size = 0.1, land.col = "#eeeac4", land.border.col = "black", land.size = 0.1, gla.col = "grey95", gla.border.col = "black", gla.size = 0.1, grid.col = "grey70", grid.size = 0.1, currents = FALSE, arc.col = "blue", atl.col = "#BB1512", current.size = 0.5, current.alpha = 1, label.print = TRUE, label.offset = 1.05, label.font = 8, base_size = 11, plot = TRUE) {
 
 ## Checks
 
-  if(class(legends) != "logical" | !length(legends) %in% 1:2) stop("'legends' argument has to be a logical vector of length 1 or 2. Read the explantion for the argument in ?basemap")
+if(class(legends) != "logical" | !length(legends) %in% 1:2) stop("'legends' argument has to be a logical vector of length 1 or 2. Read the explantion for the argument in ?basemap")
 
 ## Automatic limits
 
-  if(length(limits) == 3 & is.character(limits)) {
+if(length(limits) == 3 & is.character(limits)) {
+    limits <- auto_limits(type, limits, limits.lon, limits.lat)
+}
 
-    rdiff.lon <- diff(range(get(limits[1])[limits[2]]))
-    rdiff.lat <- diff(range(get(limits[1])[limits[3]]))
+## Automatic grid line spacing for panarctic maps
 
-    ## Pan-Arctic maps (makes a square map)
-    if(type %in% c("arctic50", "arctic60")) {
+if(type %in% c("panarctic", "arctic50", "arctic60")) {
 
-      if(is.null(limits.lon)) {
-        limits.lon <- ifelse(rdiff.lon > 1e6, 1e5, ifelse(rdiff.lon > 1e5, 1e4, 1e3))
-      }
+  if(is.null(limits)) {
 
-      if(is.null(limits.lat)) {
-        limits.lat <- ifelse(nchar(round(rdiff.lon, 0)) == nchar(round(rdiff.lat, 0)), limits.lon, ifelse(rdiff.lon > 1e6, 1e5, ifelse(rdiff.lon > 1e5, 1e4, 1e3)))
-      }
+    if(is.null(lat.interval)) lat.interval <- 10
+    if(is.null(lon.interval)) lon.interval <- 45
 
-      limits <- c(round_any(min(get(limits[1])[limits[2]]), limits.lon, floor), round_any(max(get(limits[1])[limits[2]]), limits.lon, ceiling), round_any(min(get(limits[1])[limits[3]]), limits.lat, floor), round_any(max(get(limits[1])[limits[3]]), limits.lat, ceiling))
-
-    ## UTM maps
-    } else {
-
-      if(is.null(limits.lon)) {
-        limits.lon <- ifelse(rdiff.lon > 30, 2, ifelse(rdiff.lon > 10, 1, 0.1))
-      }
-
-      if(is.null(limits.lat)) {
-        limits.lat <- ifelse(rdiff.lon > 10, 1, ifelse(rdiff.lon > 1, 0.1, 0.05))
-      }
-
-
-      limits <- c(round_any(min(get(limits[1])[limits[2]]), limits.lon, floor), round_any(max(get(limits[1])[limits[2]]), limits.lon, ceiling), round_any(min(get(limits[1])[limits[3]]), limits.lat, floor), round_any(max(get(limits[1])[limits[3]]), limits.lat, ceiling))
+  } else if(length(limits) == 1) {
+    if(is.null(lat.interval)) {
+      lat.dist <- 90 - limits
+      lat.interval <- ifelse(lat.dist > 20, 10, ifelse(lat.dist > 10, 5, 2))
     }
+
+    if(is.null(lon.interval)) {
+      lon.interval <- 45
+    }
+
+  } else {
+    # Improve these
+    if(is.null(lat.interval)) lat.interval <- 10
+    if(is.null(lon.interval)) lon.interval <- 45
+
   }
+}
 
 ## Map data
 X <- switch(map_type(type)$map.type,

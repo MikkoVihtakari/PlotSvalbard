@@ -6,7 +6,7 @@
 \usage{
 clip_shapefile(x, limits = NULL,
   proj4.limits = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0",
-  simplify = FALSE, tol = 60)
+  simplify = FALSE, tol = 60, return.boundary = FALSE)
 }
 \arguments{
 \item{x}{Original shape file to be clipped. Required. Must contain \code{\link[sp]{proj4string}} information.}
@@ -18,6 +18,8 @@ clip_shapefile(x, limits = NULL,
 \item{simplify}{Should the \code{x} geometry be simplified before clipping? Useful to make the function faster for large shape files. Uses \code{\link[rgeos]{gSimplify}} function.}
 
 \item{tol}{Numerical tolerance value to be used for simplification. See \code{\link[rgeos]{gSimplify}}.}
+
+\item{return.boundary}{logical. If \code{TRUE} returns the clip boundary together with the shapefile}
 }
 \description{
 Clips an area from a larger shape file (\link[sp]{SpatialPolygons}).

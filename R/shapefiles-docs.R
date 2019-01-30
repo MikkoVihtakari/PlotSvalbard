@@ -8,6 +8,16 @@
 #' @seealso basemap
 "arctic_bathy"
 
+#' @title SpatialPolygonsDataFrame containing land shapes for pan-Arctic map with a cutpoint at 40 degrees latitude.
+#' @docType data
+#' @keywords datasets shapefiles internal
+#' @family shapefiles
+#' @name arctic
+#' @format SpatialPolygonsDataFrame
+#' @source \href{http://www.naturalearthdata.com/}{Natural Earth Data}
+#' @seealso basemap
+"arctic"
+
 #' @title SpatialPolygonsDataFrame containing land shapes for pan-Arctic map with a cutpoint at 50 degrees latitude.
 #' @docType data
 #' @keywords datasets shapefiles internal

@@ -20,6 +20,8 @@ deg_grid_polar(dat, lat.interval = 10, lon.interval = 45,
 \item{proj4.utm}{projection in \code{dat}. If TRUE (default), fetches the projection from \code{dat}. If \code{dat} is a numeric vector and \code{proj4.utm = TRUE}, \code{CRS("+init=epsg:32633")} is used as UTM projection (the same projection than in Svalbard shapefiles).}
 
 \item{proj4.deg}{desired decimal degree projection. Uses a reasonable default projection. Do not change.}
+
+\item{round.map}{logical indicating whether the desired map is round \code{TRUE} or square \code{FALSE}. Bypasses certain routines, which caused errors.}
 }
 \value{
 Returns a UTM coodrinate grid.

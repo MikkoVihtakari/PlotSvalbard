@@ -1,17 +1,18 @@
-##' @title Decimal degree grid from polar stereographic spatial objects
-##' @description Outputs a list of grid lines that can be used to plot a grid on polar stereographic maps. Requires a spatial object projected using UTM coordinates
-##' @param dat Spatial object projected using UTM coordinates, such as \code{\link{readShapeSpatial}} OR a numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box.
-##' @param lat.interval the interval of latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})
-##' @param lon.interval the interval of longitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})
-##' @param n.points number of points used in creating the grid lines. The more points, the smoother the lines.
-##' @param proj4.utm projection in \code{dat}. If TRUE (default), fetches the projection from \code{dat}. If \code{dat} is a numeric vector and \code{proj4.utm = TRUE}, \code{CRS("+init=epsg:32633")} is used as UTM projection (the same projection than in Svalbard shapefiles).
-##' @param proj4.deg desired decimal degree projection. Uses a reasonable default projection. Do not change.
-##' @return Returns a UTM coodrinate grid.
-##' @keywords internal
-##' @seealso \code{\link{basemap}}
-##' @author Mikko Vihtakari
-##' @import maptools sp rgdal
-##' @export
+#' @title Decimal degree grid from polar stereographic spatial objects
+#' @description Outputs a list of grid lines that can be used to plot a grid on polar stereographic maps. Requires a spatial object projected using UTM coordinates
+#' @param dat Spatial object projected using UTM coordinates, such as \code{\link{readShapeSpatial}} OR a numeric vector of length 4 where first element defines the minimum longitude, second element the maximum longitude, third element the minimum latitude and fourth element the maximum latitude of the bounding box.
+#' @param lat.interval the interval of latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})
+#' @param lon.interval the interval of longitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})
+#' @param n.points number of points used in creating the grid lines. The more points, the smoother the lines.
+#' @param proj4.utm projection in \code{dat}. If TRUE (default), fetches the projection from \code{dat}. If \code{dat} is a numeric vector and \code{proj4.utm = TRUE}, \code{CRS("+init=epsg:32633")} is used as UTM projection (the same projection than in Svalbard shapefiles).
+#' @param proj4.deg desired decimal degree projection. Uses a reasonable default projection. Do not change.
+#' @param round.map logical indicating whether the desired map is round \code{TRUE} or square \code{FALSE}. Bypasses certain routines, which caused errors.
+#' @return Returns a UTM coodrinate grid.
+#' @keywords internal
+#' @seealso \code{\link{basemap}}
+#' @author Mikko Vihtakari
+#' @import maptools sp rgdal
+#' @export
 # dat = Land; lat.interval = 10; lon.interval = 45; n.points = 1000; proj4.utm = TRUE; proj4.deg = "+proj=longlat +datum=WGS84"
 # dat = c(250000, -2500000, 2500000, -250000); lat.interval = 10; lon.interval = 45; n.points = 1000; proj4.utm = TRUE; proj4.deg = "+proj=longlat +datum=WGS84"
 deg_grid_polar <- function(dat, lat.interval = 10, lon.interval = 45, n.points = 1000, proj4.utm = TRUE, proj4.deg = "+proj=longlat +datum=WGS84") {
@@ -31,7 +32,7 @@ if(is.numeric(dat)) {
   dat.deg <- spTransform(dat, CRS("+proj=longlat +datum=WGS84"))
 
   lims <- FALSE
-  }
+}
 
 x <- sp::bbox(dat.deg)
 
@@ -39,9 +40,9 @@ x <- sp::bbox(dat.deg)
 ### Latitude grid lines
 
 if(lims) {
-  lat.breaks <- seq(50, 90, by = lat.interval) #lims[3], lims[4]
-} else {
-  lat.breaks <- seq(round(x[2],0), round(x[4],0), by = lat.interval) #lims[3], lims[4]
+    lat.breaks <- seq(50, 90, by = lat.interval) # Modify this
+  } else {
+    lat.breaks <- seq(round(x[2],0), 90, by = lat.interval) # round(x[4],0)
 }
 
 

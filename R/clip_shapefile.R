@@ -5,6 +5,7 @@
 #' @param proj4.limits The \code{\link[sp]{proj4string}} projection attributes for \code{limits}. Defaults to decimal degrees (see **Usage**).
 #' @param simplify Should the \code{x} geometry be simplified before clipping? Useful to make the function faster for large shape files. Uses \code{\link[rgeos]{gSimplify}} function.
 #' @param tol Numerical tolerance value to be used for simplification. See \code{\link[rgeos]{gSimplify}}.
+#' @param return.boundary logical. If \code{TRUE} returns the clip boundary together with the shapefile
 #' @details The function uses the \code{\link[rgeos]{gIntersection}} function to clip smaller \link[sp]{SpatialPolygons} from larger ones. The clip area is constrained by either a numeric vector or \link[sp]{SpatialPolygons} object in the \code{limits} argument. One of these arguments must be given. Defining \code{limits} by a \link[sp]{SpatialPolygons} object gives greater freedom for the clip area as the area does not have to be rectangular.
 #' @keywords internal
 #' @import sp rgdal
@@ -14,18 +15,21 @@
 #' @export
 
 # Test parameters
-#x = readOGR(paste0(devel, "worldland/ne_10m_land.shp"))
-#x = svalbard.ld
-#limits = c(15, 20, 77, 79)
-#limits = NULL
-# x = clip_bathy; limits = clipBound; proj4.limits = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"; simplify = FALSE; tol = 60
+# x <- get(MapType$land)
+# proj4.limits = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"; simplify = FALSE; tol = 60; return.boundary = FALSE
 
-clip_shapefile <- function(x, limits = NULL, proj4.limits = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0", simplify = FALSE, tol = 60) {
+clip_shapefile <- function(x, limits = NULL, proj4.limits = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0", simplify = FALSE, tol = 60, return.boundary = FALSE) {
 
 ## Checks
 
 if(is.null(x)) stop("x, the original shape file must be supplied")
 if(is.null(limits)) stop("Either limits or limiting.polygon must be supplied")
+
+## Projection
+
+x_proj <- sp::proj4string(x)
+
+if(is.na(x_proj)) stop("proj4string for x is missing. Define the projection attributes and try again.")
 
 ## Clip boundary
 
@@ -34,16 +38,26 @@ if(class(limits) == "SpatialPolygonsDataFrame" | class(limits) == "SpatialPolygo
   clip_boundary <- limits
 } else {
   if(!is.numeric(limits)) stop("limits have to be numeric, SpatialPolygonsDataFrame or SpatialPolygons object")
-  if(is.numeric(limits) & length(limits) != 4) stop("the length of limits vector has to be 4. See limits argument")
-  clip_boundary <- sp::Polygon(matrix(c(limits[1], limits[3], limits[1], limits[4], limits[2], limits[4], limits[2], limits[3], limits[1], limits[3]), ncol = 2, byrow = TRUE))
-  clip_boundary <- sp::SpatialPolygons(list(sp::Polygons(list(clip_boundary), ID = "clip_boundary")), proj4string=CRS(proj4.limits))
+  if(length(limits) == 1) {
+    bd <- data.frame(lon = seq(-180, 180, by = 0.5), lat = limits)
+    bd <- transform_coord(bd, proj.out = x_proj)
+    ch <- chull(bd$lat.utm, bd$lon.utm)
+    coords <- as.matrix(bd[c(ch, ch[1]), 1:2])
+    clip_boundary <- sp::SpatialPolygons(list(sp::Polygons(list(sp::Polygon(coords)), ID = 1)))
+
+    if(!rgeos::gIsValid(clip_boundary)) stop("Invalid geomethry due to clip_shapefile. Add the buffering script.")
+
+    sp::proj4string(clip_boundary) <- x_proj
+
+  } else if(length(limits) != 4) {
+    stop("the length of limits vector has to be 4. See limits argument")
+  } else {
+    clip_boundary <- sp::Polygon(matrix(c(limits[1], limits[3], limits[1], limits[4], limits[2], limits[4], limits[2], limits[3], limits[1], limits[3]), ncol = 2, byrow = TRUE))
+    clip_boundary <- sp::SpatialPolygons(list(sp::Polygons(list(clip_boundary), ID = "clip_boundary")), proj4string=CRS(proj4.limits))
+  }
 }
 
-## Projection
-
-x_proj <- sp::proj4string(x)
-
-if(is.na(x_proj)) stop("proj4string for x is missing. Define the projection attributes and try again.")
+## Check that the projections match
 
 if(proj4.limits != x_proj) {
   clip_boundary <- sp::spTransform(clip_boundary,CRS(x_proj))
@@ -61,31 +75,15 @@ if(simplify) {
 error_test <- quiet(try(rgeos::gIntersection(x, clip_boundary, byid = TRUE), silent = TRUE))
 
 if(class(error_test) == "try-error") {
-  message("clip_shapefile function used a bypass, which takes a longer time, but should produce the same results as the normal route. Remove the bypass once you have made sure that the results actually match.")
-
-rgeos::gIntersection(x, clip_boundary, byid = TRUE, drop_lower_td = TRUE)
-    # info <- x@data
-    # info$plotOrder <- x@plotOrder
-    # info$keep <- c(rgeos::gIntersects(x, clip_boundary, byid = TRUE))
-    #
-    # out <- lapply(which(info$keep), function(k) {rgeos::gIntersection(x[k,], clip_boundary, byid = TRUE)})
-    # info <- info[info$keep,]
-    #
-    # info$keep <- sapply(out, class) == "SpatialPolygons"
-    # out <- out[info$keep]
-    # info <- info[info$keep,]
-    #
-    # tmp <- sp::SpatialPolygons(lapply(1:length(out), function(i) {
-    #   Pol <- methods::slot(out[[i]], "polygons")[[1]]
-    #   methods::slot(Pol, "ID") <- rownames(info)[i]
-    #   Pol
-    # }))
-    #
-    # #tmp@plotOrder <- info$plotOrder
-    # proj4string(tmp) <- proj4string(x)
-    # tmp
-
+ shapefile <- rgeos::gIntersection(x, clip_boundary, byid = TRUE, drop_lower_td = TRUE)
   } else {
-    error_test
+    shapefile <- error_test
   }
+
+if(return.boundary) {
+  list(shapefile = shapefile, boundary = clip_boundary)
+} else {
+  shapefile
+}
+
 }

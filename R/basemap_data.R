@@ -56,14 +56,23 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
     lims <- basemap_limits(limits = limits, type = MapType$map.type)
   } else {
     # non-panarctic maps without defined limits (fetch from map_type)
-    lims <- basemap_limits(limits = MapType$boundary, type = MapType$map.type) 
+    lims <- basemap_limits(limits = MapType$boundary, type = MapType$map.type)
   }
-  
+
   if(MapType$map.type != "panarctic") {
     Land <- clip_shapefile(get(MapType$land), lims$bound_utm_shp)
     Land <- suppressWarnings(broom::tidy(Land))
   } else {
-    Land <- get(MapType$land)
+    if(!is.null(limits)) {
+      if(length(limits) == 1) {
+        tmp <- clip_shapefile(get(MapType$land), limits = lims, return.boundary = TRUE)
+        Land <- tmp$shapefile
+        clip_boundary <- tmp$boundary
+      } else {
+        Land <- clip_shapefile(get(MapType$land), limits = lims, proj4.limits = map_projection(MapType$map.type))
+      }} else {
+      Land <- get(MapType$land)
+    }
   }
 
   if(any(is.null(MapType$glacier), !keep.glaciers., MapType$map.type == "barents", MapType$map.type == "panarctic")) {
@@ -78,18 +87,21 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
 
   if(MapType$map.type == "panarctic") {
 
-    if(!is.null(limits)) {
+    if(all(!is.null(limits), length(limits) != 1)) {
       Grid <- deg_grid_polar(dat = lims, lat.interval = lat.interval., lon.interval = lon.interval.)
     } else {
-      Grid <- deg_grid_polar(dat = Land, lat.interval = lat.interval., lon.interval = lon.interval.)
+      if(length(limits) == 1) {
+        Grid <- deg_grid_polar(dat = clip_boundary, lat.interval = lat.interval., lon.interval = lon.interval.)
+      } else {
+        Grid <- deg_grid_polar(dat = Land, lat.interval = lat.interval., lon.interval = lon.interval.)        }
     }
     Land <- suppressMessages(suppressWarnings(broom::tidy(Land)))
-    
+
   } else if(!is.null(limits)) {
     Grid <- deg_grid(lims, round.lat = round.lat., n.lat.grid = n.lat.grid., round.lon = round.lon., n.lon.grid = n.lon.grid.)
-   
+
   } else {
-    
+
     Grid <- deg_grid(lims, round.lat = MapType$round.lat, round.lon = MapType$round.lon)
   }
 

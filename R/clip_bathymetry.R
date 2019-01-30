@@ -17,7 +17,7 @@ if(X$MapClass == "panarctic") {
 
   ## Define clip boundary shapefile
   if(!X$Grid$limits) {
-    bd  <- X$Grid$lat[X$Grid$lat$ID == paste0("lat", X$Boundary[3]),]
+    bd  <- X$Grid$lat[X$Grid$lat$ID == paste0("lat", round(X$Grid$boundaries$lat.deg[1])),]
     ch <- chull(bd$lat.utm, bd$lon.utm)
     coords <- as.matrix(bd[c(ch, ch[1]), 1:2])
     clipBound <- sp::SpatialPolygons(list(sp::Polygons(list(sp::Polygon(coords)), ID = 1)))

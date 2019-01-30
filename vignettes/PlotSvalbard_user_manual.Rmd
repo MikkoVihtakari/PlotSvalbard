@@ -77,12 +77,14 @@ basemap("barentssea", limits = c(12, 24, 68, 71))
 
 ### Pan-Arctic
 
+The "panarctic" map type supports any maps north of 40 degrees latitude.
+
 ```{r message=FALSE, warning=FALSE}
-basemap("arctic50")
+basemap("panarctic")
 ```
 
 ```{r message=FALSE, warning=FALSE}
-basemap("arctic60")
+basemap("panarctic", limits = 70)
 ```
 
 ## Limiting (zooming) the maps
@@ -98,7 +100,7 @@ basemap("svalbard", limits = c(11, 18, 77.9, 78.85)) # limits in decimal degrees
 ```
 
 ```{r}
-basemap("arctic50", limits = c(3*10^6, -3*10^6, 3*10^6, -3*10^6)) # limits in uTM coordinates
+basemap("panarctic", limits = c(3*10^6, -3*10^6, 3*10^6, -3*10^6)) # limits in UTM coordinates
 ```
 
 Note that some map types are already limited, so if you are looking for a map of Kongsfjorden, using `basemap("kongsfjorden")` might be just what you need.
@@ -117,7 +119,7 @@ basemap(type = "svalbard", limits = c("kongsfjord_moorings", "Lon", "Lat")) +
 All basemaps support bathymetry, but the resolution of bathymetry shapefiles is varying. Bathymetry can be plotted using the `bathymetry` argument.
 
 ```{r}
-basemap("arctic60", bathymetry = TRUE)
+basemap("panarctic", limits = 60, bathymetry = TRUE)
 ```
 
 
@@ -159,7 +161,6 @@ The color scales for polygons and contours can be adjusted using ggplot2 syntax:
 ```{r}
 basemap("barentssea", bathymetry = TRUE) + scale_fill_viridis_d("Water depth (m)")
 basemap("barentssea", bathymetry = TRUE, bathy.style = "contour_blues") + scale_color_hue()
-
 ```
 
 ## Ocean currents
@@ -270,8 +271,10 @@ option to find these limits and replace `"barentssea"` with `"svalbard"` once yo
 ```{r}
 system.time(basemap("barentssea"))
 system.time(basemap("svalbard"))
+system.time(basemap("panarctic"))
 system.time(basemap("barentssea", limits = c(c(19.5,23.5,80,81.7))))
 system.time(basemap("svalbard", limits = c(c(19.5,23.5,80,81.7))))
+system.time(basemap("panarctic", limits = c(250000, -2500000, 2000000, -250000)))
 ```
 
 # Oceanographic plots

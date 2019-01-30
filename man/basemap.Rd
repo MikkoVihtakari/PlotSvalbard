@@ -14,8 +14,8 @@
 \usage{
 basemap(type = "kongsfjorden", limits = NULL, limits.lon = NULL,
   limits.lat = NULL, round.lon = FALSE, n.lon.grid = 3,
-  lon.interval = 45, round.lat = FALSE, n.lat.grid = 3,
-  lat.interval = 10, keep.glaciers = TRUE, legends = TRUE,
+  lon.interval = NULL, round.lat = FALSE, n.lat.grid = 3,
+  lat.interval = NULL, keep.glaciers = TRUE, legends = TRUE,
   legend.position = "right", bathymetry = FALSE,
   bathy.style = "poly_blues", bathy.detailed = FALSE,
   bathy.border.col = NA, bathy.size = 0.1, land.col = "#eeeac4",
@@ -27,12 +27,13 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = NULL,
   base_size = 11, plot = TRUE)
 }
 \arguments{
-\item{type}{Type of map area. Options: "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "rijpfjorden", "barentssea", "arctic50" or "arctic60". See details.}
+\item{type}{Type of map area. Options: "panarctic", "barentssea", "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", "rijpfjorden", "arctic50" or "arctic60". See details.}
 
-\item{limits}{Map limits. Either a numeric vector of length 4 or a character vector of length 3. Numeric vectors are used to constrain (zoom in) the maps using coordinates. Character vectors are used to automatically zoom into a dataset.
+\item{limits}{Map limits. One of the following options:
 \itemize{
-  \item \strong{numeric vector}: the first element defines the minimum longitude, the second element the maximum longitude, the third element the minimum latitude and the fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", \code{\link{map_projection}} and \code{\link{transform_coord}} how to find these coordinates.
-  \item \strong{character vector}: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the \code{limits.lon} and \code{limits.lat} arguments to define the accuracy of rounding.
+  \item \strong{numeric vector} of length 4: The first element defines the minimum longitude, the second element the maximum longitude, the third element the minimum latitude and the fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps. See "Examples", \code{\link{map_projection}} and \code{\link{transform_coord}} how to find these coordinates.
+  \item \strong{character vector} of length 3: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the \code{limits.lon} and \code{limits.lat} arguments to define the accuracy of rounding.
+  \item \strong{single integer} between 40 and 88: works only for the "panarctic" map \code{type}. Round map will be produced with a limit at the given decimal degree latitude.
 }}
 
 \item{limits.lon, limits.lat}{Numeric. The level of rounding for longitude and latitude, respectively, when using automatic limits (character vector in \code{limits} argument). If \code{NULL}, sensible default values are used.}
@@ -41,7 +42,7 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = NULL,
 
 \item{n.lon.grid, n.lat.grid}{Numeric value specifying the number of longitude and latitude grid lines, respectively. Alternatively use \code{round.lon} and \code{round.lat}}
 
-\item{lon.interval, lat.interval}{Numeric value specifying the interval of longitude and latitude grids for polar stereographic maps (\code{type = "arctic50"} or \code{"arctic60"})}
+\item{lon.interval, lat.interval}{Numeric value specifying the interval of longitude and latitude grids for the "panarctic" map \code{type}. \code{NULL} finds reasonable defaults depending on \code{limits}.}
 
 \item{keep.glaciers}{Logical indicating whether glaciers should be kept for the Svalbard maps. Setting this to \code{FALSE} speeds up map plotting by a few seconds.}
 
@@ -94,13 +95,14 @@ Creates a ggplot2 basemap for further plotting of variables.
 \details{
 The function uses \link[ggplot2]{ggplot2} and shapefiles to plot maps of Svalbard and other polar regions. The Svalbard shapefiles are detailed and glaciers varyingly up-to-date (2017 for Kongsfjorden; mostly 2015 for the rest, but not systematically checked) detailed The map type is defined using the \code{type} argument and map limits can be controlled with the \code{limits} argument. Currently implemented map \code{type}s:
 \itemize{
+\item "panarctic". A polar stereographic map of the Arctic with a limit at 40 degrees North. This map type can be used to plot maps of any location north of 40 degrees latitude.
+\item "barentssea". A 1:10 000 000 map of the Barents Sea.
 \item "svalbard". Detailed 1:250 000 map of Svalbard land and glaciers. This option is slow (approx. 25 seconds) due to the large file size.
 \item "mosj" shows Kongsfjoden and Fram Strait as sampled during Norwegian Polar Institute's (NPI) MOSJ campaigns. Some glaciers can be older than 2015.
 \item "kongsfjorden" shows Kongsfjorden and parts of Prins Karls Forland. Glaciers are from 2015 to 2017.
 \item "kongsfjordbotn" shows Kongsvegen, Kronebreen, Kongsbreen and Conwaybreen. Glaciers are from July 2017.
 \item "kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017.
 \item "rijpfjorden" shows NPI's Rijpfjorden to the Arctic Ocean transect. The glaciers have not been updated and might be old.
-\item "barentssea". A 1:10 000 000 map of the Barents Sea.
 \item "arctic50". A polar stereographic map of the Arctic with a limit at 50 degrees North.
 \item "arctic60". A polar stereographic map of the Arctic with a limit at 60 degrees North.
 }
@@ -143,14 +145,14 @@ basemap("barentssea")
 basemap("barentssea", limits = c(12, 24, 68, 71))
 
 ## Polar stereographic pan-Arctic maps
-basemap("arctic50")
+basemap("panarctic", limits = 50)
 
 ## To find UTM coordinates to limit a pan-Arctic map:
-basemap("arctic60") + theme_bw()
-basemap("arctic60", limits = c(250000, -2500000, 2000000, -250000))
+basemap("panarctic") + theme_bw()
+basemap("panarctic", limits = c(2.5e4, -2.5e6, 2e6, -2.5e5))
 
 ## Bathymetry can be added using the bathymetry argument
-basemap("arctic50", bathymetry = TRUE)
+basemap("panarctic", limits = 50, bathymetry = TRUE)
 
 ## Detailed bathymetry is available for some
 ## Svalbard fjords

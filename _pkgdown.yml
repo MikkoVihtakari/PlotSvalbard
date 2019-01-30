@@ -43,6 +43,7 @@ reference:
     Internal functions dealing with data and graphics for basemap. These functions are run on the
     background and only needed if you modify your maps beyond the options offered by PlotSvalbard.
   contents:
+  - auto_limits
   - basemap_data
   - basemap_limits
   - clip_bathymetry
@@ -61,6 +62,7 @@ reference:
     PlotSvalbard to make maps outside the Svalbard region.
   contents:
   - arctic_bathy
+  - arctic
   - arctic50
   - arctic60
   - barents_bathy
