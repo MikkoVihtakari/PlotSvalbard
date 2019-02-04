@@ -64,7 +64,7 @@ basemap("barentssea", bathymetry = TRUE, currents = TRUE, current.size = "scaled
 ### Pan-Arctic maps
 
 ```{r message=FALSE, warning=FALSE}
-basemap("arctic60", bathymetry = TRUE)
+basemap("panarctic", limits = 60, bathymetry = TRUE)
 ```
 
 ### Combining extensions for ggplot2

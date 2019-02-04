@@ -30,7 +30,7 @@ If \code{bind = TRUE}, returns a data frame with calculated distances to land. I
 Calculates the closest distance to land within a \link[=basemap]{map type} for a given set of coordinates
 }
 \details{
-If \code{geodesic_distances = TRUE}, the function uses the \code{\link[rgeos]{gDistance}} function to calculate closest distances between coordinates in \code{x} and a specified SpatialPolygonsDataframe object. The spatial object (map) can be specified using the \code{\link[=basemap]{map.type}} argument. If \code{geodesic_distances = FALSE}, the \code{\link[geosphere]{dist2Line}} is used to calculate similar distances assumming an elliptical Earth. The \code{\link[geosphere]{dist2Line}} function is presumably more exact, especially for pan-Arctic maps, but considerably slower.
+If \code{geodesic_distances = FALSE}, the function uses the \code{\link[rgeos]{gDistance}} function to calculate closest distances between coordinates in \code{x} and a specified SpatialPolygonsDataframe object. The spatial object (map) can be specified using the \code{\link[=basemap]{map.type}} argument. If \code{geodesic_distances = TRUE}, the \code{\link[geosphere]{dist2Line}} is used to calculate similar distances assumming an elliptical Earth. The \code{\link[geosphere]{dist2Line}} function is presumably more exact, especially for pan-Arctic maps, but considerably slower.
 }
 \examples{
 ## Distances from land using UTM coordinates
@@ -40,39 +40,39 @@ data("npi_stations")
 dists <- dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat", map.type = "svalbard")
 dists$Area <- ordered(dists$Area, c("Kongsfjorden", "Framstrait", "Rijpfjorden"))
 
-ggplot(dists, aes(x = Area, y = dist, label = Station, color = Area)) + 
+ggplot(dists, aes(x = Area, y = dist, label = Station)) +
   geom_text() + ylab("Distance to land (km)")
 
 ## Geodesic distances are presumably more exact,
 ## but much slower to calculate. Do not use detailed
 ## maps for these:
 
-d_utm <- dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat", 
+d_utm <- dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat",
   map.type = "barentssea", dist.col = "d_utm")
 d_geo <- dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat", map.type = "barentssea",
   geodesic_distances = TRUE, dist.col = "d_geo")
 
 y <- merge(d_utm[c("Station", "d_utm")], d_geo[c("Station", "d_geo")])
 
-ggplot(y, aes(x = d_utm, y = d_geo, label = Station)) + 
+ggplot(y, aes(x = d_utm, y = d_geo, label = Station)) +
  geom_text(color = "red") +
- geom_abline(slope=1, intercept=0) + 
+ geom_abline(slope=1, intercept=0) +
  scale_x_log10() + scale_y_log10()
 
 ## The processing difference between geodesic and UTM distances:
 
-system.time(dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat", 
+system.time(dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat",
  map.type = "barentssea"))
-#> user  system elapsed 
-#> 0.22    0.01    0.25 
+#> user  system elapsed
+#> 0.22    0.01    0.25
 
-system.time(dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat", 
+system.time(dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat",
  map.type = "barentssea", geodesic_distances = TRUE))
-#> user  system elapsed 
-#> 32.04    0.39   32.97 
+#> user  system elapsed
+#> 32.04    0.39   32.97
 
 ## Despite the inaccuracy due to polar stereographic protection
-## the UTM version seems to produce feasible distances from land 
+## the UTM version seems to produce feasible distances from land
 ## on pan-Arctic scale
 
 data("meiofauna")

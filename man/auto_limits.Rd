@@ -10,6 +10,8 @@ auto_limits(type, limits, limits.lon, limits.lat)
 \item{type}{see the \code{type} argument for \code{\link{basemap}}}
 
 \item{limits}{see the \code{limits} argument for \code{\link{basemap}}}
+
+\item{limits.lon, limits.lat}{see \code{limits.lon,limits.lat} argument for \code{\link{basemap}}}
 }
 \description{
 An internal function to make \code{\link{basemap}} code more readable

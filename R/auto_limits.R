@@ -2,6 +2,7 @@
 #' @description An internal function to make \code{\link{basemap}} code more readable
 #' @param type see the \code{type} argument for \code{\link{basemap}}
 #' @param limits see the \code{limits} argument for \code{\link{basemap}}
+#' @param limits.lon,limits.lat see \code{limits.lon,limits.lat} argument for \code{\link{basemap}}
 #' @details This is an internal function, which is automatically run by the \code{\link{basemap}} function.
 #' @keywords internal
 #' @export
@@ -15,7 +16,7 @@ auto_limits <- function(type, limits, limits.lon, limits.lat) {
   rdiff.lat <- diff(range(get(limits[1])[limits[3]]))
 
     ## Pan-Arctic maps (makes a square map)
-    if(type %in% c("arctic", "arctic50", "arctic60")) {
+    if(type %in% c("panarctic", "arctic50", "arctic60")) {
 
       if(is.null(limits.lon)) {
         limits.lon <- ifelse(rdiff.lon > 1e6, 1e5, ifelse(rdiff.lon > 1e5, 1e4, 1e3))
