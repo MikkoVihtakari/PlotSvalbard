@@ -8,9 +8,12 @@
 #' @param dist.col The name of the distance column, if \code{bind = TRUE}. Defaults to "dist".
 #' @param geodesic_distances Logical indicating whether \code{\link[geosphere]{dist2Line}} function should be used to calculate shortest distances using the WGS84 ellipsoid (\code{TRUE}) or whether the distances should be calculated from UTM coordinates (\code{FALSE}, default). Setting the argument to \code{TRUE} presumably leads to more exact distance estimations, but takes a much longer time to process than the UTM coordinate estimation.
 #' @return If \code{bind = TRUE}, returns a data frame with calculated distances to land. If \code{bind = FALSE} returns vector in the same order than coordinates specified in \code{x}. \strong{Distances are returned as kilometers}.
+#' @param cores Integer value defining how many cores should be used in the calculations. Parallelization speeds up the function (see \code{\link[parallel]{mclapply}}), but naturally eats up computer resources during the calculation. Set to 1 to remove parallelization.
 #' @details If \code{geodesic_distances = FALSE}, the function uses the \code{\link[rgeos]{gDistance}} function to calculate closest distances between coordinates in \code{x} and a specified SpatialPolygonsDataframe object. The spatial object (map) can be specified using the \code{\link[=basemap]{map.type}} argument. If \code{geodesic_distances = TRUE}, the \code{\link[geosphere]{dist2Line}} is used to calculate similar distances assumming an elliptical Earth. The \code{\link[geosphere]{dist2Line}} function is presumably more exact, especially for pan-Arctic maps, but considerably slower.
 #' @import sp geosphere rgeos
 #' @importFrom utils txtProgressBar setTxtProgressBar
+#' @importFrom parallel detectCores
+#' @importFrom pbmcapply pbmclapply
 #' @author Mikko Vihtakari
 #' @examples
 #' ## Distances from land using UTM coordinates
@@ -69,9 +72,11 @@
 #' @export
 
 ## Test parameters
-# x <- dat[1:2,]; x <- npi_stations; lon.col = "Lon"; lat.col = "Lat"; map.type = "svalbard"; bind = TRUE; dist.col = "dist"; geodesic_distances = TRUE
 
-dist2land <- function(x, lon.col = "longitude", lat.col = "latitude", map.type = "arctic50", bind = TRUE, dist.col = "dist", geodesic_distances = FALSE) {
+# x <- head(lb); lon.col = "lon"; lat.col = "lat"; map.type = "panarctic"; bind = FALSE; dist.col = "dist"; geodesic_distances = FALSE; cores = parallel::detectCores() - 1
+# x <- npi_stations; lon.col = "Lon"; lat.col = "Lat"; map.type = "svalbard"; bind = TRUE; dist.col = "dist"; geodesic_distances = TRUE
+
+dist2land <- function(x, lon.col = "longitude", lat.col = "latitude", map.type = "arctic50", bind = TRUE, dist.col = "dist", geodesic_distances = FALSE, cores = parallel::detectCores() - 1) {
 
   ## Land ####
   land <- get(map_type(map.type)$land)
@@ -99,11 +104,25 @@ dist2land <- function(x, lon.col = "longitude", lat.col = "latitude", map.type =
     tmp <- data.frame(geosphere::dist2Line(mat, land))
     tmp <- tmp$distance/1000
   } else {
-    pb <- utils::txtProgressBar(min = 0, max = length(pp), style = 3)
-    tmp <- sapply(1:length(pp), function(i)  {
-      rgeos::gDistance(pp[i], land)/1000
-      utils::setTxtProgressBar(pb, i)
-  })
+
+    if(cores > 1) {
+
+      #pb <- utils::txtProgressBar(min = 0, max = length(pp), style = 3)
+      tmp <- pbmcapply::pbmclapply(1:length(pp), function(i)  {
+        #  utils::setTxtProgressBar(pb, i)
+        return(rgeos::gDistance(pp[i], land)/1000)
+      }, mc.cores = parallel::detectCores() - 1)
+      tmp <- unlist(tmp)
+
+    } else {
+
+      pb <- utils::txtProgressBar(min = 0, max = length(pp), style = 3)
+      tmp <- sapply(1:length(pp), function(i)  {
+          utils::setTxtProgressBar(pb, i)
+        return(rgeos::gDistance(pp[i], land)/1000)
+      })
+
+    }
   }
 
   ## Return

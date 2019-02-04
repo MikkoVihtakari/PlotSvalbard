@@ -6,7 +6,7 @@
 \usage{
 dist2land(x, lon.col = "longitude", lat.col = "latitude",
   map.type = "arctic50", bind = TRUE, dist.col = "dist",
-  geodesic_distances = FALSE)
+  geodesic_distances = FALSE, cores = parallel::detectCores() - 1)
 }
 \arguments{
 \item{x}{Data.frame containing geographic coordinates as decimal degrees}
@@ -22,6 +22,8 @@ dist2land(x, lon.col = "longitude", lat.col = "latitude",
 \item{dist.col}{The name of the distance column, if \code{bind = TRUE}. Defaults to "dist".}
 
 \item{geodesic_distances}{Logical indicating whether \code{\link[geosphere]{dist2Line}} function should be used to calculate shortest distances using the WGS84 ellipsoid (\code{TRUE}) or whether the distances should be calculated from UTM coordinates (\code{FALSE}, default). Setting the argument to \code{TRUE} presumably leads to more exact distance estimations, but takes a much longer time to process than the UTM coordinate estimation.}
+
+\item{cores}{Integer value defining how many cores should be used in the calculations. Parallelization speeds up the function (see \code{\link[parallel]{mclapply}}), but naturally eats up computer resources during the calculation. Set to 1 to remove parallelization.}
 }
 \value{
 If \code{bind = TRUE}, returns a data frame with calculated distances to land. If \code{bind = FALSE} returns vector in the same order than coordinates specified in \code{x}. \strong{Distances are returned as kilometers}.
