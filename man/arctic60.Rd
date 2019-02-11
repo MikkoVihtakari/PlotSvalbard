@@ -4,38 +4,22 @@
 \name{arctic60}
 \alias{arctic60}
 \alias{barents.ld}
-\title{SpatialPolygonsDataFrame containing land shapes for pan-Arctic map with a cutpoint at 60 degrees latitude.}
+\title{SpatialPolygonsDataFrame containing land shapes for the Barents Sea region.}
 \format{SpatialPolygonsDataFrame}
 \source{
 \href{http://www.naturalearthdata.com/}{Natural Earth Data}
-
-\href{http://www.naturalearthdata.com/}{Natural Earth Data}
 }
 \usage{
-arctic60
-
 barents.ld
 }
 \description{
-SpatialPolygonsDataFrame containing land shapes for pan-Arctic map with a cutpoint at 60 degrees latitude.
-
 SpatialPolygonsDataFrame containing land shapes for the Barents Sea region.
 }
 \seealso{
 basemap
 
-basemap
-
-Other shapefiles: \code{\link{arctic50}},
-  \code{\link{arctic_bathy}}, \code{\link{arctic}},
-  \code{\link{barents_bathy}},
-  \code{\link{barents_currents}}, \code{\link{kong.cr}},
-  \code{\link{mosj.cr}}, \code{\link{svalbard.gl}},
-  \code{\link{svalbard.ld}}, \code{\link{svalbard_bathy}}
-
-Other shapefiles: \code{\link{arctic50}},
-  \code{\link{arctic_bathy}}, \code{\link{arctic}},
-  \code{\link{barents_bathy}},
+Other shapefiles: \code{\link{arctic_bathy}},
+  \code{\link{arctic}}, \code{\link{barents_bathy}},
   \code{\link{barents_currents}}, \code{\link{kong.cr}},
   \code{\link{mosj.cr}}, \code{\link{svalbard.gl}},
   \code{\link{svalbard.ld}}, \code{\link{svalbard_bathy}}

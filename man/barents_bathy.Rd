@@ -17,12 +17,11 @@ SpatialPolygonsDataFrame containing bathymetry for the Barents Sea
 \seealso{
 basemap
 
-Other shapefiles: \code{\link{arctic50}},
-  \code{\link{arctic60}}, \code{\link{arctic_bathy}},
-  \code{\link{arctic}}, \code{\link{barents_currents}},
-  \code{\link{kong.cr}}, \code{\link{mosj.cr}},
-  \code{\link{svalbard.gl}}, \code{\link{svalbard.ld}},
-  \code{\link{svalbard_bathy}}
+Other shapefiles: \code{\link{arctic60}},
+  \code{\link{arctic_bathy}}, \code{\link{arctic}},
+  \code{\link{barents_currents}}, \code{\link{kong.cr}},
+  \code{\link{mosj.cr}}, \code{\link{svalbard.gl}},
+  \code{\link{svalbard.ld}}, \code{\link{svalbard_bathy}}
 }
 \concept{shapefiles}
 \keyword{datasets}

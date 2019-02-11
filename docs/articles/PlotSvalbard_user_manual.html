@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -78,12 +78,12 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>PlotSvalbard - User Manual</h1>
-            <h3 class="subtitle">Plot research data from Svalbard on maps</h3>
+            <h3 class="subtitle">Plot research data from Svalbard on maps. R package version 0.8.0.</h3>
                         <h4 class="author">Mikko Vihtakari</h4>
                   <a class="author_email" href="mailto:#"></a><a href="mailto:mikko.vihtakari@gmail.com" class="email">mikko.vihtakari@gmail.com</a>
       
                   
-            <h4 class="date">16 January, 2019</h4>
+            <h4 class="date">11 February, 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/vignettes/PlotSvalbard_user_manual.Rmd"><code>vignettes/PlotSvalbard_user_manual.Rmd</code></a></small>
       <div class="hidden name"><code>PlotSvalbard_user_manual.Rmd</code></div>
@@ -98,12 +98,10 @@
   %\usepackage[utf8]{inputenc}
 -->
 <p><a href="https://github.com/MikkoVihtakari/PlotSvalbard"><strong>PlotSvalbard</strong></a> package provides functions to plot research data from Svalbard on high resolution maps in <a href="https://www.r-project.org/">R</a>. The package is based on <a href="http://ggplot2.tidyverse.org/reference/">ggplot2</a> and the functions can be expanded using ggplot syntax. The package contains also maps from other places in the Arctic, including polar stereographic maps of the Arctic.</p>
-<!-- Note that the quality of graphics in this document is restricted due to vignette requirements for R. The quality of maps printed on your graphics window should be much higher than here.  -->
-<p>The maps in PlotSvalbard are designed to be printed on <code><a href="https://www.rdocumentation.org/packages/grDevices/topics/pdf">pdf()</a></code> device. If you need the maps for other devices, see the <a href="#par">Graphical parameters</a> section.</p>
 <div id="basemap" class="section level1">
 <h1 class="hasAnchor">
 <a href="#basemap" class="anchor"></a>Basemap</h1>
-<p>The <code>basemap</code> function is the generic plotting command in PlotSvalbard, and is analogous to empty <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> call. The <code><a href="../reference/basemap.html">basemap()</a></code> call plots a map that is specified by the <code>type</code> argument. Data containing geographic information can be plotted on these maps using the <a href="http://ggplot2.tidyverse.org/reference/">ggplot2 layers separated by the <code>+</code> operator</a>.</p>
+<p>The <code>basemap</code> function is the generic plotting command in PlotSvalbard, and is analogous to empty <code>ggplot()</code> call. The <code><a href="../reference/basemap.html">basemap()</a></code> call plots a map that is specified by the <code>type</code> argument. Data containing geographic information can be plotted on these maps using the <a href="http://ggplot2.tidyverse.org/reference/">ggplot2 layers separated by the <code>+</code> operator</a>.</p>
 <div id="map-types" class="section level2">
 <h2 class="hasAnchor">
 <a href="#map-types" class="anchor"></a>Map types</h2>
@@ -139,9 +137,10 @@
 <div id="pan-arctic" class="section level3">
 <h3 class="hasAnchor">
 <a href="#pan-arctic" class="anchor"></a>Pan-Arctic</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic50"</span>)</a></code></pre></div>
+<p>The “panarctic” map type supports any maps north of 30 degrees latitude.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"panarctic"</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic60"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"panarctic"</span>, <span class="dt">limits =</span> <span class="dv">70</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
 </div>
 </div>
@@ -155,15 +154,16 @@
 <p>Achieved using a numeric vector. The first element defines the minimum longitude, the second element the maximum longitude, the third element the minimum latitude and the fourth element the maximum latitude of the bounding box. The coordinates have to be given as decimal degrees for Svalbard and Barents Sea maps and as UTM coordinates for pan-Arctic maps (see <a href="https://mikkovihtakari.github.io/PlotSvalbard/reference/transform_coord.html"><code><a href="../reference/transform_coord.html">?transform_coord</a></code></a>).</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">11</span>, <span class="dv">18</span>, <span class="fl">77.9</span>, <span class="fl">78.85</span>)) <span class="co"># limits in decimal degrees</span></a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic50"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="dv">-3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="dv">-3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>)) <span class="co"># limits in uTM coordinates</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"panarctic"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="dv">-3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="dv">3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>, <span class="dv">-3</span><span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>)) <span class="co"># limits in UTM coordinates</span></a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
 <p>Note that some map types are already limited, so if you are looking for a map of Kongsfjorden, using <code><a href="../reference/basemap.html">basemap("kongsfjorden")</a></code> might be just what you need.</p>
 </div>
 <div id="automatic-limits" class="section level3">
 <h3 class="hasAnchor">
 <a href="#automatic-limits" class="anchor"></a>Automatic limits</h3>
-<p>Requires a character vector: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude. Use the <code>limits.lon</code> and <code>limits.lat</code> arguments can be used to override the default rounding.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="dt">type =</span> <span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"kongsfjord_moorings"</span>, <span class="st">"Lon"</span>, <span class="st">"Lat"</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">data =</span> kongsfjord_moorings, <span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm), <span class="dt">color =</span> <span class="st">"red"</span>)</a></code></pre></div>
+<p>Requires a character vector: the first element gives the object name of the data frame containing data to which the map should be limited, the second argument gives the column name of longitude data and the third argument the column name of latitude data. The map will be limited using rounded minimum and maximum floor and ceiling values for longitude and latitude and (hopefully) sensible rounding resolution depending on the size of the map. The <code>limits.lon</code> and <code>limits.lat</code> arguments can be used to override the default rounding.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="dt">type =</span> <span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"kongsfjord_moorings"</span>, <span class="st">"Lon"</span>, <span class="st">"Lat"</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> kongsfjord_moorings, <span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm), <span class="dt">color =</span> <span class="st">"red"</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
 </div>
 </div>
@@ -171,7 +171,7 @@
 <h2 class="hasAnchor">
 <a href="#bathymetry" class="anchor"></a>Bathymetry</h2>
 <p>All basemaps support bathymetry, but the resolution of bathymetry shapefiles is varying. Bathymetry can be plotted using the <code>bathymetry</code> argument.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"arctic60"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"panarctic"</span>, <span class="dt">limits =</span> <span class="dv">60</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-14-1.png" width="672"></p>
@@ -230,7 +230,7 @@
 <div id="adding-station-labels-text" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adding-station-labels-text" class="anchor"></a>Adding station labels (text)</h3>
-<p>Text can be added to basemaps using the <code><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text()</a></code> function:</p>
+<p>Text can be added to basemaps using the <code>geom_text()</code> function:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"npi_stations"</span>)</a>
 <a class="sourceLine" id="cb25-2" title="2"></a>
 <a class="sourceLine" id="cb25-3" title="3">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/transform_coord.html">transform_coord</a></span>(npi_stations, <span class="dt">lon =</span> <span class="st">"Lon"</span>, <span class="dt">lat =</span> <span class="st">"Lat"</span>, <span class="dt">bind =</span> <span class="ot">TRUE</span>)</a>
@@ -301,16 +301,22 @@
 <p>If you are looking for optimal <code>limits</code> for your data, you can use the <code><a href="../reference/basemap.html">basemap("barentssea")</a></code> option to find these limits and replace <code>"barentssea"</code> with <code>"svalbard"</code> once you are done:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>))</a>
 <a class="sourceLine" id="cb31-2" title="2"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb31-3" title="3"><span class="co">#&gt;   0.212   0.003   0.216</span></a>
+<a class="sourceLine" id="cb31-3" title="3"><span class="co">#&gt;   0.213   0.003   0.217</span></a>
 <a class="sourceLine" id="cb31-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>))</a>
 <a class="sourceLine" id="cb31-5" title="5"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb31-6" title="6"><span class="co">#&gt;  10.789   0.297  11.214</span></a>
-<a class="sourceLine" id="cb31-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="dv">80</span>,<span class="fl">81.7</span>))))</a>
+<a class="sourceLine" id="cb31-6" title="6"><span class="co">#&gt;  10.623   0.136  10.787</span></a>
+<a class="sourceLine" id="cb31-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"panarctic"</span>))</a>
 <a class="sourceLine" id="cb31-8" title="8"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb31-9" title="9"><span class="co">#&gt;   0.063   0.001   0.064</span></a>
-<a class="sourceLine" id="cb31-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="dv">80</span>,<span class="fl">81.7</span>))))</a>
+<a class="sourceLine" id="cb31-9" title="9"><span class="co">#&gt;   0.844   0.053   0.898</span></a>
+<a class="sourceLine" id="cb31-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="dv">80</span>,<span class="fl">81.7</span>))))</a>
 <a class="sourceLine" id="cb31-11" title="11"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb31-12" title="12"><span class="co">#&gt;   1.214   0.044   1.260</span></a></code></pre></div>
+<a class="sourceLine" id="cb31-12" title="12"><span class="co">#&gt;   0.064   0.003   0.069</span></a>
+<a class="sourceLine" id="cb31-13" title="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="dv">80</span>,<span class="fl">81.7</span>))))</a>
+<a class="sourceLine" id="cb31-14" title="14"><span class="co">#&gt;    user  system elapsed </span></a>
+<a class="sourceLine" id="cb31-15" title="15"><span class="co">#&gt;   1.250   0.042   1.295</span></a>
+<a class="sourceLine" id="cb31-16" title="16"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"panarctic"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">250000</span>, <span class="dv">-2500000</span>, <span class="dv">2000000</span>, <span class="dv">-250000</span>)))</a>
+<a class="sourceLine" id="cb31-17" title="17"><span class="co">#&gt;    user  system elapsed </span></a>
+<a class="sourceLine" id="cb31-18" title="18"><span class="co">#&gt;   0.353   0.008   0.363</span></a></code></pre></div>
 </div>
 </div>
 <div id="oceanographic-plots" class="section level1">
@@ -348,15 +354,64 @@
 <div id="distance-to-land" class="section level2">
 <h2 class="hasAnchor">
 <a href="#distance-to-land" class="anchor"></a>Distance to land</h2>
-<p>The <a href="https://mikkovihtakari.github.io/PlotSvalbard/reference/dist2land.html"><code>dist2land</code></a> function calculates the closest distance to land.</p>
+<p>The <a href="https://mikkovihtakari.github.io/PlotSvalbard/reference/dist2land.html"><code>dist2land</code></a> function calculates the closest distance to land. Note that the function has a possibility for parallel processing, which speeds up the process with large datasets. The parallel processing has been turned off by default (<code>cores = 1</code>). You can turn it on by setting another integer or a function, which produces such an integer (for example <code>parallel::detectCores() - 2</code> uses all avaible cores exept two). Parallelizing does not work under Windows.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
 <a class="sourceLine" id="cb36-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"npi_stations"</span>)</a>
 <a class="sourceLine" id="cb36-3" title="3"></a>
 <a class="sourceLine" id="cb36-4" title="4">dists &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dist2land.html">dist2land</a></span>(npi_stations, <span class="dt">lon.col =</span> <span class="st">"Lon"</span>, <span class="dt">lat.col =</span> <span class="st">"Lat"</span>, <span class="dt">map.type =</span> <span class="st">"svalbard"</span>)</a>
-<a class="sourceLine" id="cb36-5" title="5">dists<span class="op">$</span>Area &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">ordered</a></span>(dists<span class="op">$</span>Area, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Kongsfjorden"</span>, <span class="st">"Framstrait"</span>, <span class="st">"Rijpfjorden"</span>))</a>
-<a class="sourceLine" id="cb36-6" title="6"></a>
-<a class="sourceLine" id="cb36-7" title="7"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(dists, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> Area, <span class="dt">y =</span> dist, <span class="dt">label =</span> Station, <span class="dt">color =</span> Area)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb36-8" title="8"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="st">"Distance to land (km)"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/scale_hue.html">scale_color_hue</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb36-5" title="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb36-6" title="6">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-7" title="7"><span class="st">  </span><span class="er">|</span><span class="st">                                                                 </span><span class="er">|</span><span class="st">   </span><span class="dv">0</span>%</a>
+<a class="sourceLine" id="cb36-8" title="8">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-9" title="9"><span class="st">  </span><span class="er">|===</span><span class="st">                                                              </span><span class="er">|</span><span class="st">   </span><span class="dv">4</span>%</a>
+<a class="sourceLine" id="cb36-10" title="10">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-11" title="11"><span class="st">  </span><span class="er">|======</span><span class="st">                                                           </span><span class="er">|</span><span class="st">   </span><span class="dv">9</span>%</a>
+<a class="sourceLine" id="cb36-12" title="12">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-13" title="13"><span class="st">  </span><span class="er">|========</span><span class="st">                                                         </span><span class="er">|</span><span class="st">  </span><span class="dv">13</span>%</a>
+<a class="sourceLine" id="cb36-14" title="14">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-15" title="15"><span class="st">  </span><span class="er">|===========</span><span class="st">                                                      </span><span class="er">|</span><span class="st">  </span><span class="dv">17</span>%</a>
+<a class="sourceLine" id="cb36-16" title="16">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-17" title="17"><span class="st">  </span><span class="er">|==============</span><span class="st">                                                   </span><span class="er">|</span><span class="st">  </span><span class="dv">22</span>%</a>
+<a class="sourceLine" id="cb36-18" title="18">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-19" title="19"><span class="st">  </span><span class="er">|=================</span><span class="st">                                                </span><span class="er">|</span><span class="st">  </span><span class="dv">26</span>%</a>
+<a class="sourceLine" id="cb36-20" title="20">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-21" title="21"><span class="st">  </span><span class="er">|====================</span><span class="st">                                             </span><span class="er">|</span><span class="st">  </span><span class="dv">30</span>%</a>
+<a class="sourceLine" id="cb36-22" title="22">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-23" title="23"><span class="st">  </span><span class="er">|=======================</span><span class="st">                                          </span><span class="er">|</span><span class="st">  </span><span class="dv">35</span>%</a>
+<a class="sourceLine" id="cb36-24" title="24">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-25" title="25"><span class="st">  </span><span class="er">|=========================</span><span class="st">                                        </span><span class="er">|</span><span class="st">  </span><span class="dv">39</span>%</a>
+<a class="sourceLine" id="cb36-26" title="26">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-27" title="27"><span class="st">  </span><span class="er">|============================</span><span class="st">                                     </span><span class="er">|</span><span class="st">  </span><span class="dv">43</span>%</a>
+<a class="sourceLine" id="cb36-28" title="28">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-29" title="29"><span class="st">  </span><span class="er">|===============================</span><span class="st">                                  </span><span class="er">|</span><span class="st">  </span><span class="dv">48</span>%</a>
+<a class="sourceLine" id="cb36-30" title="30">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-31" title="31"><span class="st">  </span><span class="er">|==================================</span><span class="st">                               </span><span class="er">|</span><span class="st">  </span><span class="dv">52</span>%</a>
+<a class="sourceLine" id="cb36-32" title="32">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-33" title="33"><span class="st">  </span><span class="er">|=====================================</span><span class="st">                            </span><span class="er">|</span><span class="st">  </span><span class="dv">57</span>%</a>
+<a class="sourceLine" id="cb36-34" title="34">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-35" title="35"><span class="st">  </span><span class="er">|========================================</span><span class="st">                         </span><span class="er">|</span><span class="st">  </span><span class="dv">61</span>%</a>
+<a class="sourceLine" id="cb36-36" title="36">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-37" title="37"><span class="st">  </span><span class="er">|==========================================</span><span class="st">                       </span><span class="er">|</span><span class="st">  </span><span class="dv">65</span>%</a>
+<a class="sourceLine" id="cb36-38" title="38">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-39" title="39"><span class="st">  </span><span class="er">|=============================================</span><span class="st">                    </span><span class="er">|</span><span class="st">  </span><span class="dv">70</span>%</a>
+<a class="sourceLine" id="cb36-40" title="40">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-41" title="41"><span class="st">  </span><span class="er">|================================================</span><span class="st">                 </span><span class="er">|</span><span class="st">  </span><span class="dv">74</span>%</a>
+<a class="sourceLine" id="cb36-42" title="42">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-43" title="43"><span class="st">  </span><span class="er">|===================================================</span><span class="st">              </span><span class="er">|</span><span class="st">  </span><span class="dv">78</span>%</a>
+<a class="sourceLine" id="cb36-44" title="44">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-45" title="45"><span class="st">  </span><span class="er">|======================================================</span><span class="st">           </span><span class="er">|</span><span class="st">  </span><span class="dv">83</span>%</a>
+<a class="sourceLine" id="cb36-46" title="46">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-47" title="47"><span class="st">  </span><span class="er">|=========================================================</span><span class="st">        </span><span class="er">|</span><span class="st">  </span><span class="dv">87</span>%</a>
+<a class="sourceLine" id="cb36-48" title="48">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-49" title="49"><span class="st">  </span><span class="er">|===========================================================</span><span class="st">      </span><span class="er">|</span><span class="st">  </span><span class="dv">91</span>%</a>
+<a class="sourceLine" id="cb36-50" title="50">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-51" title="51"><span class="st">  </span><span class="er">|==============================================================</span><span class="st">   </span><span class="er">|</span><span class="st">  </span><span class="dv">96</span>%</a>
+<a class="sourceLine" id="cb36-52" title="52">  <span class="op">|</span><span class="st">                                                                       </span></a>
+<a class="sourceLine" id="cb36-53" title="53"><span class="st">  </span><span class="er">|=================================================================|</span><span class="st"> </span><span class="dv">100</span>%</a>
+<a class="sourceLine" id="cb36-54" title="54">dists<span class="op">$</span>Area &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">ordered</a></span>(dists<span class="op">$</span>Area, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Kongsfjorden"</span>, <span class="st">"Framstrait"</span>, <span class="st">"Rijpfjorden"</span>))</a>
+<a class="sourceLine" id="cb36-55" title="55"></a>
+<a class="sourceLine" id="cb36-56" title="56"><span class="kw">ggplot</span>(dists, <span class="kw">aes</span>(<span class="dt">x =</span> Area, <span class="dt">y =</span> dist, <span class="dt">label =</span> Station, <span class="dt">color =</span> Area)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb36-57" title="57"><span class="st">  </span><span class="kw">geom_text</span>() <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">"Distance to land (km)"</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_hue</span>()</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-25-1.png" width="672"></p>
 </div>
 <div id="waffle-charts" class="section level2">
@@ -393,7 +448,7 @@
 <a class="sourceLine" id="cb39-3" title="3"><span class="co">#&gt; To cite package 'PlotSvalbard' in publications use:</span></a>
 <a class="sourceLine" id="cb39-4" title="4"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb39-5" title="5"><span class="co">#&gt;   Mikko Vihtakari (2019). PlotSvalbard: PlotSvalbard - Plot</span></a>
-<a class="sourceLine" id="cb39-6" title="6"><span class="co">#&gt;   research data from Svalbard on maps. R package version 0.7.9.</span></a>
+<a class="sourceLine" id="cb39-6" title="6"><span class="co">#&gt;   research data from Svalbard on maps. R package version 0.8.0.</span></a>
 <a class="sourceLine" id="cb39-7" title="7"><span class="co">#&gt;   https://github.com/MikkoVihtakari/PlotSvalbard</span></a>
 <a class="sourceLine" id="cb39-8" title="8"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb39-9" title="9"><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></a>
@@ -402,14 +457,15 @@
 <a class="sourceLine" id="cb39-12" title="12"><span class="co">#&gt;     title = {PlotSvalbard: PlotSvalbard - Plot research data from Svalbard on maps},</span></a>
 <a class="sourceLine" id="cb39-13" title="13"><span class="co">#&gt;     author = {Mikko Vihtakari},</span></a>
 <a class="sourceLine" id="cb39-14" title="14"><span class="co">#&gt;     year = {2019},</span></a>
-<a class="sourceLine" id="cb39-15" title="15"><span class="co">#&gt;     note = {R package version 0.7.9},</span></a>
+<a class="sourceLine" id="cb39-15" title="15"><span class="co">#&gt;     note = {R package version 0.8.0},</span></a>
 <a class="sourceLine" id="cb39-16" title="16"><span class="co">#&gt;     url = {https://github.com/MikkoVihtakari/PlotSvalbard},</span></a>
 <a class="sourceLine" id="cb39-17" title="17"><span class="co">#&gt;   }</span></a></code></pre></div>
 <p>However, please note that the maps generated by this package should be cited to their original source.</p>
 <ul>
 <li>Svalbard maps originate from the <a href="http://geodata.npolar.no/">Norwegian Polar Institute</a>. Distributed under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a> (<a href="http://geodata.npolar.no/bruksvilkar/">terms of use</a>).</li>
-<li>Barents Sea and pan-Arctic maps are downloaded from <a href="http://www.naturalearthdata.com">Natural Earth Data</a>. They use the <a href="http://www.naturalearthdata.com/downloads/10m-physical-vectors/">ne_10m_land</a> and <a href="http://www.naturalearthdata.com/downloads/50m-physical-vectors/">ne_50m_land</a> (v 4.0.0) datasets, respectively. Distributed under the <a href="https://creativecommons.org/publicdomain/">CC Public Domain license</a> (<a href="http://www.naturalearthdata.com/about/terms-of-use/">terms of use</a>).</li>
-<li>Pan-Arctic and Barents Sea bathymetry shapefiles are generalized from <a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html">IBCAO v3.0 500m RR grid</a>. Should be cited as <a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/2012GL052219.pdf">Jakobsson, M., et al. The International Bathymetric Chart of the Arctic Ocean (IBCAO) Version 3.0. Geophys. Res. Lett. 2012, 39:L12609.</a>
+<li>Barents Sea and pan-Arctic land shapes are downloaded from <a href="http://www.naturalearthdata.com">Natural Earth Data</a>. They use the <a href="http://www.naturalearthdata.com/downloads/10m-physical-vectors/">ne_10m_land</a> and <a href="http://www.naturalearthdata.com/downloads/50m-physical-vectors/">ne_50m_land</a> (v 4.0.0) datasets, respectively. Distributed under the <a href="https://creativecommons.org/publicdomain/">CC Public Domain license</a> (<a href="http://www.naturalearthdata.com/about/terms-of-use/">terms of use</a>).</li>
+<li>Pan-Arctic bathymetry shapefile is generalized from <a href="https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_one_minute_grid/">General Bathymetric Chart of the Oceans One Minute Grid</a>.</li>
+<li>Barents Sea bathymetry shapefile is generalized from <a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html">IBCAO v3.0 500m RR grid</a>. Should be cited as <a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/2012GL052219.pdf">Jakobsson, M., et al. The International Bathymetric Chart of the Arctic Ocean (IBCAO) Version 3.0. Geophys. Res. Lett. 2012, 39:L12609.</a>
 </li>
 <li>Svalbard fjord bathymetry shapefiles are from the <a href="https://kartkatalog.geonorge.no/metadata/kartverket/dybdedata/2751aacf-5472-4850-a208-3532a51c529a">Norwegian Mapping Authority</a>. Distributed under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a>.</li>
 </ul>

@@ -16,7 +16,7 @@ auto_limits <- function(type, limits, limits.lon, limits.lat) {
   rdiff.lat <- diff(range(get(limits[1])[limits[3]]))
 
     ## Pan-Arctic maps (makes a square map)
-    if(type %in% c("panarctic", "arctic50", "arctic60")) {
+    if(type %in% c("panarctic")) {
 
       if(is.null(limits.lon)) {
         limits.lon <- ifelse(rdiff.lon > 1e6, 1e5, ifelse(rdiff.lon > 1e5, 1e4, 1e3))

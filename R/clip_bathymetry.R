@@ -66,7 +66,9 @@ if(X$MapClass == "panarctic") {
 
   if(X$MapClass == "panarctic") {
 
-  levels(out$depth) <- c(paste(levels(out$depth)[-nlevels(out$depth)], levels(out$depth)[-1], sep = "-"), paste0(">", levels(out$depth)[nlevels(out$depth)]))
+  levels(out$depth) <- c(paste(0, levels(out$depth)[1], sep ="-"),
+                         paste(levels(out$depth)[1:(nlevels(out$depth)-2)], levels(out$depth)[2:(nlevels(out$depth)-1)], sep = "-"),
+                         paste0(">",levels(out$depth)[nlevels(out$depth)-1]))
 
   } else {
     levels(out$depth) <- paste(c("0", levels(out$depth)[-nlevels(out$depth)]), levels(out$depth), sep = "-")

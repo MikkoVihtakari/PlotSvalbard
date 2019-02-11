@@ -6,7 +6,7 @@
 \usage{
 dist2land(x, lon.col = "longitude", lat.col = "latitude",
   map.type = "arctic50", bind = TRUE, dist.col = "dist",
-  geodesic_distances = FALSE, cores = parallel::detectCores() - 1)
+  geodesic_distances = FALSE, cores = 1)
 }
 \arguments{
 \item{x}{Data.frame containing geographic coordinates as decimal degrees}
@@ -23,7 +23,7 @@ dist2land(x, lon.col = "longitude", lat.col = "latitude",
 
 \item{geodesic_distances}{Logical indicating whether \code{\link[geosphere]{dist2Line}} function should be used to calculate shortest distances using the WGS84 ellipsoid (\code{TRUE}) or whether the distances should be calculated from UTM coordinates (\code{FALSE}, default). Setting the argument to \code{TRUE} presumably leads to more exact distance estimations, but takes a much longer time to process than the UTM coordinate estimation.}
 
-\item{cores}{Integer value defining how many cores should be used in the calculations. Parallelization speeds up the function (see \code{\link[parallel]{mclapply}}), but naturally eats up computer resources during the calculation. Set to 1 to remove parallelization.}
+\item{cores}{Integer value defining how many cores should be used in the calculations. Parallelization speeds up the function (see \code{\link[parallel]{mclapply}}), but naturally eats up computer resources during the calculation. Set to 1 to remove parallelization (default).}
 }
 \value{
 If \code{bind = TRUE}, returns a data frame with calculated distances to land. If \code{bind = FALSE} returns vector in the same order than coordinates specified in \code{x}. \strong{Distances are returned as kilometers}.
@@ -33,6 +33,8 @@ Calculates the closest distance to land within a \link[=basemap]{map type} for a
 }
 \details{
 If \code{geodesic_distances = FALSE}, the function uses the \code{\link[rgeos]{gDistance}} function to calculate closest distances between coordinates in \code{x} and a specified SpatialPolygonsDataframe object. The spatial object (map) can be specified using the \code{\link[=basemap]{map.type}} argument. If \code{geodesic_distances = TRUE}, the \code{\link[geosphere]{dist2Line}} is used to calculate similar distances assumming an elliptical Earth. The \code{\link[geosphere]{dist2Line}} function is presumably more exact, especially for pan-Arctic maps, but considerably slower.
+
+The function has a possibility for parallel processing, which speeds up the calculations for large datasets. The parallel processing has been turned off by default (\code{cores = 1}). You can turn it on by setting another integer or a function, which produces such an integer (for example \code{parallel::detectCores() - 2} uses all avaible cores exept two). Parallelizing does not work under Windows.
 }
 \examples{
 ## Distances from land using UTM coordinates
@@ -78,11 +80,11 @@ system.time(dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat",
 ## on pan-Arctic scale
 
 data("meiofauna")
-d_panarctic <- dist2land(meiofauna,  lon.col = "Lon", lat.col = "Lat", map.type = "arctic50")
-d_panarctic <- transform_coord(d_panarctic, lon = "Lon", lat = "Lat", map.type = "arctic50",
+d_panarctic <- dist2land(meiofauna,  lon.col = "Lon", lat.col = "Lat", map.type = "panarctic")
+d_panarctic <- transform_coord(d_panarctic, lon = "Lon", lat = "Lat", map.type = "panarctic",
 bind = TRUE)
 
-basemap("arctic50") +
+basemap("panarctic", limits = c("d_panarctic", "lon.utm", "lat.utm")) +
  geom_point(data = d_panarctic, aes(x = lon.utm, y = lat.utm, color = dist), size = 3) +
  scale_color_viridis_c(name = "Distance (km)")
 

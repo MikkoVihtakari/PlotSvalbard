@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SpatialPolygonsDataFrame containing pan-Arctic bathymetry — arctic_bathy • PlotSvalbard</title>
+<title>Automatic limits for basemap — auto_limits • PlotSvalbard</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="SpatialPolygonsDataFrame containing pan-Arctic bathymetry — arctic_bathy" />
+<meta property="og:title" content="Automatic limits for basemap — auto_limits" />
 
-<meta property="og:description" content="SpatialPolygonsDataFrame containing pan-Arctic bathymetry" />
+<meta property="og:description" content="An internal function to make basemap code more readable" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,49 +111,58 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>SpatialPolygonsDataFrame containing pan-Arctic bathymetry</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/R/shapefiles-docs.R'><code>R/shapefiles-docs.R</code></a></small>
-    <div class="hidden name"><code>arctic_bathy.Rd</code></div>
+    <h1>Automatic limits for basemap</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/R/auto_limits.R'><code>R/auto_limits.R</code></a></small>
+    <div class="hidden name"><code>auto_limits.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>SpatialPolygonsDataFrame containing pan-Arctic bathymetry</p>
+    <p>An internal function to make <code><a href='basemap.html'>basemap</a></code> code more readable</p>
     
     </div>
 
-    <pre class="usage"><span class='no'>arctic_bathy</span></pre>
-        
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
-
-    <p>SpatialPolygonsDataFrame containing pan-Arctic bathymetry. In polar stereographic 71 degrees projection. Generalized from GEBCO One Minute Grid</p>
+    <pre class="usage"><span class='fu'>auto_limits</span>(<span class='no'>type</span>, <span class='no'>limits</span>, <span class='no'>limits.lon</span>, <span class='no'>limits.lat</span>)</pre>
     
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>type</th>
+      <td><p>see the <code>type</code> argument for <code><a href='basemap.html'>basemap</a></code></p></td>
+    </tr>
+    <tr>
+      <th>limits</th>
+      <td><p>see the <code>limits</code> argument for <code><a href='basemap.html'>basemap</a></code></p></td>
+    </tr>
+    <tr>
+      <th>limits.lon, limits.lat</th>
+      <td><p>see <code>limits.lon,limits.lat</code> argument for <code><a href='basemap.html'>basemap</a></code></p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><a href='https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_one_minute_grid/'>General Bathymetric Chart of the Oceans</a></p>
+    <p>This is an internal function, which is automatically run by the <code><a href='basemap.html'>basemap</a></code> function.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>basemap</p>
-<p>Other shapefiles: <code><a href='arctic60.html'>arctic60</a></code>,
-  <code><a href='arctic.html'>arctic</a></code>, <code><a href='barents_bathy.html'>barents_bathy</a></code>,
-  <code><a href='barents_currents.html'>barents_currents</a></code>, <code><a href='kong.cr.html'>kong.cr</a></code>,
-  <code><a href='mosj.cr.html'>mosj.cr</a></code>, <code><a href='svalbard.gl.html'>svalbard.gl</a></code>,
-  <code><a href='svalbard.ld.html'>svalbard.ld</a></code>, <code><a href='svalbard_bathy.html'>svalbard_bathy</a></code></p></div>
+    <div class='dont-index'><p><code><a href='basemap.html'>basemap</a></code></p></div>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#format">Format</a></li>
-
-      <li><a href="#source">Source</a></li>
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
           </ul>
 
+    <h2>Author</h2>
+    <p>Mikko Vihtakari</p>
   </div>
 </div>
 

@@ -4,9 +4,9 @@
 \name{arctic_bathy}
 \alias{arctic_bathy}
 \title{SpatialPolygonsDataFrame containing pan-Arctic bathymetry}
-\format{SpatialPolygonsDataFrame containing pan-Arctic bathymetry. In polar stereographic 71 degrees projection.}
+\format{SpatialPolygonsDataFrame containing pan-Arctic bathymetry. In polar stereographic 71 degrees projection. Generalized from GEBCO One Minute Grid}
 \source{
-\href{https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html}{Jakobsson, M., et al. The International Bathymetric Chart of the Arctic Ocean (IBCAO) Version 3.0. Geophys. Res. Lett. 2012, 39:L12609}
+\href{https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_one_minute_grid/}{General Bathymetric Chart of the Oceans}
 }
 \usage{
 arctic_bathy
@@ -17,9 +17,8 @@ SpatialPolygonsDataFrame containing pan-Arctic bathymetry
 \seealso{
 basemap
 
-Other shapefiles: \code{\link{arctic50}},
-  \code{\link{arctic60}}, \code{\link{arctic}},
-  \code{\link{barents_bathy}},
+Other shapefiles: \code{\link{arctic60}},
+  \code{\link{arctic}}, \code{\link{barents_bathy}},
   \code{\link{barents_currents}}, \code{\link{kong.cr}},
   \code{\link{mosj.cr}}, \code{\link{svalbard.gl}},
   \code{\link{svalbard.ld}}, \code{\link{svalbard_bathy}}

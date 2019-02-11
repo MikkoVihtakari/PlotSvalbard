@@ -3,8 +3,8 @@
 #' @keywords datasets shapefiles internal
 #' @family shapefiles
 #' @name arctic_bathy
-#' @format SpatialPolygonsDataFrame containing pan-Arctic bathymetry. In polar stereographic 71 degrees projection.
-#' @source \href{https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html}{Jakobsson, M., et al. The International Bathymetric Chart of the Arctic Ocean (IBCAO) Version 3.0. Geophys. Res. Lett. 2012, 39:L12609}
+#' @format SpatialPolygonsDataFrame containing pan-Arctic bathymetry. In polar stereographic 71 degrees projection. Generalized from GEBCO One Minute Grid
+#' @source \href{https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_one_minute_grid/}{General Bathymetric Chart of the Oceans}
 #' @seealso basemap
 "arctic_bathy"
 
@@ -17,26 +17,6 @@
 #' @source \href{http://www.naturalearthdata.com/}{Natural Earth Data}
 #' @seealso basemap
 "arctic"
-
-#' @title SpatialPolygonsDataFrame containing land shapes for pan-Arctic map with a cutpoint at 50 degrees latitude.
-#' @docType data
-#' @keywords datasets shapefiles internal
-#' @family shapefiles
-#' @name arctic50
-#' @format SpatialPolygonsDataFrame
-#' @source \href{http://www.naturalearthdata.com/}{Natural Earth Data}
-#' @seealso basemap
-"arctic50"
-
-#' @title SpatialPolygonsDataFrame containing land shapes for pan-Arctic map with a cutpoint at 60 degrees latitude.
-#' @docType data
-#' @keywords datasets shapefiles internal
-#' @family shapefiles
-#' @name arctic60
-#' @format SpatialPolygonsDataFrame
-#' @source \href{http://www.naturalearthdata.com/}{Natural Earth Data}
-#' @seealso basemap
-"arctic60"
 
 #' @title Data frame containing Atlantic and Arctic ocean currents for the Barents Sea
 #' @description The data frame, intended to be shown as arrows, represents the current understanding of Atlantic and Arctic ocean currents. The currents are updated as our knowledge increases. The Barent Sea currents are based on Eriksen et al. 2018, while North of Svalbard currents are based on the articles published by Arild Sundfjord and Fram Strait currents on work done by Laura de Steur.

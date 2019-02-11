@@ -17,9 +17,8 @@ SpatialPolygonsDataFrame containing land shapes for pan-Arctic map with a cutpoi
 \seealso{
 basemap
 
-Other shapefiles: \code{\link{arctic50}},
-  \code{\link{arctic60}}, \code{\link{arctic_bathy}},
-  \code{\link{barents_bathy}},
+Other shapefiles: \code{\link{arctic60}},
+  \code{\link{arctic_bathy}}, \code{\link{barents_bathy}},
   \code{\link{barents_currents}}, \code{\link{kong.cr}},
   \code{\link{mosj.cr}}, \code{\link{svalbard.gl}},
   \code{\link{svalbard.ld}}, \code{\link{svalbard_bathy}}

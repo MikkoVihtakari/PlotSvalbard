@@ -19,12 +19,11 @@ The data frame, intended to be shown as arrows, represents the current understan
 \seealso{
 basemap
 
-Other shapefiles: \code{\link{arctic50}},
-  \code{\link{arctic60}}, \code{\link{arctic_bathy}},
-  \code{\link{arctic}}, \code{\link{barents_bathy}},
-  \code{\link{kong.cr}}, \code{\link{mosj.cr}},
-  \code{\link{svalbard.gl}}, \code{\link{svalbard.ld}},
-  \code{\link{svalbard_bathy}}
+Other shapefiles: \code{\link{arctic60}},
+  \code{\link{arctic_bathy}}, \code{\link{arctic}},
+  \code{\link{barents_bathy}}, \code{\link{kong.cr}},
+  \code{\link{mosj.cr}}, \code{\link{svalbard.gl}},
+  \code{\link{svalbard.ld}}, \code{\link{svalbard_bathy}}
 }
 \concept{shapefiles}
 \keyword{datasets}

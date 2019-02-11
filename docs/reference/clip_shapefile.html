@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -124,7 +124,7 @@
 
     <pre class="usage"><span class='fu'>clip_shapefile</span>(<span class='no'>x</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>proj4.limits</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"</span>,
-  <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tol</span> <span class='kw'>=</span> <span class='fl'>60</span>)</pre>
+  <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tol</span> <span class='kw'>=</span> <span class='fl'>60</span>, <span class='kw'>return.boundary</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,6 +149,10 @@
       <th>tol</th>
       <td><p>Numerical tolerance value to be used for simplification. See <code><a href='https://www.rdocumentation.org/packages/rgeos/topics/topo-unary-gSimplify'>gSimplify</a></code>.</p></td>
     </tr>
+    <tr>
+      <th>return.boundary</th>
+      <td><p>logical. If <code>TRUE</code> returns the clip boundary together with the shapefile</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -166,7 +170,7 @@
           </ul>
 
     <h2>Author</h2>
-    <p>Mikko Vihtakari with a solution from <a href='https://stackoverflow.com/questions/15881455/how-to-clip-worldmap-with-polygon-in-r'>Keith W. Larson/SO community</a></p>
+    <p>Mikko Vihtakari with a solution from <a href='https://stackoverflow.com/questions/15881455/how-to-clip-worldmap-with-polygon-in-r'>Simon O'Hanlon, Roger Bivand/SO community</a></p>
   </div>
 </div>
 

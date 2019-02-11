@@ -63,8 +63,6 @@ reference:
   contents:
   - arctic_bathy
   - arctic
-  - arctic50
-  - arctic60
   - barents_bathy
   - barents_currents
   - barents.ld
