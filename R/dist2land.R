@@ -78,7 +78,7 @@
 # x <- head(lb); lon.col = "lon"; lat.col = "lat"; map.type = "panarctic"; bind = FALSE; dist.col = "dist"; geodesic_distances = FALSE; cores = parallel::detectCores() - 1
 # x <- npi_stations; lon.col = "Lon"; lat.col = "Lat"; map.type = "svalbard"; bind = TRUE; dist.col = "dist"; geodesic_distances = TRUE
 
-dist2land <- function(x, lon.col = "longitude", lat.col = "latitude", map.type = "arctic50", bind = TRUE, dist.col = "dist", geodesic_distances = FALSE, cores = 1) {
+dist2land <- function(x, lon.col = "longitude", lat.col = "latitude", map.type = "panarctic", bind = TRUE, dist.col = "dist", geodesic_distances = FALSE, cores = 1) {
 
   ## Land ####
   land <- get(map_type(map.type)$land)
