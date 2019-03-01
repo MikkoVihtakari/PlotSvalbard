@@ -5,7 +5,7 @@
 \title{Calculate the closest distance to land for given coordinates}
 \usage{
 dist2land(x, lon.col = "longitude", lat.col = "latitude",
-  map.type = "arctic50", bind = TRUE, dist.col = "dist",
+  map.type = "panarctic", bind = TRUE, dist.col = "dist",
   geodesic_distances = FALSE, cores = 1)
 }
 \arguments{

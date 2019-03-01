@@ -8,7 +8,7 @@
 #' @param scale_distances Logical indicating whether \code{x} and \code{y} should be scaled to equal distances. May be useful when interpolating variables that have different units or distances.
 #' @param log_y logical indicating whether y axis should be interpolated using \code{log10(y + 1)} scale.
 #' @param extrapolate logical indicating whether the interpolation function should be allowed to extrapolate beyond initial data.
-#' @param na.rm logical indicating whether rows containing NA values should be omited from \code{df} or \code{x, y, z}. NA values are not permitted in most of the interpolation methods. See \code{link[=oce]{sectionGrid}} for one way of interpolating NA values away from the input dataset.
+#' @param na.rm logical indicating whether rows containing NA values should be omited from \code{df} or \code{x, y, z}. NA values are not permitted in most of the interpolation methods. See \code{\link[=oce]{sectionGrid}} for one way of interpolating NA values away from the input dataset.
 #' @param return_df_names logical indicating whether the original column names should be returned instead of x, y, and z if \code{df != NULL}
 #' @details This is a wrapper function which uses existing interpolation solutions. Following interpolation \code{method}s have been implemented:
 #' \itemize{

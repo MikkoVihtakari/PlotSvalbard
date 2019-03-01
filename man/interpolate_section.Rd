@@ -26,7 +26,7 @@ interpolate_section(df = NULL, x, y, z, method = "linear",
 
 \item{extrapolate}{logical indicating whether the interpolation function should be allowed to extrapolate beyond initial data.}
 
-\item{na.rm}{logical indicating whether rows containing NA values should be omited from \code{df} or \code{x, y, z}. NA values are not permitted in most of the interpolation methods. See \code{link[=oce]{sectionGrid}} for one way of interpolating NA values away from the input dataset.}
+\item{na.rm}{logical indicating whether rows containing NA values should be omited from \code{df} or \code{x, y, z}. NA values are not permitted in most of the interpolation methods. See \code{\link[=oce]{sectionGrid}} for one way of interpolating NA values away from the input dataset.}
 
 \item{return_df_names}{logical indicating whether the original column names should be returned instead of x, y, and z if \code{df != NULL}}
 }
