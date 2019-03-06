@@ -13,9 +13,9 @@ As the package is in an early developmental phase, functions might not work as i
 
 **PlotSvalbard** is based on [**ggplot2**](http://ggplot2.tidyverse.org/reference/) and the functions can be expanded using ggplot syntax.
 
-Installation of the GitHub version
+Installation
 -------
-Using the [**devtools**](https://cran.r-project.org/web/packages/devtools/index.html) package:
+PlotSvalbard is not available in CRAN due to package size limitations. The package can be installed using the [**devtools**](https://cran.r-project.org/web/packages/devtools/index.html) package:
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(fig.width=15, fig.height=8)

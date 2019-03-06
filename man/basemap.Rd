@@ -122,8 +122,13 @@ p <- basemap("mosj")
 p + geom_point(data = chlorophyll, aes(x = lon.utm, y = lat.utm,
 size = Chla, color = Chla), shape = 1)
 
-## limitting maps can be done using the limits argument:
+## Limiting maps can be done using the limits argument:
 basemap("kongsfjordbotn", limits = c(12.2,12.65,78.95,79.00))
+
+## Automatic limits find the boundary of data
+basemap("barentssea", limits = c("chlorophyll", "lon.utm", "lat.utm")) +
+geom_point(data = chlorophyll, aes(x = lon.utm, y = lat.utm,
+size = Chla, color = Chla), shape = 1)
 
 ## Svalbard map. Warning: this is SLOW
 basemap("svalbard")
@@ -135,6 +140,11 @@ basemap("svalbard", grid.col = NA, limits = c(10, 28, 79.5, 83))
 ## to control grid lines
 basemap("svalbard", limits = c(3,24,78.5,82), round.lat = 1,
 n.lon.grid = 4)
+
+## Modify axis labels
+basemap("barentssea") + xlab("Lat")
+basemap("barentssea") + labs(x = NULL, y = NULL) # remove axis labs
+basemap("barentssea") + theme(axis.title = element_blank()) # another way
 
 ## Barents Sea
 basemap("barentssea")

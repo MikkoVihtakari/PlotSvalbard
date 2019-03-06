@@ -258,6 +258,13 @@ The [line width of ggplot2 is 2.13 wider than the line widths measured as points
 
 The internal `LS` and `FS` functions convert line and font sizes from points to ggplot2 equivalents.
 
+Axis labels can be modified using the `labs()` function family from ggplot2
+
+```{r message=FALSE, warning=FALSE}
+basemap("barentssea") + 
+  labs(y = NULL) +
+  xlab("Lat")
+```
 ## Performance
 
 The `basemap("svalbard")` is currently fairly slow due to less than optimized code and the large size of the shapefiles that are used to generate the map. Zoomed in maps are considerably faster than full scale Svalbard maps.
@@ -317,17 +324,19 @@ The `interpolate_section` function has not been documented yet here, but check t
 
 The [`dist2land`](https://mikkovihtakari.github.io/PlotSvalbard/reference/dist2land.html) function calculates the closest distance to land. Note that the function has a possibility for parallel processing, which speeds up the process with large datasets. The parallel processing has been turned off by default (`cores = 1`). You can turn it on by setting another integer or a function, which produces such an integer (for example `parallel::detectCores() - 2` uses all avaible cores exept two). Parallelizing does not work under Windows.
 
-```{r message=FALSE, warning=FALSE}
+```{r dist2land, message=FALSE, warning=FALSE, results="hide"}
 library(ggplot2)
 data("npi_stations")
 
 dists <- dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat", map.type = "svalbard")
 dists$Area <- ordered(dists$Area, c("Kongsfjorden", "Framstrait", "Rijpfjorden"))
+```
 
+```{r dist2landplot, message=FALSE, warning=FALSE}
 ggplot(dists, aes(x = Area, y = dist, label = Station, color = Area)) + 
   geom_text() + ylab("Distance to land (km)") + scale_color_hue()
-
 ```
+
 
 ## Waffle charts
 
