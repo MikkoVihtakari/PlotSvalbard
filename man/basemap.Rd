@@ -126,7 +126,7 @@ size = Chla, color = Chla), shape = 1)
 basemap("kongsfjordbotn", limits = c(12.2,12.65,78.95,79.00))
 
 ## Automatic limits find the boundary of data
-basemap("barentssea", limits = c("chlorophyll", "lon.utm", "lat.utm")) +
+basemap("barentssea", limits = c("chlorophyll", "lon", "lat")) +
 geom_point(data = chlorophyll, aes(x = lon.utm, y = lat.utm,
 size = Chla, color = Chla), shape = 1)
 
