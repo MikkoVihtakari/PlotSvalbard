@@ -1,6 +1,6 @@
 PlotSvalbard
 ======
-**Plot research data from Svalbard on maps. R package version 0.8.3.**
+**Plot research data from Svalbard on maps. R package version 0.8.4.**
 
 This is a developmental version of the **PlotSvalbard** package providing functions to plot research data from Svalbard on detailed and up-to-date maps that are not available in online databases. The package is developed by the Norwegian Polar Institute. Glacier fronts and land shapes of Kongsfjorden originate from July 2017.
 
@@ -13,7 +13,7 @@ Installation
 PlotSvalbard is not available in CRAN due to package size limitations. The package can be installed using the [**devtools**](https://cran.r-project.org/web/packages/devtools/index.html) package:
 
 ```r
-devtools::install_github("MikkoVihtakari/PlotSvalbard", dependencies = TRUE)
+devtools::install_github("MikkoVihtakari/PlotSvalbard")
 ```
 
 Usage
@@ -103,7 +103,7 @@ citation("PlotSvalbard")
 ## To cite package 'PlotSvalbard' in publications use:
 ## 
 ##   Mikko Vihtakari (2019). PlotSvalbard: PlotSvalbard - Plot
-##   research data from Svalbard on maps. R package version 0.8.3.
+##   research data from Svalbard on maps. R package version 0.8.4.
 ##   https://github.com/MikkoVihtakari/PlotSvalbard
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -112,7 +112,7 @@ citation("PlotSvalbard")
 ##     title = {PlotSvalbard: PlotSvalbard - Plot research data from Svalbard on maps},
 ##     author = {Mikko Vihtakari},
 ##     year = {2019},
-##     note = {R package version 0.8.3},
+##     note = {R package version 0.8.4},
 ##     url = {https://github.com/MikkoVihtakari/PlotSvalbard},
 ##   }
 ```
