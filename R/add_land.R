@@ -18,7 +18,7 @@
 #' @export
 
 
-add_land <- function(plot = NULL, keep.glaciers = FALSE, land.col = "#eeeac4", size.land = 0.1, border.col.land = "black", gla.col = "grey95", size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1, label.print = FALSE, label.offset = 1.05, label.font = 8) {
+add_land <- function(plot = NULL, keep.glaciers = FALSE, land.col = "grey60", size.land = 0.1, border.col.land = "black", gla.col = "grey95", size.glacier = 0.1, border.col.glacier = "black", grid.col = "grey70", size.grid = 0.1, label.print = FALSE, label.offset = 1.05, label.font = 8) {
 
   if(label.print) stop("label.print = TRUE in add_land() has not been implemente yet")
 

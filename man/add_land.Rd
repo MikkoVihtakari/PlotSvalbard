@@ -4,7 +4,7 @@
 \alias{add_land}
 \title{Add a land layer on basemaps}
 \usage{
-add_land(plot = NULL, keep.glaciers = FALSE, land.col = "#eeeac4",
+add_land(plot = NULL, keep.glaciers = FALSE, land.col = "grey60",
   size.land = 0.1, border.col.land = "black", gla.col = "grey95",
   size.glacier = 0.1, border.col.glacier = "black",
   grid.col = "grey70", size.grid = 0.1, label.print = FALSE,

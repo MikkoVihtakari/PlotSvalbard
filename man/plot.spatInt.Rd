@@ -8,7 +8,7 @@
   limits = "auto", limits.lon = 0.001, limits.lat = 0.001,
   col.scale.limits = NULL, legend.label = NA, round.lat = FALSE,
   n.lat.grid = 3, round.lon = FALSE, n.lon.grid = 3,
-  keep.glaciers = TRUE, land.col = "#eeeac4", land.size = 0.1,
+  keep.glaciers = TRUE, land.col = "grey60", land.size = 0.1,
   land.border.col = "black", gla.col = "grey95", gla.size = 0.1,
   gla.border.col = "black", grid.col = "grey70", grid.size = 0.1,
   base_size = 11, legend.position = "right", ...)
