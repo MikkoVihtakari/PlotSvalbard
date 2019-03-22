@@ -385,8 +385,9 @@ $(document).ready(function () {
 <p><strong>PlotSvalbard</strong> is based on <a href="http://ggplot2.tidyverse.org/reference/"><strong>ggplot2</strong></a> and the functions can be expanded using ggplot syntax.</p>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
-<p>PlotSvalbard is not available in CRAN due to package size limitations. The package can be installed using the <a href="https://cran.r-project.org/web/packages/devtools/index.html"><strong>devtools</strong></a> package:</p>
-<pre class="r"><code>devtools::install_github(&quot;MikkoVihtakari/PlotSvalbard&quot;)</code></pre>
+<p>PlotSvalbard is not available in CRAN due to package size limitations. The package can be installed using the <a href="https://cran.r-project.org/web/packages/devtools/index.html"><strong>devtools</strong></a> package. Recently, there has been many reports with PlotSvalbard installation failing because the <code>install_github</code> function attempts to update installed packages and fails. Try following steps: 1) Manually update all R packages you have installed (Packages -&gt; Update -&gt; Select all -&gt; Install updates in R Studio). If update of a package fails, try installing that package again using the <code>install.packages</code> function or the R Studio menu. 2) Run following:</p>
+<pre class="r"><code>devtools::install_github(&quot;MikkoVihtakari/PlotSvalbard&quot;, upgrade = &quot;never&quot;)</code></pre>
+<p>If installation of a dependency fails, try installing that package manually and repeat step 2.</p>
 </div>
 <div id="usage" class="section level2">
 <h2>Usage</h2>

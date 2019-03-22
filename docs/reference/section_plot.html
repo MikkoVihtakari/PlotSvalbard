@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.6</span>
       </span>
     </div>
 
@@ -196,7 +196,7 @@
     </tr>
     <tr>
       <th>zscale</th>
-      <td><p>(<code>interpolate = TRUE</code> only). Character specifying the color scale for interpolation tile fill. Either one of the <code><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_c</a></code> <code>option</code> alternatives ("A", "B", "C", or "D") or "gradient2" for a <code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_colour_gradient2</a></code> (red-white-blue) color scale. Note that you can use the ggplot2 color scale arguments to adjust the color scales as you want. Just place them inside the <code>section_plot</code> function.</p></td>
+      <td><p>(<code>interpolate = TRUE</code> only). Character specifying the color scale for interpolation tile fill. Either one of the <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/scale_viridis'>scale_colour_viridis_c</a></code> <code>option</code> alternatives ("A", "B", "C", or "D") or "gradient2" for a <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/scale_gradient'>scale_colour_gradient2</a></code> (red-white-blue) color scale. Note that you can use the ggplot2 color scale arguments to adjust the color scales as you want. Just place them inside the <code>section_plot</code> function.</p></td>
     </tr>
     <tr>
       <th>zcolor</th>
@@ -217,25 +217,25 @@
     </tr>
     <tr>
       <th>legend.position</th>
-      <td><p>Position for the ggplot legend. See the argument with the same name in <a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a>.</p></td>
+      <td><p>Position for the ggplot legend. See the argument with the same name in <a href='https://www.rdocumentation.org/packages/ggplot2/topics/theme'>theme</a>.</p></td>
     </tr>
     <tr>
       <th>base_size</th>
-      <td><p>Base size parameter for ggplot. See <a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a>.</p></td>
+      <td><p>Base size parameter for ggplot. See <a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggtheme'>theme_bw</a>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed to color and size scales. See <code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_colour_gradient2</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_c</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size</a></code>.</p></td>
+      <td><p>Additional arguments passed to color and size scales. See <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/scale_gradient'>scale_colour_gradient2</a></code>, <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/scale_viridis'>scale_colour_viridis_c</a></code> and <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/scale_size'>scale_size</a></code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns either an interpolated section (<code><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_tile</a></code>) or a bubble (<code><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></code>) ggplot2 object.</p>
+    <p>Returns either an interpolated section (<code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/geom_tile'>geom_tile</a></code>) or a bubble (<code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></code>) ggplot2 object.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Note that you can use the ggplot2 color and size scale arguments to adjust the scales as you want. Just place them inside the <code>section_plot</code> function. See <code><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_colour_gradient2</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_c</a></code> and <code><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size</a></code>.</p>
+    <p>Note that you can use the ggplot2 color and size scale arguments to adjust the scales as you want. Just place them inside the <code>section_plot</code> function. See <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/scale_gradient'>scale_colour_gradient2</a></code>, <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/scale_viridis'>scale_colour_viridis_c</a></code> and <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/scale_size'>scale_size</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

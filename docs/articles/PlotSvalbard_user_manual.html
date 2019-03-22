@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.6</span>
       </span>
     </div>
 
@@ -78,12 +78,12 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>PlotSvalbard - User Manual</h1>
-            <h3 class="subtitle">Plot research data from Svalbard on maps. R package version 0.8.3.</h3>
+            <h3 class="subtitle">Plot research data from Svalbard on maps. R package version 0.8.5.</h3>
                         <h4 class="author">Mikko Vihtakari</h4>
                   <a class="author_email" href="mailto:#"></a><a href="mailto:mikko.vihtakari@gmail.com" class="email">mikko.vihtakari@gmail.com</a>
       
                   
-            <h4 class="date">06 March, 2019</h4>
+            <h4 class="date">22 March, 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MikkoVihtakari/PlotSvalbard/blob/master/vignettes/PlotSvalbard_user_manual.Rmd"><code>vignettes/PlotSvalbard_user_manual.Rmd</code></a></small>
       <div class="hidden name"><code>PlotSvalbard_user_manual.Rmd</code></div>
@@ -101,7 +101,7 @@
 <div id="basemap" class="section level1">
 <h1 class="hasAnchor">
 <a href="#basemap" class="anchor"></a>Basemap</h1>
-<p>The <code>basemap</code> function is the generic plotting command in PlotSvalbard, and is analogous to empty <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> call. The <code><a href="../reference/basemap.html">basemap()</a></code> call plots a map that is specified by the <code>type</code> argument. Data containing geographic information can be plotted on these maps using the <a href="http://ggplot2.tidyverse.org/reference/">ggplot2 layers separated by the <code>+</code> operator</a>.</p>
+<p>The <code>basemap</code> function is the generic plotting command in PlotSvalbard, and is analogous to empty <code><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot()</a></code> call. The <code><a href="../reference/basemap.html">basemap()</a></code> call plots a map that is specified by the <code>type</code> argument. Data containing geographic information can be plotted on these maps using the <a href="http://ggplot2.tidyverse.org/reference/">ggplot2 layers separated by the <code>+</code> operator</a>.</p>
 <div id="map-types" class="section level2">
 <h2 class="hasAnchor">
 <a href="#map-types" class="anchor"></a>Map types</h2>
@@ -230,7 +230,7 @@
 <div id="adding-station-labels-text" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adding-station-labels-text" class="anchor"></a>Adding station labels (text)</h3>
-<p>Text can be added to basemaps using the <code><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text()</a></code> function:</p>
+<p>Text can be added to basemaps using the <code><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_text">geom_text()</a></code> function:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"npi_stations"</span>)</a>
 <a class="sourceLine" id="cb25-2" title="2"></a>
 <a class="sourceLine" id="cb25-3" title="3">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/transform_coord.html">transform_coord</a></span>(npi_stations, <span class="dt">lon =</span> <span class="st">"Lon"</span>, <span class="dt">lat =</span> <span class="st">"Lat"</span>, <span class="dt">bind =</span> <span class="ot">TRUE</span>)</a>
@@ -293,7 +293,7 @@
 <p><img src="PlotSvalbard_user_manual_files/figure-html/unnamed-chunk-23-1.png" width="672"></p>
 <p>The <a href="https://stackoverflow.com/questions/47519624/how-is-the-line-width-size-defined-in-ggplot2/47521808#47521808">line width of ggplot2 is 2.13 wider than the line widths measured as points</a> (pt). This means that if you want a certain line width, multiply the desired line width by <span class="math inline">\(1/2.13\)</span> inside <code>size.*</code> arguments. Similar conversion factor for font size is <span class="math inline">\(1/2.845276\)</span>.</p>
 <p>The internal <code>LS</code> and <code>FS</code> functions convert line and font sizes from points to ggplot2 equivalents.</p>
-<p>Axis labels can be modified using the <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code> function family from ggplot2</p>
+<p>Axis labels can be modified using the <code><a href="https://www.rdocumentation.org/packages/ggplot2/topics/labs">labs()</a></code> function family from ggplot2</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb31-2" title="2"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="ot">NULL</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb31-3" title="3"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">"Lat"</span>)</a></code></pre></div>
@@ -302,22 +302,22 @@
 <p>If you are looking for optimal <code>limits</code> for your data, you can use the <code><a href="../reference/basemap.html">basemap("barentssea")</a></code> option to find these limits and replace <code>"barentssea"</code> with <code>"svalbard"</code> once you are done:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>))</a>
 <a class="sourceLine" id="cb32-2" title="2"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb32-3" title="3"><span class="co">#&gt;   0.226   0.004   0.230</span></a>
+<a class="sourceLine" id="cb32-3" title="3"><span class="co">#&gt;   0.242   0.010   0.273</span></a>
 <a class="sourceLine" id="cb32-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>))</a>
 <a class="sourceLine" id="cb32-5" title="5"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb32-6" title="6"><span class="co">#&gt;  10.208   0.134  10.353</span></a>
+<a class="sourceLine" id="cb32-6" title="6"><span class="co">#&gt;  10.932   0.166  11.124</span></a>
 <a class="sourceLine" id="cb32-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"panarctic"</span>))</a>
 <a class="sourceLine" id="cb32-8" title="8"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb32-9" title="9"><span class="co">#&gt;   0.865   0.062   0.928</span></a>
+<a class="sourceLine" id="cb32-9" title="9"><span class="co">#&gt;   0.892   0.062   0.956</span></a>
 <a class="sourceLine" id="cb32-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="dv">80</span>,<span class="fl">81.7</span>))))</a>
 <a class="sourceLine" id="cb32-11" title="11"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb32-12" title="12"><span class="co">#&gt;   0.067   0.003   0.070</span></a>
+<a class="sourceLine" id="cb32-12" title="12"><span class="co">#&gt;   0.070   0.004   0.074</span></a>
 <a class="sourceLine" id="cb32-13" title="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="dv">80</span>,<span class="fl">81.7</span>))))</a>
 <a class="sourceLine" id="cb32-14" title="14"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb32-15" title="15"><span class="co">#&gt;   1.204   0.044   1.249</span></a>
+<a class="sourceLine" id="cb32-15" title="15"><span class="co">#&gt;   1.233   0.039   1.274</span></a>
 <a class="sourceLine" id="cb32-16" title="16"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.time">system.time</a></span>(<span class="kw"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"panarctic"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">250000</span>, <span class="dv">-2500000</span>, <span class="dv">2000000</span>, <span class="dv">-250000</span>)))</a>
 <a class="sourceLine" id="cb32-17" title="17"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb32-18" title="18"><span class="co">#&gt;   0.391   0.020   0.432</span></a></code></pre></div>
+<a class="sourceLine" id="cb32-18" title="18"><span class="co">#&gt;   0.368   0.007   0.378</span></a></code></pre></div>
 </div>
 </div>
 <div id="oceanographic-plots" class="section level1">
@@ -361,8 +361,8 @@
 <a class="sourceLine" id="cb37-3" title="3"></a>
 <a class="sourceLine" id="cb37-4" title="4">dists &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dist2land.html">dist2land</a></span>(npi_stations, <span class="dt">lon.col =</span> <span class="st">"Lon"</span>, <span class="dt">lat.col =</span> <span class="st">"Lat"</span>, <span class="dt">map.type =</span> <span class="st">"svalbard"</span>)</a>
 <a class="sourceLine" id="cb37-5" title="5">dists<span class="op">$</span>Area &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">ordered</a></span>(dists<span class="op">$</span>Area, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Kongsfjorden"</span>, <span class="st">"Framstrait"</span>, <span class="st">"Rijpfjorden"</span>))</a></code></pre></div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(dists, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> Area, <span class="dt">y =</span> dist, <span class="dt">label =</span> Station, <span class="dt">color =</span> Area)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb38-2" title="2"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="st">"Distance to land (km)"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/scale_hue.html">scale_color_hue</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(dists, <span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> Area, <span class="dt">y =</span> dist, <span class="dt">label =</span> Station, <span class="dt">color =</span> Area)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-2" title="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_text">geom_text</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/labs">ylab</a></span>(<span class="st">"Distance to land (km)"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_hue">scale_color_hue</a></span>()</a></code></pre></div>
 <p><img src="PlotSvalbard_user_manual_files/figure-html/dist2landplot-1.png" width="672"></p>
 </div>
 <div id="waffle-charts" class="section level2">
@@ -399,7 +399,7 @@
 <a class="sourceLine" id="cb41-3" title="3"><span class="co">#&gt; To cite package 'PlotSvalbard' in publications use:</span></a>
 <a class="sourceLine" id="cb41-4" title="4"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb41-5" title="5"><span class="co">#&gt;   Mikko Vihtakari (2019). PlotSvalbard: PlotSvalbard - Plot</span></a>
-<a class="sourceLine" id="cb41-6" title="6"><span class="co">#&gt;   research data from Svalbard on maps. R package version 0.8.3.</span></a>
+<a class="sourceLine" id="cb41-6" title="6"><span class="co">#&gt;   research data from Svalbard on maps. R package version 0.8.5.</span></a>
 <a class="sourceLine" id="cb41-7" title="7"><span class="co">#&gt;   https://github.com/MikkoVihtakari/PlotSvalbard</span></a>
 <a class="sourceLine" id="cb41-8" title="8"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb41-9" title="9"><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></a>
@@ -408,7 +408,7 @@
 <a class="sourceLine" id="cb41-12" title="12"><span class="co">#&gt;     title = {PlotSvalbard: PlotSvalbard - Plot research data from Svalbard on maps},</span></a>
 <a class="sourceLine" id="cb41-13" title="13"><span class="co">#&gt;     author = {Mikko Vihtakari},</span></a>
 <a class="sourceLine" id="cb41-14" title="14"><span class="co">#&gt;     year = {2019},</span></a>
-<a class="sourceLine" id="cb41-15" title="15"><span class="co">#&gt;     note = {R package version 0.8.3},</span></a>
+<a class="sourceLine" id="cb41-15" title="15"><span class="co">#&gt;     note = {R package version 0.8.5},</span></a>
 <a class="sourceLine" id="cb41-16" title="16"><span class="co">#&gt;     url = {https://github.com/MikkoVihtakari/PlotSvalbard},</span></a>
 <a class="sourceLine" id="cb41-17" title="17"><span class="co">#&gt;   }</span></a></code></pre></div>
 <p>However, please note that the maps generated by this package should be cited to their original source.</p>
