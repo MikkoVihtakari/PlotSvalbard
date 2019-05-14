@@ -54,6 +54,10 @@ if(!is.null(x)) {
   sp::coordinates(y) <- c(lon, lat)
 }
 
+  if(any(class(x) == "tbl")) {
+    x <- as.data.frame(x)
+  }
+
 sp::proj4string(y) <- sp::CRS(proj.og)
 
 if(!is.null(map.type)) {

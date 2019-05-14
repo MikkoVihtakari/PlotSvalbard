@@ -2,7 +2,7 @@
 #' @description An internal function to make \code{\link{basemap}} code more readable
 #' @param type see the \code{type} argument for \code{\link{basemap}}
 #' @param limits see the \code{limits} argument for \code{\link{basemap}}
-#' @param limits.lon,limits.lat see \code{limits.lon,limits.lat} argument for \code{\link{basemap}}
+#' @param limits.lon,limits.lat Numeric. The level of rounding for longitude and latitude, respectively. If \code{NULL}, sensible default values are used.
 #' @details This is an internal function, which is automatically run by the \code{\link{basemap}} function.
 #' @keywords internal
 #' @export
@@ -10,7 +10,7 @@
 #' @seealso \code{\link{basemap}}
 
 
-auto_limits <- function(type, limits, limits.lon, limits.lat) {
+auto_limits <- function(type, limits, limits.lon = NULL, limits.lat = NULL) {
 
   rdiff.lon <- diff(range(get(limits[1])[limits[2]]))
   rdiff.lat <- diff(range(get(limits[1])[limits[3]]))

@@ -147,7 +147,7 @@ if(type %in% c("arctic50", "arctic60")) stop('"arctic50" and "arctic60" map type
 ## Automatic limits
 
 if(length(limits) == 3 & is.character(limits)) {
-    limits <- auto_limits(type, limits, limits.lon, limits.lat)
+    limits <- auto_limits(type, limits, limits.lon = limits.lon, limits.lat = limits.lat)
 }
 
 ## Automatic grid line spacing for panarctic maps
