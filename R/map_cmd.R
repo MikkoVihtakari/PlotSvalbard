@@ -62,7 +62,7 @@ map_cmd <- function(command, alternative = FALSE) {
     defs_utm = '
       scale_y_continuous(breaks = X$Grid$lat.breaks$lat_utm, labels = X$Grid$lat.breaks$label) +
       scale_x_continuous(breaks = X$Grid$lon.breaks$lon_utm, labels = X$Grid$lon.breaks$label) +
-      labs(x = "Latitude (decimal degrees)", y = "Longitude (decimal degrees)") +
+      labs(y = "Latitude (decimal degrees)", x = "Longitude (decimal degrees)") +
       coord_fixed(xlim = c(X$Grid$limits$lon.utm[1], X$Grid$limits$lon.utm[2]), ylim = c(X$Grid$limits$lat.utm[1], X$Grid$limits$lat.utm[2]), expand = FALSE) +
       theme_map(base_size = base_size) +
       theme(legend.margin=margin(t = 0.2, b = 0, unit="cm"), legend.position = legend.position)
