@@ -12,8 +12,8 @@
 
 auto_limits <- function(type, limits, limits.lon = NULL, limits.lat = NULL) {
 
-  rdiff.lon <- diff(range(get(limits[1])[limits[2]]))
-  rdiff.lat <- diff(range(get(limits[1])[limits[3]]))
+  rdiff.lon <- diff(range(get(limits[1])[limits[2]], na.rm = TRUE))
+  rdiff.lat <- diff(range(get(limits[1])[limits[3]], na.rm = TRUE))
 
     ## Pan-Arctic maps (makes a square map)
     if(type %in% c("panarctic")) {
@@ -26,7 +26,11 @@ auto_limits <- function(type, limits, limits.lon = NULL, limits.lat = NULL) {
         limits.lat <- ifelse(nchar(round(rdiff.lon, 0)) == nchar(round(rdiff.lat, 0)), limits.lon, ifelse(rdiff.lon > 1e6, 1e5, ifelse(rdiff.lon > 1e5, 1e4, 1e3)))
       }
 
-      limits <- c(round_any(min(get(limits[1])[limits[2]]), limits.lon, floor), round_any(max(get(limits[1])[limits[2]]), limits.lon, ceiling), round_any(min(get(limits[1])[limits[3]]), limits.lat, floor), round_any(max(get(limits[1])[limits[3]]), limits.lat, ceiling))
+      limits <- c(round_any(min(get(limits[1])[limits[2]], na.rm = TRUE), limits.lon, floor),
+                  round_any(max(get(limits[1])[limits[2]], na.rm = TRUE), limits.lon, ceiling),
+                  round_any(min(get(limits[1])[limits[3]], na.rm = TRUE), limits.lat, floor),
+                  round_any(max(get(limits[1])[limits[3]], na.rm = TRUE), limits.lat, ceiling)
+                  )
 
     ## UTM maps
     } else {
@@ -40,7 +44,11 @@ auto_limits <- function(type, limits, limits.lon = NULL, limits.lat = NULL) {
       }
 
 
-      limits <- c(round_any(min(get(limits[1])[limits[2]]), limits.lon, floor), round_any(max(get(limits[1])[limits[2]]), limits.lon, ceiling), round_any(min(get(limits[1])[limits[3]]), limits.lat, floor), round_any(max(get(limits[1])[limits[3]]), limits.lat, ceiling))
+      limits <- c(round_any(min(get(limits[1])[limits[2]], na.rm = TRUE), limits.lon, floor),
+                  round_any(max(get(limits[1])[limits[2]], na.rm = TRUE), limits.lon, ceiling),
+                  round_any(min(get(limits[1])[limits[3]], na.rm = TRUE), limits.lat, floor),
+                  round_any(max(get(limits[1])[limits[3]], na.rm = TRUE), limits.lat, ceiling)
+                  )
     }
 
 limits
