@@ -8,7 +8,7 @@ transform_coord(x = NULL, lon = NULL, lat = NULL,
   new.names = c("lon.utm", "lat.utm"),
   proj.og = "+proj=longlat +datum=WGS84",
   proj.out = "+init=epsg:32633", map.type = NULL, verbose = FALSE,
-  bind = FALSE)
+  bind = FALSE, na = "ignore")
 }
 \arguments{
 \item{x}{data frame to be transformed. Can be omitted if numeric vectors are assigned to \code{lon} and \code{lat}.}
@@ -25,7 +25,9 @@ transform_coord(x = NULL, lon = NULL, lat = NULL,
 
 \item{verbose}{if \code{TRUE}, the function prints information about the changed projection. Switch to \code{FALSE} to make the function silent.}
 
-\item{bind}{Should only transformed coordinates be returned (\code{FALSE}, default) or should x be returned with transformed coordinates (\code{TRUE})?}
+\item{bind}{logical. Should only transformed coordinates be returned (\code{FALSE}, default) or should x be returned with transformed coordinates (\code{TRUE})?}
+
+\item{na}{character specifying the NA action for missing coordinates. The "ignore" option ignores the coordinates and returns NAs to transformed coordinates. The "remove" option removes missing values from \code{x} returning a message while doing it. Any other character argument will tricker \code{na.fail} stopping the function in case of missing coordinates.}
 }
 \value{
 Returns a data frame with transformed spatial coordinates

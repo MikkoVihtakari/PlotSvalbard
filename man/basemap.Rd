@@ -73,7 +73,7 @@ basemap(type = "kongsfjorden", limits = NULL, limits.lon = NULL,
 
 \item{arc.col, atl.col}{Character code specifying the color for Arctic and Atlantic current arrows.}
 
-\item{current.size}{Either a numeric value specifying the width of ocean current arrows or "scaled" for ocean currents that are approximately scaled to their size.}
+\item{current.size}{Either a numeric value specifying the width of ocean current arrows or "scaled" for ocean currents that are approximately scaled to their magnitude.}
 
 \item{current.alpha}{Value between 0 and 1 defining the transparency of current arrows.}
 
