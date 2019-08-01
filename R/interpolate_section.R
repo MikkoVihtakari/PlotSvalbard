@@ -63,7 +63,7 @@ interpolate_section <- function(df = NULL, x, y, z, method = "linear", format = 
       dt$y <- scales::rescale(log(dt$y))
     } else {
       dt$y <- scales::rescale(dt$y)
-      }
+    }
   } else if(log_y) {
     dt$y <- log10(dt$y+10)
   }
@@ -75,11 +75,11 @@ interpolate_section <- function(df = NULL, x, y, z, method = "linear", format = 
 
     out <- akima::interp(x = dt$x, y = dt$y, z = dt$z , xo = seq(min(dt$x), max(dt$x), length = nx), yo = seq(min(dt$y), max(dt$y), length = 100), extrap = extrapolate)
 
-    } else if(method == "spline") {
+  } else if(method == "spline") {
 
     out <- akima::interp(x = dt$x, y = dt$y, z = dt$z , xo = seq(min(dt$x), max(dt$x), length = nx), yo = seq(min(dt$y), max(dt$y), length = 100), extrap = extrapolate, linear = FALSE)
 
-    } else if(method == "idw") {
+  } else if(method == "idw") {
 
     sp::coordinates(dt) <- ~x+y
 
@@ -94,15 +94,15 @@ interpolate_section <- function(df = NULL, x, y, z, method = "linear", format = 
 
     out <- list(x = intp_df$x, y = intp_df$y, z = intp_df$var1.pred)
 
-    } else if(method == "mba") {
+  } else if(method == "mba") {
 
-      if(nx != ny) stop("The mba.surf function appears to manage only with square output matrices. Adjust the arguments such that nx == ny")
+    if(nx != ny) stop("The mba.surf function appears to manage only with square output matrices. Adjust the arguments such that nx == ny")
 
     out <- MBA::mba.surf(dt, no.X = nx, no.Y = ny, extend = extrapolate)
 
-    } else {
+  } else {
 
-      stop(paste(method, "is not an accepted interpolation method"))
+    stop(paste(method, "is not an accepted interpolation method"))
   }
 
   ## Output format

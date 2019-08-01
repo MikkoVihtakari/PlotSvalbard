@@ -129,7 +129,7 @@ map_cmd <- function(command, alternative = FALSE) {
       theme(legend.margin=margin(t = 0.2, b = 0, unit="cm"), legend.position = legend.position)
     ',
     stop(paste("map command", command, "not found."))
-)
+  )
 
   trimws(gsub("\n", " ", out))
 }

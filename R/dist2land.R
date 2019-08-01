@@ -75,10 +75,17 @@
 
 ## Test parameters
 
+# x <- head(x); lon.col = "longitudestart"; lat.col = "latitudestart"; map.type = "panarctic"; bind = TRUE; geodesic_distances = FALSE; cores = 2
 # x <- head(lb); lon.col = "lon"; lat.col = "lat"; map.type = "panarctic"; bind = FALSE; dist.col = "dist"; geodesic_distances = FALSE; cores = parallel::detectCores() - 1
 # x <- npi_stations; lon.col = "Lon"; lat.col = "Lat"; map.type = "svalbard"; bind = TRUE; dist.col = "dist"; geodesic_distances = TRUE
 
 dist2land <- function(x, lon.col = "longitude", lat.col = "latitude", map.type = "panarctic", bind = TRUE, dist.col = "dist", geodesic_distances = FALSE, cores = 1) {
+
+  # Convert data.table to data.frame (consider a way to remove this conversion later)
+
+  if(any(class(x) %in% c("tbl", "data.table"))) {
+    x <- as.data.frame(x)
+  }
 
   ## Land ####
   land <- get(map_type(map.type)$land)
@@ -120,7 +127,7 @@ dist2land <- function(x, lon.col = "longitude", lat.col = "latitude", map.type =
 
       pb <- utils::txtProgressBar(min = 0, max = length(pp), style = 3)
       tmp <- sapply(1:length(pp), function(i)  {
-          utils::setTxtProgressBar(pb, i)
+        utils::setTxtProgressBar(pb, i)
         return(rgeos::gDistance(pp[i], land)/1000)
       })
 

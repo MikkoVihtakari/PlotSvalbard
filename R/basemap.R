@@ -138,162 +138,162 @@
 
 basemap <- function(type = "kongsfjorden", limits = NULL, limits.lon = NULL, limits.lat = NULL, round.lon = FALSE, n.lon.grid = 3, lon.interval = NULL, round.lat = FALSE, n.lat.grid = 3, lat.interval = NULL, keep.glaciers = TRUE, legends = TRUE, legend.position = "right", bathymetry = FALSE, bathy.style = "poly_blues", bathy.detailed = FALSE, bathy.border.col = NA, bathy.size = 0.1, land.col = "grey60", land.border.col = "black", land.size = 0.1, gla.col = "grey95", gla.border.col = "black", gla.size = 0.1, grid.col = "grey70", grid.size = 0.1, currents = FALSE, arc.col = "blue", atl.col = "#BB1512", current.size = 0.5, current.alpha = 1, label.print = TRUE, label.offset = 1.05, label.font = 8, base_size = 11, plot = TRUE) {
 
-## Checks
+  ## Checks
 
-if(class(legends) != "logical" | !length(legends) %in% 1:2) stop("'legends' argument has to be a logical vector of length 1 or 2. Read the explantion for the argument in ?basemap")
+  if(class(legends) != "logical" | !length(legends) %in% 1:2) stop("'legends' argument has to be a logical vector of length 1 or 2. Read the explantion for the argument in ?basemap")
 
-if(type %in% c("arctic50", "arctic60")) stop('"arctic50" and "arctic60" map types have been replaced by basemap(type = "panarctic", limits = N), where N is any integer between 30 and 88 defining the limiting latitude.')
+  if(type %in% c("arctic50", "arctic60")) stop('"arctic50" and "arctic60" map types have been replaced by basemap(type = "panarctic", limits = N), where N is any integer between 30 and 88 defining the limiting latitude.')
 
-if(!(is.numeric(current.size) | current.size == "scaled")) stop("The 'current.size' argument has to be numeric or 'scaled'. See the argument description for ?basemap")
+  if(!(is.numeric(current.size) | current.size == "scaled")) stop("The 'current.size' argument has to be numeric or 'scaled'. See the argument description for ?basemap")
 
-## Automatic limits
+  ## Automatic limits
 
-if(length(limits) == 3 & is.character(limits)) {
+  if(length(limits) == 3 & is.character(limits)) {
     limits <- auto_limits(type, limits, limits.lon = limits.lon, limits.lat = limits.lat)
-}
-
-## Automatic grid line spacing for panarctic maps
-
-if(type %in% c("panarctic")) {
-
-  if(is.null(limits)) {
-
-    if(is.null(lat.interval)) lat.interval <- 10
-    if(is.null(lon.interval)) lon.interval <- 45
-
-  } else if(length(limits) == 1) {
-    if(is.null(lat.interval)) {
-      lat.dist <- 90 - limits
-      lat.interval <- ifelse(lat.dist > 20, 10, ifelse(lat.dist > 10, 5, 2))
-    }
-
-    if(is.null(lon.interval)) {
-      lon.interval <- 45
-    }
-
-  } else {
-    # Improve these
-    if(is.null(lat.interval)) lat.interval <- 10
-    if(is.null(lon.interval)) lon.interval <- 45
-
   }
-}
 
-## Map data
-X <- switch(map_type(type)$map.type,
-  panarctic = eval(parse(text=paste(map_cmd("base_dat_polar")))),
-  svalbard = eval(parse(text=paste(map_cmd("base_dat")))),
-  barents = eval(parse(text=paste(map_cmd("base_dat")))),
-  kongsfjorden = eval(parse(text=paste(map_cmd("base_dat")))),
-  stop(paste("map_type for", type, "not found."))
-)
+  ## Automatic grid line spacing for panarctic maps
 
-## Bathymetry data
-if(bathymetry) {
-  bathy <- clip_bathymetry(X, detailed = bathy.detailed)
+  if(type %in% c("panarctic")) {
 
-  bathy_cmd <- switch(bathy.style,
-    poly_blues = "bathy_pb",
-    poly_greys = "bathy_pg",
-    contour_blues = "bathy_cb",
-    contour_grey = "bathy_cg",
-    stop(paste("bathy_type for", type, "not found."))
+    if(is.null(limits)) {
+
+      if(is.null(lat.interval)) lat.interval <- 10
+      if(is.null(lon.interval)) lon.interval <- 45
+
+    } else if(length(limits) == 1) {
+      if(is.null(lat.interval)) {
+        lat.dist <- 90 - limits
+        lat.interval <- ifelse(lat.dist > 20, 10, ifelse(lat.dist > 10, 5, 2))
+      }
+
+      if(is.null(lon.interval)) {
+        lon.interval <- 45
+      }
+
+    } else {
+      # Improve these
+      if(is.null(lat.interval)) lat.interval <- 10
+      if(is.null(lon.interval)) lon.interval <- 45
+
+    }
+  }
+
+  ## Map data
+  X <- switch(map_type(type)$map.type,
+    panarctic = eval(parse(text=paste(map_cmd("base_dat_polar")))),
+    svalbard = eval(parse(text=paste(map_cmd("base_dat")))),
+    barents = eval(parse(text=paste(map_cmd("base_dat")))),
+    kongsfjorden = eval(parse(text=paste(map_cmd("base_dat")))),
+    stop(paste("map_type for", type, "not found."))
   )
 
-  bathy.legend <- ifelse(length(legends) == 1, legends, legends[1])
-
-  if(bathy_cmd == "bathy_cg" & is.na(bathy.border.col)) bathy.border.col <- "grey"
-}
-
-## Ocean current data
-if(currents) {
-  cur <- clip_current(barents_currents, X)
-  scaled.currents <- ifelse(current.size == "scaled", TRUE, FALSE)
-  current.legend <- ifelse(length(legends) == 1, legends, legends[2])
-}
-
-## Force switches
-
-if(is.null(map_type(X$MapType)$glacier)) {
-  keep.glaciers <- FALSE
-}
-
-
-
-if(!plot) { ## Return data
-
-   list("basemap_data" = X, "bathymetry" = if(bathymetry) {bathy} else {NULL}, "currents" = if(currents) {cur} else {NULL})
-
-  } else {
-
-## Map composing
-
-if(X$MapClass %in% c("panarctic")) {
-
-## Pan-Arctic polar stereographic maps ####
-
-  ## Bathymetry
+  ## Bathymetry data
   if(bathymetry) {
-    layers <- paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("grid_polar"), sep = " + ")
-  } else {
-    layers <- paste(map_cmd("base"), map_cmd("grid_polar"), sep = " + ")
+    bathy <- clip_bathymetry(X, detailed = bathy.detailed)
+
+    bathy_cmd <- switch(bathy.style,
+      poly_blues = "bathy_pb",
+      poly_greys = "bathy_pg",
+      contour_blues = "bathy_cb",
+      contour_grey = "bathy_cg",
+      stop(paste("bathy_type for", type, "not found."))
+    )
+
+    bathy.legend <- ifelse(length(legends) == 1, legends, legends[1])
+
+    if(bathy_cmd == "bathy_cg" & is.na(bathy.border.col)) bathy.border.col <- "grey"
   }
 
-  ## Land
-  if(length(X$Land) != 0) {
-    layers <- paste(layers, map_cmd("land_polar"), sep = " + ")
-  }
-
-  ## Square and round maps
-
-  if(X$Grid$limits) { ## Square maps
-
-    if(label.print) { ## With labels
-      layers <- paste(layers, map_cmd("labels_polar_limits"), map_cmd("defs_polar_limits"), sep = " + ")
-    } else { ## Without labels
-      layers <- paste(layers, map_cmd("defs_polar_limits"), map_cmd("remove_labels"), sep = " + ")
-    }
-
-  } else { ## Round maps
-
-    if(label.print) { ## With labels
-      layers <- paste(layers, map_cmd("labels_polar"), map_cmd("defs_polar"), sep = " + ")
-    } else { ## Without labels
-      layers <- paste(layers, map_cmd("defs_polar"), sep = " + ")
-    }
-  }
-
-  ## Final plotting
-  eval(parse(text=layers))
-
-
-  } else {
-
-  ## UTM maps (Svalbard, Barents Sea, etc.) ####
-
-  ## Bathymetry
-  if(bathymetry) {
-    layers <- paste(map_cmd("base"), map_cmd(bathy_cmd), sep = " + ")
-  } else {
-    layers <- map_cmd("base")
-  }
-
-  ## Land and glaciers
-  if(length(X$Land) != 0) {
-    if(keep.glaciers) {
-      layers <- paste(layers, map_cmd("land_utm"), map_cmd("glacier_utm"), sep = " + ")
-    } else {
-      layers <- paste(layers, map_cmd("land_utm"), sep = " + ")
-    }
-  }
-
-  ## Ocean currents
+  ## Ocean current data
   if(currents) {
-    layers <- paste(layers, map_cmd("currents_utm", scaled.currents), sep = " + ")
+    cur <- clip_current(barents_currents, X)
+    scaled.currents <- ifelse(current.size == "scaled", TRUE, FALSE)
+    current.legend <- ifelse(length(legends) == 1, legends, legends[2])
   }
 
-  ## Final plotting
-  eval(parse(text=paste(layers, map_cmd("grid_utm"), map_cmd("defs_utm"), sep = " + ")))
+  ## Force switches
 
-  }}
+  if(is.null(map_type(X$MapType)$glacier)) {
+    keep.glaciers <- FALSE
+  }
+
+
+
+  if(!plot) { ## Return data
+
+    list("basemap_data" = X, "bathymetry" = if(bathymetry) {bathy} else {NULL}, "currents" = if(currents) {cur} else {NULL})
+
+  } else {
+
+    ## Map composing
+
+    if(X$MapClass %in% c("panarctic")) {
+
+      ## Pan-Arctic polar stereographic maps ####
+
+      ## Bathymetry
+      if(bathymetry) {
+        layers <- paste(map_cmd("base"), map_cmd(bathy_cmd), map_cmd("grid_polar"), sep = " + ")
+      } else {
+        layers <- paste(map_cmd("base"), map_cmd("grid_polar"), sep = " + ")
+      }
+
+      ## Land
+      if(length(X$Land) != 0) {
+        layers <- paste(layers, map_cmd("land_polar"), sep = " + ")
+      }
+
+      ## Square and round maps
+
+      if(X$Grid$limits) { ## Square maps
+
+        if(label.print) { ## With labels
+          layers <- paste(layers, map_cmd("labels_polar_limits"), map_cmd("defs_polar_limits"), sep = " + ")
+        } else { ## Without labels
+          layers <- paste(layers, map_cmd("defs_polar_limits"), map_cmd("remove_labels"), sep = " + ")
+        }
+
+      } else { ## Round maps
+
+        if(label.print) { ## With labels
+          layers <- paste(layers, map_cmd("labels_polar"), map_cmd("defs_polar"), sep = " + ")
+        } else { ## Without labels
+          layers <- paste(layers, map_cmd("defs_polar"), sep = " + ")
+        }
+      }
+
+      ## Final plotting
+      eval(parse(text=layers))
+
+
+    } else {
+
+      ## UTM maps (Svalbard, Barents Sea, etc.) ####
+
+      ## Bathymetry
+      if(bathymetry) {
+        layers <- paste(map_cmd("base"), map_cmd(bathy_cmd), sep = " + ")
+      } else {
+        layers <- map_cmd("base")
+      }
+
+      ## Land and glaciers
+      if(length(X$Land) != 0) {
+        if(keep.glaciers) {
+          layers <- paste(layers, map_cmd("land_utm"), map_cmd("glacier_utm"), sep = " + ")
+        } else {
+          layers <- paste(layers, map_cmd("land_utm"), sep = " + ")
+        }
+      }
+
+      ## Ocean currents
+      if(currents) {
+        layers <- paste(layers, map_cmd("currents_utm", scaled.currents), sep = " + ")
+      }
+
+      ## Final plotting
+      eval(parse(text=paste(layers, map_cmd("grid_utm"), map_cmd("defs_utm"), sep = " + ")))
+
+    }}
 }

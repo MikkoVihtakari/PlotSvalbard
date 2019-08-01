@@ -63,174 +63,174 @@
 # Fix:  add option to define the sampling range/location
 section_plot <- function(df, x, y, z, bottom = NULL, interpolate = FALSE, interp_method = "mba", log_y = FALSE, xlab = "Distance", ylab = "Depth", zlab = "Variable", ybreaks = waiver(), xbreaks = waiver(), zbreaks = waiver(), contour = NULL, contour_label_cex = 0.8, contour_color = "white", xlim = NULL, ylim = NULL, zlim = NULL, zscale = "viridis", zcolor = "black", add_bottom = NULL, sampling_indicator = "lines", legend.position = "right", base_size = 10, ...) {
 
-## Setup and tests
+  ## Setup and tests
 
 
-## Log_y
+  ## Log_y
 
-if(log_y) df[[y]] <- log10(df[[y]] + 10)
+  if(log_y) df[[y]] <- log10(df[[y]] + 10)
 
-## Bottom ###
+  ## Bottom ###
 
-if(!is.null(bottom)) {
+  if(!is.null(bottom)) {
 
-  if(!any(class(bottom) %in% c("data.frame", "character"))) stop("bottom argument has to be a character or data.frame. See Arguments.")
+    if(!any(class(bottom) %in% c("data.frame", "character"))) stop("bottom argument has to be a character or data.frame. See Arguments.")
 
-if(any(class(bottom) %in% "data.frame")) {
-  if(ncol(bottom) < 2) stop("bottom data.frame has to contain at least two columns. See Arguments.")
-  bd <- unique(bottom[1:2])
-} else {
-  bd <- unique(df[c(x, bottom)])
-}
+    if(any(class(bottom) %in% "data.frame")) {
+      if(ncol(bottom) < 2) stop("bottom data.frame has to contain at least two columns. See Arguments.")
+      bd <- unique(bottom[1:2])
+    } else {
+      bd <- unique(df[c(x, bottom)])
+    }
 
-names(bd) <- c("x", "y")
-if(!is.null(add_bottom)) bd <- rbind(bd, data.frame(x = range(xbreaks), y = add_bottom))
-bd <- bd[order(bd$x),]
+    names(bd) <- c("x", "y")
+    if(!is.null(add_bottom)) bd <- rbind(bd, data.frame(x = range(xbreaks), y = add_bottom))
+    bd <- bd[order(bd$x),]
 
-if(log_y) bd$y <- log10(bd$y + 10)
+    if(log_y) bd$y <- log10(bd$y + 10)
 
-}
-
-
-## Interpolation
-if(interpolate) {
-  dt <- interpolate_section(df = df, x = x, y = y, z = z, method = interp_method)
-
-  samples <- df %>% group_by(get(x)) %>% summarise(min = min(get(y)), max = max(get(y)))
-  names(samples) <- c("x", "min", "max")
-} else {
-
-## Bubbles
-
-  dt <- df[c(x, y, z)]
-  names(dt) <- c("x", "y", "z")
-}
-
-## Parameters ###
-
-if(log_y) {
-  yzero <- 0.98
-  ytick.lim <- 0.95
-
-  if(class(ybreaks) == "waiver") {
-    ybreaks <- pretty_log(10^pretty(range(dt$y), n = 10) - 10)
-    ybreaks_actual <- log10(ybreaks + 10)
-  } else {
-    ybreaks_actual <- log10(ybreaks + 10)
   }
 
 
+  ## Interpolation
+  if(interpolate) {
+    dt <- interpolate_section(df = df, x = x, y = y, z = z, method = interp_method)
 
-} else {
-  yzero <- -2
-  ytick.lim <- -diff(range(df[[y]]))*0.02
-
-  if(class(ybreaks) == "waiver") {
-    ybreaks_actual <- waiver()
+    samples <- df %>% group_by(get(x)) %>% summarise(min = min(get(y)), max = max(get(y)))
+    names(samples) <- c("x", "min", "max")
   } else {
-    ybreaks_actual <- ybreaks
+
+    ## Bubbles
+
+    dt <- df[c(x, y, z)]
+    names(dt) <- c("x", "y", "z")
   }
-}
 
-# Add ≥ and ≤ signs to legend
+  ## Parameters ###
 
-if(!is.null(zlim)) {
+  if(log_y) {
+    yzero <- 0.98
+    ytick.lim <- 0.95
 
-  if(class(zbreaks) == "waiver") {
+    if(class(ybreaks) == "waiver") {
+      ybreaks <- pretty_log(10^pretty(range(dt$y), n = 10) - 10)
+      ybreaks_actual <- log10(ybreaks + 10)
+    } else {
+      ybreaks_actual <- log10(ybreaks + 10)
+    }
+
+
+
+  } else {
+    yzero <- -2
+    ytick.lim <- -diff(range(df[[y]]))*0.02
+
+    if(class(ybreaks) == "waiver") {
+      ybreaks_actual <- waiver()
+    } else {
+      ybreaks_actual <- ybreaks
+    }
+  }
+
+  # Add ≥ and ≤ signs to legend
+
+  if(!is.null(zlim)) {
+
+    if(class(zbreaks) == "waiver") {
       zbreaks <- pretty(zlim, n = 4)
-  }
+    }
 
-  zlabels <- zbreaks
-
-  if(any(df[[z]] > zlim[2])) {
-    zlabels[length(zlabels)] <- paste0(">", zlabels[length(zlabels)])
-  }
-
-  if(any(df[[z]] < zlim[1])) {
-    zlabels[1] <- paste0("<", zlabels[1])
-  }
-
-} else {
-   if(class(zbreaks) == "waiver") {
-    zlabels <- waiver()
-   } else {
     zlabels <- zbreaks
+
+    if(any(df[[z]] > zlim[2])) {
+      zlabels[length(zlabels)] <- paste0(">", zlabels[length(zlabels)])
+    }
+
+    if(any(df[[z]] < zlim[1])) {
+      zlabels[1] <- paste0("<", zlabels[1])
+    }
+
+  } else {
+    if(class(zbreaks) == "waiver") {
+      zlabels <- waiver()
+    } else {
+      zlabels <- zbreaks
+    }
+
+
   }
 
 
-}
+  ## Plot ####
 
+  if(interpolate) {
 
-## Plot ####
-
-if(interpolate) {
-
-  p <- ggplot() +
-    geom_tile(data = dt, aes(x = x, y = y, fill = z, color = z)) + {
-      if(!is.null(contour)) geom_contour(data = dt, aes(x = x, y = y, z = z), color = contour_color, size = LS(0.5), breaks = contour)
-    } + {
-      if(!is.null(contour)) {
-        directlabels::geom_dl(data = dt, aes(x = x, y = y, z = z, label = ..level..),
-          method = list("bottom.pieces", cex = contour_label_cex, vjust = 0.5),
-          stat = "contour", color = contour_color, breaks = contour)
-      }
-    } + {
-     if(sampling_indicator == "lines") geom_segment(data = samples, aes(x = x, xend = x, y = min, yend = max), size = LS(0.5), color = "grey", linetype = 2)
-    } + {
-     if(sampling_indicator == "points") geom_point(data = df, aes(x = get(x), y = get(y)), size = contour_label_cex, color = "black")
-    } + {
-     if(sampling_indicator == "ticks") geom_segment(data = samples, aes(x = x, xend = x, y = ytick.lim, yend = yzero), size = LS(1), color = "black")
-    } + {
-      if(!is.null(bottom)) geom_ribbon(data = bd, aes(x = x, ymax = Inf, ymin = y), fill = "grey90")
+    p <- ggplot() +
+      geom_tile(data = dt, aes(x = x, y = y, fill = z, color = z)) + {
+        if(!is.null(contour)) geom_contour(data = dt, aes(x = x, y = y, z = z), color = contour_color, size = LS(0.5), breaks = contour)
+      } + {
+        if(!is.null(contour)) {
+          directlabels::geom_dl(data = dt, aes(x = x, y = y, z = z, label = ..level..),
+            method = list("bottom.pieces", cex = contour_label_cex, vjust = 0.5),
+            stat = "contour", color = contour_color, breaks = contour)
+        }
+      } + {
+        if(sampling_indicator == "lines") geom_segment(data = samples, aes(x = x, xend = x, y = min, yend = max), size = LS(0.5), color = "grey", linetype = 2)
+      } + {
+        if(sampling_indicator == "points") geom_point(data = df, aes(x = get(x), y = get(y)), size = contour_label_cex, color = "black")
+      } + {
+        if(sampling_indicator == "ticks") geom_segment(data = samples, aes(x = x, xend = x, y = ytick.lim, yend = yzero), size = LS(1), color = "black")
+      } + {
+        if(!is.null(bottom)) geom_ribbon(data = bd, aes(x = x, ymax = Inf, ymin = y), fill = "grey90")
       } +
-    scale_y_reverse(name = ylab, breaks = ybreaks_actual, labels = ybreaks, limits = ylim, expand = c(0.03, 0)) +
-    scale_x_continuous(name = xlab, breaks = xbreaks, limits = xlim, expand = c(0, 0)) +
-    theme_classic(base_size = base_size) +
-    theme(legend.position = legend.position,
-      legend.key.size = unit(0.8,"line"),
-      legend.spacing.y = unit(0.1,"line"),
-      legend.title = element_text(size = 0.8*base_size),
-      panel.background = element_blank(),
-      plot.background = element_blank(),
-      legend.background = element_blank(),
-      legend.box.background = element_blank())
+      scale_y_reverse(name = ylab, breaks = ybreaks_actual, labels = ybreaks, limits = ylim, expand = c(0.03, 0)) +
+      scale_x_continuous(name = xlab, breaks = xbreaks, limits = xlim, expand = c(0, 0)) +
+      theme_classic(base_size = base_size) +
+      theme(legend.position = legend.position,
+        legend.key.size = unit(0.8,"line"),
+        legend.spacing.y = unit(0.1,"line"),
+        legend.title = element_text(size = 0.8*base_size),
+        panel.background = element_blank(),
+        plot.background = element_blank(),
+        legend.background = element_blank(),
+        legend.box.background = element_blank())
 
-  ## Color scales
+    ## Color scales
 
-  if(zscale == "gradient2") {
+    if(zscale == "gradient2") {
 
-    p + scale_fill_gradient2(name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...) +
-    scale_colour_gradient2(name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...)
+      p + scale_fill_gradient2(name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...) +
+        scale_colour_gradient2(name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...)
+
+    } else {
+
+      p + scale_fill_viridis_c(option = zscale, name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...) +
+        scale_colour_viridis_c(option = zscale, name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...)
+
+    }
+
 
   } else {
 
-    p + scale_fill_viridis_c(option = zscale, name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...) +
-    scale_colour_viridis_c(option = zscale, name = zlab, na.value = "white", limits = zlim, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...)
-
+    ggplot() + {
+      if(!is.null(bottom)) geom_ribbon(data = bd, aes(x = x, ymax = Inf, ymin = y), fill = "grey90")
+    } +
+      geom_point(data = dt, aes(x = x, y = y, size = z), pch = 21, stroke = LS(0.5), color = zcolor) +
+      scale_size_area(name = zlab, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...) + #limits = zlim,
+      scale_y_reverse(name = ylab, breaks = ybreaks_actual, labels = ybreaks, limits = ylim, expand = c(0.03, 0)) +
+      scale_x_continuous(name = xlab, breaks = xbreaks, expand = c(0, 0)) + #, limits = xlim
+      coord_cartesian(xlim = xlim, ylim = ylim, clip = "off") +
+      theme_classic(base_size = base_size) +
+      theme(legend.position = legend.position,
+        legend.key.size = unit(0.8,"line"),
+        legend.spacing.y = unit(0.1,"line"),
+        legend.title = element_text(size = 0.8*base_size),
+        panel.background = element_blank(),
+        plot.background = element_blank(),
+        legend.background = element_blank(),
+        legend.box.background = element_blank())
   }
 
-
-} else {
-
-  ggplot() + {
-    if(!is.null(bottom)) geom_ribbon(data = bd, aes(x = x, ymax = Inf, ymin = y), fill = "grey90")
-    } +
-    geom_point(data = dt, aes(x = x, y = y, size = z), pch = 21, stroke = LS(0.5), color = zcolor) +
-    scale_size_area(name = zlab, breaks = zbreaks, labels = zlabels, oob = scales::squish, ...) + #limits = zlim,
-    scale_y_reverse(name = ylab, breaks = ybreaks_actual, labels = ybreaks, limits = ylim, expand = c(0.03, 0)) +
-    scale_x_continuous(name = xlab, breaks = xbreaks, expand = c(0, 0)) + #, limits = xlim
-    coord_cartesian(xlim = xlim, ylim = ylim, clip = "off") +
-    theme_classic(base_size = base_size) +
-    theme(legend.position = legend.position,
-      legend.key.size = unit(0.8,"line"),
-      legend.spacing.y = unit(0.1,"line"),
-      legend.title = element_text(size = 0.8*base_size),
-      panel.background = element_blank(),
-      plot.background = element_blank(),
-      legend.background = element_blank(),
-      legend.box.background = element_blank())
-}
-
-## ####
+  ## ####
 
 }
