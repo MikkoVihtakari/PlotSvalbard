@@ -16,14 +16,14 @@
 
 map_type <- function(type) {
   switch (type,
-  mosj = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = "mosj.cr", map.type = "svalbard", round.lon = 1, round.lat = 0.2),
-  kongsfjorden = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = "kong.cr", map.type = "svalbard", round.lon = 0.5, round.lat = 0.1),
-  kongsfjordbotn = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = c(12.2,12.65,78.855,79.00), map.type = "svalbard", round.lon = 0.1, round.lat = 0.05),
-  kronebreen = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = c(12.32,12.62,78.855,78.91), map.type = "svalbard", round.lon = 0.1, round.lat = 0.02),
-  svalbard = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = c(10,28,76,81), map.type = "svalbard", round.lon = 2, round.lat = 1),
-  rijpfjorden = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = c(19.5,23.5,80,81.7), map.type = "svalbard", round.lon = 0.5, round.lat = 0.4),
-  barentssea = list(land = "barents.ld", glacier = NULL, boundary = c(0,50,70,83), map.type = "barents", round.lon = 4, round.lat = 2),
-  panarctic = list(land = "arctic", glacier = NULL, boundary = c(NA,NA,30,90), map.type = "panarctic", lon.interval = 45, lat.interval = 10),
+  mosj = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = "mosj.cr", map.type = "svalbard", round.lon = 1, round.lat = 0.2, crs = 32633),
+  kongsfjorden = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = "kong.cr", map.type = "svalbard", round.lon = 0.5, round.lat = 0.1, crs = 32633),
+  kongsfjordbotn = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = c(12.2,12.65,78.855,79.00), map.type = "svalbard", round.lon = 0.1, round.lat = 0.05, crs = 32633),
+  kronebreen = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = c(12.32,12.62,78.855,78.91), map.type = "svalbard", round.lon = 0.1, round.lat = 0.02, crs = 32633),
+  svalbard = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = c(10,28,76,81), map.type = "svalbard", round.lon = 2, round.lat = 1, crs = 32633),
+  rijpfjorden = list(land = "svalbard.ld", glacier = "svalbard.gl", boundary = c(19.5,23.5,80,81.7), map.type = "svalbard", round.lon = 0.5, round.lat = 0.4, crs = 32633),
+  barentssea = list(land = "barents.ld", glacier = NULL, boundary = c(0,50,70,83), map.type = "barents", round.lon = 4, round.lat = 2, crs = 32633),
+  panarctic = list(land = "arctic", glacier = NULL, boundary = c(NA,NA,30,90), map.type = "panarctic", lon.interval = 45, lat.interval = 10, crs = 3995),
   arctic50 = stop('"arctic50" and "arctic60" map types have been replaced by basemap(type = "panarctic", limits = N), where N is any integer between 30 and 88 defining the limiting latitude.'),
   arctic60 = stop('"arctic50" and "arctic60" map types have been replaced by basemap(type = "panarctic", limits = N), where N is any integer between 30 and 88 defining the limiting latitude.'),
   stop(paste("type argument", type, "is not implemented."))

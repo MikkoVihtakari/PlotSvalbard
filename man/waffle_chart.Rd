@@ -4,10 +4,21 @@
 \alias{waffle_chart}
 \title{Plot waffle charts}
 \usage{
-waffle_chart(data, fill, value = "value", facet = NULL,
-  composition = TRUE, max_value = NULL, digits = 3,
-  fill_colors = NULL, fill_title = NULL, ncol = NULL,
-  base_size = 12, line_size = LS(1), legend.position = "bottom")
+waffle_chart(
+  data,
+  fill,
+  value = "value",
+  facet = NULL,
+  composition = TRUE,
+  max_value = NULL,
+  digits = 3,
+  fill_colors = NULL,
+  fill_title = NULL,
+  ncol = NULL,
+  base_size = 12,
+  line_size = LS(1),
+  legend.position = "bottom"
+)
 }
 \arguments{
 \item{data}{data frame to be plotted}
@@ -46,8 +57,9 @@ The function uses \link[ggplot2]{ggplot2} to create waffle charts from data.
 The waffle charts are read from left to right (like text) and from bottom upwards (like water glass). The cells indicate 1\% of the maximum value (100% if \code{composition = TRUE} else \code{max_value}). The cells are divided vertically to fractions specifies by the \code{digits} argument.
 }
 \seealso{
-Other waffle: \code{\link{round_preserve_sum}},
-  \code{\link{waffleize}}
+Other waffle: 
+\code{\link{round_preserve_sum}()},
+\code{\link{waffleize}()}
 }
 \author{
 Mikko Vihtakari with code ideas from \href{https://github.com/hrbrmstr/waffle}{hrbrmstr} and \href{https://github.com/liamgilbey/ggwaffle}{Liam Gilbey}

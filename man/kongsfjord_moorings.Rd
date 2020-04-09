@@ -4,7 +4,9 @@
 \name{kongsfjord_moorings}
 \alias{kongsfjord_moorings}
 \title{Location of recorded moorings in Kongsfjorden}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \source{
 Hop, H., Cottier, F., and Berge, J. (in press). "Marine observatories in Kongsfjorden, Svalbard" in The ecosystem of Kongsfjorden, Svalbard, eds. H. Hop and C. Wiencke (Advances in Polar Ecology, Springer Verlag).
 }

@@ -1,6 +1,6 @@
 PlotSvalbard
 ======
-**Plot research data from Svalbard on maps. R package version 0.8.5.**
+**Plot research data from Svalbard on maps. R package version 0.9.0.**
 
 This is a developmental version of the **PlotSvalbard** package providing functions to plot research data from Svalbard on detailed and up-to-date maps that are not available in online databases. The package is developed by the Norwegian Polar Institute. Glacier fronts and land shapes of Kongsfjorden originate from July 2017.
 
@@ -107,8 +107,8 @@ citation("PlotSvalbard")
 ## 
 ## To cite package 'PlotSvalbard' in publications use:
 ## 
-##   Mikko Vihtakari (2019). PlotSvalbard: PlotSvalbard - Plot
-##   research data from Svalbard on maps. R package version 0.8.5.
+##   Mikko Vihtakari (2020). PlotSvalbard: PlotSvalbard - Plot research
+##   data from Svalbard on maps. R package version 0.9.0.
 ##   https://github.com/MikkoVihtakari/PlotSvalbard
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -116,8 +116,8 @@ citation("PlotSvalbard")
 ##   @Manual{,
 ##     title = {PlotSvalbard: PlotSvalbard - Plot research data from Svalbard on maps},
 ##     author = {Mikko Vihtakari},
-##     year = {2019},
-##     note = {R package version 0.8.5},
+##     year = {2020},
+##     note = {R package version 0.9.0},
 ##     url = {https://github.com/MikkoVihtakari/PlotSvalbard},
 ##   }
 ```
@@ -138,12 +138,8 @@ Any contributions to the package are more than welcome. Please contact the packa
 
 News
 --------
+2020-04-09 Updated to v0.9. Many changes and improvements. Taking first steps to prepare for CRAN release under a different name (the package will be renamed PlotArctic). Trying to make all functionality stable before the shift. This update may well have broken something. 
+
 2019-02-11 Updated to v0.8. PlotSvalbard can now make maps of any region north of 30 degrees latitude. **REMOVED arctic50 and arctic60** map types and replaced these by basemap("panarctic", limits = 50) (or any integer between 30 and 88). Automatic limits should now work for all map types. 
 
-2018-12-18 Updated to v0.7. Added interpolation for oceanographic section plots together with a function that produces such plots using ggplot2. Renamed the previous `interpolate` function, which performed spatial interpolation to `interpolate_spatial`. Added possibility to adjust legend positions to `basemap`. Improved Barents Sea current arrow plotting. The new functions are still relatively unstabile and introduce more dependancies. Please report if you do not manage to install the new version of PlotSvalbard. The situation will be improved in the future updates.
-
-2018-11-07 Updated to the next major version v0.6. Added temperature - salinity plot functions from the MarineDatabase package. These functions are still under development. Updated online documentation, streamlined shape files (they take less space now, but Kongsfjorden maps take a couple of second longer to generate), and fixed a bug that caused `basemap` function to crash if there was no land within the limits (thanks for noticing it Allison!). 
-
-2018-10-26 Updated to next major version v0.5. Added ocean currents for Barents Sea as well as (rudimentary) waffle charts. Made the arguments for basemap more logical. *This update will break the maps made using previous versions of the package*. Change the argument names inside basemap, and it should work as before.
-
-2018-09-21 Updated to v0.4 with many new features, such as improved bathymetry and automatic map limits. See [the user manual](https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html) for details. 
+2018-12-18 Updated to v0.7. Added interpolation for oceanographic section plots together with a function that produces such plots using ggplot2. Renamed the previous `interpolate` function, which performed spatial interpolation to `interpolate_spatial`. Added possibility to adjust legend positions to `basemap`. Improved Barents Sea current arrow plotting. The new functions are still relatively unstable and introduce more dependencies. Please report if you do not manage to install the new version of PlotSvalbard. The situation will be improved in the future updates.

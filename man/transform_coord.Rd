@@ -4,11 +4,18 @@
 \alias{transform_coord}
 \title{Transform spatial coordinates to another projection}
 \usage{
-transform_coord(x = NULL, lon = NULL, lat = NULL,
+transform_coord(
+  x = NULL,
+  lon = NULL,
+  lat = NULL,
   new.names = c("lon.utm", "lat.utm"),
   proj.og = "+proj=longlat +datum=WGS84",
-  proj.out = "+init=epsg:32633", map.type = NULL, verbose = FALSE,
-  bind = FALSE, na = "ignore")
+  proj.out = "+init=epsg:32633",
+  map.type = NULL,
+  verbose = FALSE,
+  bind = FALSE,
+  na = "ignore"
+)
 }
 \arguments{
 \item{x}{data frame to be transformed. Can be omitted if numeric vectors are assigned to \code{lon} and \code{lat}.}

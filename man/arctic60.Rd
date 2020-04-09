@@ -5,7 +5,9 @@
 \alias{arctic60}
 \alias{barents.ld}
 \title{SpatialPolygonsDataFrame containing land shapes for the Barents Sea region.}
-\format{SpatialPolygonsDataFrame}
+\format{
+SpatialPolygonsDataFrame
+}
 \source{
 \href{http://www.naturalearthdata.com/}{Natural Earth Data}
 }
@@ -18,11 +20,16 @@ SpatialPolygonsDataFrame containing land shapes for the Barents Sea region.
 \seealso{
 basemap
 
-Other shapefiles: \code{\link{arctic_bathy}},
-  \code{\link{arctic}}, \code{\link{barents_bathy}},
-  \code{\link{barents_currents}}, \code{\link{kong.cr}},
-  \code{\link{mosj.cr}}, \code{\link{svalbard.gl}},
-  \code{\link{svalbard.ld}}, \code{\link{svalbard_bathy}}
+Other shapefiles: 
+\code{\link{arctic_bathy}},
+\code{\link{arctic}},
+\code{\link{barents_bathy}},
+\code{\link{barents_currents}},
+\code{\link{kong.cr}},
+\code{\link{mosj.cr}},
+\code{\link{svalbard.gl}},
+\code{\link{svalbard.ld}},
+\code{\link{svalbard_bathy}}
 }
 \concept{shapefiles}
 \keyword{datasets}

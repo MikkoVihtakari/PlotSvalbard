@@ -48,10 +48,10 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
   MapType <- map_type(type)
 
   if(MapType$map.type == "panarctic") {
-      # panarctic maps with limits. Does not make lims object for undefined limits
-      if(!is.null(limits)) lims <- limits
+    # panarctic maps with limits. Does not make lims object for undefined limits
+    if(!is.null(limits)) lims <- limits
   } else if(!is.null(limits)) {
-      # non-panarctic maps with limits
+    # non-panarctic maps with limits
     if(length(limits) != 4 | !is.numeric(limits)) stop("limits have to be a numeric vector of length 4. See Arguments")
     lims <- basemap_limits(limits = limits, type = MapType$map.type)
   } else {
@@ -61,7 +61,7 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
 
   if(MapType$map.type != "panarctic") {
     Land <- clip_shapefile(get(MapType$land), lims$bound_utm_shp)
-    Land <- suppressWarnings(broom::tidy(Land))
+    Land <- suppressMessages(suppressWarnings(broom::tidy(Land)))
   } else {
     if(!is.null(limits)) {
       if(length(limits) == 1) {
@@ -71,8 +71,8 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
       } else {
         Land <- clip_shapefile(get(MapType$land), limits = lims, proj4.limits = map_projection(MapType$map.type))
       }} else {
-      Land <- get(MapType$land)
-    }
+        Land <- get(MapType$land)
+      }
   }
 
   if(any(is.null(MapType$glacier), !keep.glaciers., MapType$map.type == "barents", MapType$map.type == "panarctic")) {
@@ -81,7 +81,7 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
   } else {
     Glacier <- get(MapType$glacier)
     Glacier <- clip_shapefile(Glacier, lims$bound_utm_shp)
-    Glacier <- suppressWarnings(broom::tidy(Glacier))
+    Glacier <- suppressMessages(suppressWarnings(broom::tidy(Glacier)))
     Holes <- Glacier[Glacier$hole == TRUE,]
   }
 
@@ -93,9 +93,10 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
       if(length(limits) == 1) {
         Grid <- deg_grid_polar(dat = clip_boundary, lat.interval = lat.interval., lon.interval = lon.interval.)
       } else {
-        Grid <- deg_grid_polar(dat = Land, lat.interval = lat.interval., lon.interval = lon.interval.)        }
+        Grid <- deg_grid_polar(dat = Land, lat.interval = lat.interval., lon.interval = lon.interval.)
+      }
     }
-    Land <- suppressMessages(suppressWarnings(broom::tidy(Land)))
+    Land <- suppressMessages(suppressMessages(suppressWarnings(broom::tidy(Land))))
 
   } else if(!is.null(limits)) {
     Grid <- deg_grid(lims, round.lat = round.lat., n.lat.grid = n.lat.grid., round.lon = round.lon., n.lon.grid = n.lon.grid.)
@@ -105,9 +106,9 @@ basemap_data <- function(type, limits = NULL, round.lat. = round.lat, n.lat.grid
     Grid <- deg_grid(lims, round.lat = MapType$round.lat, round.lon = MapType$round.lon)
   }
 
-out <- list(Land = Land, Glacier = Glacier, Boundary = MapType$boundary, Grid = Grid, Holes = Holes, MapType = type, MapClass = map_type(type)$map.type)
+  out <- list(Land = Land, Glacier = Glacier, Boundary = MapType$boundary, Grid = Grid, Holes = Holes, MapType = type, MapClass = map_type(type)$map.type, CRS = map_type(type)$crs)
 
-class(out) <- "basemapData"
+  class(out) <- "basemapData"
 
-out
+  out
 }

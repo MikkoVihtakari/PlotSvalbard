@@ -4,10 +4,21 @@
 \alias{interpolate_section}
 \title{Interpolate x-y-z data for oceanographic section plots}
 \usage{
-interpolate_section(df = NULL, x, y, z, method = "linear",
-  format = "ggplot", nx = 100, ny = 100, scale_distances = FALSE,
-  log_y = FALSE, extrapolate = FALSE, na.rm = TRUE,
-  return_df_names = FALSE)
+interpolate_section(
+  df = NULL,
+  x,
+  y,
+  z,
+  method = "linear",
+  format = "ggplot",
+  nx = 100,
+  ny = 100,
+  scale_distances = FALSE,
+  log_y = FALSE,
+  extrapolate = FALSE,
+  na.rm = TRUE,
+  return_df_names = FALSE
+)
 }
 \arguments{
 \item{df}{data frame. Can be \code{NULL} if \code{x, y, z} are given as numeric vectors}

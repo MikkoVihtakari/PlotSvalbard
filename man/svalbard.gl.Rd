@@ -4,7 +4,9 @@
 \name{svalbard.gl}
 \alias{svalbard.gl}
 \title{SpatialPolygonsDataFrame containing glacier boundaries on Svalbard. The tidal-glacier fronts for Kongsfjorden are from July 2017, while the rest vary between 2005 and 2017.}
-\format{SpatialPolygonsDataFrame containing 1:250 000 glacier shapes of Svalbard. In \code{"+init=epsg:32633"} projection.}
+\format{
+SpatialPolygonsDataFrame containing 1:250 000 glacier shapes of Svalbard. In \code{"+init=epsg:32633"} projection.
+}
 \source{
 Norwegian Polar Institute (\url{http://geodata.npolar.no/})
 }
@@ -17,12 +19,16 @@ SpatialPolygonsDataFrame containing glacier boundaries on Svalbard. The tidal-gl
 \seealso{
 basemap
 
-Other shapefiles: \code{\link{arctic60}},
-  \code{\link{arctic_bathy}}, \code{\link{arctic}},
-  \code{\link{barents_bathy}},
-  \code{\link{barents_currents}}, \code{\link{kong.cr}},
-  \code{\link{mosj.cr}}, \code{\link{svalbard.ld}},
-  \code{\link{svalbard_bathy}}
+Other shapefiles: 
+\code{\link{arctic60}},
+\code{\link{arctic_bathy}},
+\code{\link{arctic}},
+\code{\link{barents_bathy}},
+\code{\link{barents_currents}},
+\code{\link{kong.cr}},
+\code{\link{mosj.cr}},
+\code{\link{svalbard.ld}},
+\code{\link{svalbard_bathy}}
 }
 \concept{shapefiles}
 \keyword{datasets}

@@ -13,19 +13,44 @@
 }
 }
 \usage{
-basemap(type = "kongsfjorden", limits = NULL, limits.lon = NULL,
-  limits.lat = NULL, round.lon = FALSE, n.lon.grid = 3,
-  lon.interval = NULL, round.lat = FALSE, n.lat.grid = 3,
-  lat.interval = NULL, keep.glaciers = TRUE, legends = TRUE,
-  legend.position = "right", bathymetry = FALSE,
-  bathy.style = "poly_blues", bathy.detailed = FALSE,
-  bathy.border.col = NA, bathy.size = 0.1, land.col = "grey60",
-  land.border.col = "black", land.size = 0.1, gla.col = "grey95",
-  gla.border.col = "black", gla.size = 0.1, grid.col = "grey70",
-  grid.size = 0.1, currents = FALSE, arc.col = "blue",
-  atl.col = "#BB1512", current.size = 0.5, current.alpha = 1,
-  label.print = TRUE, label.offset = 1.05, label.font = 8,
-  base_size = 11, plot = TRUE)
+basemap(
+  type = "panarctic",
+  limits = NULL,
+  limits.lon = NULL,
+  limits.lat = NULL,
+  round.lon = FALSE,
+  n.lon.grid = 3,
+  lon.interval = NULL,
+  round.lat = FALSE,
+  n.lat.grid = 3,
+  lat.interval = NULL,
+  keep.glaciers = TRUE,
+  legends = TRUE,
+  legend.position = "right",
+  bathymetry = FALSE,
+  bathy.style = "poly_blues",
+  bathy.detailed = FALSE,
+  bathy.border.col = NA,
+  bathy.size = 0.1,
+  land.col = "grey60",
+  land.border.col = "black",
+  land.size = 0.1,
+  gla.col = "grey95",
+  gla.border.col = "black",
+  gla.size = 0.1,
+  grid.col = "grey70",
+  grid.size = 0.1,
+  currents = FALSE,
+  arc.col = "blue",
+  atl.col = "#BB1512",
+  current.size = 0.5,
+  current.alpha = 1,
+  label.print = TRUE,
+  label.offset = 1.05,
+  label.font = 8,
+  base_size = 11,
+  plot = TRUE
+)
 }
 \arguments{
 \item{type}{Type of map area. Options: "panarctic", "barentssea", "svalbard", "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", or "rijpfjorden". See details.}

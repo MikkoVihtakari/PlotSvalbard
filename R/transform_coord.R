@@ -24,10 +24,10 @@ transform_coord <- function(x = NULL, lon = NULL, lat = NULL, new.names = c("lon
 
     ## Case for defined x and undefined lon or/and lat
   if(!is.null(x) & (is.null(lon) | is.null(lat))) {
-    if(class(x) != "data.frame") stop("x argument has to be a data.frame or NULL")
+    if(all(class(x) != "data.frame")) stop("x argument has to be a data.frame or NULL")
 
     if(is.null(lon)) {
-      lon <- colnames(x)[grep("^lon$|longitude|long", gsub("(?<=[\\s])\\s*|^\\s+|\\s+$", "", gsub("[[:punct:]]", " ", colnames(x)), perl = TRUE), ignore.case = TRUE, perl = TRUE)][1]
+      lon <- colnames(x)[grep("^lon$|longitude|^long$", gsub("(?<=[\\s])\\s*|^\\s+|\\s+$", "", gsub("[[:punct:]]", " ", colnames(x)), perl = TRUE), ignore.case = TRUE, perl = TRUE)][1]
 
       if(verbose) message("lon argument not given, used ", lon, " from the given data frame")
     }

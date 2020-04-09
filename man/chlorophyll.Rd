@@ -4,7 +4,8 @@
 \name{chlorophyll}
 \alias{chlorophyll}
 \title{Chlorophyll-a recordings in Kongsfjorden}
-\format{A dataframe containing following columns:
+\format{
+A dataframe containing following columns:
 \itemize{
   \item Name. Sample name.
   \item Station. Sampling station.
@@ -14,7 +15,8 @@
   \item lat.utm. Latitude of the sampling location as UTM coordinates (\code{"+init=epsg:32633"})
   \item From. Sampling depth (m)
   \item Chla. Chlorophyll-a value (mg/m3)
- }}
+ }
+}
 \source{
 Norwegian Polar Institute (\url{https://data.npolar.no/home/})
 }

@@ -4,7 +4,9 @@
 \name{ctd_kongsfjord}
 \alias{ctd_kongsfjord}
 \title{Example CTD data for Kongsfjorden}
-\format{data.frame}
+\format{
+data.frame
+}
 \usage{
 ctd_kongsfjord
 }
@@ -12,10 +14,11 @@ ctd_kongsfjord
 A dataframe containing example CTD data for Kongsfjorden.
 }
 \seealso{
-Other ts_plot: \code{\link{define_water_type}},
-  \code{\link{kongsfjord_watermasses}},
-  \code{\link{rijpfjord_watermasses}},
-  \code{\link{ts_plot}}
+Other ts_plot: 
+\code{\link{define_water_type}()},
+\code{\link{kongsfjord_watermasses}},
+\code{\link{rijpfjord_watermasses}},
+\code{\link{ts_plot}()}
 }
 \concept{ts_plot}
 \keyword{datasets}

@@ -34,7 +34,7 @@ map_cmd <- function(command, alternative = FALSE) {
     ',
     bathy_pg = '
       geom_polygon(data = bathy, aes(x = long, y = lat, group = group, fill = depth), show.legend = bathy.legend, color = bathy.border.col, size = bathy.size) +
-      scale_fill_grey("Depth (m)", start = 1, end = 0.7, guide =
+      scale_fill_grey("Depth (m)", start = 1, end = 0.5, guide =
         if(bathy.legend) {
           guide_legend(order = 1, override.aes = list(colour = NA))
         } else {
@@ -104,13 +104,13 @@ map_cmd <- function(command, alternative = FALSE) {
     ',
     defs_polar_limits = '
       coord_fixed(xlim = c(X$Grid$boundaries$lon.utm[1], X$Grid$boundaries$lon.utm[2]), ylim = c(X$Grid$boundaries$lat.utm[1], X$Grid$boundaries$lat.utm[2]), expand = FALSE) +
-      theme_map(base_size = base_size)
+      theme_map(base_size = base_size) + theme(legend.key.height = unit(0.4, "cm"))
     ',
     defs_polar = '
       geom_path(data = X$Grid$lat[X$Grid$lat$ID == levels(X$Grid$lat$ID)[which.min(as.numeric(gsub("[[:alpha:]]", "", levels(X$Grid$lat$ID))))],], aes(x = lon.utm, y=lat.utm, group = ID), color = land.border.col, size = land.size) +
       coord_fixed() +
       theme_void(base_size = base_size) +
-      theme(legend.position = legend.position)
+      theme(legend.position = legend.position, legend.key.height = unit(0.4, "cm"))
     ',
     remove_labels = '
       theme(axis.text = element_blank(), axis.title = element_blank(), axis.ticks = element_blank())

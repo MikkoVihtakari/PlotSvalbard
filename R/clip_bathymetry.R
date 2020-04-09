@@ -45,9 +45,9 @@ if(X$MapClass == "panarctic") {
 
 ## Clip bathymetry
   bathy <- clip_shapefile(clip_bathy, clipBound)
-  fbathy <- suppressWarnings(broom::tidy(bathy))
+  fbathy <- suppressMessages(suppressWarnings(broom::tidy(bathy)))
 
-  fbathy$id <- select(strsplit(fbathy$id, " "), 1)
+  fbathy$id <- select_element(strsplit(fbathy$id, " "), 1)
   info <- clip_bathy@data
   info$id <- rownames(info)
 
@@ -61,7 +61,7 @@ if(X$MapClass == "panarctic") {
 
   out <- merge(fbathy, info[c("id", "depth")], by = "id", all.x = TRUE, sort = FALSE)
 
-  out$id <- ordered(out$id, levels = sort(as.numeric(unique(out$id))))
+  out$id <- as.integer(out$id)
   out$depth <- ordered(out$depth)
 
   if(X$MapClass == "panarctic") {
@@ -74,9 +74,10 @@ if(X$MapClass == "panarctic") {
     levels(out$depth) <- paste(c("0", levels(out$depth)[-nlevels(out$depth)]), levels(out$depth), sep = "-")
   }
 
-  out <- out[with(out, order(depth, id, order)),]
+  out <- out[with(out, order(depth, -id, -order, decreasing = TRUE)),]
 
   out$group <- ordered(out$group, unique(out$group)) ## Order $group to plot holes (fixes a problem caused by a bad shapefile)
+  rownames(out) <- 1:nrow(out)
 
   out
 }

@@ -8,21 +8,29 @@
 
 <title>Create a ggplot2 basemap for plotting variables — basemap • PlotSvalbard</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Create a ggplot2 basemap for plotting variables — basemap" />
 
+<meta property="og:title" content="Create a ggplot2 basemap for plotting variables — basemap" />
 <meta property="og:description" content="Creates a ggplot2 basemap for further plotting of variables." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -47,9 +55,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -63,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -71,31 +80,21 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/PlotSvalbard_user_manual.html">PlotSvalbard - User Manual</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/MikkoVihtakari/PlotSvalbard">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/MikkoVihtakari/PlotSvalbard/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -106,6 +105,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -117,25 +117,48 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Creates a ggplot2 basemap for further plotting of variables.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>basemap</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"kongsfjorden"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>limits.lon</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>limits.lat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>round.lon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>lon.interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.lat.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>lat.interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>keep.glaciers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>legends</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>bathy.style</span> <span class='kw'>=</span> <span class='st'>"poly_blues"</span>, <span class='kw'>bathy.detailed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>bathy.border.col</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>bathy.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>land.col</span> <span class='kw'>=</span> <span class='st'>"grey60"</span>,
-  <span class='kw'>land.border.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>land.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>gla.col</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
-  <span class='kw'>gla.border.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>gla.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"grey70"</span>,
-  <span class='kw'>grid.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>currents</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>arc.col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
-  <span class='kw'>atl.col</span> <span class='kw'>=</span> <span class='st'>"#BB1512"</span>, <span class='kw'>current.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>current.alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>label.print</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label.offset</span> <span class='kw'>=</span> <span class='fl'>1.05</span>, <span class='kw'>label.font</span> <span class='kw'>=</span> <span class='fl'>8</span>,
-  <span class='kw'>base_size</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>basemap</span>(
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"panarctic"</span>,
+  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>limits.lon</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>limits.lat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>round.lon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>lon.interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>n.lat.grid</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>lat.interval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>keep.glaciers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>legends</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
+  <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>bathy.style</span> <span class='kw'>=</span> <span class='st'>"poly_blues"</span>,
+  <span class='kw'>bathy.detailed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>bathy.border.col</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>bathy.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>land.col</span> <span class='kw'>=</span> <span class='st'>"grey60"</span>,
+  <span class='kw'>land.border.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>land.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>gla.col</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
+  <span class='kw'>gla.border.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>gla.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"grey70"</span>,
+  <span class='kw'>grid.size</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>currents</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>arc.col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
+  <span class='kw'>atl.col</span> <span class='kw'>=</span> <span class='st'>"#BB1512"</span>,
+  <span class='kw'>current.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>current.alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>label.print</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>label.offset</span> <span class='kw'>=</span> <span class='fl'>1.05</span>,
+  <span class='kw'>label.font</span> <span class='kw'>=</span> <span class='fl'>8</span>,
+  <span class='kw'>base_size</span> <span class='kw'>=</span> <span class='fl'>11</span>,
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -177,7 +200,7 @@
     </tr>
     <tr>
       <th>legend.position</th>
-      <td><p>Position for ggplot2 legend. See the argument with the same name in <a href='https://www.rdocumentation.org/packages/ggplot2/topics/theme'>theme</a>.</p></td>
+      <td><p>Position for ggplot2 legend. See the argument with the same name in <a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a>.</p></td>
     </tr>
     <tr>
       <th>bathymetry</th>
@@ -218,7 +241,7 @@
     </tr>
     <tr>
       <th>current.size</th>
-      <td><p>Either a numeric value specifying the width of ocean current arrows or "scaled" for ocean currents that are approximately scaled to their size.</p></td>
+      <td><p>Either a numeric value specifying the width of ocean current arrows or "scaled" for ocean currents that are approximately scaled to their magnitude.</p></td>
     </tr>
     <tr>
       <th>current.alpha</th>
@@ -238,31 +261,31 @@
     </tr>
     <tr>
       <th>base_size</th>
-      <td><p>Base size parameter for ggplot. See <a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggtheme'>theme_bw</a>.</p></td>
+      <td><p>Base size parameter for ggplot. See <a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a>.</p></td>
     </tr>
     <tr>
       <th>plot</th>
       <td><p>logical indicting whether a ggplot should be returned. If <code>FALSE</code> underlying data for the <code>basemap</code> will be returned allowing further customization.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <ul>
+    
+<ul>
 <li><p>Svalbard maps originate from the <a href='http://geodata.npolar.no/'>Norwegian Polar Institute</a>. Distributed under the <a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0 license</a> (<a href='http://geodata.npolar.no/bruksvilkar/'>terms of use</a>).</p></li>
 <li><p>Barents Sea and pan-Arctic land shapes are downloaded from <a href='http://www.naturalearthdata.com'>Natural Earth Data</a>. They use the <a href='http://www.naturalearthdata.com/downloads/10m-physical-vectors/'><code>ne_10m_land</code></a> and <a href='http://www.naturalearthdata.com/downloads/50m-physical-vectors/'><code>ne_50m_land</code></a> (v 4.0.0) datasets, respectively. Distributed under the <a href='https://creativecommons.org/publicdomain/'>CC Public Domain license</a> (<a href='http://www.naturalearthdata.com/about/terms-of-use/'>terms of use</a>).</p></li>
 <li><p>Pan-Arctic bathymetry shapefile is generalized from <a href='https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_one_minute_grid/'>General Bathymetric Chart of the Oceans One Minute Grid</a>.</p></li>
 <li><p>Barents Sea bathymetry shapefile is generalized from <a href='https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html'>IBCAO v3.0 500m RR grid</a>. Should be cited as <a href='https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/2012GL052219.pdf'>Jakobsson, M., et al. The International Bathymetric Chart of the Arctic Ocean (IBCAO) Version 3.0. Geophys. Res. Lett. 2012, 39:L12609.</a></p></li>
 <li><p>Svalbard fjord bathymetry shapefiles are from the <a href='https://kartkatalog.geonorge.no/metadata/kartverket/dybdedata/2751aacf-5472-4850-a208-3532a51c529a'>Norwegian Mapping Authority</a>.  Distributed under the <a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0 license</a>.</p></li>
 </ul>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If <code>plot = TRUE</code>, returns a <a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot2-package'>ggplot2</a> map, which can be assigned to an object and modified as any ggplot object. Otherwise returns a list of <a href='basemap_data.html'>basemap data</a>.</p>
-    
+    <p>If <code>plot = TRUE</code>, returns a <a href='https://ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a> map, which can be assigned to an object and modified as any ggplot object. Otherwise returns a list of <a href='basemap_data.html'>basemap data</a>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function uses <a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot2-package'>ggplot2</a> and shapefiles to plot maps of Svalbard and other polar regions. The Svalbard shapefiles are detailed and glaciers varyingly up-to-date (2017 for Kongsfjorden; mostly 2015 for the rest, but not systematically checked) detailed The map type is defined using the <code>type</code> argument and map limits can be controlled with the <code>limits</code> argument. Currently implemented map <code>type</code>s:</p><ul>
+    <p>The function uses <a href='https://ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a> and shapefiles to plot maps of Svalbard and other polar regions. The Svalbard shapefiles are detailed and glaciers varyingly up-to-date (2017 for Kongsfjorden; mostly 2015 for the rest, but not systematically checked) detailed The map type is defined using the <code>type</code> argument and map limits can be controlled with the <code>limits</code> argument. Currently implemented map <code>type</code>s:</p><ul>
 <li><p>"panarctic". A polar stereographic map of the Arctic with a limit at 40 degrees North. This map type can be used to plot maps of any location north of 40 degrees latitude.</p></li>
 <li><p>"barentssea". A 1:10 000 000 map of the Barents Sea.</p></li>
 <li><p>"svalbard". Detailed 1:250 000 map of Svalbard land and glaciers. This option is slow (approx. 25 seconds) due to the large file size.</p></li>
@@ -272,36 +295,35 @@
 <li><p>"kronebreen" shows mostly Kronebreen and Kongsvegen. Glacier fronts are from July 2017.</p></li>
 <li><p>"rijpfjorden" shows NPI's Rijpfjorden to the Arctic Ocean transect. The glaciers have not been updated and might be old.</p></li>
 </ul>
-    <p>Svalbard and Barents Sea maps use the <code>"+init=epsg:32633"</code> UTM projection. The polar stereographic maps use <code>"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"</code> projection. The "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", and "rijpfjorden" maps use a subset of the Svalbard shape files and are faster to plot due to a smaller file size. These alternatives give convenient limits for certain regions the main author has worked with recently. New map types can be implemented relatively easily, but require digging into the source code.</p>
-<p><strong>Line width</strong> (size) aesthetics in <a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot2-package'>ggplot2</a> generates approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions <code><a href='LS.html'>LS</a></code> and <code><a href='FS.html'>FS</a></code> are available to convert line and font sizes in points to ggplot2 equivalents.</p>
+
+<p>Svalbard and Barents Sea maps use the <code>"+init=epsg:32633"</code> UTM projection. The polar stereographic maps use <code>"+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"</code> projection. The "mosj", "kongsfjorden", "kongsfjordbotn", "kronebreen", and "rijpfjorden" maps use a subset of the Svalbard shape files and are faster to plot due to a smaller file size. These alternatives give convenient limits for certain regions the main author has worked with recently. New map types can be implemented relatively easily, but require digging into the source code.</p>
+<p><strong>Line width</strong> (size) aesthetics in <a href='https://ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a> generates approximately 2.13 wider lines measured in pt than the given values. If you want a specific line width in pt, multiply it by 1/2.13. Internal functions <code><a href='LS.html'>LS</a></code> and <code><a href='FS.html'>FS</a></code> are available to convert line and font sizes in points to ggplot2 equivalents.</p>
 <p><strong>Ocean currents</strong> for the Barents Sea are implemented, but not peer-reviewed yet. This feature will be improved in the future versions of the package.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot2-package'>ggplot2</a></code> <code><a href='theme_map.html'>theme_map</a></code></p></div>
-    
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/ggplot2-package.html'>ggplot2</a></code> <code><a href='theme_map.html'>theme_map</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>basemap</span>() <span class='co'>## Plots Kongsfjorden</span></div><div class='img'><img src='basemap-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Maps work as normal ggplot2 objects:</span>
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>chlorophyll</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>chlorophyll</span>)
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>basemap</span>(<span class='st'>"mosj"</span>)
 <span class='no'>p</span> + <span class='fu'>geom_point</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>chlorophyll</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lon.utm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat.utm</span>,
 <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>Chla</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>Chla</span>), <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='basemap-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Limiting maps can be done using the limits argument:</span>
-<span class='fu'>basemap</span>(<span class='st'>"kongsfjordbotn"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>12.2</span>,<span class='fl'>12.65</span>,<span class='fl'>78.95</span>,<span class='fl'>79.00</span>))</div><div class='img'><img src='basemap-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"kongsfjordbotn"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>12.2</span>,<span class='fl'>12.65</span>,<span class='fl'>78.95</span>,<span class='fl'>79.00</span>))</div><div class='img'><img src='basemap-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Automatic limits find the boundary of data</span>
-<span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"chlorophyll"</span>, <span class='st'>"lon"</span>, <span class='st'>"lat"</span>)) +
+<span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"chlorophyll"</span>, <span class='st'>"lon"</span>, <span class='st'>"lat"</span>)) +
 <span class='fu'>geom_point</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>chlorophyll</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lon.utm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat.utm</span>,
 <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>Chla</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>Chla</span>), <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='basemap-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Svalbard map. Warning: this is SLOW</span>
 <span class='fu'>basemap</span>(<span class='st'>"svalbard"</span>)</div><div class='img'><img src='basemap-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## grid.col = NA removes grid lines</span>
-<span class='fu'>basemap</span>(<span class='st'>"svalbard"</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>28</span>, <span class='fl'>79.5</span>, <span class='fl'>83</span>))</div><div class='img'><img src='basemap-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"svalbard"</span>, <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>28</span>, <span class='fl'>79.5</span>, <span class='fl'>83</span>))</div><div class='img'><img src='basemap-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Use round.lat and n.lon.grid arguments</span>
 <span class='co'>## to control grid lines</span>
-<span class='fu'>basemap</span>(<span class='st'>"svalbard"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>24</span>,<span class='fl'>78.5</span>,<span class='fl'>82</span>), <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+<span class='fu'>basemap</span>(<span class='st'>"svalbard"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>24</span>,<span class='fl'>78.5</span>,<span class='fl'>82</span>), <span class='kw'>round.lat</span> <span class='kw'>=</span> <span class='fl'>1</span>,
 <span class='kw'>n.lon.grid</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='img'><img src='basemap-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Modify axis labels</span>
 <span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>) + <span class='fu'>xlab</span>(<span class='st'>"Lat"</span>)</div><div class='img'><img src='basemap-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>) + <span class='fu'>labs</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>) <span class='co'># remove axis labs</span></div><div class='img'><img src='basemap-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>) + <span class='fu'>theme</span>(<span class='kw'>axis.title</span> <span class='kw'>=</span> <span class='fu'>element_blank</span>()) <span class='co'># another way</span></div><div class='img'><img src='basemap-10.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -309,11 +331,11 @@
 <span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>)</div><div class='img'><img src='basemap-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Barents Sea map also prints mainland Norway,</span>
 <span class='co'>## but the projection is not optimal.</span>
-<span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>12</span>, <span class='fl'>24</span>, <span class='fl'>68</span>, <span class='fl'>71</span>))</div><div class='img'><img src='basemap-12.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>12</span>, <span class='fl'>24</span>, <span class='fl'>68</span>, <span class='fl'>71</span>))</div><div class='img'><img src='basemap-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Polar stereographic pan-Arctic maps</span>
 <span class='fu'>basemap</span>(<span class='st'>"panarctic"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fl'>50</span>)</div><div class='img'><img src='basemap-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## To find UTM coordinates to limit a pan-Arctic map:</span>
-<span class='fu'>basemap</span>(<span class='st'>"panarctic"</span>) + <span class='fu'>theme_bw</span>()</div><div class='img'><img src='basemap-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>basemap</span>(<span class='st'>"panarctic"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2.5e4</span>, -<span class='fl'>2.5e6</span>, <span class='fl'>2e6</span>, -<span class='fl'>2.5e5</span>))</div><div class='img'><img src='basemap-15.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>basemap</span>(<span class='st'>"panarctic"</span>) + <span class='fu'>theme_bw</span>()</div><div class='img'><img src='basemap-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>basemap</span>(<span class='st'>"panarctic"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.5e4</span>, -<span class='fl'>2.5e6</span>, <span class='fl'>2e6</span>, -<span class='fl'>2.5e5</span>))</div><div class='img'><img src='basemap-15.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Bathymetry can be added using the bathymetry argument</span>
 <span class='fu'>basemap</span>(<span class='st'>"panarctic"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-16.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Detailed bathymetry is available for some</span>
@@ -321,29 +343,16 @@
 <span class='fu'>basemap</span>(<span class='st'>"kongsfjorden"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>bathy.detailed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-17.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Ocean currents for the Barents Sea</span>
 <span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>currents</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='basemap-18.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>basemap</span>(<span class='st'>"barentssea"</span>, <span class='kw'>bathymetry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>currents</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-<span class='kw'>current.size</span> <span class='kw'>=</span> <span class='st'>"scaled"</span>, <span class='kw'>legends</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>))</div><div class='img'><img src='basemap-19.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>current.size</span> <span class='kw'>=</span> <span class='st'>"scaled"</span>, <span class='kw'>legends</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>))</div><div class='img'><img src='basemap-19.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#source">Source</a></li>
-
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Mikko Vihtakari, Anders Skoglund</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -351,13 +360,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

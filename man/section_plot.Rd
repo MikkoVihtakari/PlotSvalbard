@@ -4,14 +4,35 @@
 \alias{section_plot}
 \title{Make an oceanographic section plot from an x-y-z data frame}
 \usage{
-section_plot(df, x, y, z, bottom = NULL, interpolate = FALSE,
-  interp_method = "mba", log_y = FALSE, xlab = "Distance",
-  ylab = "Depth", zlab = "Variable", ybreaks = waiver(),
-  xbreaks = waiver(), zbreaks = waiver(), contour = NULL,
-  contour_label_cex = 0.8, contour_color = "white", xlim = NULL,
-  ylim = NULL, zlim = NULL, zscale = "viridis", zcolor = "black",
-  add_bottom = NULL, sampling_indicator = "lines",
-  legend.position = "right", base_size = 10, ...)
+section_plot(
+  df,
+  x,
+  y,
+  z,
+  bottom = NULL,
+  interpolate = FALSE,
+  interp_method = "mba",
+  log_y = FALSE,
+  xlab = "Distance",
+  ylab = "Depth",
+  zlab = "Variable",
+  ybreaks = waiver(),
+  xbreaks = waiver(),
+  zbreaks = waiver(),
+  contour = NULL,
+  contour_label_cex = 0.8,
+  contour_color = "white",
+  xlim = NULL,
+  ylim = NULL,
+  zlim = NULL,
+  zscale = "viridis",
+  zcolor = "black",
+  add_bottom = NULL,
+  sampling_indicator = "lines",
+  legend.position = "right",
+  base_size = 10,
+  ...
+)
 }
 \arguments{
 \item{df}{Data frame containing the data}

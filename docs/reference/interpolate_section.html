@@ -8,21 +8,29 @@
 
 <title>Interpolate x-y-z data for oceanographic section plots — interpolate_section • PlotSvalbard</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Interpolate x-y-z data for oceanographic section plots — interpolate_section" />
 
+<meta property="og:title" content="Interpolate x-y-z data for oceanographic section plots — interpolate_section" />
 <meta property="og:description" content="Wrapper function which interpolates 3D data. Designed for oceanographic section plots." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -47,9 +55,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -63,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -71,31 +80,21 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/PlotSvalbard_user_manual.html">PlotSvalbard - User Manual</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/MikkoVihtakari/PlotSvalbard">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/MikkoVihtakari/PlotSvalbard/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -106,6 +105,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -117,16 +117,25 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Wrapper function which interpolates 3D data. Designed for oceanographic section plots.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>interpolate_section</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"linear"</span>,
-  <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"ggplot"</span>, <span class='kw'>nx</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>ny</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>scale_distances</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>log_y</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>extrapolate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>return_df_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>interpolate_section</span>(
+  <span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>x</span>,
+  <span class='no'>y</span>,
+  <span class='no'>z</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"linear"</span>,
+  <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"ggplot"</span>,
+  <span class='kw'>nx</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>ny</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>scale_distances</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>log_y</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>extrapolate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>return_df_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -144,7 +153,7 @@
     </tr>
     <tr>
       <th>format</th>
-      <td><p>Character specifying the output format. Options: "ggplot" (for plotting with ggplot2), "image" (for plotting with the <code><a href='https://www.rdocumentation.org/packages/graphics/topics/image'>image</a></code> function) or "wide" for exporting as a wide data frame.</p></td>
+      <td><p>Character specifying the output format. Options: "ggplot" (for plotting with ggplot2), "image" (for plotting with the <code><a href='https://rdrr.io/r/graphics/image.html'>image</a></code> function) or "wide" for exporting as a wide data frame.</p></td>
     </tr>
     <tr>
       <th>nx, ny</th>
@@ -156,7 +165,7 @@
     </tr>
     <tr>
       <th>log_y</th>
-      <td><p>logical indicating whether y axis should be interpolated using <code><a href='https://www.rdocumentation.org/packages/base/topics/Log'>log10(y + 1)</a></code> scale.</p></td>
+      <td><p>logical indicating whether y axis should be interpolated using <code><a href='https://rdrr.io/r/base/Log.html'>log10(y + 1)</a></code> scale.</p></td>
     </tr>
     <tr>
       <th>extrapolate</th>
@@ -171,36 +180,28 @@
       <td><p>logical indicating whether the original column names should be returned instead of x, y, and z if <code>df != NULL</code></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a data.frame with interpolated <code>x,y,z</code> coordinates.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This is a wrapper function which uses existing interpolation solutions. Following interpolation <code>method</code>s have been implemented:</p><ul>
-<li><p><code>"linear"</code> for linear interpolation using the <code><a href='https://www.rdocumentation.org/packages/akima/topics/interp'>interp</a></code> function with <code>linear = TRUE</code>.</p></li>
-<li><p><code>"spline"</code> for spline interpolation using the <code><a href='https://www.rdocumentation.org/packages/akima/topics/interp'>interp</a></code> function with <code>linear = FALSE</code>.</p></li>
-<li><p><code>"mba"</code> for multilevel B-spline interpolation using the <code><a href='https://www.rdocumentation.org/packages/MBA/topics/mba.surf'>mba.surf</a></code> function. Appears to produce the best looking results. Recommended.</p></li>
-<li><p><code>"idw"</code> for inverse distance weighted interpolation using the <code><a href='https://www.rdocumentation.org/packages/gstat/topics/krige'>idw</a></code> function. This function was originally developed for spatial data where x- and y axes are given in the same units and have similar effect on the result. While it would, no doubt, be possible to account section design in the model specification, this has not been done in the <code>interpolate_section</code> function. Therefore, using this option is not recommended.</p></li>
+<li><p><code>"linear"</code> for linear interpolation using the <code><a href='https://rdrr.io/pkg/akima/man/interp.html'>interp</a></code> function with <code>linear = TRUE</code>.</p></li>
+<li><p><code>"spline"</code> for spline interpolation using the <code><a href='https://rdrr.io/pkg/akima/man/interp.html'>interp</a></code> function with <code>linear = FALSE</code>.</p></li>
+<li><p><code>"mba"</code> for multilevel B-spline interpolation using the <code><a href='https://rdrr.io/pkg/MBA/man/mba.surf.html'>mba.surf</a></code> function. Appears to produce the best looking results. Recommended.</p></li>
+<li><p><code>"idw"</code> for inverse distance weighted interpolation using the <code><a href='https://rdrr.io/pkg/gstat/man/krige.html'>idw</a></code> function. This function was originally developed for spatial data where x- and y axes are given in the same units and have similar effect on the result. While it would, no doubt, be possible to account section design in the model specification, this has not been done in the <code>interpolate_section</code> function. Therefore, using this option is not recommended.</p></li>
 </ul>
-    
+
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-          </ul>
-
-    <h2>Author</h2>
-    <p>Mikko Vihtakari</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -208,13 +209,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

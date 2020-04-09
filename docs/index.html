@@ -6,19 +6,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PlotSvalbard - Plot research data from Svalbard on maps • PlotSvalbard</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="PlotSvalbard - Plot research data from Svalbard on maps">
 <meta property="og:description" content="Uses ggplot2 syntax and high resolution up-to-date shape files to plot research data from Svalbard on maps. Includes other utility functions to help ocean research on Svalbard.">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
-    <div class="container template-article">
+<body data-spy="scroll" data-target="#toc">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">PlotSvalbard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -38,30 +39,21 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/PlotSvalbard_user_manual.html">PlotSvalbard - User Manual</a>
-    </li>
-  </ul>
+  <a href="articles/index.html">Articles</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/MikkoVihtakari/PlotSvalbard">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/MikkoVihtakari/PlotSvalbard/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -74,16 +66,13 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    
 
-    
-    
+      </header><div class="row">
+  <div class="contents col-md-9">
 <div id="plotsvalbard" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#plotsvalbard" class="anchor"></a>PlotSvalbard</h1></div>
-<p><strong>Plot research data from Svalbard on maps. R package version 0.8.5.</strong></p>
+<p><strong>Plot research data from Svalbard on maps. R package version 0.9.0.</strong></p>
 <p>This is a developmental version of the <strong>PlotSvalbard</strong> package providing functions to plot research data from Svalbard on detailed and up-to-date maps that are not available in online databases. The package is developed by the Norwegian Polar Institute. Glacier fronts and land shapes of Kongsfjorden originate from July 2017.</p>
 <p>As the package is in an early developmental phase, functions might not work as intended. Note that the package comes with absolutely no warranty and that maps generated by the package might be wrong. Any bug reports and code fixes are warmly welcomed. See <em>Contributions and contact information</em> for further details.</p>
 <p><strong>PlotSvalbard</strong> is based on <a href="http://ggplot2.tidyverse.org/reference/"><strong>ggplot2</strong></a> and the functions can be expanded using ggplot syntax.</p>
@@ -91,13 +80,13 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>PlotSvalbard is not available in CRAN due to package size limitations. The package can be installed using the <a href="https://cran.r-project.org/web/packages/devtools/index.html"><strong>devtools</strong></a> package. Recently, there has been many reports with PlotSvalbard installation failing because the <code>install_github</code> function attempts to update installed packages and fails. Try following steps: 1) Manually update all R packages you have installed (Packages -&gt; Update -&gt; Select all -&gt; Install updates in R Studio). If update of a package fails, try installing that package again using the <code>install.packages</code> function or the R Studio menu. 2) Run following:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"MikkoVihtakari/PlotSvalbard"</span>, <span class="dt">upgrade =</span> <span class="st">"never"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"MikkoVihtakari/PlotSvalbard"</span>, <span class="kw">upgrade</span> <span class="kw">=</span> <span class="st">"never"</span>)</pre></div>
 <p>If installation of a dependency fails, try installing that package manually and repeat step 2.</p>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p><strong>PlotSvalbard</strong> extends on <a href="http://ggplot2.tidyverse.org/reference/"><strong>ggplot2</strong></a>. Data that contains geographic information can be plotted on these maps using the ggplot2 layers separated by the <code>+</code> operator.</p>
+<p><strong>PlotSvalbard</strong> extends on <a href="http://ggplot2.tidyverse.org/reference/"><strong>ggplot2</strong></a>. Data that contains geographic information can be plotted on these maps using the ggplot2 layers separated by the <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> operator.</p>
 <div id="website" class="section level3">
 <h3 class="hasAnchor">
 <a href="#website" class="anchor"></a>Website</h3>
@@ -116,57 +105,57 @@
 <div id="making-a-map-with-text" class="section level3">
 <h3 class="hasAnchor">
 <a href="#making-a-map-with-text" class="anchor"></a>Making a map with text</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(PlotSvalbard)</a>
-<a class="sourceLine" id="cb2-2" title="2"></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"kongsfjord_moorings"</span>)</a>
-<a class="sourceLine" id="cb2-4" title="4"></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">11.3</span>, <span class="fl">12.69</span>, <span class="fl">78.86</span>, <span class="fl">79.1</span>), <span class="dt">round.lat =</span> <span class="fl">0.05</span>, <span class="dt">round.lon =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="kw">geom_text</span>(<span class="dt">data =</span> kongsfjord_moorings,</a>
-<a class="sourceLine" id="cb2-7" title="7">  <span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">label =</span> Mooring.name, <span class="dt">color =</span> Name), </a>
-<a class="sourceLine" id="cb2-8" title="8">  <span class="dt">fontface =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">25.4</span><span class="op">/</span><span class="fl">72.27</span><span class="op">*</span><span class="dv">8</span>) <span class="co"># font size = 8, see Graphical parameters</span></a></code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="1440"></p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">PlotSvalbard</span>)
+
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"kongsfjord_moorings"</span>)
+
+<span class="fu"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"kongsfjorden"</span>, <span class="kw">limits</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">11.3</span>, <span class="fl">12.69</span>, <span class="fl">78.86</span>, <span class="fl">79.1</span>), <span class="kw">round.lat</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">round.lon</span> <span class="kw">=</span> <span class="fl">0.5</span>) +
+<span class="fu">geom_text</span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">kongsfjord_moorings</span>,
+  <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">lon.utm</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">lat.utm</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="no">Mooring.name</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">Name</span>),
+  <span class="kw">fontface</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">25.4</span>/<span class="fl">72.27</span>*<span class="fl">8</span>) <span class="co"># font size = 8, see Graphical parameters</span></pre></div>
+<p><img src="README_files/figure-html/unnamed-chunk-3-1.png"><!-- --></p>
 </div>
 <div id="barents-sea-ocean-current-arrows" class="section level3">
 <h3 class="hasAnchor">
 <a href="#barents-sea-ocean-current-arrows" class="anchor"></a>Barents Sea ocean-current arrows</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>, <span class="dt">currents =</span> <span class="ot">TRUE</span>, <span class="dt">current.size =</span> <span class="st">"scaled"</span>)</a></code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="1440"></p>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="kw">bathymetry</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">currents</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">current.size</span> <span class="kw">=</span> <span class="st">"scaled"</span>)</pre></div>
+<p><img src="README_files/figure-html/unnamed-chunk-4-1.png"><!-- --></p>
 </div>
 <div id="pan-arctic-maps" class="section level3">
 <h3 class="hasAnchor">
 <a href="#pan-arctic-maps" class="anchor"></a>Pan-Arctic maps</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"panarctic"</span>, <span class="dt">bathymetry =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="1440"></p>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"panarctic"</span>, <span class="kw">bathymetry</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
+<p><img src="README_files/figure-html/unnamed-chunk-5-1.png"><!-- --></p>
 </div>
 <div id="combining-extensions-for-ggplot2" class="section level3">
 <h3 class="hasAnchor">
 <a href="#combining-extensions-for-ggplot2" class="anchor"></a>Combining extensions for ggplot2</h3>
 <p>Most extensions for ggplot2 work together with PlotSvalbard.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(zooplankton)</a>
-<a class="sourceLine" id="cb5-2" title="2"></a>
-<a class="sourceLine" id="cb5-3" title="3">x &lt;-<span class="st"> </span><span class="kw"><a href="reference/transform_coord.html">transform_coord</a></span>(zooplankton, <span class="dt">lon =</span> <span class="st">"Longitude"</span>, <span class="dt">lat =</span> <span class="st">"Latitude"</span>, <span class="dt">bind =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb5-4" title="4"></a>
-<a class="sourceLine" id="cb5-5" title="5">species &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(x)[<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(x) <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"lon.utm"</span>, <span class="st">"lat.utm"</span>, <span class="st">"ID"</span>, <span class="st">"Longitude"</span>, <span class="st">"Latitude"</span>, <span class="st">"Total"</span>)]</a>
-<a class="sourceLine" id="cb5-6" title="6"></a>
-<a class="sourceLine" id="cb5-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(scatterpie)</a>
-<a class="sourceLine" id="cb5-8" title="8"></a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="kw"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>, <span class="dv">24</span>, <span class="fl">79.5</span>, <span class="fl">83.5</span>), <span class="dt">round.lon =</span> <span class="dv">2</span>, <span class="dt">round.lat =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/scatterpie/topics/geom_scatterpie">geom_scatterpie</a></span>(<span class="kw">aes</span>(<span class="dt">x =</span> lon.utm, <span class="dt">y =</span> lat.utm, <span class="dt">group =</span> ID, <span class="dt">r =</span> <span class="dv">100</span><span class="op">*</span>Total), <span class="dt">data =</span> x, <span class="dt">cols =</span> species, <span class="dt">size =</span> <span class="fl">0.1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-11" title="11"><span class="kw">scale_fill_discrete</span>(<span class="dt">name =</span> <span class="st">"Species"</span>, <span class="dt">breaks =</span> species, </a>
-<a class="sourceLine" id="cb5-12" title="12"><span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/parse">parse</a></span>(<span class="dt">text =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"italic("</span> , <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">"*</span><span class="ch">\\</span><span class="st">."</span>, <span class="st">"~"</span>, species), <span class="st">")"</span>)))</a></code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="1440"></p>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">zooplankton</span>)
+
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/transform_coord.html">transform_coord</a></span>(<span class="no">zooplankton</span>, <span class="kw">lon</span> <span class="kw">=</span> <span class="st">"Longitude"</span>, <span class="kw">lat</span> <span class="kw">=</span> <span class="st">"Latitude"</span>, <span class="kw">bind</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+
+<span class="no">species</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">x</span>)[!<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">x</span>) <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lon.utm"</span>, <span class="st">"lat.utm"</span>, <span class="st">"ID"</span>, <span class="st">"Longitude"</span>, <span class="st">"Latitude"</span>, <span class="st">"Total"</span>)]
+
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">scatterpie</span>)
+
+<span class="fu"><a href="reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="kw">limits</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">24</span>, <span class="fl">79.5</span>, <span class="fl">83.5</span>), <span class="kw">round.lon</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">round.lat</span> <span class="kw">=</span> <span class="fl">1</span>) +
+<span class="fu"><a href="https://rdrr.io/pkg/scatterpie/man/geom_scatterpie.html">geom_scatterpie</a></span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">lon.utm</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">lat.utm</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="no">ID</span>, <span class="kw">r</span> <span class="kw">=</span> <span class="fl">100</span>*<span class="no">Total</span>), <span class="kw">data</span> <span class="kw">=</span> <span class="no">x</span>, <span class="kw">cols</span> <span class="kw">=</span> <span class="no">species</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.1</span>) +
+<span class="fu">scale_fill_discrete</span>(<span class="kw">name</span> <span class="kw">=</span> <span class="st">"Species"</span>, <span class="kw">breaks</span> <span class="kw">=</span> <span class="no">species</span>,
+<span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="kw">text</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"italic("</span> , <span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="st">"*\\."</span>, <span class="st">"~"</span>, <span class="no">species</span>), <span class="st">")"</span>)))</pre></div>
+<p><img src="README_files/figure-html/unnamed-chunk-6-1.png"><!-- --></p>
 </div>
 </div>
 <div id="data-sources-and-citations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-sources-and-citations" class="anchor"></a>Data sources and citations</h2>
 <p>If you use the package to make maps for your publications, please cite it. For up-to-date citation information, please use:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation</a></span>(<span class="st">"PlotSvalbard"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"PlotSvalbard"</span>)</pre></div>
 <pre><code>## 
 ## To cite package 'PlotSvalbard' in publications use:
 ## 
-##   Mikko Vihtakari (2019). PlotSvalbard: PlotSvalbard - Plot
-##   research data from Svalbard on maps. R package version 0.8.5.
+##   Mikko Vihtakari (2020). PlotSvalbard: PlotSvalbard - Plot research
+##   data from Svalbard on maps. R package version 0.9.0.
 ##   https://github.com/MikkoVihtakari/PlotSvalbard
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -174,8 +163,8 @@
 ##   @Manual{,
 ##     title = {PlotSvalbard: PlotSvalbard - Plot research data from Svalbard on maps},
 ##     author = {Mikko Vihtakari},
-##     year = {2019},
-##     note = {R package version 0.8.5},
+##     year = {2020},
+##     note = {R package version 0.9.0},
 ##     url = {https://github.com/MikkoVihtakari/PlotSvalbard},
 ##   }</code></pre>
 <p>The maps generated by this package should be cited to their original source.</p>
@@ -183,7 +172,7 @@
 <li>Svalbard maps originate from the <a href="http://geodata.npolar.no/">Norwegian Polar Institute</a>. Distributed under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a> (<a href="http://geodata.npolar.no/bruksvilkar/">terms of use</a>).</li>
 <li>Barents Sea and pan-Arctic land shapes are downloaded from <a href="http://www.naturalearthdata.com">Natural Earth Data</a>. They use the <a href="http://www.naturalearthdata.com/downloads/10m-physical-vectors/">ne_10m_land</a> and <a href="http://www.naturalearthdata.com/downloads/50m-physical-vectors/">ne_50m_land</a> (v 4.0.0) datasets, respectively. Distributed under the <a href="https://creativecommons.org/publicdomain/">CC Public Domain license</a> (<a href="http://www.naturalearthdata.com/about/terms-of-use/">terms of use</a>).</li>
 <li>Pan-Arctic bathymetry shapefile is generalized from <a href="https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_one_minute_grid/">General Bathymetric Chart of the Oceans One Minute Grid</a>.</li>
-<li>Barents Sea bathymetry shapefile is generalized from <a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html">IBCAO v3.0 500m RR grid</a>. Should be cited as <a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/2012GL052219.pdf">Jakobsson, M., et al. The International Bathymetric Chart of the Arctic Ocean (IBCAO) Version 3.0. Geophys. Res. Lett. 2012, 39:L12609.</a>
+<li>Barents Sea bathymetry shapefile is generalized from <a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/ibcaoversion3.html">IBCAO v3.0 500m RR grid</a>. Should be cited as <a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/2012GL052219.pdf">Jakobsson, M., et al.Â The International Bathymetric Chart of the Arctic Ocean (IBCAO) Version 3.0. Geophys. Res. Lett. 2012, 39:L12609.</a>
 </li>
 <li>Svalbard fjord bathymetry shapefiles are from the <a href="https://kartkatalog.geonorge.no/metadata/kartverket/dybdedata/2751aacf-5472-4850-a208-3532a51c529a">Norwegian Mapping Authority</a>. Distributed under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a>.</li>
 </ul>
@@ -197,20 +186,18 @@
 <div id="news" class="section level2">
 <h2 class="hasAnchor">
 <a href="#news" class="anchor"></a>News</h2>
-<p>2019-02-11 Updated to v0.8. PlotSvalbard can now make maps of any region north of 30 degrees latitude. <strong>REMOVED arctic50 and arctic60</strong> map types and replaced these by basemap(“panarctic”, limits = 50) (or any integer between 30 and 88). Automatic limits should now work for all map types.</p>
-<p>2018-12-18 Updated to v0.7. Added interpolation for oceanographic section plots together with a function that produces such plots using ggplot2. Renamed the previous <code>interpolate</code> function, which performed spatial interpolation to <code>interpolate_spatial</code>. Added possibility to adjust legend positions to <code>basemap</code>. Improved Barents Sea current arrow plotting. The new functions are still relatively unstabile and introduce more dependancies. Please report if you do not manage to install the new version of PlotSvalbard. The situation will be improved in the future updates.</p>
-<p>2018-11-07 Updated to the next major version v0.6. Added temperature - salinity plot functions from the MarineDatabase package. These functions are still under development. Updated online documentation, streamlined shape files (they take less space now, but Kongsfjorden maps take a couple of second longer to generate), and fixed a bug that caused <code>basemap</code> function to crash if there was no land within the limits (thanks for noticing it Allison!).</p>
-<p>2018-10-26 Updated to next major version v0.5. Added ocean currents for Barents Sea as well as (rudimentary) waffle charts. Made the arguments for basemap more logical. <em>This update will break the maps made using previous versions of the package</em>. Change the argument names inside basemap, and it should work as before.</p>
-<p>2018-09-21 Updated to v0.4 with many new features, such as improved bathymetry and automatic map limits. See <a href="https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html">the user manual</a> for details.</p>
+<p>2020-04-09 Updated to v0.9. Many changes and improvements. Taking first steps to prepare for CRAN release under a different name (the package will be renamed PlotArctic). Trying to make all functionality stable before the shift. This update may well have broken something.</p>
+<p>2019-02-11 Updated to v0.8. PlotSvalbard can now make maps of any region north of 30 degrees latitude. <strong>REMOVED arctic50 and arctic60</strong> map types and replaced these by basemap(âpanarcticâ, limits = 50) (or any integer between 30 and 88). Automatic limits should now work for all map types.</p>
+<p>2018-12-18 Updated to v0.7. Added interpolation for oceanographic section plots together with a function that produces such plots using ggplot2. Renamed the previous <code>interpolate</code> function, which performed spatial interpolation to <code>interpolate_spatial</code>. Added possibility to adjust legend positions to <code>basemap</code>. Improved Barents Sea current arrow plotting. The new functions are still relatively unstable and introduce more dependencies. Please report if you do not manage to install the new version of PlotSvalbard. The situation will be improved in the future updates.</p>
 </div>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/MikkoVihtakari/PlotSvalbard">https://​github.com/​MikkoVihtakari/​PlotSvalbard</a>
+<li>Browse source code at <br><a href="https://github.com/MikkoVihtakari/PlotSvalbard/">https://​github.com/​MikkoVihtakari/​PlotSvalbard/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/MikkoVihtakari/PlotSvalbard/issues">https://​github.com/​MikkoVihtakari/​PlotSvalbard/​issues</a>
 </li>
@@ -232,8 +219,7 @@
 </ul>
 </div>
 
-      </div>
-
+  </div>
 </div>
 
 
@@ -242,12 +228,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

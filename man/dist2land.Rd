@@ -4,9 +4,17 @@
 \alias{dist2land}
 \title{Calculate the closest distance to land for given coordinates}
 \usage{
-dist2land(x, lon.col = "longitude", lat.col = "latitude",
-  map.type = "panarctic", bind = TRUE, dist.col = "dist",
-  geodesic_distances = FALSE, cores = 1)
+dist2land(
+  x,
+  lon.col = NULL,
+  lat.col = NULL,
+  map.type = "panarctic",
+  bind = TRUE,
+  dist.col = "dist",
+  return.binary = FALSE,
+  geodesic.distances = FALSE,
+  cores = 1
+)
 }
 \arguments{
 \item{x}{Data.frame containing geographic coordinates as decimal degrees}
@@ -21,18 +29,22 @@ dist2land(x, lon.col = "longitude", lat.col = "latitude",
 
 \item{dist.col}{The name of the distance column, if \code{bind = TRUE}. Defaults to "dist".}
 
-\item{geodesic_distances}{Logical indicating whether \code{\link[geosphere]{dist2Line}} function should be used to calculate shortest distances using the WGS84 ellipsoid (\code{TRUE}) or whether the distances should be calculated from UTM coordinates (\code{FALSE}, default). Setting the argument to \code{TRUE} presumably leads to more exact distance estimations, but takes a much longer time to process than the UTM coordinate estimation.}
+\item{return.binary}{Logical indicating whether binary (TRUE = the position is in the ocean, FALSE = the position is on land) should be returned instead of distances. Speeds up the function considerably.}
+
+\item{geodesic.distances}{Logical indicating whether \code{\link[geosphere]{dist2Line}} function should be used to calculate shortest distances using the WGS84 ellipsoid (\code{TRUE}) or whether the distances should be calculated from UTM coordinates (\code{FALSE}, default). Setting the argument to \code{TRUE} presumably leads to more exact distance estimations, but takes a much longer time to process than the UTM coordinate estimation.}
 
 \item{cores}{Integer value defining how many cores should be used in the calculations. Parallelization speeds up the function (see \code{\link[parallel]{mclapply}}), but naturally eats up computer resources during the calculation. Set to 1 to remove parallelization (default).}
 }
 \value{
-If \code{bind = TRUE}, returns a data frame with calculated distances to land. If \code{bind = FALSE} returns vector in the same order than coordinates specified in \code{x}. \strong{Distances are returned as kilometers}.
+If \code{bind = TRUE}, returns a data frame with calculated distances to land. If \code{bind = FALSE} returns vector in the same order than coordinates specified in \code{x}. \strong{Distances are returned as kilometers}. If \code{return_binary = TRUE}, binary values are returned instead of distances (TRUE = the position is in the ocean, FALSE = the position is on land).
 }
 \description{
 Calculates the closest distance to land within a \link[=basemap]{map type} for a given set of coordinates
 }
 \details{
-If \code{geodesic_distances = FALSE}, the function uses the \code{\link[rgeos]{gDistance}} function to calculate closest distances between coordinates in \code{x} and a specified SpatialPolygonsDataframe object. The spatial object (map) can be specified using the \code{\link[=basemap]{map.type}} argument. If \code{geodesic_distances = TRUE}, the \code{\link[geosphere]{dist2Line}} is used to calculate similar distances assumming an elliptical Earth. The \code{\link[geosphere]{dist2Line}} function is presumably more exact, especially for pan-Arctic maps, but considerably slower.
+If \code{geodesic.distances = FALSE}, the function uses the \code{\link[rgeos]{gDistance}} function to calculate closest distances between coordinates in \code{x} and a specified SpatialPolygonsDataframe object. The spatial object (map) can be specified using the \code{\link[=basemap]{map.type}} argument. If \code{geodesic.distances = TRUE}, the \code{\link[geosphere]{dist2Line}} is used to calculate similar distances assumming an elliptical Earth. The \code{\link[geosphere]{dist2Line}} function is presumably more exact, especially for pan-Arctic maps, but considerably slower.
+
+The function is very slow for large datasets. If you only want to use the function to remove (wrong) observations reported on land, set the \code{return.binary} argument to \code{TRUE}. This speeds up the function considerably.
 
 The function has a possibility for parallel processing, which speeds up the calculations for large datasets. The parallel processing has been turned off by default (\code{cores = 1}). You can turn it on by setting another integer or a function, which produces such an integer (for example \code{parallel::detectCores() - 2} uses all avaible cores exept two). Parallelizing does not work under Windows.
 }
@@ -41,7 +53,7 @@ The function has a possibility for parallel processing, which speeds up the calc
 library(ggplot2)
 data("npi_stations")
 
-dists <- dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat", map.type = "svalbard")
+dists <- dist2land(npi_stations, map.type = "svalbard")
 dists$Area <- ordered(dists$Area, c("Kongsfjorden", "Framstrait", "Rijpfjorden"))
 
 ggplot(dists, aes(x = Area, y = dist, label = Station)) +
@@ -51,10 +63,10 @@ ggplot(dists, aes(x = Area, y = dist, label = Station)) +
 ## but much slower to calculate. Do not use detailed
 ## maps for these:
 
-d_utm <- dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat",
+d_utm <- dist2land(npi_stations,
   map.type = "barentssea", dist.col = "d_utm")
-d_geo <- dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat", map.type = "barentssea",
-  geodesic_distances = TRUE, dist.col = "d_geo")
+d_geo <- dist2land(npi_stations, map.type = "barentssea",
+  geodesic.distances = TRUE, dist.col = "d_geo")
 
 y <- merge(d_utm[c("Station", "d_utm")], d_geo[c("Station", "d_geo")])
 
@@ -63,17 +75,24 @@ ggplot(y, aes(x = d_utm, y = d_geo, label = Station)) +
  geom_abline(slope=1, intercept=0) +
  scale_x_log10() + scale_y_log10()
 
-## The processing difference between geodesic and UTM distances:
+## The processing time difference between binary, geodesic and UTM distances:
 
-system.time(dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat",
- map.type = "barentssea"))
+# Binary:
+system.time(dist2land(npi_stations, map.type = "barentssea",
+return.binary = TRUE))
 #> user  system elapsed
-#> 0.22    0.01    0.25
+#> 0.017   0.000   0.017
 
-system.time(dist2land(npi_stations, lon.col = "Lon", lat.col = "Lat",
- map.type = "barentssea", geodesic_distances = TRUE))
+# UTM:
+system.time(dist2land(npi_stations, map.type = "barentssea"))
 #> user  system elapsed
-#> 32.04    0.39   32.97
+#> 0.073   0.003   0.073
+
+# Geodesic:
+system.time(dist2land(npi_stations, map.type = "barentssea",
+geodesic.distances = TRUE))
+#> user  system elapsed
+#> 14.096   0.615  14.755
 
 ## Despite the inaccuracy due to polar stereographic protection
 ## the UTM version seems to produce feasible distances from land

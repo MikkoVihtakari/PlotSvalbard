@@ -4,13 +4,29 @@
 \alias{ts_plot}
 \title{Temperature-salinity (T-S) plot from a data frame using ggplot2}
 \usage{
-ts_plot(dt, temp_col = "temp", sal_col = "sal",
-  WM = kongsfjord_watermasses, color_wmpoly = "grey30", xlim = NULL,
-  ylim = NULL, color = "watertype", zoom = TRUE, nlevels = 6,
-  color_isopyc = "grey90", symbol_shape = 1, symbol_size = 3,
-  symbol_alpha = 0.6, color_scale = NULL, color_var_name = NULL,
-  margin_distr = FALSE, margin_width = 0.15, margin_height = 0.2,
-  plot_data = TRUE, base_size = 10)
+ts_plot(
+  dt,
+  temp_col = "temp",
+  sal_col = "sal",
+  WM = kongsfjord_watermasses,
+  color_wmpoly = "grey30",
+  xlim = NULL,
+  ylim = NULL,
+  color = "watertype",
+  zoom = TRUE,
+  nlevels = 6,
+  color_isopyc = "grey90",
+  symbol_shape = 1,
+  symbol_size = 3,
+  symbol_alpha = 0.6,
+  color_scale = NULL,
+  color_var_name = NULL,
+  margin_distr = FALSE,
+  margin_width = 0.15,
+  margin_height = 0.2,
+  plot_data = TRUE,
+  base_size = 10
+)
 }
 \arguments{
 \item{dt}{data frame}
@@ -84,10 +100,11 @@ symbol_alpha = 0.8, margin_distr = TRUE, xlim = c(32, 35), color = "area")
 \seealso{
 \code{\link{define_water_type}}, the \link{kongsfjord_watermasses} data.frame ,the \link{rijpfjord_watermasses} data.frame
 
-Other ts_plot: \code{\link{ctd_kongsfjord}},
-  \code{\link{define_water_type}},
-  \code{\link{kongsfjord_watermasses}},
-  \code{\link{rijpfjord_watermasses}}
+Other ts_plot: 
+\code{\link{ctd_kongsfjord}},
+\code{\link{define_water_type}()},
+\code{\link{kongsfjord_watermasses}},
+\code{\link{rijpfjord_watermasses}}
 }
 \author{
 Mikko Vihtakari with help from \href{https://stackoverflow.com/questions/17370853/align-ggplot2-plots-vertically/17371177#17371177}{baptiste} to align marginal plots.

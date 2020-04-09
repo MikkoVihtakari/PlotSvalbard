@@ -4,13 +4,15 @@
 \name{npi_stations}
 \alias{npi_stations}
 \title{Location of NPI's permanent marine biological monitoring stations}
-\format{A dataframe containing following columns:
+\format{
+A dataframe containing following columns:
 \itemize{
   \item Area. Geographic location of station.
   \item Station. Sampling station name.
   \item Lon. Longitude of the sampling location in decimal degrees
   \item Lat. Latitude of the sampling location in decimal degrees.
- }}
+ }
+}
 \source{
 Norwegian Polar Institute (\url{http://www.npolar.no/en/})
 }

@@ -4,7 +4,9 @@
 \name{barents_currents}
 \alias{barents_currents}
 \title{Data frame containing Atlantic and Arctic ocean currents for the Barents Sea}
-\format{Data frame}
+\format{
+Data frame
+}
 \source{
 Vihtakari M, Sundfjord A, de Steur L (2019). Barents Sea ocean-current arrows modified from Eriksen et al. (2018). Norwegian Polar Institute and Institute of Marine Research. Available at: https://github.com/MikkoVihtakari/Barents-Sea-currents
 
@@ -19,11 +21,16 @@ The data frame, intended to be shown as arrows, represents the current understan
 \seealso{
 basemap
 
-Other shapefiles: \code{\link{arctic60}},
-  \code{\link{arctic_bathy}}, \code{\link{arctic}},
-  \code{\link{barents_bathy}}, \code{\link{kong.cr}},
-  \code{\link{mosj.cr}}, \code{\link{svalbard.gl}},
-  \code{\link{svalbard.ld}}, \code{\link{svalbard_bathy}}
+Other shapefiles: 
+\code{\link{arctic60}},
+\code{\link{arctic_bathy}},
+\code{\link{arctic}},
+\code{\link{barents_bathy}},
+\code{\link{kong.cr}},
+\code{\link{mosj.cr}},
+\code{\link{svalbard.gl}},
+\code{\link{svalbard.ld}},
+\code{\link{svalbard_bathy}}
 }
 \concept{shapefiles}
 \keyword{datasets}

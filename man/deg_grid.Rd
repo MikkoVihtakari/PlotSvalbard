@@ -4,8 +4,14 @@
 \alias{deg_grid}
 \title{Decimal degree grid from UTM projected spatial objects}
 \usage{
-deg_grid(dat, round.lat = FALSE, n.lat.grid = 3, round.lon = FALSE,
-  n.lon.grid = 3, n.points = 30)
+deg_grid(
+  dat,
+  round.lat = FALSE,
+  n.lat.grid = 3,
+  round.lon = FALSE,
+  n.lon.grid = 3,
+  n.points = 30
+)
 }
 \arguments{
 \item{dat}{\code{\link[=basemap_limits]{basemapLimits}} object}

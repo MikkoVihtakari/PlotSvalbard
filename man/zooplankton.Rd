@@ -4,7 +4,9 @@
 \name{zooplankton}
 \alias{zooplankton}
 \title{Zooplankton data}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 data(zooplankton)
 }

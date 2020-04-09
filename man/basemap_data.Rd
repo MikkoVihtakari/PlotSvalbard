@@ -4,11 +4,19 @@
 \alias{basemap_data}
 \title{Create basemapData object for basemap plotting}
 \usage{
-basemap_data(type, limits = NULL, round.lat. = round.lat,
-  n.lat.grid. = n.lat.grid, round.lon. = round.lon,
-  n.lon.grid. = n.lon.grid, lat.interval. = lat.interval,
-  lon.interval. = lon.interval, expar = 0, clip = TRUE,
-  keep.glaciers. = keep.glaciers)
+basemap_data(
+  type,
+  limits = NULL,
+  round.lat. = round.lat,
+  n.lat.grid. = n.lat.grid,
+  round.lon. = round.lon,
+  n.lon.grid. = n.lon.grid,
+  lat.interval. = lat.interval,
+  lon.interval. = lon.interval,
+  expar = 0,
+  clip = TRUE,
+  keep.glaciers. = keep.glaciers
+)
 }
 \arguments{
 \item{type}{See \code{\link{basemap}}}

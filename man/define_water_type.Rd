@@ -4,8 +4,13 @@
 \alias{define_water_type}
 \title{Define water type based on temperature and salinity}
 \usage{
-define_water_type(dt, sal_col = "sal", temp_col = "temp",
-  WM = kongsfjord_watermasses, bind = FALSE)
+define_water_type(
+  dt,
+  sal_col = "sal",
+  temp_col = "temp",
+  WM = kongsfjord_watermasses,
+  bind = FALSE
+)
 }
 \arguments{
 \item{dt}{Dataframe containing temperature and salinity information}
@@ -43,10 +48,11 @@ Pérez-Hernández M.D., Pickart R.S., Pavlov V. et al. (2017) The Atlantic Water
 \seealso{
 \code{\link{ts_plot}}, the \link{kongsfjord_watermasses} data.frame ,the \link{rijpfjord_watermasses} data.frame
 
-Other ts_plot: \code{\link{ctd_kongsfjord}},
-  \code{\link{kongsfjord_watermasses}},
-  \code{\link{rijpfjord_watermasses}},
-  \code{\link{ts_plot}}
+Other ts_plot: 
+\code{\link{ctd_kongsfjord}},
+\code{\link{kongsfjord_watermasses}},
+\code{\link{rijpfjord_watermasses}},
+\code{\link{ts_plot}()}
 }
 \author{
 Mikko Vihtakari

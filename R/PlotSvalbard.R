@@ -11,4 +11,3 @@
 #'
 #' See \href{https://mikkovihtakari.github.io/PlotSvalbard/index.html}{the webpage} for more information, a more flexible \href{https://mikkovihtakari.github.io/PlotSvalbard/reference/index.html}{documentation} archive than shipped with the package, and for a \href{https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html}{user manual}
 "_PACKAGE"
-#> [1] "_PACKAGE"

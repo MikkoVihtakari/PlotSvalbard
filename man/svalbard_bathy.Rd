@@ -4,7 +4,9 @@
 \name{svalbard_bathy}
 \alias{svalbard_bathy}
 \title{SpatialPolygonsDataFrame containing detailed bathymetry for Svalbard region}
-\format{SpatialPolygonsDataFrame}
+\format{
+SpatialPolygonsDataFrame
+}
 \source{
 \href{https://kartkatalog.geonorge.no/metadata/kartverket/sjokart-dybdedata/2751aacf-5472-4850-a208-3532a51c529a}{Norwegian Mapping Authority}
 }
@@ -17,12 +19,16 @@ SpatialPolygonsDataFrame containing detailed bathymetry for Svalbard region
 \seealso{
 basemap
 
-Other shapefiles: \code{\link{arctic60}},
-  \code{\link{arctic_bathy}}, \code{\link{arctic}},
-  \code{\link{barents_bathy}},
-  \code{\link{barents_currents}}, \code{\link{kong.cr}},
-  \code{\link{mosj.cr}}, \code{\link{svalbard.gl}},
-  \code{\link{svalbard.ld}}
+Other shapefiles: 
+\code{\link{arctic60}},
+\code{\link{arctic_bathy}},
+\code{\link{arctic}},
+\code{\link{barents_bathy}},
+\code{\link{barents_currents}},
+\code{\link{kong.cr}},
+\code{\link{mosj.cr}},
+\code{\link{svalbard.gl}},
+\code{\link{svalbard.ld}}
 }
 \concept{shapefiles}
 \keyword{datasets}

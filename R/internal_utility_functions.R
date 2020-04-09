@@ -23,7 +23,7 @@ LS <- function(x) x/2.13
 #' @keywords internal
 #' @export
 #'
-select <- function(x,y) sapply(x, "[", y)
+select_element <- function(x,y) sapply(x, "[", y)
 
 #' @title Round to multiple of any number
 #' @param x numeric vector to round
@@ -83,4 +83,7 @@ quiet <- function(x) {
   on.exit(sink())
   invisible(force(x))
 }
+
+# Define global variables
+utils::globalVariables(c("long", "lat", "group", "round.lat", "round.lon", "n.lat.grid", "n.lon.grid", "lat.interval", "lon.interval", "keep.glaciers", "MapType", "proj4.utm", "n.points", "..level..", "abb", "x", "y", "sal", "temp", "xmin", "xmax", "ymin", "ymax", ".", "variable", "ymin", "ymax", "X", "arctic_bathy", "barents_bathy", "barents_currents", "kongsfjord_watermasses", "svalbard_bathy"))
 

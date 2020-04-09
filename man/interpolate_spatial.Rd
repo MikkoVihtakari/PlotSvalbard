@@ -4,11 +4,22 @@
 \alias{interpolate_spatial}
 \title{Interpolate a spatial surface from observations}
 \usage{
-interpolate_spatial(df, value, Subset = NULL, coords = c("lon.utm",
-  "lat.utm"), station.col = "Station", strata.col = "From",
-  name.col = NULL, id.cols = NULL, bin.method = "average",
-  int.method = "idw", unit = NULL, shear = NULL, n.tile = 100,
-  accuracy = 100)
+interpolate_spatial(
+  df,
+  value,
+  Subset = NULL,
+  coords = c("lon.utm", "lat.utm"),
+  station.col = "Station",
+  strata.col = "From",
+  name.col = NULL,
+  id.cols = NULL,
+  bin.method = "average",
+  int.method = "idw",
+  unit = NULL,
+  shear = NULL,
+  n.tile = 100,
+  accuracy = 100
+)
 }
 \arguments{
 \item{df}{data frame containing required information}

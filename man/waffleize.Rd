@@ -4,8 +4,7 @@
 \alias{waffleize}
 \title{Prepare data for waffle plots}
 \usage{
-waffleize(dt, fill, value, composition = TRUE, max_value = NULL,
-  digits = 3)
+waffleize(dt, fill, value, composition = TRUE, max_value = NULL, digits = 3)
 }
 \arguments{
 \item{dt}{data frame containing the data which should be transformed}
@@ -27,8 +26,9 @@ returns a \link[tibble]{tibble} data frame containing the minimum and maximum ex
 Manipulates a data frame ready for plotting with the \code{\link{waffle_chart}} function.
 }
 \seealso{
-Other waffle: \code{\link{round_preserve_sum}},
-  \code{\link{waffle_chart}}
+Other waffle: 
+\code{\link{round_preserve_sum}()},
+\code{\link{waffle_chart}()}
 }
 \author{
 Mikko Vihtakari

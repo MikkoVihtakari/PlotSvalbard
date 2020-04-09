@@ -4,7 +4,9 @@
 \name{svalbard.ld}
 \alias{svalbard.ld}
 \title{SpatialPolygonsDataFrame containing land shapes for Svalbard}
-\format{SpatialPolygonsDataFrame containing 1:250 000 landshapes of Svalbard. In \code{"+init=epsg:32633"} projection.}
+\format{
+SpatialPolygonsDataFrame containing 1:250 000 landshapes of Svalbard. In \code{"+init=epsg:32633"} projection.
+}
 \source{
 Norwegian Polar Institute (\url{http://geodata.npolar.no/})
 }
@@ -17,12 +19,16 @@ SpatialPolygonsDataFrame containing land shapes for Svalbard
 \seealso{
 basemap
 
-Other shapefiles: \code{\link{arctic60}},
-  \code{\link{arctic_bathy}}, \code{\link{arctic}},
-  \code{\link{barents_bathy}},
-  \code{\link{barents_currents}}, \code{\link{kong.cr}},
-  \code{\link{mosj.cr}}, \code{\link{svalbard.gl}},
-  \code{\link{svalbard_bathy}}
+Other shapefiles: 
+\code{\link{arctic60}},
+\code{\link{arctic_bathy}},
+\code{\link{arctic}},
+\code{\link{barents_bathy}},
+\code{\link{barents_currents}},
+\code{\link{kong.cr}},
+\code{\link{mosj.cr}},
+\code{\link{svalbard.gl}},
+\code{\link{svalbard_bathy}}
 }
 \concept{shapefiles}
 \keyword{datasets}

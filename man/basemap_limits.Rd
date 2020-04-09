@@ -4,8 +4,11 @@
 \alias{basemap_limits}
 \title{Define limits for a basemap}
 \usage{
-basemap_limits(limits, proj_deg = "+proj=longlat +datum=WGS84",
-  type = MapType$map.type)
+basemap_limits(
+  limits,
+  proj_deg = "+proj=longlat +datum=WGS84",
+  type = MapType$map.type
+)
 }
 \arguments{
 \item{limits}{See \code{\link{basemap}}}

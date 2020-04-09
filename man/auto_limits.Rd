@@ -4,12 +4,14 @@
 \alias{auto_limits}
 \title{Automatic limits for basemap}
 \usage{
-auto_limits(type, limits, limits.lon = NULL, limits.lat = NULL)
+auto_limits(type, limits, data, limits.lon = NULL, limits.lat = NULL)
 }
 \arguments{
 \item{type}{see the \code{type} argument for \code{\link{basemap}}}
 
-\item{limits}{see the \code{limits} argument for \code{\link{basemap}}}
+\item{limits}{Longitude and latitude columns in \code{data}. The elements 2 and 3 in the \code{limits} argument for \code{\link{basemap}}}
+
+\item{data}{Dataframe containing data for which the limits should be calculated. The element 1 in the limits \code{limits} argument for \code{\link{basemap}}}
 
 \item{limits.lon, limits.lat}{Numeric. The level of rounding for longitude and latitude, respectively. If \code{NULL}, sensible default values are used.}
 }

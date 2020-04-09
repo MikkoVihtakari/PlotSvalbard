@@ -17,7 +17,7 @@
 # Test parameters
 # x <- get(MapType$land)
 # proj4.limits = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"; simplify = FALSE; tol = 60; return.boundary = FALSE
-
+# limits = limits = c(0, 1.5e6, -3e6, 0); proj4.limits = map_projection("panarctic"); simplify = FALSE; tol = 60; return.boundary = FALSE
 clip_shapefile <- function(x, limits = NULL, proj4.limits = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0", simplify = FALSE, tol = 60, return.boundary = FALSE) {
 
 ## Checks
@@ -75,10 +75,26 @@ if(simplify) {
 error_test <- quiet(try(rgeos::gIntersection(x, clip_boundary, byid = TRUE), silent = TRUE))
 
 if(class(error_test) == "try-error") {
- shapefile <- rgeos::gIntersection(x, clip_boundary, byid = TRUE, drop_lower_td = TRUE)
+ shapefile <- rgeos::gIntersection(x, clip_boundary, byid = TRUE, drop_lower_td = TRUE, checkValidity = 0L)
   } else {
     shapefile <- error_test
   }
+
+if(class(x) == "SpatialPolygonsDataFrame") {
+  ids <- sapply(slot(shapefile, "polygons"), function(x) slot(x, "ID"))
+  ids <- gsub("\\D", "", ids)
+
+  if(ncol(x@data) == 1) {
+    tmp.df <- data.frame(x@data[ids,])
+    names(tmp.df) <- names(x@data)
+  } else {
+    tmp.df <- x@data[ids,]
+  }
+
+  shapefile <- SpatialPolygonsDataFrame(shapefile, tmp.df, match.ID = FALSE)
+
+}
+
 
 if(return.boundary) {
   list(shapefile = shapefile, boundary = clip_boundary)

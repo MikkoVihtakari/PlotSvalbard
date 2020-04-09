@@ -4,7 +4,9 @@
 \name{mosj.cr}
 \alias{mosj.cr}
 \title{SpatialPolygonsDataFrame containing clip boundaries for the Environmental Monitoring on Svalbard and Jan Mayen transect}
-\format{SpatialPolygonsDataFrame.}
+\format{
+SpatialPolygonsDataFrame.
+}
 \usage{
 mosj.cr
 }
@@ -14,12 +16,16 @@ SpatialPolygonsDataFrame containing clip boundaries for the Environmental Monito
 \seealso{
 basemap
 
-Other shapefiles: \code{\link{arctic60}},
-  \code{\link{arctic_bathy}}, \code{\link{arctic}},
-  \code{\link{barents_bathy}},
-  \code{\link{barents_currents}}, \code{\link{kong.cr}},
-  \code{\link{svalbard.gl}}, \code{\link{svalbard.ld}},
-  \code{\link{svalbard_bathy}}
+Other shapefiles: 
+\code{\link{arctic60}},
+\code{\link{arctic_bathy}},
+\code{\link{arctic}},
+\code{\link{barents_bathy}},
+\code{\link{barents_currents}},
+\code{\link{kong.cr}},
+\code{\link{svalbard.gl}},
+\code{\link{svalbard.ld}},
+\code{\link{svalbard_bathy}}
 }
 \author{
 Mikko Vihtakari

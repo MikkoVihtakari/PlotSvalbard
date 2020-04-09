@@ -18,8 +18,9 @@ Returns a numeric vector.
 The function rounds values preserving total sums
 }
 \seealso{
-Other waffle: \code{\link{waffle_chart}},
-  \code{\link{waffleize}}
+Other waffle: 
+\code{\link{waffle_chart}()},
+\code{\link{waffleize}()}
 }
 \author{
 The function is written as a communal effort. Main authors are \href{https://stackoverflow.com/questions/32544646/round-vector-of-numerics-to-integer-while-preserving-their-sum}{josliber} and \href{https://www.r-bloggers.com/round-values-while-preserve-their-rounded-sum-in-r/}{BioStatMatt}.
