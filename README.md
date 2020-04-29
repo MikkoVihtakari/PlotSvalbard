@@ -1,7 +1,7 @@
 
 # PlotSvalbard
 
-**Plot research data from Svalbard on maps. R package version 0.9.1.**
+**Plot research data from Svalbard on maps. R package version 0.9.2.**
 
 **NOTE:** Development of PlotSvalbard has been ended and moved to a new
 improved version of the package:
@@ -127,7 +127,7 @@ citation("PlotSvalbard")
 #> To cite package 'PlotSvalbard' in publications use:
 #> 
 #>   Mikko Vihtakari (2020). PlotSvalbard: PlotSvalbard - Plot research
-#>   data from Svalbard on maps. R package version 0.9.1.
+#>   data from Svalbard on maps. R package version 0.9.2.
 #>   https://github.com/MikkoVihtakari/PlotSvalbard
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -136,7 +136,7 @@ citation("PlotSvalbard")
 #>     title = {PlotSvalbard: PlotSvalbard - Plot research data from Svalbard on maps},
 #>     author = {Mikko Vihtakari},
 #>     year = {2020},
-#>     note = {R package version 0.9.1},
+#>     note = {R package version 0.9.2},
 #>     url = {https://github.com/MikkoVihtakari/PlotSvalbard},
 #>   }
 ```

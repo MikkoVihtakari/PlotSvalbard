@@ -28,7 +28,7 @@ Installation
 -------
 PlotSvalbard is not available in CRAN due to package size limitations. The package can be installed using the [**devtools**](https://cran.r-project.org/web/packages/devtools/index.html) package. Recently, there has been many reports with PlotSvalbard installation failing because the `install_github` function attempts to update installed packages and fails. Try following steps: 
 
-1. Manually update all R packages you have installed (Packages -> Update -> Select all -> Install updates in R Studio). 
+1. Manually update R to >= 4.0 and all R packages you have installed (Packages -> Update -> Select all -> Install updates in R Studio). 
 1. If update of a package fails, try installing that package again using the `install.packages` function or the R Studio menu. 
 1. Run following: `devtools::install_github("MikkoVihtakari/PlotSvalbard", upgrade = "never")`
 1. If installation of a dependency fails, try installing that package manually and repeat step 2.
