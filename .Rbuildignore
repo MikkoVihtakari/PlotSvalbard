@@ -2,11 +2,7 @@
 ^\.Rproj\.user$
 ^README\.md$
 ^README\.Rmd$
-^README\.html$
 ^README_files$
-^/inst/docs/PlotSvalbard_user_manual.pdf$
-^PlotSvalbard - User Manual_files$
-^\inst\figures\*.png$
 ^docs$
 ^\*.html$
 ^_pkgdown.yml$

@@ -1,5 +1,3 @@
-articles:
-  PlotSvalbard_user_manual: PlotSvalbard_user_manual.html
 reference:
 - title: Basemap functions
   desc: Main functions to plot maps and transform data to correct projection
