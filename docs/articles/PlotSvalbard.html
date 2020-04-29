@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PlotSvalbard</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
     
     
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">PlotSvalbard</span>)</pre></body></html></div>
-<p><strong>Plot research data from Svalbard on maps. R package version 0.9.1.</strong></p>
+<p><strong>Plot research data from Svalbard on maps. R package version 0.9.2.</strong></p>
 <p><a href="https://github.com/MikkoVihtakari/PlotSvalbard"><strong>PlotSvalbard</strong></a> package provides functions to plot research data from Svalbard on high resolution maps in <a href="https://www.r-project.org/">R</a>. The package is based on <a href="http://ggplot2.tidyverse.org/reference/">ggplot2</a> and the functions can be expanded using ggplot syntax. The package contains also maps from other places in the Arctic, including polar stereographic maps of the Arctic.</p>
 <div id="basemap" class="section level1">
 <h1 class="hasAnchor">
@@ -284,22 +284,22 @@
 <p>If you are looking for optimal <code>limits</code> for your data, you can use the <code><a href="../reference/basemap.html">basemap("barentssea")</a></code> option to find these limits and replace <code>"barentssea"</code> with <code>"svalbard"</code> once you are done:</p>
 <div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(<span class="fu"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.406   0.022   0.443</span>
+<span class="co">#&gt;   0.406   0.021   0.443</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(<span class="fu"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  14.732   0.288  15.078</span>
+<span class="co">#&gt;  15.292   0.561  16.021</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(<span class="fu"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"panarctic"</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   1.342   0.169   1.587</span>
+<span class="co">#&gt;   1.429   0.182   1.702</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(<span class="fu"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"barentssea"</span>, <span class="kw">limits</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="fl">80</span>,<span class="fl">81.7</span>))))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.147   0.007   0.159</span>
+<span class="co">#&gt;   0.145   0.007   0.157</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(<span class="fu"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"svalbard"</span>, <span class="kw">limits</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">19.5</span>,<span class="fl">23.5</span>,<span class="fl">80</span>,<span class="fl">81.7</span>))))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   3.232   0.140   3.382</span>
+<span class="co">#&gt;   3.279   0.152   3.457</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(<span class="fu"><a href="../reference/basemap.html">basemap</a></span>(<span class="st">"panarctic"</span>, <span class="kw">limits</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">250000</span>, -<span class="fl">2500000</span>, <span class="fl">2000000</span>, -<span class="fl">250000</span>)))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   1.018   0.020   1.039</span></pre></body></html></div>
+<span class="co">#&gt;   1.032   0.019   1.054</span></pre></body></html></div>
 </div>
 </div>
 <div id="oceanographic-plots" class="section level1">
@@ -381,7 +381,7 @@
 <span class="co">#&gt; To cite package 'PlotSvalbard' in publications use:</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   Mikko Vihtakari (2020). PlotSvalbard: PlotSvalbard - Plot research</span>
-<span class="co">#&gt;   data from Svalbard on maps. R package version 0.9.1.</span>
+<span class="co">#&gt;   data from Svalbard on maps. R package version 0.9.2.</span>
 <span class="co">#&gt;   https://github.com/MikkoVihtakari/PlotSvalbard</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
@@ -390,7 +390,7 @@
 <span class="co">#&gt;     title = {PlotSvalbard: PlotSvalbard - Plot research data from Svalbard on maps},</span>
 <span class="co">#&gt;     author = {Mikko Vihtakari},</span>
 <span class="co">#&gt;     year = {2020},</span>
-<span class="co">#&gt;     note = {R package version 0.9.1},</span>
+<span class="co">#&gt;     note = {R package version 0.9.2},</span>
 <span class="co">#&gt;     url = {https://github.com/MikkoVihtakari/PlotSvalbard},</span>
 <span class="co">#&gt;   }</span></pre></body></html></div>
 <p>However, please note that the maps generated by this package should be cited to their original source.</p>

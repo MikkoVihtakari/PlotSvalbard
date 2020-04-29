@@ -7,12 +7,12 @@
 improved version of the package:
 [**ggOceanMaps**](https://mikkovihtakari.github.io/ggOceanMaps/). Please
 use that package if you do not need high-resolution Svalbard maps or
-other functions that are not included in ggOceanMaps. If you wish some
-functions moved from here to the new package, please send an email to
-the developer. Support for keeping PlotSvalbard running on new versions
-of R is still maintained. Please send bug-reports to the maintainer if
-you encounter difficulties with PlotSvalbard. Bug reports are encouraged
-to be sent on
+other functions that are not included in ggOceanMaps. If you wish a
+particular function moved from here to the new package, please send an
+email to the developer. Support for keeping PlotSvalbard running on new
+versions of R is still maintained. Please send bug-reports to the
+maintainer if you encounter difficulties with PlotSvalbard. Bug reports
+are encouraged to be sent on
 [GitHub](https://github.com/MikkoVihtakari/PlotSvalbard/issues).
 Remember a reproducible example ;)
 
@@ -43,13 +43,8 @@ update installed packages and fails. Try following steps:
 2.  If update of a package fails, try installing that package again
     using the `install.packages` function or the R Studio menu.
 3.  Run following:
-
-<!-- end list -->
-
-``` r
-devtools::install_github("MikkoVihtakari/PlotSvalbard", upgrade = "never")
-```
-
+    `devtools::install_github("MikkoVihtakari/PlotSvalbard", upgrade =
+    "never")`
 4.  If installation of a dependency fails, try installing that package
     manually and repeat step 2.
 
@@ -67,7 +62,7 @@ Detailed documentation on how to use the package can be found from the
 including [an organized list of
 functions](https://mikkovihtakari.github.io/PlotSvalbard/reference/index.html)
 included in the package and [the user
-manual](https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html).
+manual](https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard.html).
 
 #### Making a map with text
 
@@ -82,7 +77,7 @@ geom_text(data = kongsfjord_moorings,
   fontface = 2, size = 25.4/72.27*8) # font size = 8, see Graphical parameters
 ```
 
-![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-2-1.png)<!-- -->
 
 #### Barents Sea ocean-current arrows
 
@@ -90,7 +85,7 @@ geom_text(data = kongsfjord_moorings,
 basemap("barentssea", bathymetry = TRUE, currents = TRUE, current.size = "scaled")
 ```
 
-![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
 
 #### Pan-Arctic maps
 
@@ -98,7 +93,7 @@ basemap("barentssea", bathymetry = TRUE, currents = TRUE, current.size = "scaled
 basemap("panarctic", bathymetry = TRUE)
 ```
 
-![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
 
 #### Combining extensions for ggplot2
 
@@ -119,7 +114,7 @@ scale_fill_discrete(name = "Species", breaks = species,
 labels = parse(text = paste0("italic(" , sub("*\\.", "~", species), ")")))
 ```
 
-![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
 
 ## Data sources and citations
 

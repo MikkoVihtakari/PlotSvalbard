@@ -17,7 +17,7 @@ PlotSvalbard
 ======
 **Plot research data from Svalbard on maps. R package version `r packageVersion("PlotSvalbard")`.**
 
-**NOTE:** Development of PlotSvalbard has been ended and moved to a new improved version of the package: [**ggOceanMaps**](https://mikkovihtakari.github.io/ggOceanMaps/). Please use that package if you do not need high-resolution Svalbard maps or other functions that are not included in ggOceanMaps. If you wish some functions moved from here to the new package, please send an email to the developer. Support for keeping PlotSvalbard running on new versions of R is still maintained. Please send bug-reports to the maintainer if you encounter difficulties with PlotSvalbard. Bug reports are encouraged to be sent on [GitHub](https://github.com/MikkoVihtakari/PlotSvalbard/issues). Remember a reproducible example ;) 
+**NOTE:** Development of PlotSvalbard has been ended and moved to a new improved version of the package: [**ggOceanMaps**](https://mikkovihtakari.github.io/ggOceanMaps/). Please use that package if you do not need high-resolution Svalbard maps or other functions that are not included in ggOceanMaps. If you wish a particular function moved from here to the new package, please send an email to the developer. Support for keeping PlotSvalbard running on new versions of R is still maintained. Please send bug-reports to the maintainer if you encounter difficulties with PlotSvalbard. Bug reports are encouraged to be sent on [GitHub](https://github.com/MikkoVihtakari/PlotSvalbard/issues). Remember a reproducible example ;) 
 
 Overview
 ------
@@ -30,13 +30,8 @@ PlotSvalbard is not available in CRAN due to package size limitations. The packa
 
 1. Manually update all R packages you have installed (Packages -> Update -> Select all -> Install updates in R Studio). 
 1. If update of a package fails, try installing that package again using the `install.packages` function or the R Studio menu. 
-1. Run following:
-
-```{r eval = FALSE}
-devtools::install_github("MikkoVihtakari/PlotSvalbard", upgrade = "never")
-```
-
-4. If installation of a dependency fails, try installing that package manually and repeat step 2.
+1. Run following: `devtools::install_github("MikkoVihtakari/PlotSvalbard", upgrade = "never")`
+1. If installation of a dependency fails, try installing that package manually and repeat step 2.
 
 Usage
 -------
@@ -44,7 +39,7 @@ Usage
 
 ### Website and user manual
 
-Detailed documentation on how to use the package can be found from the [website](https://mikkovihtakari.github.io/PlotSvalbard/index.html) including [an organized list of functions](https://mikkovihtakari.github.io/PlotSvalbard/reference/index.html) included in the package and [the user manual](https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard_user_manual.html).
+Detailed documentation on how to use the package can be found from the [website](https://mikkovihtakari.github.io/PlotSvalbard/index.html) including [an organized list of functions](https://mikkovihtakari.github.io/PlotSvalbard/reference/index.html) included in the package and [the user manual](https://mikkovihtakari.github.io/PlotSvalbard/articles/PlotSvalbard.html).
 
 #### Making a map with text
 
