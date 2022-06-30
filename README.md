@@ -6,8 +6,8 @@
 **NOTE:** Development of PlotSvalbard has been ended and moved to a new
 improved version of the package:
 [**ggOceanMaps**](https://mikkovihtakari.github.io/ggOceanMaps/). Please
-use that package if you do not need high-resolution Svalbard maps or
-other functions that are not included in ggOceanMaps. If you wish a
+use that package if you do not need functions that are not included in 
+ggOceanMaps. If you wish a
 particular function moved from here to the new package, please send an
 email to the developer. Support for keeping PlotSvalbard running on new
 versions of R is still maintained. Please send bug-reports to the
