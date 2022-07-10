@@ -4,13 +4,14 @@
 **Plot research data from Svalbard on maps. R package version 0.9.2.**
 
 **NOTE:** Development of PlotSvalbard has been ended and moved to a new
-improved version of the package:
-[**ggOceanMaps**](https://mikkovihtakari.github.io/ggOceanMaps/). Please
-use that package if you do not need functions that are not included in 
-ggOceanMaps. If you wish a
-particular function moved from here to the new package, please send an
-email to the developer. Support for keeping PlotSvalbard running on new
-versions of R is still maintained. Please send bug-reports to the
+improved versions of the package:
+[**ggOceanMaps**](https://mikkovihtakari.github.io/ggOceanMaps/) (maps) 
+and [**ggOceanPlots**](https://github.com/MikkoVihtakari/ggOceanPlots) 
+(other plots). Please use those packages if you do not need functions 
+that are not included in those ggOceanMaps/Plots. If you wish a
+particular function moved from here to the maintained packages, please 
+send an email to the developer. Support for keeping PlotSvalbard running
+on new versions of R is still maintained. Please send bug-reports to the
 maintainer if you encounter difficulties with PlotSvalbard. Bug reports
 are encouraged to be sent on
 [GitHub](https://github.com/MikkoVihtakari/PlotSvalbard/issues).
