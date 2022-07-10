@@ -9,7 +9,7 @@ improved versions of the package:
 and [**ggOceanPlots**](https://github.com/MikkoVihtakari/ggOceanPlots) 
 (other plots). Please primarily use those packages. If you cannot find a
 particular function from the maintained packages, please 
-send open an issue here. Support for keeping PlotSvalbard running
+open an issue here. Support for keeping PlotSvalbard running
 on new versions of R is still maintained as long as there is support for
 the sp/rgdal/raster packages. Please send bug-reports to the
 maintainer if you encounter difficulties with PlotSvalbard. Bug reports
